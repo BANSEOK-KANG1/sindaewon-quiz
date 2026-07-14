@@ -1,0 +1,11 @@
+{
+  "appId": "kr.sindaewon.quiz",
+  "appName": "신대원퀴즈",
+  "webDir": "dist",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}

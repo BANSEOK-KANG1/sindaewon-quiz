@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="신대원 기출">
+  <rect width="512" height="512" rx="96" fill="#1e4d8b"/>
+  <path fill="#e8f0fa" d="M128 120h176c44 0 80 36 80 80v192c0 18-14 32-32 32H128c-18 0-32-14-32-32V152c0-18 14-32 32-32z"/>
+  <path fill="#1e4d8b" d="M168 208h160v28H168zm0 64h120v28H168zm0 64h140v28H168z"/>
+  <circle cx="384" cy="368" r="72" fill="#f59e0b"/>
+  <text x="384" y="392" text-anchor="middle" font-size="72" font-family="system-ui,sans-serif" font-weight="700" fill="#1a1d21">?</text>
+</svg>

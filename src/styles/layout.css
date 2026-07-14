@@ -1,0 +1,118 @@
+.app-shell {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "main"
+    "bottom";
+}
+
+.sidebar {
+  display: none;
+}
+
+.main {
+  grid-area: main;
+  padding: 1rem 1rem 5.5rem;
+  max-width: 960px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.bottom-nav {
+  grid-area: bottom;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  z-index: 20;
+}
+
+.bottom-link {
+  flex: 1;
+  min-height: var(--touch);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.7rem;
+  padding: 0.35rem;
+}
+
+.bottom-link .icon {
+  font-size: 1.1rem;
+}
+
+.bottom-link.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+@media (min-width: 900px) {
+  .app-shell {
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "side main";
+  }
+
+  .sidebar {
+    display: flex;
+    flex-direction: column;
+    grid-area: side;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 1.25rem 1rem;
+    position: sticky;
+    top: 0;
+    height: 100dvh;
+  }
+
+  .brand {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--primary);
+  }
+
+  .side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    min-height: var(--touch);
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .nav-link:hover {
+    background: var(--primary-soft);
+  }
+
+  .nav-link.active {
+    background: var(--primary-soft);
+    color: var(--primary);
+  }
+
+  .bottom-nav {
+    display: none;
+  }
+
+  .main {
+    padding: 2rem 2rem 3rem;
+  }
+}

@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">신대원퀴즈</string>
+    <string name="title_activity_main">신대원퀴즈</string>
+    <string name="package_name">kr.sindaewon.quiz</string>
+    <string name="custom_url_scheme">kr.sindaewon.quiz</string>
+</resources>
