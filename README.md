@@ -37,10 +37,11 @@ npm run android:open
 
 ## 웹 배포 (GitHub Pages)
 
-푸시하면 Actions가 `dist`를 Pages로 배포합니다.
+- 웹앱: https://banseok-kang1.github.io/sindaewon-quiz/
+- 저장소: https://github.com/BANSEOK-KANG1/sindaewon-quiz
+- Android APK: https://github.com/BANSEOK-KANG1/sindaewon-quiz/releases/download/v1.0.0/sindaewon-quiz-debug.apk
 
-- 저장소: 생성 후 README에 URL 기입
-- 로컬 미리보기: `npm run build && npm run preview`
+`main`에 푸시하면 Actions가 자동으로 Pages에 배포합니다.
 
 ## 문제 데이터 가져오기
 
