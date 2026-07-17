@@ -40,34 +40,50 @@ const CIRCLE = ["①", "②", "③", "④"];
 const WRONG_QUIZ_KEY = "wrong-note-quiz-ids";
 const DAILY_GOAL = 30;
 
-function pickQuizPool(filtered, count) {
+function isObjective(q) {
+  return q.type === "multiple" || q.type === "ox";
+}
+
+function pickQuizPool(filtered, count, { mode = "study" } = {}) {
+  // 플래시(암송)만 주관식 허용, 학습·시험은 객관식 위주
+  let pool = filtered;
+  if (mode !== "flash") {
+    const objective = filtered.filter(isObjective);
+    if (objective.length >= Math.min(count, 4)) pool = objective;
+    else if (objective.length) pool = objective;
+  }
+
   const wrongIds = new Set(getWrongNotes().map((n) => n.questionId));
   const exposure = getExposureCounts();
-  const sorted = [...filtered].sort((a, b) => {
-    const aw = wrongIds.has(a.id) ? 0 : 1;
-    const bw = wrongIds.has(b.id) ? 0 : 1;
-    if (aw !== bw) return aw - bw;
-    return (exposure[a.id] || 0) - (exposure[b.id] || 0);
+
+  // 매번 다르게: 랜덤 키에 오답·미출제 문제만 약간 가중
+  const scored = pool.map((q) => {
+    let key = Math.random();
+    if (wrongIds.has(q.id)) key += 0.4;
+    if (!exposure[q.id]) key += 0.2;
+    return { q, key };
   });
+  scored.sort((a, b) => b.key - a.key);
+  const picked = scored.slice(0, count).map((s) => s.q);
+  // 출제 순서도 매번 랜덤
+  return shuffle(picked);
+}
 
-  const preferWrong = Math.min(Math.ceil(count * 0.5), count);
-  const wrongPool = shuffle(sorted.filter((q) => wrongIds.has(q.id)));
-  const restPool = shuffle(sorted.filter((q) => !wrongIds.has(q.id)));
-  const picked = [];
-  const used = new Set();
-
-  for (const q of wrongPool) {
-    if (picked.length >= preferWrong) break;
-    picked.push(q);
-    used.add(q.id);
+/** 세션 내에서 보기 순서를 섞어 매번 다른 배치로 보여준다 (정답 인덱스 재매핑) */
+function displayQuestion(session, q) {
+  if (q.type !== "multiple" || !Array.isArray(q.choices)) return q;
+  session.choiceOrders = session.choiceOrders || {};
+  let order = session.choiceOrders[q.id];
+  if (!order || order.length !== q.choices.length) {
+    order = shuffle(q.choices.map((_, i) => i));
+    session.choiceOrders[q.id] = order;
+    saveQuizSession(session);
   }
-  for (const q of [...restPool, ...wrongPool]) {
-    if (picked.length >= count) break;
-    if (used.has(q.id)) continue;
-    picked.push(q);
-    used.add(q.id);
-  }
-  return shuffle(picked).slice(0, count);
+  return {
+    ...q,
+    choices: order.map((i) => q.choices[i]),
+    answer: order.indexOf(q.answer),
+  };
 }
 
 function formatAnswer(q) {
@@ -181,7 +197,7 @@ export async function renderQuiz(root) {
           return;
         }
         const n = Math.min(count, pool.length);
-        startSession(pickQuizPool(pool, n), mode);
+        startSession(pickQuizPool(pool, n, { mode }), mode);
       });
     });
 
@@ -210,7 +226,7 @@ export async function renderQuiz(root) {
         alert("선택한 조건에 맞는 문제가 없습니다.");
         return;
       }
-      pool = pickQuizPool(pool, Math.min(count, pool.length));
+      pool = pickQuizPool(pool, Math.min(count, pool.length), { mode });
       startSession(pool, mode);
     });
 
@@ -264,7 +280,7 @@ export async function renderQuiz(root) {
       year: q.get("year") || "",
     });
     if (!pool.length) pool = filterQuestions(questions, { seminary: "chongshin" });
-    startSession(pickQuizPool(pool, Math.min(count, pool.length)), mode);
+    startSession(pickQuizPool(pool, Math.min(count, pool.length), { mode }), mode);
     return;
   }
 
@@ -613,7 +629,7 @@ function renderSetup(questions, q) {
             .join("")}
         </fieldset>
         <button type="submit" class="btn btn-primary btn-block">시작</button>
-        <p class="muted small">전체 ${questions.length.toLocaleString("ko-KR")}문항 · 오답·미출제 우선</p>
+        <p class="muted small">전체 ${questions.length.toLocaleString("ko-KR")}문항 · 매번 랜덤 출제 · 객관식 위주 (플래시는 암송)</p>
       </form>
     </details>
   `;
@@ -630,9 +646,10 @@ function renderActive(root, session, allQuestions, onFinish) {
   const mode = session.mode || "study";
   const pct = Math.round((session.index / session.total) * 100);
   const modeLabel = mode === "exam" ? "시험" : mode === "flash" ? "플래시" : "학습";
+  const dq = displayQuestion(session, q);
 
   if (session.phase === "feedback" && session.lastResult) {
-    root.innerHTML = renderFeedback(session, q, modeLabel, pct);
+    root.innerHTML = renderFeedback(session, dq, modeLabel, pct);
     root.querySelector("#next-q")?.addEventListener("click", () => {
       session.phase = "answer";
       session.lastResult = null;
@@ -666,14 +683,14 @@ function renderActive(root, session, allQuestions, onFinish) {
   }
 
   const choices =
-    q.type === "multiple" && q.choices
-      ? q.choices
+    dq.type === "multiple" && dq.choices
+      ? dq.choices
           .map(
             (c, i) =>
               `<button type="button" class="choice-btn" data-index="${i}"><span class="choice-mark">${CIRCLE[i]}</span> ${escapeHtml(c)}</button>`
           )
           .join("")
-      : q.type === "ox"
+      : dq.type === "ox"
         ? `<button type="button" class="choice-btn ox-btn" data-ox="O">O · 맞다</button>
            <button type="button" class="choice-btn ox-btn" data-ox="X">X · 틀리다</button>`
         : `<div class="short-study">
@@ -696,7 +713,7 @@ function renderActive(root, session, allQuestions, onFinish) {
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
     </div>
     <article class="card quiz-card quiz-card-live">
-      <p class="question-title">${escapeHtml(q.question)}</p>
+      <p class="question-title">${escapeHtml(dq.question)}</p>
       <div class="choices-stack">${choices}</div>
     </article>
   `;
@@ -711,12 +728,12 @@ function renderActive(root, session, allQuestions, onFinish) {
     btn.addEventListener("click", () => {
       lock();
       if (btn.dataset.ox) {
-        const ok = btn.dataset.ox === String(q.answer).toUpperCase();
-        commitAnswer(session, q, btn.dataset.ox, ok, root, allQuestions, onFinish);
+        const ok = btn.dataset.ox === String(dq.answer).toUpperCase();
+        commitAnswer(session, dq, btn.dataset.ox, ok, root, allQuestions, onFinish);
         return;
       }
       const idx = parseInt(btn.dataset.index, 10);
-      commitAnswer(session, q, idx, idx === q.answer, root, allQuestions, onFinish);
+      commitAnswer(session, dq, idx, idx === dq.answer, root, allQuestions, onFinish);
     });
   });
 
