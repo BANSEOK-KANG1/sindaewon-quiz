@@ -31,8 +31,9 @@ export function clearQuestionsCache() {
 
 export function filterQuestions(
   questions,
-  { seminary, subject, search, year, tag } = {}
+  { seminary, subject, search, year, tag, tags, tagsMode = "all" } = {}
 ) {
+  const tagList = tags?.length ? tags : tag ? [tag] : [];
   return questions.filter((q) => {
     if (seminary && q.seminary !== seminary) return false;
     if (subject && q.subject !== subject) return false;
@@ -40,9 +41,13 @@ export function filterQuestions(
       const y = Number(year);
       if (q.year !== y) return false;
     }
-    if (tag) {
-      const tags = q.tags || [];
-      if (!tags.includes(tag)) return false;
+    if (tagList.length) {
+      const qTags = q.tags || [];
+      const match =
+        tagsMode === "any"
+          ? tagList.some((t) => qTags.includes(t))
+          : tagList.every((t) => qTags.includes(t));
+      if (!match) return false;
     }
     if (search) {
       const s = search.trim().toLowerCase();
@@ -57,6 +62,26 @@ export function filterQuestions(
     }
     return true;
   });
+}
+
+/** 토픽별 문항 수·학습 진행률·오답 수 집계 */
+export function getTopicStats(questions, { tag, tags, tagsMode = "all", subject, seminary = "chongshin" } = {}, { exposure = {}, wrongIds = new Set() } = {}) {
+  const pool = filterQuestions(questions, { seminary, subject, tag, tags, tagsMode });
+  const total = pool.length;
+  if (!total) return { total: 0, seen: 0, pct: 0, wrong: 0 };
+
+  let seen = 0;
+  let wrong = 0;
+  for (const q of pool) {
+    if (exposure[q.id]) seen += 1;
+    if (wrongIds.has(q.id)) wrong += 1;
+  }
+  return {
+    total,
+    seen,
+    pct: Math.round((seen / total) * 100),
+    wrong,
+  };
 }
 
 export function getYears(questions) {

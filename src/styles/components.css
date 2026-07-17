@@ -647,3 +647,197 @@
   margin-bottom: 1rem;
 }
 
+/* —— 학습 커리큘럼 —— */
+.study-section {
+  padding: 0;
+  overflow: hidden;
+}
+
+.study-section-head {
+  padding: 1rem 1rem 0.5rem;
+}
+
+.study-section-head h2 {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.topic-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.topic-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: none;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.topic-row:active {
+  background: var(--primary-soft);
+}
+
+.topic-rank {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  background: var(--primary-soft);
+  border-radius: 6px;
+}
+
+.topic-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.topic-info strong {
+  font-size: 0.95rem;
+}
+
+.topic-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.topic-tier {
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+}
+
+.tier-s {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.tier-a {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.tier-b {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.topic-wrong {
+  color: #b42318;
+  font-weight: 600;
+}
+
+.topic-go {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.topic-list-compact .topic-row {
+  padding: 0.7rem 1rem;
+}
+
+.topic-more {
+  border-top: 1px solid var(--border);
+}
+
+.topic-more summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.topic-more .topic-list {
+  border-top: 1px solid var(--border);
+}
+
+.keyword-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem 1rem;
+}
+
+.chip-btn {
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.chip-btn:active {
+  background: var(--primary-soft);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* —— 오늘 전략 —— */
+.strategy-card {
+  margin-bottom: 1rem;
+  background: linear-gradient(165deg, #f7fafc 0%, #e8f0fa 100%);
+  border-color: #b7d0ef;
+}
+
+.strategy-title {
+  font-size: 1.15rem;
+  margin: 0.25rem 0 0.35rem;
+}
+
+.strategy-steps {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.strategy-steps li {
+  margin-bottom: 0.35rem;
+}
+
+.strategy-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.strategy-actions .btn {
+  flex: 1;
+  min-width: 6.5rem;
+}
+
+.strategy-note {
+  margin: 0.75rem 0 0;
+}
+
+.study-section-accent {
+  border-color: #b7d0ef;
+}
+
+.study-section-accent .study-section-head h2 {
+  color: var(--primary);
+}
+

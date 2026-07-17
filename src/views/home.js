@@ -1,23 +1,29 @@
 import { SEMINARIES, UI } from "../config.js";
 import { loadQuestions, countBySeminaryAndSubject } from "../data/questions.js";
+import { suggestVocabDay, suggestBibleFocus, currentPhase } from "../data/study-curriculum.js";
 import { navigate } from "../router.js";
-import { getTodayProgress, getWrongNotes, getStudyStats } from "../storage/progress.js";
+import { getTodayProgress, getWrongNotes, getStudyStats, getExposureCounts } from "../storage/progress.js";
 
 export async function renderHome(root) {
   const questions = await loadQuestions();
   const counts = countBySeminaryAndSubject(questions);
   const total = questions.length;
   const grad = questions.filter((q) => q.tags?.includes("기출")).length;
+  const vocab = questions.filter((q) => q.tags?.includes("단어장300")).length;
   const memory = questions.filter((q) => q.tags?.includes("암송")).length;
-  const today = getTodayProgress(20);
+  const today = getTodayProgress(30);
   const wrong = getWrongNotes().length;
   const stats = getStudyStats();
+  const exposure = getExposureCounts();
+  const vocabDay = suggestVocabDay(questions, exposure);
+  const bibleFocus = suggestBibleFocus(questions, exposure);
+  const phase = currentPhase(vocabDay);
 
   root.innerHTML = `
     <header class="page-header home-hero">
       <p class="brand-mark">${UI.appTitle}</p>
       <h1>오늘도 한 세트</h1>
-      <p class="muted">맞추고 → 해설 보고 → 연속 기록. 공부 리듬을 만드세요.</p>
+      <p class="muted">${phase.label} · ${bibleFocus.label} + ${vocabDay.label}</p>
     </header>
 
     <div class="daily-goal card home-goal">
@@ -29,21 +35,32 @@ export async function renderHome(root) {
       <p class="muted small">누적 ${stats.totalAnswered || 0}문항 · 정답 ${stats.totalCorrect || 0}</p>
     </div>
 
+    <section class="strategy-card card">
+      <p class="mode-kicker">오늘 전략</p>
+      <h2 class="strategy-title">${bibleFocus.label} 10 + ${vocabDay.label} 영단어</h2>
+      <p class="muted small">${vocabDay.theme} (${vocabDay.range}) · ${phase.goal}</p>
+      <div class="strategy-actions" style="margin-top:0.75rem">
+        <a class="btn btn-primary" href="#/quiz?mode=study&tags=기출,${encodeURIComponent(bibleFocus.tag)}&subject=성경&count=10&auto=1">성경 10</a>
+        <a class="btn btn-secondary" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&count=20&auto=1">영→한 20</a>
+        <a class="btn btn-ghost" href="#/quiz?mode=flash&tags=${vocabDay.tag},한영&subject=영어&count=20&auto=1">한→영</a>
+      </div>
+    </section>
+
     <section class="mode-grid home-modes">
       <a class="mode-card mode-study" href="#/quiz?mode=study&tag=기출&count=10&auto=1">
-        <span class="mode-kicker">바로 시작</span>
+        <span class="mode-kicker">기출</span>
         <strong>기출 학습 10</strong>
         <span>해설 보면서 복습</span>
       </a>
-      <a class="mode-card" href="#/quiz?mode=flash&tag=암송&count=10&auto=1">
-        <span class="mode-kicker">암송</span>
-        <strong>플래시 ${memory}</strong>
-        <span>탭해서 외우기</span>
-      </a>
-      <a class="mode-card" href="#/quiz?mode=study&subject=영어&count=15&auto=1">
+      <a class="mode-card" href="#/quiz?mode=study&tags=동의어&subject=영어&count=15&auto=1">
         <span class="mode-kicker">영어</span>
-        <strong>어휘 15</strong>
-        <span>TEPS형 복습</span>
+        <strong>동의어 드릴</strong>
+        <span>단어장 3회독</span>
+      </a>
+      <a class="mode-card" href="#/quiz?mode=flash&tags=성경영어,암송&subject=영어&count=15&auto=1">
+        <span class="mode-kicker">성경영어</span>
+        <strong>구절 암송</strong>
+        <span>ESV 회상</span>
       </a>
       <a class="mode-card" href="${wrong ? "#/wrong-note" : "#/quiz?mode=exam&tag=기출&count=20&auto=1"}">
         <span class="mode-kicker">${wrong ? "오답" : "도전"}</span>
@@ -74,7 +91,7 @@ export async function renderHome(root) {
         .join("")}
     </section>
 
-    <p class="muted small home-footnote">기출 ${grad.toLocaleString("ko-KR")} · 암송 ${memory}. 하단 <strong>학습</strong>에서 모드를 고를 수 있어요.</p>
+    <p class="muted small home-footnote">기출 ${grad.toLocaleString("ko-KR")} · 단어장 ${vocab.toLocaleString("ko-KR")} · 암송 ${memory}. 하단 <strong>학습</strong>에서 15일 영어 코스와 권별 전략을 고르세요.</p>
   `;
 
   root.querySelectorAll("a[href^='#']").forEach((a) => {

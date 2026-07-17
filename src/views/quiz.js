@@ -4,7 +4,23 @@ import {
   filterQuestions,
   shuffle,
   getYears,
+  getTopicStats,
 } from "../data/questions.js";
+import {
+  BIBLE_BOOK_TRACKS,
+  EXAM_TYPE_TRACKS,
+  VOCAB_DAY_TRACKS,
+  ENGLISH_DRILL_TRACKS,
+  BIBLE_ENGLISH_TRACKS,
+  BIBLE_ENGLISH_THEMES,
+  GRAMMAR_TRACKS,
+  HOT_KEYWORDS,
+  TIER_LABELS,
+  recommendCount,
+  suggestVocabDay,
+  suggestBibleFocus,
+  currentPhase,
+} from "../data/study-curriculum.js";
 import { getQuery, navigate } from "../router.js";
 import {
   addWrongNote,
@@ -22,7 +38,7 @@ import {
 
 const CIRCLE = ["①", "②", "③", "④"];
 const WRONG_QUIZ_KEY = "wrong-note-quiz-ids";
-const DAILY_GOAL = 20;
+const DAILY_GOAL = 30;
 
 function pickQuizPool(filtered, count) {
   const wrongIds = new Set(getWrongNotes().map((n) => n.questionId));
@@ -132,7 +148,6 @@ export async function renderQuiz(root) {
     rootEl.querySelectorAll("[data-quick]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const mode = btn.dataset.mode || "study";
-        const tag = btn.dataset.tag || "";
         const count = parseInt(btn.dataset.count || "10", 10);
         const fromWrong = btn.dataset.fromWrong === "1";
 
@@ -147,16 +162,17 @@ export async function renderQuiz(root) {
           return;
         }
 
-        let pool;
-        if (tag === "영어") {
-          pool = filterQuestions(all, { seminary: "chongshin", subject: "영어" });
-        } else {
-          pool = filterQuestions(all, {
-            seminary: "chongshin",
-            subject: "성경",
-            tag: tag || undefined,
-          });
-        }
+        const tagsRaw = btn.dataset.tags || btn.dataset.tag || "";
+        const tags = tagsRaw ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean) : [];
+        const tagsMode = btn.dataset.tagsMode || "all";
+        const subject = btn.dataset.subject || (tags.includes("영어") ? "영어" : tags.length ? "성경" : "");
+
+        let pool = filterQuestions(all, {
+          seminary: btn.dataset.seminary || "chongshin",
+          subject: subject || undefined,
+          tags: tags.length ? tags : undefined,
+          tagsMode,
+        });
         if (!pool.length) {
           pool = filterQuestions(all, { seminary: "chongshin" });
         }
@@ -164,7 +180,19 @@ export async function renderQuiz(root) {
           alert("문제가 없습니다.");
           return;
         }
-        startSession(pickQuizPool(pool, Math.min(count, pool.length)), mode);
+        const n = Math.min(count, pool.length);
+        startSession(pickQuizPool(pool, n), mode);
+      });
+    });
+
+    rootEl.querySelectorAll("[data-browse]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const params = new URLSearchParams();
+        params.set("seminary", "chongshin");
+        if (btn.dataset.subject) params.set("subject", btn.dataset.subject);
+        if (btn.dataset.tag) params.set("tag", btn.dataset.tag);
+        if (btn.dataset.search) params.set("q", btn.dataset.search);
+        navigate(`/browse?${params.toString()}`);
       });
     });
 
@@ -224,13 +252,15 @@ export async function renderQuiz(root) {
   if (q.get("auto") === "1") {
     clearQuizSession();
     const mode = q.get("mode") || "study";
-    const tag = q.get("tag") || "";
-    const subject = q.get("subject") || (tag === "영어" ? "영어" : "성경");
+    const tagsRaw = q.get("tags") || q.get("tag") || "";
+    const tags = tagsRaw ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean) : [];
+    const subject = q.get("subject") || (tags.includes("영어") ? "영어" : tags.length ? "성경" : "");
     const count = parseInt(q.get("count") || "10", 10);
     let pool = filterQuestions(questions, {
       seminary: q.get("seminary") || "chongshin",
-      subject,
-      tag: tag && tag !== "영어" ? tag : undefined,
+      subject: subject || undefined,
+      tags: tags.length ? tags : undefined,
+      tagsMode: q.get("tagsMode") || "all",
       year: q.get("year") || "",
     });
     if (!pool.length) pool = filterQuestions(questions, { seminary: "chongshin" });
@@ -259,11 +289,60 @@ function renderSetup(questions, q) {
   const today = getTodayProgress(DAILY_GOAL);
   const stats = getStudyStats();
   const wrongCount = getWrongNotes().length;
+  const wrongIds = new Set(getWrongNotes().map((n) => n.questionId));
+  const exposure = getExposureCounts();
+  const statCtx = { exposure, wrongIds };
+
+  const gichulTotal = filterQuestions(questions, { seminary: "chongshin", tags: ["기출"] }).length;
+  const vocabTotal = filterQuestions(questions, { seminary: "chongshin", subject: "영어", tags: ["단어장300"] }).length;
+  const vocabDay = suggestVocabDay(questions, exposure);
+  const bibleFocus = suggestBibleFocus(questions, exposure);
+  const phase = currentPhase(vocabDay);
+
+  function renderTopicRow(track, index, opts = {}) {
+    const tags = opts.tags || (track.tag ? ["기출", track.tag] : [track.tag]);
+    const subject = opts.subject || track.subject || "성경";
+    const mode = opts.mode || track.mode || "study";
+    const ts = getTopicStats(
+      questions,
+      { seminary: "chongshin", subject, tags, tagsMode: "all" },
+      statCtx
+    );
+    if (!ts.total) return "";
+    const count = opts.count || recommendCount(ts.total, track.recommend || 15);
+    const tier = track.tier
+      ? `<span class="topic-tier tier-${track.tier.toLowerCase()}">${TIER_LABELS[track.tier] || track.tier}</span>`
+      : track.focus
+        ? `<span class="topic-tier tier-a">${track.focus}</span>`
+        : "";
+    const wrongBadge = ts.wrong ? `<span class="topic-wrong">${ts.wrong}오답</span>` : "";
+    const hint = opts.hint || track.hint || track.theme || "";
+    return `
+      <button type="button" class="topic-row" data-quick
+        data-mode="${mode}"
+        data-tags="${tags.join(",")}"
+        data-subject="${subject}"
+        data-count="${count}">
+        ${index != null ? `<span class="topic-rank">${index}</span>` : ""}
+        <div class="topic-info">
+          <strong>${track.label}${track.theme ? ` · ${track.theme}` : ""}</strong>
+          <span class="muted small">${hint}${track.range ? ` · ${track.range}` : ""}</span>
+          <span class="topic-meta">${ts.total}문항 · ${ts.pct}% 학습${wrongBadge ? ` · ${wrongBadge}` : ""}</span>
+        </div>
+        ${tier}
+        <span class="topic-go">▶</span>
+      </button>`;
+  }
+
+  const topBooks = BIBLE_BOOK_TRACKS.slice(0, 10);
+  const moreBooks = BIBLE_BOOK_TRACKS.slice(10);
+  const vocabEarly = VOCAB_DAY_TRACKS.slice(0, 9);
+  const vocabLate = VOCAB_DAY_TRACKS.slice(9);
 
   return `
     <header class="page-header">
       <h1>학습</h1>
-      <p class="muted">오늘은 ${today.answered}/${today.goal}문제 · 연속 ${today.streak}일</p>
+      <p class="muted">오늘 ${today.answered}/${today.goal} · 연속 ${today.streak}일 · 기출 ${gichulTotal.toLocaleString("ko-KR")} · 단어장 ${vocabTotal.toLocaleString("ko-KR")}</p>
     </header>
 
     <div class="daily-goal card">
@@ -275,26 +354,56 @@ function renderSetup(questions, q) {
       <p class="muted small">누적 정답 ${stats.totalCorrect || 0} · 최고 연속 ${stats.bestCombo || 0}</p>
     </div>
 
+    <section class="strategy-card card">
+      <p class="mode-kicker">오늘 전략 · ${phase.label}</p>
+      <h2 class="strategy-title">${bibleFocus.label} + ${vocabDay.label}</h2>
+      <p class="muted small">${phase.goal}</p>
+      <ol class="strategy-steps">
+        <li><strong>성경 ${bibleFocus.label}</strong> — ${bibleFocus.hint || ""} (${bibleFocus.pct}% 학습)</li>
+        <li><strong>영어 ${vocabDay.label}</strong> — ${vocabDay.theme} · ${vocabDay.range} (${vocabDay.pct}% 학습)</li>
+        <li><strong>회상</strong> — 한→영 플래시로 오늘 단어 재확인</li>
+      </ol>
+      <div class="strategy-actions">
+        <button type="button" class="btn btn-primary" data-quick
+          data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-count="10">
+          성경 10문항
+        </button>
+        <button type="button" class="btn btn-secondary" data-quick
+          data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-count="20">
+          단어 영→한 20
+        </button>
+        <button type="button" class="btn btn-ghost" data-quick
+          data-mode="flash" data-tags="${vocabDay.tag},한영" data-subject="영어" data-count="20">
+          한→영 회상
+        </button>
+      </div>
+      <p class="muted small strategy-note">루틴: 신규 20개 → 유의·반의어 → 예문 → 가림 회상 → 전날 누적 복습</p>
+    </section>
+
     <section class="mode-grid">
-      <button type="button" class="mode-card mode-study" data-quick data-mode="study" data-tag="기출" data-count="10">
+      <button type="button" class="mode-card mode-study" data-quick
+        data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-count="10">
         <span class="mode-kicker">추천</span>
-        <strong>기출 학습</strong>
-        <span>10문항 · 해설 보면서</span>
+        <strong>${bibleFocus.label} 10</strong>
+        <span>다빈도 권 · 해설</span>
       </button>
-      <button type="button" class="mode-card" data-quick data-mode="flash" data-tag="암송" data-count="10">
-        <span class="mode-kicker">암송</span>
-        <strong>플래시카드</strong>
-        <span>장절 보고 맞히기</span>
-      </button>
-      <button type="button" class="mode-card" data-quick data-mode="study" data-tag="영어" data-count="15">
+      <button type="button" class="mode-card" data-quick
+        data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-count="20">
         <span class="mode-kicker">영어</span>
-        <strong>어휘·문법</strong>
-        <span>15문항 복습</span>
+        <strong>${vocabDay.label} 영→한</strong>
+        <span>${vocabDay.theme}</span>
       </button>
-      <button type="button" class="mode-card" data-quick data-mode="exam" data-tag="기출" data-count="20">
+      <button type="button" class="mode-card" data-quick
+        data-mode="flash" data-tags="한영" data-subject="영어" data-count="20">
+        <span class="mode-kicker">회상</span>
+        <strong>한→영 플래시</strong>
+        <span>뜻 보고 단어 맞히기</span>
+      </button>
+      <button type="button" class="mode-card" data-quick
+        data-mode="exam" data-tags="기출" data-subject="성경" data-count="20">
         <span class="mode-kicker">도전</span>
-        <strong>시험 모드</strong>
-        <span>20문항 · 점수 집중</span>
+        <strong>기출 시험 20</strong>
+        <span>점수 집중</span>
       </button>
     </section>
 
@@ -306,6 +415,145 @@ function renderSetup(questions, q) {
           )}">오답 ${wrongCount}건 우선 복습</button>`
         : ""
     }
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>영어 단어장 300 · 15일</h2>
+        <p class="muted small">2020–22 기출 맞춤 · 뜻·동의어·반의어·예문 묶음</p>
+      </div>
+      <div class="topic-list">
+        ${vocabEarly
+          .map((t) =>
+            renderTopicRow(t, t.day, {
+              tags: [t.tag, "영한"],
+              subject: "영어",
+              count: 20,
+              hint: t.theme,
+            })
+          )
+          .join("")}
+      </div>
+      <details class="topic-more">
+        <summary>Day 10–15 · 신학·구문 (${vocabLate.length}일)</summary>
+        <div class="topic-list">
+          ${vocabLate
+            .map((t) =>
+              renderTopicRow(t, t.day, {
+                tags: [t.tag, "영한"],
+                subject: "영어",
+                count: 20,
+                hint: t.theme,
+              })
+            )
+            .join("")}
+        </div>
+      </details>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>영어 회독 방식</h2>
+        <p class="muted small">1회독 영한 → 2회독 한영 → 3회독 동의·반의어 → 신학·구문</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${ENGLISH_DRILL_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: [t.tag],
+            subject: "영어",
+            mode: t.mode,
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+    </section>
+
+    <section class="study-section card study-section-accent">
+      <div class="study-section-head">
+        <h2>신대원 전용 · 성경 영어</h2>
+        <p class="muted small">ESV + 개역개정 병행 · 독해·암송·핵심 신학어</p>
+      </div>
+      <div class="topic-list">
+        ${BIBLE_ENGLISH_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: "영어",
+            mode: t.mode,
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+      <details class="topic-more">
+        <summary>주제별 (구원·은혜·믿음·사랑…)</summary>
+        <div class="keyword-chips" style="padding-top:0.75rem">
+          ${BIBLE_ENGLISH_THEMES.map(
+            (t) =>
+              `<button type="button" class="chip-btn" data-quick data-mode="study" data-tags="성경영어,${t.tag}" data-subject="영어" data-count="10" title="${t.hint}">${t.label}</button>`
+          ).join("")}
+        </div>
+      </details>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>영어 문법</h2>
+        <p class="muted small">관계대명사·가정법·분사·수동태 등 필답 빈출 문법</p>
+      </div>
+      <button type="button" class="btn btn-secondary btn-block" style="margin:0 1rem 0.5rem;width:auto"
+        data-quick data-mode="study" data-tags="문법,신대원영어" data-subject="영어" data-count="20">
+        문법 종합 20문항
+      </button>
+      <div class="topic-list topic-list-compact">
+        ${GRAMMAR_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: ["문법", t.tag],
+            subject: "영어",
+            mode: "study",
+            count: 10,
+          })
+        ).join("")}
+      </div>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>기출 다빈도 — 성경 권별</h2>
+        <p class="muted small">총신 00–14 · S필수 → A중요 순으로 공략</p>
+      </div>
+      <div class="topic-list">
+        ${topBooks.map((t, i) => renderTopicRow(t, i + 1)).join("")}
+      </div>
+      ${
+        moreBooks.length
+          ? `<details class="topic-more">
+              <summary>11위 이하 더 보기 (${moreBooks.length}권)</summary>
+              <div class="topic-list">${moreBooks.map((t, i) => renderTopicRow(t, i + 11)).join("")}</div>
+            </details>`
+          : ""
+      }
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>시험 유형별</h2>
+        <p class="muted small">필답 출제 패턴 · 3단계에서 집중</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${EXAM_TYPE_TRACKS.map((t) => renderTopicRow(t, null, { tags: ["기출", t.tag] })).join("")}
+      </div>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>자주 나오는 키워드</h2>
+        <p class="muted small">탐색에서 해당 키워드 문제를 볼 수 있어요</p>
+      </div>
+      <div class="keyword-chips">
+        ${HOT_KEYWORDS.map(
+          (k) =>
+            `<button type="button" class="chip-btn" data-browse data-search="${k.search}" data-subject="성경">${k.label}</button>`
+        ).join("")}
+      </div>
+    </section>
 
     <details class="advanced-setup">
       <summary>직접 설정하고 시작</summary>
@@ -341,8 +589,18 @@ function renderSetup(questions, q) {
           <select name="tag">
             <option value="">전체</option>
             <option value="기출">기출</option>
-            <option value="암송">암송</option>
-            <option value="창세기">창세기</option>
+            <option value="단어장300">단어장300</option>
+            <option value="성경영어">성경영어(ESV)</option>
+            <option value="문법">문법</option>
+            <option value="영한">영한</option>
+            <option value="한영">한영</option>
+            <option value="동의어">동의어</option>
+            <option value="반의어">반의어</option>
+            <option value="신학영어">신학영어</option>
+            ${VOCAB_DAY_TRACKS.map((d) => `<option value="${d.tag}">${d.label} ${d.theme}</option>`).join("")}
+            ${BIBLE_BOOK_TRACKS.slice(0, 12)
+              .map((b) => `<option value="${b.tag}">${b.label}</option>`)
+              .join("")}
           </select>
         </label>
         <fieldset>
@@ -419,8 +677,9 @@ function renderActive(root, session, allQuestions, onFinish) {
         ? `<button type="button" class="choice-btn ox-btn" data-ox="O">O · 맞다</button>
            <button type="button" class="choice-btn ox-btn" data-ox="X">X · 틀리다</button>`
         : `<div class="short-study">
-            <button type="button" class="btn btn-secondary btn-block" id="reveal-short">정답 먼저 보기</button>
-            <input type="text" class="text-answer hidden" id="text-answer" placeholder="${q.tags?.includes("암송") ? "본문 입력 (선택)" : "정답 입력 (선택)"}" />
+            <input type="text" class="text-answer" id="text-answer" placeholder="${q.tags?.includes("한영") || q.tags?.includes("암송") ? "영어 단어 입력 후 확인" : "정답 입력 (선택)"}" autocomplete="off" autocapitalize="off" />
+            <button type="button" class="btn btn-primary btn-block" id="check-short">확인</button>
+            <button type="button" class="btn btn-ghost btn-block" id="reveal-short">정답만 보기</button>
             <div class="btn-row hidden" id="short-actions">
               <button type="button" class="btn btn-primary" data-self="1">맞혔어요</button>
               <button type="button" class="btn btn-ghost" data-self="0">틀렸어요</button>
@@ -461,9 +720,33 @@ function renderActive(root, session, allQuestions, onFinish) {
     });
   });
 
+  function normalizeShort(s) {
+    return String(s || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+  }
+
+  root.querySelector("#check-short")?.addEventListener("click", () => {
+    const typed = root.querySelector("#text-answer")?.value?.trim() || "";
+    if (!typed) {
+      alert("답을 입력하거나 ‘정답만 보기’를 누르세요.");
+      return;
+    }
+    const ok = normalizeShort(typed) === normalizeShort(q.answer);
+    commitAnswer(session, q, typed, ok, root, allQuestions, onFinish);
+  });
+
+  root.querySelector("#text-answer")?.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      root.querySelector("#check-short")?.click();
+    }
+  });
+
   root.querySelector("#reveal-short")?.addEventListener("click", () => {
+    root.querySelector("#check-short")?.classList.add("hidden");
     root.querySelector("#reveal-short")?.classList.add("hidden");
-    root.querySelector("#text-answer")?.classList.remove("hidden");
     root.querySelector("#short-actions")?.classList.remove("hidden");
     const box = document.createElement("div");
     box.className = "answer-reveal";

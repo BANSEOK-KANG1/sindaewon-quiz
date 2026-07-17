@@ -1,0 +1,398 @@
+[
+  {
+    "id": "eng-gram-001",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\nThe disciple ______ Jesus loved was John.",
+    "choices": ["whom", "which", "what", "whose"],
+    "answer": 0,
+    "explanation": "관계대명사: 선행사가 사람(the disciple)이고 목적격이므로 whom. (whom Jesus loved)",
+    "tags": ["문법", "신대원영어", "관계대명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-002",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\nThis is the book ______ pages are torn.",
+    "choices": ["which", "whose", "who", "that"],
+    "answer": 1,
+    "explanation": "소유격 관계대명사 whose는 사물·사람 모두 가능. (the book whose pages)",
+    "tags": ["문법", "신대원영어", "관계대명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-003",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nHe ______ in the Lord since his childhood.",
+    "choices": ["believes", "has believed", "believed", "is believing"],
+    "answer": 1,
+    "explanation": "'since + 과거시점'은 현재완료(계속)와 함께 쓴다. has believed.",
+    "tags": ["문법", "신대원영어", "시제"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-004",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nBy the time Moses returned, the people ______ a golden calf.",
+    "choices": ["make", "made", "had made", "have made"],
+    "answer": 2,
+    "explanation": "과거 기준시점(returned)보다 앞선 일 → 과거완료 had made.",
+    "tags": ["문법", "신대원영어", "시제"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-005",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form (가정법):\nIf I ______ you, I would forgive him.",
+    "choices": ["am", "was", "were", "will be"],
+    "answer": 2,
+    "explanation": "가정법 과거: If + 주어 + were, 주어 would 동사원형. were 사용.",
+    "tags": ["문법", "신대원영어", "가정법"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-006",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form (가정법):\nIf he had repented, God ______ him.",
+    "choices": ["will spare", "would spare", "would have spared", "spared"],
+    "answer": 2,
+    "explanation": "가정법 과거완료: If + had p.p., 주어 would have p.p. → would have spared.",
+    "tags": ["문법", "신대원영어", "가정법"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-007",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\n______ from the mountain, Jesus began to teach.",
+    "choices": ["Coming", "Come", "Came", "To come"],
+    "answer": 0,
+    "explanation": "분사구문: 주절 주어(Jesus)와 능동 관계 → 현재분사 Coming.",
+    "tags": ["문법", "신대원영어", "분사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-008",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\n______ by grace, we have peace with God.",
+    "choices": ["Justifying", "Justified", "To justify", "Justify"],
+    "answer": 1,
+    "explanation": "분사구문 수동: 주어(we)가 '의롭다 함을 받은' 대상 → 과거분사 Justified.",
+    "tags": ["문법", "신대원영어", "분사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-009",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form (수동태):\nThe gospel ______ to all nations.",
+    "choices": ["must preach", "must be preached", "must preaching", "must been preached"],
+    "answer": 1,
+    "explanation": "조동사 수동태: 조동사 + be + p.p. → must be preached.",
+    "tags": ["문법", "신대원영어", "수동태"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-010",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nWe ought ______ God with all our heart.",
+    "choices": ["love", "to love", "loving", "loved"],
+    "answer": 1,
+    "explanation": "ought는 to부정사와 결합: ought to love.",
+    "tags": ["문법", "신대원영어", "부정사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-011",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nHe kept ______ even in prison.",
+    "choices": ["to pray", "pray", "praying", "prayed"],
+    "answer": 2,
+    "explanation": "keep + 동명사(-ing): kept praying.",
+    "tags": ["문법", "신대원영어", "동명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-012",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct connector:\nHe spoke in parables ______ the crowd might understand.",
+    "choices": ["so that", "so as", "in order", "because"],
+    "answer": 0,
+    "explanation": "목적 부사절: so that + 주어 + might/can. → so that.",
+    "tags": ["문법", "신대원영어", "접속사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-013",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct connector:\nWatch and pray, ______ you fall into temptation.",
+    "choices": ["so that", "lest", "unless", "although"],
+    "answer": 1,
+    "explanation": "lest = ~하지 않도록 (부정 목적). lest you fall.",
+    "tags": ["문법", "신대원영어", "접속사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-014",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct connector:\n______ you repent, you will perish.",
+    "choices": ["Unless", "If", "Because", "Though"],
+    "answer": 0,
+    "explanation": "Unless = If ... not (~하지 않으면). 문맥상 회개하지 않으면 멸망.",
+    "tags": ["문법", "신대원영어", "접속사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-015",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct preposition:\nWe are saved ______ grace through faith.",
+    "choices": ["by", "of", "for", "with"],
+    "answer": 0,
+    "explanation": "수단·방법 by: saved by grace (엡 2:8).",
+    "tags": ["문법", "신대원영어", "전치사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-016",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct preposition:\nThey persevered ______ much tribulation.",
+    "choices": ["through", "across", "along", "beyond"],
+    "answer": 0,
+    "explanation": "through = ~을 통과하여/겪으며. through much tribulation.",
+    "tags": ["문법", "신대원영어", "전치사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-017",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form (비교):\nThe love of Christ is ______ than knowledge.",
+    "choices": ["great", "greater", "greatest", "more great"],
+    "answer": 1,
+    "explanation": "than이 있으므로 비교급 greater.",
+    "tags": ["문법", "신대원영어", "비교급"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-018",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form (비교):\nThe greatest of these ______ love.",
+    "choices": ["are", "is", "be", "being"],
+    "answer": 1,
+    "explanation": "주어 The greatest(단수) → is. (고전 13:13)",
+    "tags": ["문법", "신대원영어", "수일치"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-019",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct verb (수일치):\nEach of the disciples ______ given a task.",
+    "choices": ["were", "was", "have", "are"],
+    "answer": 1,
+    "explanation": "Each of + 복수명사는 단수 취급 → was.",
+    "tags": ["문법", "신대원영어", "수일치"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-020",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct verb (수일치):\nNeither the priest nor the Levites ______ to help him.",
+    "choices": ["was willing", "were willing", "is willing", "has willing"],
+    "answer": 1,
+    "explanation": "neither A nor B는 B에 동사 일치. B=the Levites(복수) → were.",
+    "tags": ["문법", "신대원영어", "수일치"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-021",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\nIt was Paul ______ wrote to the Romans.",
+    "choices": ["who", "which", "whom", "what"],
+    "answer": 0,
+    "explanation": "It ~ that/who 강조구문. 사람 주격 → who.",
+    "tags": ["문법", "신대원영어", "관계대명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-022",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nHe wishes he ______ more faithful in his youth.",
+    "choices": ["was", "were", "had been", "has been"],
+    "answer": 2,
+    "explanation": "과거에 대한 아쉬움: wish + 가정법 과거완료 had been.",
+    "tags": ["문법", "신대원영어", "가정법"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-023",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\nThe Lord commanded that everyone ______ holy.",
+    "choices": ["is", "be", "was", "will be"],
+    "answer": 1,
+    "explanation": "요구·명령 동사(command) that절은 (should) + 동사원형 → be.",
+    "tags": ["문법", "신대원영어", "가정법현재"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-024",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\nIt is important that he ______ the truth.",
+    "choices": ["knows", "know", "knew", "knowing"],
+    "answer": 1,
+    "explanation": "이성적 판단(important that) → (should) 동사원형 know.",
+    "tags": ["문법", "신대원영어", "가정법현재"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-025",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nThe scribes were amazed at ______ he taught.",
+    "choices": ["that", "which", "what", "whom"],
+    "answer": 2,
+    "explanation": "선행사 없이 '~하는 것' → 관계대명사 what.",
+    "tags": ["문법", "신대원영어", "관계대명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-026",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nThere is no one ______ can serve two masters.",
+    "choices": ["who", "which", "what", "whose"],
+    "answer": 0,
+    "explanation": "선행사 no one(사람) 주격 → who.",
+    "tags": ["문법", "신대원영어", "관계대명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-027",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nHaving ______ the multitude, Jesus went up the mountain.",
+    "choices": ["dismiss", "dismissed", "dismissing", "to dismiss"],
+    "answer": 1,
+    "explanation": "완료분사구문 Having + p.p. → Having dismissed.",
+    "tags": ["문법", "신대원영어", "분사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-028",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nThe word of God is living and ______.",
+    "choices": ["act", "active", "actively", "action"],
+    "answer": 1,
+    "explanation": "be동사 보어로 형용사가 병렬 → living and active (히 4:12).",
+    "tags": ["문법", "신대원영어", "품사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-029",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nBlessed are those who ______ righteousness.",
+    "choices": ["hunger for", "hungers for", "hungering", "hungry"],
+    "answer": 0,
+    "explanation": "선행사 those(복수) 관계절 동사 → hunger for.",
+    "tags": ["문법", "신대원영어", "수일치"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-030",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\nHe was so weak ______ he could not walk.",
+    "choices": ["that", "as", "so", "than"],
+    "answer": 0,
+    "explanation": "so + 형용사 + that 절 (너무 ~해서 …하다).",
+    "tags": ["문법", "신대원영어", "접속사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-031",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\n______ being rich, he became poor for our sake.",
+    "choices": ["Despite", "Although", "Because", "Unless"],
+    "answer": 0,
+    "explanation": "Despite + 명사/동명사(being rich). Although는 절이 필요.",
+    "tags": ["문법", "신대원영어", "전치사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-032",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\n______ he was rich, yet he became poor.",
+    "choices": ["Despite", "Although", "Because of", "In spite of"],
+    "answer": 1,
+    "explanation": "뒤에 절(he was rich)이 오므로 접속사 Although.",
+    "tags": ["문법", "신대원영어", "접속사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-033",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nLet us ______ one another.",
+    "choices": ["to love", "love", "loving", "loved"],
+    "answer": 1,
+    "explanation": "Let us + 동사원형 → love.",
+    "tags": ["문법", "신대원영어", "동사원형"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-034",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nThe kingdom of heaven is like ______ treasure hidden in a field.",
+    "choices": ["a", "an", "the", "×(무관사)"],
+    "answer": 0,
+    "explanation": "처음 언급되는 셀 수 있는 단수명사 treasure → 부정관사 a.",
+    "tags": ["문법", "신대원영어", "관사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-035",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct word:\nGod raised him from the dead, ______ we are witnesses.",
+    "choices": ["which", "of which", "of whom", "whose"],
+    "answer": 2,
+    "explanation": "witnesses of him(사람) → of whom. (행 2:32 문맥)",
+    "tags": ["문법", "신대원영어", "관계대명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-036",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nIt is no longer I who live, but Christ ______ lives in me.",
+    "choices": ["who", "which", "whom", "whose"],
+    "answer": 0,
+    "explanation": "선행사 Christ(사람) 주격 → who. (갈 2:20)",
+    "tags": ["문법", "신대원영어", "관계대명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-037",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nWe walk by faith, not ______ sight.",
+    "choices": ["with", "by", "in", "for"],
+    "answer": 1,
+    "explanation": "수단 by가 병렬로 반복: by faith, not by sight (고후 5:7).",
+    "tags": ["문법", "신대원영어", "전치사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-038",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nAll Scripture is ______ by God.",
+    "choices": ["breathe", "breathed", "breathing", "breath"],
+    "answer": 1,
+    "explanation": "수동태 be + p.p.: is breathed out by God (딤후 3:16).",
+    "tags": ["문법", "신대원영어", "수동태"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-039",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nPray without ______.",
+    "choices": ["cease", "ceasing", "ceased", "to cease"],
+    "answer": 1,
+    "explanation": "전치사 without + 동명사 → ceasing (살전 5:17).",
+    "tags": ["문법", "신대원영어", "동명사"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-040",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nHe who ______ to the end will be saved.",
+    "choices": ["endure", "endures", "enduring", "endured"],
+    "answer": 1,
+    "explanation": "선행사 He(3인칭 단수) 관계절 동사 → endures.",
+    "tags": ["문법", "신대원영어", "수일치"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-041",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nThe more we know God, the ______ we love Him.",
+    "choices": ["much", "more", "most", "many"],
+    "answer": 1,
+    "explanation": "The 비교급 ~, the 비교급 ~ 구문 → the more.",
+    "tags": ["문법", "신대원영어", "비교급"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-042",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nHe spoke as if he ______ the Son of God.",
+    "choices": ["is", "were", "was", "has been"],
+    "answer": 1,
+    "explanation": "as if + 가정법 과거 were (현재 사실 반대 가정).",
+    "tags": ["문법", "신대원영어", "가정법"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-043",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nNot only ______ he preach, but he also healed.",
+    "choices": ["did", "does", "do", "was"],
+    "answer": 0,
+    "explanation": "Not only 문두 도치 + 과거(healed 시제 일치) → did he preach.",
+    "tags": ["문법", "신대원영어", "도치"], "source": "grammar"
+  },
+  {
+    "id": "eng-gram-044",
+    "seminary": "chongshin", "year": null, "subject": "영어", "type": "multiple",
+    "question": "Choose the correct form:\nSeldom ______ such great faith seen in Israel.",
+    "choices": ["was", "were", "has", "did"],
+    "answer": 0,
+    "explanation": "부정어 Seldom 문두 도치 + 주어 faith(단수, 수동) → was ... seen.",
+    "tags": ["문법", "신대원영어", "도치"], "source": "grammar"
+  }
+]

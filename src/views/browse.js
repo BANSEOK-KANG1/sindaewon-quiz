@@ -8,10 +8,23 @@ const PAGE_SIZE = 40;
 const TAG_PRESETS = [
   { value: "", label: "전체" },
   { value: "기출", label: "기출" },
+  { value: "단어장300", label: "단어장300" },
+  { value: "성경영어", label: "성경영어(ESV)" },
+  { value: "문법", label: "문법" },
+  { value: "영한", label: "영→한" },
+  { value: "한영", label: "한→영" },
+  { value: "동의어", label: "동의어" },
+  { value: "반의어", label: "반의어" },
+  { value: "신학영어", label: "신학영어" },
+  { value: "구문", label: "구문" },
+  { value: "기출어휘", label: "기출어휘" },
+  { value: "Day1", label: "Day1" },
+  { value: "Day10", label: "Day10 신학" },
   { value: "암송", label: "암송" },
   { value: "창세기", label: "창세기" },
   { value: "시편", label: "시편" },
-  { value: "로마서", label: "로마서" },
+  { value: "이사야", label: "이사야" },
+  { value: "신_유형", label: "신(약) 유형" },
 ];
 
 export async function renderBrowse(root) {

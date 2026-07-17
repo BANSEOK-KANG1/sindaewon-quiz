@@ -1,0 +1,2663 @@
+[
+  {
+    "id": "bible-en-1-1-1-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(창세기 1:1)의 알맞은 번역은?\n“In the beginning, God created the heavens and the earth.”",
+    "choices": [
+      "그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+      "너희는 이 세대를 본받지 말고 오직 마음을 새롭게 함으로 변화를 받아 하나님의 선하시고 기뻐하시고 온전하신 뜻이 무엇인지 분별하도록 하라",
+      "태초에 하나님이 천지를 창조하시니라",
+      "모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니"
+    ],
+    "answer": 2,
+    "explanation": "창세기 1:1 (ESV)\nIn the beginning, God created the heavens and the earth.\n태초에 하나님이 천지를 창조하시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-1-1-1-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[창세기 1:1] 태초에 하나님이 천지를 창조하시니라",
+    "answer": "In the beginning, God created the heavens and the earth.",
+    "explanation": "창세기 1:1 (ESV)\nIn the beginning, God created the heavens and the earth.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-1-1-1-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (창세기 1:1)\n“In the beginning, God ______ the heavens and the earth.”",
+    "choices": [
+      "kingdom",
+      "loved",
+      "created",
+      "shepherd"
+    ],
+    "answer": 2,
+    "explanation": "창세기 1:1 (ESV)\nIn the beginning, God created the heavens and the earth.\n태초에 하나님이 천지를 창조하시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-1-1-27-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(창세기 1:27)의 알맞은 번역은?\n“So God created man in his own image, in the image of God he created him; male and female he created them.”",
+    "choices": [
+      "복 있는 사람은 악인들의 꾀를 따르지 아니하며 죄인들의 길에 서지 아니하며 오만한 자들의 자리에 앉지 아니하고",
+      "하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+      "그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다",
+      "그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라"
+    ],
+    "answer": 1,
+    "explanation": "창세기 1:27 (ESV)\nSo God created man in his own image, in the image of God he created him; male and female he created them.\n하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-1-1-27-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[창세기 1:27] 하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+    "answer": "So God created man in his own image, in the image of God he created him; male and female he created them.",
+    "explanation": "창세기 1:27 (ESV)\nSo God created man in his own image, in the image of God he created him; male and female he created them.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-1-1-27-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (창세기 1:27)\n“So God created man in his own ______, in the image of God he created him; male and female he created them.”",
+    "choices": [
+      "courageous",
+      "loved",
+      "gods",
+      "image"
+    ],
+    "answer": 3,
+    "explanation": "창세기 1:27 (ESV)\nSo God created man in his own image, in the image of God he created him; male and female he created them.\n하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-2-20-3-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(출애굽기 20:3)의 알맞은 번역은?\n“You shall have no other gods before me.”",
+    "choices": [
+      "내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+      "너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+      "너는 나 외에는 다른 신들을 네게 두지 말라",
+      "그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고"
+    ],
+    "answer": 2,
+    "explanation": "출애굽기 20:3 (ESV)\nYou shall have no other gods before me.\n너는 나 외에는 다른 신들을 네게 두지 말라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-2-20-3-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[출애굽기 20:3] 너는 나 외에는 다른 신들을 네게 두지 말라",
+    "answer": "You shall have no other gods before me.",
+    "explanation": "출애굽기 20:3 (ESV)\nYou shall have no other gods before me.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-2-20-3-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (출애굽기 20:3)\n“You shall have no other ______ before me.”",
+    "choices": [
+      "poor",
+      "gods",
+      "trials",
+      "assurance"
+    ],
+    "answer": 1,
+    "explanation": "출애굽기 20:3 (ESV)\nYou shall have no other gods before me.\n너는 나 외에는 다른 신들을 네게 두지 말라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-5-6-5-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(신명기 6:5)의 알맞은 번역은?\n“You shall love the LORD your God with all your heart and with all your soul and with all your might.”",
+    "choices": [
+      "그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라",
+      "주의 말씀은 내 발에 등이요 내 길에 빛이니이다",
+      "너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+      "만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요"
+    ],
+    "answer": 2,
+    "explanation": "신명기 6:5 (ESV)\nYou shall love the LORD your God with all your heart and with all your soul and with all your might.\n너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "사랑",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-5-6-5-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[신명기 6:5] 너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+    "answer": "You shall love the LORD your God with all your heart and with all your soul and with all your might.",
+    "explanation": "신명기 6:5 (ESV)\nYou shall love the LORD your God with all your heart and with all your soul and with all your might.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "사랑",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-5-6-5-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (신명기 6:5)\n“You shall ______ the LORD your God with all your heart and with all your soul and with all your might.”",
+    "choices": [
+      "love",
+      "nations",
+      "loved",
+      "blessed"
+    ],
+    "answer": 0,
+    "explanation": "신명기 6:5 (ESV)\nYou shall love the LORD your God with all your heart and with all your soul and with all your might.\n너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "사랑",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-6-1-9-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(여호수아 1:9)의 알맞은 번역은?\n“Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.”",
+    "choices": [
+      "모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니",
+      "만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요",
+      "오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과",
+      "내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라"
+    ],
+    "answer": 3,
+    "explanation": "여호수아 1:9 (ESV)\nHave I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.\n내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-6-1-9-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[여호수아 1:9] 내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+    "answer": "Have I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.",
+    "explanation": "여호수아 1:9 (ESV)\nHave I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-6-1-9-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (여호수아 1:9)\n“Have I not commanded you? Be strong and ______. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.”",
+    "choices": [
+      "courageous",
+      "renew",
+      "crucified",
+      "wages"
+    ],
+    "answer": 0,
+    "explanation": "여호수아 1:9 (ESV)\nHave I not commanded you? Be strong and courageous. Do not be frightened, and do not be dismayed, for the LORD your God is with you wherever you go.\n내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-1-1-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(시편 1:1)의 알맞은 번역은?\n“Blessed is the man who walks not in the counsel of the wicked, nor stands in the way of sinners, nor sits in the seat of scoffers;”",
+    "choices": [
+      "나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라",
+      "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라",
+      "복 있는 사람은 악인들의 꾀를 따르지 아니하며 죄인들의 길에 서지 아니하며 오만한 자들의 자리에 앉지 아니하고",
+      "우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라"
+    ],
+    "answer": 2,
+    "explanation": "시편 1:1 (ESV)\nBlessed is the man who walks not in the counsel of the wicked, nor stands in the way of sinners, nor sits in the seat of scoffers;\n복 있는 사람은 악인들의 꾀를 따르지 아니하며 죄인들의 길에 서지 아니하며 오만한 자들의 자리에 앉지 아니하고",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-1-1-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[시편 1:1] 복 있는 사람은 악인들의 꾀를 따르지 아니하며 죄인들의 길에 서지 아니하며 오만한 자들의 자리에 앉지 아니하고",
+    "answer": "Blessed is the man who walks not in the counsel of the wicked, nor stands in the way of sinners, nor sits in the seat of scoffers;",
+    "explanation": "시편 1:1 (ESV)\nBlessed is the man who walks not in the counsel of the wicked, nor stands in the way of sinners, nor sits in the seat of scoffers;",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-1-1-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (시편 1:1)\n“______ is the man who walks not in the counsel of the wicked, nor stands in the way of sinners, nor sits in the seat of scoffers;”",
+    "choices": [
+      "sinners",
+      "blessed",
+      "poor",
+      "way"
+    ],
+    "answer": 1,
+    "explanation": "시편 1:1 (ESV)\nBlessed is the man who walks not in the counsel of the wicked, nor stands in the way of sinners, nor sits in the seat of scoffers;\n복 있는 사람은 악인들의 꾀를 따르지 아니하며 죄인들의 길에 서지 아니하며 오만한 자들의 자리에 앉지 아니하고",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-23-1-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(시편 23:1)의 알맞은 번역은?\n“[A Psalm of David.] The LORD is my shepherd; I shall not want.”",
+    "choices": [
+      "내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+      "[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+      "내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+      "그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라"
+    ],
+    "answer": 1,
+    "explanation": "시편 23:1 (ESV)\n[A Psalm of David.] The LORD is my shepherd; I shall not want.\n[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-23-1-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[시편 23:1] [다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+    "answer": "[A Psalm of David.] The LORD is my shepherd; I shall not want.",
+    "explanation": "시편 23:1 (ESV)\n[A Psalm of David.] The LORD is my shepherd; I shall not want.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-23-1-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (시편 23:1)\n“[A Psalm of David.] The LORD is my ______; I shall not want.”",
+    "choices": [
+      "nations",
+      "vine",
+      "good",
+      "shepherd"
+    ],
+    "answer": 3,
+    "explanation": "시편 23:1 (ESV)\n[A Psalm of David.] The LORD is my shepherd; I shall not want.\n[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-119-105-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(시편 119:105)의 알맞은 번역은?\n“Your word is a lamp to my feet and a light to my path.”",
+    "choices": [
+      "내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+      "오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+      "너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+      "주의 말씀은 내 발에 등이요 내 길에 빛이니이다"
+    ],
+    "answer": 3,
+    "explanation": "시편 119:105 (ESV)\nYour word is a lamp to my feet and a light to my path.\n주의 말씀은 내 발에 등이요 내 길에 빛이니이다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-119-105-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[시편 119:105] 주의 말씀은 내 발에 등이요 내 길에 빛이니이다",
+    "answer": "Your word is a lamp to my feet and a light to my path.",
+    "explanation": "시편 119:105 (ESV)\nYour word is a lamp to my feet and a light to my path.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-19-119-105-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (시편 119:105)\n“Your word is a ______ to my feet and a light to my path.”",
+    "choices": [
+      "sinners",
+      "rest",
+      "lamp",
+      "priesthood"
+    ],
+    "answer": 2,
+    "explanation": "시편 119:105 (ESV)\nYour word is a lamp to my feet and a light to my path.\n주의 말씀은 내 발에 등이요 내 길에 빛이니이다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-20-3-5-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(잠언 3:5)의 알맞은 번역은?\n“Trust in the LORD with all your heart, and do not lean on your own understanding.”",
+    "choices": [
+      "너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+      "너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라",
+      "아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라",
+      "예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니"
+    ],
+    "answer": 1,
+    "explanation": "잠언 3:5 (ESV)\nTrust in the LORD with all your heart, and do not lean on your own understanding.\n너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-20-3-5-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[잠언 3:5] 너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라",
+    "answer": "Trust in the LORD with all your heart, and do not lean on your own understanding.",
+    "explanation": "잠언 3:5 (ESV)\nTrust in the LORD with all your heart, and do not lean on your own understanding.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-20-3-5-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (잠언 3:5)\n“______ in the LORD with all your heart, and do not lean on your own understanding.”",
+    "choices": [
+      "trust",
+      "good",
+      "crucified",
+      "anxious"
+    ],
+    "answer": 0,
+    "explanation": "잠언 3:5 (ESV)\nTrust in the LORD with all your heart, and do not lean on your own understanding.\n너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-23-40-31-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(이사야 40:31)의 알맞은 번역은?\n“but they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.”",
+    "choices": [
+      "내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+      "예수께서 이르시되 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라",
+      "너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라",
+      "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다"
+    ],
+    "answer": 3,
+    "explanation": "이사야 40:31 (ESV)\nbut they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.\n오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-23-40-31-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[이사야 40:31] 오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다",
+    "answer": "but they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",
+    "explanation": "이사야 40:31 (ESV)\nbut they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-23-40-31-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (이사야 40:31)\n“but they who wait for the LORD shall ______ their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.”",
+    "choices": [
+      "trust",
+      "transformed",
+      "renew",
+      "breathed"
+    ],
+    "answer": 2,
+    "explanation": "이사야 40:31 (ESV)\nbut they who wait for the LORD shall renew their strength; they shall mount up with wings like eagles; they shall run and not be weary; they shall walk and not faint.\n오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-23-53-5-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(이사야 53:5)의 알맞은 번역은?\n“But he was pierced for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed.”",
+    "choices": [
+      "그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고",
+      "그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+      "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라",
+      "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다"
+    ],
+    "answer": 1,
+    "explanation": "이사야 53:5 (ESV)\nBut he was pierced for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed.\n그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-23-53-5-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[이사야 53:5] 그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+    "answer": "But he was pierced for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed.",
+    "explanation": "이사야 53:5 (ESV)\nBut he was pierced for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-23-53-5-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (이사야 53:5)\n“But he was ______ for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed.”",
+    "choices": [
+      "creation",
+      "wages",
+      "fruit",
+      "pierced"
+    ],
+    "answer": 3,
+    "explanation": "이사야 53:5 (ESV)\nBut he was pierced for our transgressions; he was crushed for our iniquities; upon him was the chastisement that brought us peace, and with his wounds we are healed.\n그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-5-3-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(마태복음 5:3)의 알맞은 번역은?\n“Blessed are the poor in spirit, for theirs is the kingdom of heaven.”",
+    "choices": [
+      "우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라",
+      "심령이 가난한 자는 복이 있나니 천국이 그들의 것임이요",
+      "믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니",
+      "그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라"
+    ],
+    "answer": 1,
+    "explanation": "마태복음 5:3 (ESV)\nBlessed are the poor in spirit, for theirs is the kingdom of heaven.\n심령이 가난한 자는 복이 있나니 천국이 그들의 것임이요",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-5-3-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[마태복음 5:3] 심령이 가난한 자는 복이 있나니 천국이 그들의 것임이요",
+    "answer": "Blessed are the poor in spirit, for theirs is the kingdom of heaven.",
+    "explanation": "마태복음 5:3 (ESV)\nBlessed are the poor in spirit, for theirs is the kingdom of heaven.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-5-3-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (마태복음 5:3)\n“Blessed are the ______ in spirit, for theirs is the kingdom of heaven.”",
+    "choices": [
+      "poor",
+      "blessed",
+      "vine",
+      "anxious"
+    ],
+    "answer": 0,
+    "explanation": "마태복음 5:3 (ESV)\nBlessed are the poor in spirit, for theirs is the kingdom of heaven.\n심령이 가난한 자는 복이 있나니 천국이 그들의 것임이요",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-6-33-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(마태복음 6:33)의 알맞은 번역은?\n“But seek first the kingdom of God and his righteousness, and all these things will be added to you.”",
+    "choices": [
+      "너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라",
+      "너희는 이 세대를 본받지 말고 오직 마음을 새롭게 함으로 변화를 받아 하나님의 선하시고 기뻐하시고 온전하신 뜻이 무엇인지 분별하도록 하라",
+      "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라",
+      "[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다"
+    ],
+    "answer": 2,
+    "explanation": "마태복음 6:33 (ESV)\nBut seek first the kingdom of God and his righteousness, and all these things will be added to you.\n그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-6-33-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[마태복음 6:33] 그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라",
+    "answer": "But seek first the kingdom of God and his righteousness, and all these things will be added to you.",
+    "explanation": "마태복음 6:33 (ESV)\nBut seek first the kingdom of God and his righteousness, and all these things will be added to you.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-6-33-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (마태복음 6:33)\n“But seek first the ______ of God and his righteousness, and all these things will be added to you.”",
+    "choices": [
+      "confess",
+      "way",
+      "strengthens",
+      "kingdom"
+    ],
+    "answer": 3,
+    "explanation": "마태복음 6:33 (ESV)\nBut seek first the kingdom of God and his righteousness, and all these things will be added to you.\n그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-11-28-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(마태복음 11:28)의 알맞은 번역은?\n“Come to me, all who labor and are heavy laden, and I will give you rest.”",
+    "choices": [
+      "수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라",
+      "[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+      "그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라",
+      "태초에 하나님이 천지를 창조하시니라"
+    ],
+    "answer": 0,
+    "explanation": "마태복음 11:28 (ESV)\nCome to me, all who labor and are heavy laden, and I will give you rest.\n수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-11-28-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[마태복음 11:28] 수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라",
+    "answer": "Come to me, all who labor and are heavy laden, and I will give you rest.",
+    "explanation": "마태복음 11:28 (ESV)\nCome to me, all who labor and are heavy laden, and I will give you rest.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-11-28-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (마태복음 11:28)\n“Come to me, all who labor and are heavy laden, and I will give you ______.”",
+    "choices": [
+      "rest",
+      "nations",
+      "priesthood",
+      "transformed"
+    ],
+    "answer": 0,
+    "explanation": "마태복음 11:28 (ESV)\nCome to me, all who labor and are heavy laden, and I will give you rest.\n수고하고 무거운 짐 진 자들아 다 내게로 오라 내가 너희를 쉬게 하리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-22-37-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(마태복음 22:37)의 알맞은 번역은?\n“And he said to him, \"You shall love the Lord your God with all your heart and with all your soul and with all your mind.”",
+    "choices": [
+      "예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니",
+      "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다",
+      "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+      "죄의 삯은 사망이요 하나님의 은사는 그리스도 예수 우리 주 안에 있는 영생이니라"
+    ],
+    "answer": 0,
+    "explanation": "마태복음 22:37 (ESV)\nAnd he said to him, \"You shall love the Lord your God with all your heart and with all your soul and with all your mind.\n예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "사랑",
+      "율법",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-22-37-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[마태복음 22:37] 예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니",
+    "answer": "And he said to him, \"You shall love the Lord your God with all your heart and with all your soul and with all your mind.",
+    "explanation": "마태복음 22:37 (ESV)\nAnd he said to him, \"You shall love the Lord your God with all your heart and with all your soul and with all your mind.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "사랑",
+      "율법",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-22-37-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (마태복음 22:37)\n“And he said to him, \"You shall ______ the Lord your God with all your heart and with all your soul and with all your mind.”",
+    "choices": [
+      "love",
+      "good",
+      "trials",
+      "vine"
+    ],
+    "answer": 0,
+    "explanation": "마태복음 22:37 (ESV)\nAnd he said to him, \"You shall love the Lord your God with all your heart and with all your soul and with all your mind.\n예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "사랑",
+      "율법",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-28-19-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(마태복음 28:19)의 알맞은 번역은?\n“Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,”",
+    "choices": [
+      "복 있는 사람은 악인들의 꾀를 따르지 아니하며 죄인들의 길에 서지 아니하며 오만한 자들의 자리에 앉지 아니하고",
+      "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다",
+      "그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고",
+      "[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다"
+    ],
+    "answer": 2,
+    "explanation": "마태복음 28:19 (ESV)\nGo therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,\n그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-28-19-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[마태복음 28:19] 그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고",
+    "answer": "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,",
+    "explanation": "마태복음 28:19 (ESV)\nGo therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-40-28-19-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (마태복음 28:19)\n“Go therefore and make disciples of all ______, baptizing them in the name of the Father and of the Son and of the Holy Spirit,”",
+    "choices": [
+      "poor",
+      "lamp",
+      "grace",
+      "nations"
+    ],
+    "answer": 3,
+    "explanation": "마태복음 28:19 (ESV)\nGo therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit,\n그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-1-1-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(요한복음 1:1)의 알맞은 번역은?\n“In the beginning was the Word, and the Word was with God, and the Word was God.”",
+    "choices": [
+      "믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니",
+      "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다",
+      "태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라",
+      "하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고"
+    ],
+    "answer": 2,
+    "explanation": "요한복음 1:1 (ESV)\nIn the beginning was the Word, and the Word was with God, and the Word was God.\n태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-1-1-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[요한복음 1:1] 태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라",
+    "answer": "In the beginning was the Word, and the Word was with God, and the Word was God.",
+    "explanation": "요한복음 1:1 (ESV)\nIn the beginning was the Word, and the Word was with God, and the Word was God.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-1-1-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (요한복음 1:1)\n“In the beginning was the ______, and the Word was with God, and the Word was God.”",
+    "choices": [
+      "grace",
+      "Word",
+      "shepherd",
+      "renew"
+    ],
+    "answer": 1,
+    "explanation": "요한복음 1:1 (ESV)\nIn the beginning was the Word, and the Word was with God, and the Word was God.\n태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "창조",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-3-16-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(요한복음 3:16)의 알맞은 번역은?\n“For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.”",
+    "choices": [
+      "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+      "믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니",
+      "우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라",
+      "내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라"
+    ],
+    "answer": 0,
+    "explanation": "요한복음 3:16 (ESV)\nFor God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.\n하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "사랑",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-3-16-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[요한복음 3:16] 하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+    "answer": "For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.",
+    "explanation": "요한복음 3:16 (ESV)\nFor God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "사랑",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-3-16-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (요한복음 3:16)\n“For God so ______ the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.”",
+    "choices": [
+      "loved",
+      "courageous",
+      "anxious",
+      "renew"
+    ],
+    "answer": 0,
+    "explanation": "요한복음 3:16 (ESV)\nFor God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.\n하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "사랑",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-14-6-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(요한복음 14:6)의 알맞은 번역은?\n“Jesus said to him, \"I am the way, and the truth, and the life. No one comes to the Father except through me.”",
+    "choices": [
+      "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+      "죄의 삯은 사망이요 하나님의 은사는 그리스도 예수 우리 주 안에 있는 영생이니라",
+      "하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+      "예수께서 이르시되 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라"
+    ],
+    "answer": 3,
+    "explanation": "요한복음 14:6 (ESV)\nJesus said to him, \"I am the way, and the truth, and the life. No one comes to the Father except through me.\n예수께서 이르시되 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-14-6-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[요한복음 14:6] 예수께서 이르시되 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라",
+    "answer": "Jesus said to him, \"I am the way, and the truth, and the life. No one comes to the Father except through me.",
+    "explanation": "요한복음 14:6 (ESV)\nJesus said to him, \"I am the way, and the truth, and the life. No one comes to the Father except through me.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-14-6-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (요한복음 14:6)\n“Jesus said to him, \"I am the ______, and the truth, and the life. No one comes to the Father except through me.”",
+    "choices": [
+      "transformed",
+      "rest",
+      "shepherd",
+      "way"
+    ],
+    "answer": 3,
+    "explanation": "요한복음 14:6 (ESV)\nJesus said to him, \"I am the way, and the truth, and the life. No one comes to the Father except through me.\n예수께서 이르시되 내가 곧 길이요 진리요 생명이니 나로 말미암지 않고는 아버지께로 올 자가 없느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-15-5-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(요한복음 15:5)의 알맞은 번역은?\n“I am the vine; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.”",
+    "choices": [
+      "나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라",
+      "너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라",
+      "예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니",
+      "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라"
+    ],
+    "answer": 0,
+    "explanation": "요한복음 15:5 (ESV)\nI am the vine; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.\n나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-15-5-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[요한복음 15:5] 나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라",
+    "answer": "I am the vine; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.",
+    "explanation": "요한복음 15:5 (ESV)\nI am the vine; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-43-15-5-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (요한복음 15:5)\n“I am the ______; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.”",
+    "choices": [
+      "pierced",
+      "sinners",
+      "lamp",
+      "vine"
+    ],
+    "answer": 3,
+    "explanation": "요한복음 15:5 (ESV)\nI am the vine; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.\n나는 포도나무요 너희는 가지라 그가 내 안에, 내가 그 안에 거하면 사람이 열매를 많이 맺나니 나를 떠나서는 너희가 아무 것도 할 수 없음이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-44-1-8-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(사도행전 1:8)의 알맞은 번역은?\n“But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.”",
+    "choices": [
+      "네가 만일 네 입으로 예수를 주로 시인하며 또 하나님께서 그를 죽은 자 가운데서 살리신 것을 네 마음에 믿으면 구원을 받으리라",
+      "너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라",
+      "오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+      "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라"
+    ],
+    "answer": 2,
+    "explanation": "사도행전 1:8 (ESV)\nBut you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.\n오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-44-1-8-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[사도행전 1:8] 오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+    "answer": "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.",
+    "explanation": "사도행전 1:8 (ESV)\nBut you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-44-1-8-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (사도행전 1:8)\n“But you will receive power when the Holy Spirit has come upon you, and you will be my ______ in Jerusalem and in all Judea and Samaria, and to the end of the earth.”",
+    "choices": [
+      "crucified",
+      "witnesses",
+      "anxious",
+      "vine"
+    ],
+    "answer": 1,
+    "explanation": "사도행전 1:8 (ESV)\nBut you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.\n오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-3-23-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(로마서 3:23)의 알맞은 번역은?\n“for all have sinned and fall short of the glory of God,”",
+    "choices": [
+      "그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+      "모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니",
+      "하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+      "너는 마음을 다하여 여호와를 신뢰하고 네 명철을 의지하지 말라"
+    ],
+    "answer": 1,
+    "explanation": "로마서 3:23 (ESV)\nfor all have sinned and fall short of the glory of God,\n모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-3-23-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[로마서 3:23] 모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니",
+    "answer": "for all have sinned and fall short of the glory of God,",
+    "explanation": "로마서 3:23 (ESV)\nfor all have sinned and fall short of the glory of God,",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-3-23-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (로마서 3:23)\n“for all have ______ and fall short of the glory of God,”",
+    "choices": [
+      "transformed",
+      "sinned",
+      "lamp",
+      "gods"
+    ],
+    "answer": 1,
+    "explanation": "로마서 3:23 (ESV)\nfor all have sinned and fall short of the glory of God,\n모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-5-8-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(로마서 5:8)의 알맞은 번역은?\n“but God shows his love for us in that while we were still sinners, Christ died for us.”",
+    "choices": [
+      "[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+      "하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+      "우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라",
+      "태초에 하나님이 천지를 창조하시니라"
+    ],
+    "answer": 2,
+    "explanation": "로마서 5:8 (ESV)\nbut God shows his love for us in that while we were still sinners, Christ died for us.\n우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "은혜",
+      "사랑",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-5-8-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[로마서 5:8] 우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라",
+    "answer": "but God shows his love for us in that while we were still sinners, Christ died for us.",
+    "explanation": "로마서 5:8 (ESV)\nbut God shows his love for us in that while we were still sinners, Christ died for us.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "은혜",
+      "사랑",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-5-8-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (로마서 5:8)\n“but God shows his love for us in that while we were still ______, Christ died for us.”",
+    "choices": [
+      "priesthood",
+      "sinners",
+      "renew",
+      "strengthens"
+    ],
+    "answer": 1,
+    "explanation": "로마서 5:8 (ESV)\nbut God shows his love for us in that while we were still sinners, Christ died for us.\n우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "은혜",
+      "사랑",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-6-23-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(로마서 6:23)의 알맞은 번역은?\n“For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.”",
+    "choices": [
+      "오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+      "태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라",
+      "만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요",
+      "죄의 삯은 사망이요 하나님의 은사는 그리스도 예수 우리 주 안에 있는 영생이니라"
+    ],
+    "answer": 3,
+    "explanation": "로마서 6:23 (ESV)\nFor the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.\n죄의 삯은 사망이요 하나님의 은사는 그리스도 예수 우리 주 안에 있는 영생이니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-6-23-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[로마서 6:23] 죄의 삯은 사망이요 하나님의 은사는 그리스도 예수 우리 주 안에 있는 영생이니라",
+    "answer": "For the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.",
+    "explanation": "로마서 6:23 (ESV)\nFor the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-6-23-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (로마서 6:23)\n“For the ______ of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.”",
+    "choices": [
+      "transformed",
+      "wages",
+      "vine",
+      "grace"
+    ],
+    "answer": 1,
+    "explanation": "로마서 6:23 (ESV)\nFor the wages of sin is death, but the free gift of God is eternal life in Christ Jesus our Lord.\n죄의 삯은 사망이요 하나님의 은사는 그리스도 예수 우리 주 안에 있는 영생이니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-8-28-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(로마서 8:28)의 알맞은 번역은?\n“And we know that for those who love God all things work together for good, for those who are called according to his purpose.”",
+    "choices": [
+      "모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니",
+      "우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라",
+      "오직 여호와를 앙망하는 자는 새 힘을 얻으리니 독수리가 날개치며 올라감 같을 것이요 달음박질하여도 곤비하지 아니하겠고 걸어가도 피곤하지 아니하리로다",
+      "믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니"
+    ],
+    "answer": 1,
+    "explanation": "로마서 8:28 (ESV)\nAnd we know that for those who love God all things work together for good, for those who are called according to his purpose.\n우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-8-28-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[로마서 8:28] 우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라",
+    "answer": "And we know that for those who love God all things work together for good, for those who are called according to his purpose.",
+    "explanation": "로마서 8:28 (ESV)\nAnd we know that for those who love God all things work together for good, for those who are called according to his purpose.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-8-28-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (로마서 8:28)\n“And we know that for those who love God all things work together for ______, for those who are called according to his purpose.”",
+    "choices": [
+      "gods",
+      "good",
+      "poor",
+      "pierced"
+    ],
+    "answer": 1,
+    "explanation": "로마서 8:28 (ESV)\nAnd we know that for those who love God all things work together for good, for those who are called according to his purpose.\n우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-10-9-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(로마서 10:9)의 알맞은 번역은?\n“because, if you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved.”",
+    "choices": [
+      "너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+      "오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+      "내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+      "네가 만일 네 입으로 예수를 주로 시인하며 또 하나님께서 그를 죽은 자 가운데서 살리신 것을 네 마음에 믿으면 구원을 받으리라"
+    ],
+    "answer": 3,
+    "explanation": "로마서 10:9 (ESV)\nbecause, if you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved.\n네가 만일 네 입으로 예수를 주로 시인하며 또 하나님께서 그를 죽은 자 가운데서 살리신 것을 네 마음에 믿으면 구원을 받으리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "믿음",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-10-9-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[로마서 10:9] 네가 만일 네 입으로 예수를 주로 시인하며 또 하나님께서 그를 죽은 자 가운데서 살리신 것을 네 마음에 믿으면 구원을 받으리라",
+    "answer": "because, if you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved.",
+    "explanation": "로마서 10:9 (ESV)\nbecause, if you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "믿음",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-10-9-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (로마서 10:9)\n“because, if you ______ with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved.”",
+    "choices": [
+      "wages",
+      "courageous",
+      "creation",
+      "confess"
+    ],
+    "answer": 3,
+    "explanation": "로마서 10:9 (ESV)\nbecause, if you confess with your mouth that Jesus is Lord and believe in your heart that God raised him from the dead, you will be saved.\n네가 만일 네 입으로 예수를 주로 시인하며 또 하나님께서 그를 죽은 자 가운데서 살리신 것을 네 마음에 믿으면 구원을 받으리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "믿음",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-12-2-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(로마서 12:2)의 알맞은 번역은?\n“Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.”",
+    "choices": [
+      "내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+      "내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+      "하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고",
+      "너희는 이 세대를 본받지 말고 오직 마음을 새롭게 함으로 변화를 받아 하나님의 선하시고 기뻐하시고 온전하신 뜻이 무엇인지 분별하도록 하라"
+    ],
+    "answer": 3,
+    "explanation": "로마서 12:2 (ESV)\nDo not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.\n너희는 이 세대를 본받지 말고 오직 마음을 새롭게 함으로 변화를 받아 하나님의 선하시고 기뻐하시고 온전하신 뜻이 무엇인지 분별하도록 하라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-12-2-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[로마서 12:2] 너희는 이 세대를 본받지 말고 오직 마음을 새롭게 함으로 변화를 받아 하나님의 선하시고 기뻐하시고 온전하신 뜻이 무엇인지 분별하도록 하라",
+    "answer": "Do not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.",
+    "explanation": "로마서 12:2 (ESV)\nDo not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-45-12-2-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (로마서 12:2)\n“Do not be conformed to this world, but be ______ by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.”",
+    "choices": [
+      "creation",
+      "transformed",
+      "rest",
+      "kingdom"
+    ],
+    "answer": 1,
+    "explanation": "로마서 12:2 (ESV)\nDo not be conformed to this world, but be transformed by the renewal of your mind, that by testing you may discern what is the will of God, what is good and acceptable and perfect.\n너희는 이 세대를 본받지 말고 오직 마음을 새롭게 함으로 변화를 받아 하나님의 선하시고 기뻐하시고 온전하신 뜻이 무엇인지 분별하도록 하라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-46-13-13-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(고린도전서 13:13)의 알맞은 번역은?\n“So now faith, hope, and love abide, these three; but the greatest of these is love.”",
+    "choices": [
+      "내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+      "모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니",
+      "그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라",
+      "태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라"
+    ],
+    "answer": 2,
+    "explanation": "고린도전서 13:13 (ESV)\nSo now faith, hope, and love abide, these three; but the greatest of these is love.\n그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "사랑",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-46-13-13-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[고린도전서 13:13] 그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라",
+    "answer": "So now faith, hope, and love abide, these three; but the greatest of these is love.",
+    "explanation": "고린도전서 13:13 (ESV)\nSo now faith, hope, and love abide, these three; but the greatest of these is love.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "사랑",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-46-13-13-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (고린도전서 13:13)\n“So now faith, hope, and ______ abide, these three; but the greatest of these is love.”",
+    "choices": [
+      "trials",
+      "love",
+      "breathed",
+      "anxious"
+    ],
+    "answer": 1,
+    "explanation": "고린도전서 13:13 (ESV)\nSo now faith, hope, and love abide, these three; but the greatest of these is love.\n그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "사랑",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-47-5-17-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(고린도후서 5:17)의 알맞은 번역은?\n“Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.”",
+    "choices": [
+      "그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고",
+      "그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다",
+      "내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+      "그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라"
+    ],
+    "answer": 1,
+    "explanation": "고린도후서 5:17 (ESV)\nTherefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.\n그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-47-5-17-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[고린도후서 5:17] 그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다",
+    "answer": "Therefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.",
+    "explanation": "고린도후서 5:17 (ESV)\nTherefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-47-5-17-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (고린도후서 5:17)\n“Therefore, if anyone is in Christ, he is a new ______. The old has passed away; behold, the new has come.”",
+    "choices": [
+      "gods",
+      "creation",
+      "shepherd",
+      "trials"
+    ],
+    "answer": 1,
+    "explanation": "고린도후서 5:17 (ESV)\nTherefore, if anyone is in Christ, he is a new creation. The old has passed away; behold, the new has come.\n그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-48-2-20-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(갈라디아서 2:20)의 알맞은 번역은?\n“I have been crucified with Christ. It is no longer I who live, but Christ who lives in me. And the life I now live in the flesh I live by faith in the Son of God, who loved me and gave himself for me.”",
+    "choices": [
+      "[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+      "오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과",
+      "예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니",
+      "내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라"
+    ],
+    "answer": 3,
+    "explanation": "갈라디아서 2:20 (ESV)\nI have been crucified with Christ. It is no longer I who live, but Christ who lives in me. And the life I now live in the flesh I live by faith in the Son of God, who loved me and gave himself for me.\n내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "믿음",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-48-2-20-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[갈라디아서 2:20] 내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라",
+    "answer": "I have been crucified with Christ. It is no longer I who live, but Christ who lives in me. And the life I now live in the flesh I live by faith in the Son of God, who loved me and gave himself for me.",
+    "explanation": "갈라디아서 2:20 (ESV)\nI have been crucified with Christ. It is no longer I who live, but Christ who lives in me. And the life I now live in the flesh I live by faith in the Son of God, who loved me and gave himself for me.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "믿음",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-48-2-20-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (갈라디아서 2:20)\n“I have been ______ with Christ. It is no longer I who live, but Christ who lives in me. And the life I now live in the flesh I live by faith in the Son of God, who loved me and gave himself for me.”",
+    "choices": [
+      "crucified",
+      "poor",
+      "courageous",
+      "confess"
+    ],
+    "answer": 0,
+    "explanation": "갈라디아서 2:20 (ESV)\nI have been crucified with Christ. It is no longer I who live, but Christ who lives in me. And the life I now live in the flesh I live by faith in the Son of God, who loved me and gave himself for me.\n내가 그리스도와 함께 십자가에 못 박혔나니 그런즉 이제는 내가 사는 것이 아니요 오직 내 안에 그리스도께서 사시는 것이라 이제 내가 육체 가운데 사는 것은 나를 사랑하사 나를 위하여 자기 자신을 버리신 하나님의 아들을 믿는 믿음 안에서 사는 것이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "믿음",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-48-5-22-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(갈라디아서 5:22)의 알맞은 번역은?\n“But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness,”",
+    "choices": [
+      "오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과",
+      "우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라",
+      "오직 성령이 너희에게 임하시면 너희가 권능을 받고 예루살렘과 온 유대와 사마리아와 땅 끝까지 이르러 내 증인이 되리라 하시니라",
+      "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라"
+    ],
+    "answer": 0,
+    "explanation": "갈라디아서 5:22 (ESV)\nBut the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness,\n오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-48-5-22-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[갈라디아서 5:22] 오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과",
+    "answer": "But the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness,",
+    "explanation": "갈라디아서 5:22 (ESV)\nBut the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness,",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-48-5-22-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (갈라디아서 5:22)\n“But the ______ of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness,”",
+    "choices": [
+      "sinners",
+      "fruit",
+      "priesthood",
+      "blessed"
+    ],
+    "answer": 1,
+    "explanation": "갈라디아서 5:22 (ESV)\nBut the fruit of the Spirit is love, joy, peace, patience, kindness, goodness, faithfulness,\n오직 성령의 열매는 사랑과 희락과 화평과 오래 참음과 자비와 양선과 충성과",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "거룩",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-49-2-8-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(에베소서 2:8)의 알맞은 번역은?\n“For by grace you have been saved through faith. And this is not your own doing; it is the gift of God,”",
+    "choices": [
+      "모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니",
+      "우리가 알거니와 하나님을 사랑하는 자 곧 그의 뜻대로 부르심을 입은 자들에게는 모든 것이 합력하여 선을 이루느니라",
+      "너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라",
+      "모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니"
+    ],
+    "answer": 2,
+    "explanation": "에베소서 2:8 (ESV)\nFor by grace you have been saved through faith. And this is not your own doing; it is the gift of God,\n너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "은혜",
+      "구원",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-49-2-8-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[에베소서 2:8] 너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라",
+    "answer": "For by grace you have been saved through faith. And this is not your own doing; it is the gift of God,",
+    "explanation": "에베소서 2:8 (ESV)\nFor by grace you have been saved through faith. And this is not your own doing; it is the gift of God,",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "은혜",
+      "구원",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-49-2-8-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (에베소서 2:8)\n“For by ______ you have been saved through faith. And this is not your own doing; it is the gift of God,”",
+    "choices": [
+      "image",
+      "sinned",
+      "trials",
+      "grace"
+    ],
+    "answer": 3,
+    "explanation": "에베소서 2:8 (ESV)\nFor by grace you have been saved through faith. And this is not your own doing; it is the gift of God,\n너희는 그 은혜에 의하여 믿음으로 말미암아 구원을 받았으니 이것은 너희에게서 난 것이 아니요 하나님의 선물이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "은혜",
+      "구원",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-50-4-6-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(빌립보서 4:6)의 알맞은 번역은?\n“do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.”",
+    "choices": [
+      "너는 나 외에는 다른 신들을 네게 두지 말라",
+      "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+      "아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라",
+      "심령이 가난한 자는 복이 있나니 천국이 그들의 것임이요"
+    ],
+    "answer": 2,
+    "explanation": "빌립보서 4:6 (ESV)\ndo not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.\n아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "기도",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-50-4-6-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[빌립보서 4:6] 아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라",
+    "answer": "do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.",
+    "explanation": "빌립보서 4:6 (ESV)\ndo not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "기도",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-50-4-6-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (빌립보서 4:6)\n“do not be ______ about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.”",
+    "choices": [
+      "anxious",
+      "trust",
+      "gods",
+      "assurance"
+    ],
+    "answer": 0,
+    "explanation": "빌립보서 4:6 (ESV)\ndo not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.\n아무 것도 염려하지 말고 다만 모든 일에 기도와 간구로, 너희 구할 것을 감사함으로 하나님께 아뢰라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "기도",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-50-4-13-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(빌립보서 4:13)의 알맞은 번역은?\n“I can do all things through him who strengthens me.”",
+    "choices": [
+      "너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+      "복 있는 사람은 악인들의 꾀를 따르지 아니하며 죄인들의 길에 서지 아니하며 오만한 자들의 자리에 앉지 아니하고",
+      "내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라",
+      "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라"
+    ],
+    "answer": 2,
+    "explanation": "빌립보서 4:13 (ESV)\nI can do all things through him who strengthens me.\n내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-50-4-13-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[빌립보서 4:13] 내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라",
+    "answer": "I can do all things through him who strengthens me.",
+    "explanation": "빌립보서 4:13 (ESV)\nI can do all things through him who strengthens me.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-50-4-13-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (빌립보서 4:13)\n“I can do all things through him who ______ me.”",
+    "choices": [
+      "Word",
+      "crucified",
+      "strengthens",
+      "priesthood"
+    ],
+    "answer": 2,
+    "explanation": "빌립보서 4:13 (ESV)\nI can do all things through him who strengthens me.\n내게 능력 주시는 자 안에서 내가 모든 것을 할 수 있느니라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-55-3-16-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(디모데후서 3:16)의 알맞은 번역은?\n“All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness,”",
+    "choices": [
+      "주의 말씀은 내 발에 등이요 내 길에 빛이니이다",
+      "태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라",
+      "내가 네게 명령한 것이 아니냐 강하고 담대하라 두려워하지 말며 놀라지 말라 네가 어디로 가든지 네 하나님 여호와가 너와 함께 하느니라 하시니라",
+      "모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니"
+    ],
+    "answer": 3,
+    "explanation": "디모데후서 3:16 (ESV)\nAll Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness,\n모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-55-3-16-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[디모데후서 3:16] 모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니",
+    "answer": "All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness,",
+    "explanation": "디모데후서 3:16 (ESV)\nAll Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness,",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-55-3-16-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (디모데후서 3:16)\n“All Scripture is ______ out by God and profitable for teaching, for reproof, for correction, and for training in righteousness,”",
+    "choices": [
+      "creation",
+      "anxious",
+      "breathed",
+      "blessed"
+    ],
+    "answer": 2,
+    "explanation": "디모데후서 3:16 (ESV)\nAll Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness,\n모든 성경은 하나님의 감동으로 된 것으로 교훈과 책망과 바르게 함과 의로 교육하기에 유익하니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "율법",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-58-11-1-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(히브리서 11:1)의 알맞은 번역은?\n“Now faith is the assurance of things hoped for, the conviction of things not seen.”",
+    "choices": [
+      "그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+      "태초에 말씀이 계시니라 이 말씀이 하나님과 함께 계셨으니 이 말씀은 곧 하나님이시니라",
+      "믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니",
+      "주의 말씀은 내 발에 등이요 내 길에 빛이니이다"
+    ],
+    "answer": 2,
+    "explanation": "히브리서 11:1 (ESV)\nNow faith is the assurance of things hoped for, the conviction of things not seen.\n믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "믿음",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-58-11-1-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[히브리서 11:1] 믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니",
+    "answer": "Now faith is the assurance of things hoped for, the conviction of things not seen.",
+    "explanation": "히브리서 11:1 (ESV)\nNow faith is the assurance of things hoped for, the conviction of things not seen.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "믿음",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-58-11-1-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (히브리서 11:1)\n“Now faith is the ______ of things hoped for, the conviction of things not seen.”",
+    "choices": [
+      "strengthens",
+      "assurance",
+      "fruit",
+      "kingdom"
+    ],
+    "answer": 1,
+    "explanation": "히브리서 11:1 (ESV)\nNow faith is the assurance of things hoped for, the conviction of things not seen.\n믿음은 바라는 것들의 실상이요 보이지 않는 것들의 증거니",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "믿음",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-59-1-2-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(야고보서 1:2)의 알맞은 번역은?\n“Count it all joy, my brothers, when you meet trials of various kinds,”",
+    "choices": [
+      "우리가 아직 죄인 되었을 때에 그리스도께서 우리를 위하여 죽으심으로 하나님께서 우리에 대한 자기의 사랑을 확증하셨느니라",
+      "내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+      "하나님이 세상을 이처럼 사랑하사 독생자를 주셨으니 이는 그를 믿는 자마다 멸망하지 않고 영생을 얻게 하려 하심이라",
+      "하나님이 자기 형상 곧 하나님의 형상대로 사람을 창조하시되 남자와 여자를 창조하시고"
+    ],
+    "answer": 1,
+    "explanation": "야고보서 1:2 (ESV)\nCount it all joy, my brothers, when you meet trials of various kinds,\n내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-59-1-2-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[야고보서 1:2] 내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+    "answer": "Count it all joy, my brothers, when you meet trials of various kinds,",
+    "explanation": "야고보서 1:2 (ESV)\nCount it all joy, my brothers, when you meet trials of various kinds,",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-59-1-2-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (야고보서 1:2)\n“Count it all joy, my brothers, when you meet ______ of various kinds,”",
+    "choices": [
+      "trials",
+      "blessed",
+      "kingdom",
+      "priesthood"
+    ],
+    "answer": 0,
+    "explanation": "야고보서 1:2 (ESV)\nCount it all joy, my brothers, when you meet trials of various kinds,\n내 형제들아 너희가 여러 가지 시험을 당하거든 온전히 기쁘게 여기라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-60-2-9-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(베드로전서 2:9)의 알맞은 번역은?\n“But you are a chosen race, a royal priesthood, a holy nation, a people for his own possession, that you may proclaim the excellencies of him who called you out of darkness into his marvelous light.”",
+    "choices": [
+      "그러므로 너희는 가서 모든 민족을 제자로 삼아 아버지와 아들과 성령의 이름으로 침례를 베풀고",
+      "그런즉 누구든지 그리스도 안에 있으면 새로운 피조물이라 이전 것은 지나갔으니 보라 새 것이 되었도다",
+      "[다윗의 시] 여호와는 나의 목자시니 내게 부족함이 없으리로다",
+      "그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라"
+    ],
+    "answer": 3,
+    "explanation": "베드로전서 2:9 (ESV)\nBut you are a chosen race, a royal priesthood, a holy nation, a people for his own possession, that you may proclaim the excellencies of him who called you out of darkness into his marvelous light.\n그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "거룩",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-60-2-9-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[베드로전서 2:9] 그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라",
+    "answer": "But you are a chosen race, a royal priesthood, a holy nation, a people for his own possession, that you may proclaim the excellencies of him who called you out of darkness into his marvelous light.",
+    "explanation": "베드로전서 2:9 (ESV)\nBut you are a chosen race, a royal priesthood, a holy nation, a people for his own possession, that you may proclaim the excellencies of him who called you out of darkness into his marvelous light.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "거룩",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-60-2-9-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (베드로전서 2:9)\n“But you are a chosen race, a royal ______, a holy nation, a people for his own possession, that you may proclaim the excellencies of him who called you out of darkness into his marvelous light.”",
+    "choices": [
+      "assurance",
+      "priesthood",
+      "kingdom",
+      "anxious"
+    ],
+    "answer": 1,
+    "explanation": "베드로전서 2:9 (ESV)\nBut you are a chosen race, a royal priesthood, a holy nation, a people for his own possession, that you may proclaim the excellencies of him who called you out of darkness into his marvelous light.\n그러나 너희는 택하신 족속이요 왕 같은 제사장들이요 거룩한 나라요 그의 소유가 된 백성이니 이는 너희를 어두운 데서 불러 내어 그의 기이한 빛에 들어가게 하신 이의 아름다운 덕을 선포하게 하려 하심이라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "교회",
+      "거룩",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-62-1-9-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(요한일서 1:9)의 알맞은 번역은?\n“If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.”",
+    "choices": [
+      "예수께서 이르시되 네 마음을 다하고 목숨을 다하고 뜻을 다하여 주 너의 하나님을 사랑하라 하셨으니",
+      "그런즉 너희는 먼저 그의 나라와 그의 의를 구하라 그리하면 이 모든 것을 너희에게 더하시리라",
+      "만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요",
+      "모든 사람이 죄를 범하였으매 하나님의 영광에 이르지 못하더니"
+    ],
+    "answer": 2,
+    "explanation": "요한일서 1:9 (ESV)\nIf we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.\n만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-62-1-9-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[요한일서 1:9] 만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요",
+    "answer": "If we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",
+    "explanation": "요한일서 1:9 (ESV)\nIf we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-62-1-9-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (요한일서 1:9)\n“If we ______ our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.”",
+    "choices": [
+      "pierced",
+      "loved",
+      "love",
+      "confess"
+    ],
+    "answer": 3,
+    "explanation": "요한일서 1:9 (ESV)\nIf we confess our sins, he is faithful and just to forgive us our sins and to cleanse us from all unrighteousness.\n만일 우리가 우리 죄를 자백하면 그는 미쁘시고 의로우사 우리 죄를 사하시며 우리를 모든 불의에서 깨끗하게 하실 것이요",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "구원",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-66-3-20-read",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "다음 성경 구절(요한계시록 3:20)의 알맞은 번역은?\n“Behold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.”",
+    "choices": [
+      "볼지어다 내가 문 밖에 서서 두드리노니 누구든지 내 음성을 듣고 문을 열면 내가 그에게로 들어가 그와 더불어 먹고 그는 나와 더불어 먹으리라",
+      "그가 찔림은 우리의 허물 때문이요 그가 상함은 우리의 죄악 때문이라 그가 징계를 받으므로 우리는 평화를 누리고 그가 채찍에 맞으므로 우리는 나음을 받았도다",
+      "너는 마음을 다하고 뜻을 다하고 힘을 다하여 네 하나님 여호와를 사랑하라",
+      "그런즉 믿음, 소망, 사랑, 이 세 가지는 항상 있을 것인데 그 중의 제일은 사랑이라"
+    ],
+    "answer": 0,
+    "explanation": "요한계시록 3:20 (ESV)\nBehold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.\n볼지어다 내가 문 밖에 서서 두드리노니 누구든지 내 음성을 듣고 문을 열면 내가 그에게로 들어가 그와 더불어 먹고 그는 나와 더불어 먹으리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "독해",
+      "영한"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-66-3-20-recite",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "short",
+    "question": "다음 구절을 영어(ESV)로 암송해 보세요.\n[요한계시록 3:20] 볼지어다 내가 문 밖에 서서 두드리노니 누구든지 내 음성을 듣고 문을 열면 내가 그에게로 들어가 그와 더불어 먹고 그는 나와 더불어 먹으리라",
+    "answer": "Behold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.",
+    "explanation": "요한계시록 3:20 (ESV)\nBehold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "암송",
+      "한영"
+    ],
+    "source": "bible-english"
+  },
+  {
+    "id": "bible-en-66-3-20-cloze",
+    "seminary": "chongshin",
+    "year": null,
+    "subject": "영어",
+    "type": "multiple",
+    "question": "빈칸에 알맞은 단어는? (요한계시록 3:20)\n“Behold, I stand at the ______ and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.”",
+    "choices": [
+      "renew",
+      "kingdom",
+      "door",
+      "fruit"
+    ],
+    "answer": 2,
+    "explanation": "요한계시록 3:20 (ESV)\nBehold, I stand at the door and knock. If anyone hears my voice and opens the door, I will come in to him and eat with him, and he with me.\n볼지어다 내가 문 밖에 서서 두드리노니 누구든지 내 음성을 듣고 문을 열면 내가 그에게로 들어가 그와 더불어 먹고 그는 나와 더불어 먹으리라",
+    "tags": [
+      "성경영어",
+      "신대원영어",
+      "소망",
+      "빈칸",
+      "어휘"
+    ],
+    "source": "bible-english"
+  }
+]
