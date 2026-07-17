@@ -8,6 +8,10 @@ const PAGE_SIZE = 40;
 const TAG_PRESETS = [
   { value: "", label: "전체" },
   { value: "기출", label: "기출" },
+  { value: "문제은행", label: "성경고사 문제은행" },
+  { value: "2026문제은행", label: "2026 문제은행" },
+  { value: "구약", label: "구약" },
+  { value: "신약", label: "신약" },
   { value: "단어장300", label: "단어장300" },
   { value: "성경영어", label: "성경영어(ESV)" },
   { value: "문법", label: "문법" },

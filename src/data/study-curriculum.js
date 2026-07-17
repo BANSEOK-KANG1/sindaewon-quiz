@@ -24,6 +24,25 @@ export const BIBLE_BOOK_TRACKS = [
   { tag: "느헤미야", label: "느헤미야", tier: "B", hint: "성벽 재건" },
 ];
 
+/** 2026 성경고사 문제은행 PDF + 정답지 기반 */
+export const BIBLE_BANK_TRACKS = [
+  { label: "문제은행 전체", tags: ["문제은행"], hint: "구약+신약 400문항", recommend: 20 },
+  { label: "문제은행 구약", tags: ["문제은행", "구약"], hint: "구약 200문항", recommend: 20 },
+  { label: "문제은행 신약", tags: ["문제은행", "신약"], hint: "신약 200문항", recommend: 20 },
+  { label: "문제은행 모의고사", tags: ["2026문제은행"], hint: "객관식 랜덤 30문항", recommend: 30, mode: "exam" },
+];
+
+/** 2020–2022 HWP 원문 기출 (정답 매칭 완료) */
+export const ORIGINAL_EXAM_TRACKS = [
+  { label: "원문기출 전체", tags: ["원문기출"], hint: "20–22 영어+성경 300문항", recommend: 20 },
+  { label: "2022 영어", tags: ["2022학년도"], subject: "영어", hint: "50문항", recommend: 25, mode: "exam" },
+  { label: "2022 성경", tags: ["2022학년도"], subject: "성경", hint: "50문항", recommend: 25, mode: "exam" },
+  { label: "2021 영어", tags: ["2021학년도"], subject: "영어", hint: "50문항", recommend: 25, mode: "exam" },
+  { label: "2021 성경", tags: ["2021학년도"], subject: "성경", hint: "50문항", recommend: 25, mode: "exam" },
+  { label: "2020 영어", tags: ["2020학년도"], subject: "영어", hint: "50문항", recommend: 25, mode: "exam" },
+  { label: "2020 성경", tags: ["2020학년도"], subject: "성경", hint: "50문항", recommend: 25, mode: "exam" },
+];
+
 /** 시험 출제 유형별 */
 export const EXAM_TYPE_TRACKS = [
   { tag: "신_유형", label: "신(약) 유형", hint: "가장 많이 나오는 필답 유형", recommend: 20 },

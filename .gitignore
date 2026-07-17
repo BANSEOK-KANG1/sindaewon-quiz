@@ -8,6 +8,10 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.venv-tools
+__pycache__
+scripts/__pycache__
+scripts/extracted-hwp
 dist
 dist-ssr
 *.local

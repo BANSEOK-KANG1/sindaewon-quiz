@@ -8,6 +8,8 @@ import {
 } from "../data/questions.js";
 import {
   BIBLE_BOOK_TRACKS,
+  BIBLE_BANK_TRACKS,
+  ORIGINAL_EXAM_TRACKS,
   EXAM_TYPE_TRACKS,
   VOCAB_DAY_TRACKS,
   ENGLISH_DRILL_TRACKS,
@@ -79,17 +81,26 @@ function displayQuestion(session, q) {
     session.choiceOrders[q.id] = order;
     saveQuizSession(session);
   }
+  const remap = (ans) =>
+    Array.isArray(ans) ? ans.map((i) => order.indexOf(i)).filter((i) => i >= 0) : order.indexOf(ans);
   return {
     ...q,
     choices: order.map((i) => q.choices[i]),
-    answer: order.indexOf(q.answer),
+    answer: remap(q.answer),
   };
+}
+
+function isChoiceCorrect(answer, idx) {
+  return Array.isArray(answer) ? answer.includes(idx) : idx === answer;
 }
 
 function formatAnswer(q) {
   if (q.type === "multiple" && Array.isArray(q.choices)) {
-    const i = q.answer;
-    return `${CIRCLE[i] || ""} ${q.choices[i] ?? q.answer}`.trim();
+    const idxs = Array.isArray(q.answer) ? q.answer : [q.answer];
+    return idxs
+      .map((i) => `${CIRCLE[i] || ""} ${q.choices[i] ?? ""}`.trim())
+      .filter(Boolean)
+      .join(" / ");
   }
   return String(q.answer ?? "");
 }
@@ -181,7 +192,13 @@ export async function renderQuiz(root) {
         const tagsRaw = btn.dataset.tags || btn.dataset.tag || "";
         const tags = tagsRaw ? tagsRaw.split(",").map((t) => t.trim()).filter(Boolean) : [];
         const tagsMode = btn.dataset.tagsMode || "all";
-        const subject = btn.dataset.subject || (tags.includes("영어") ? "영어" : tags.length ? "성경" : "");
+        const subject = btn.hasAttribute("data-subject")
+          ? btn.dataset.subject
+          : tags.includes("영어")
+            ? "영어"
+            : tags.length
+              ? "성경"
+              : "";
 
         let pool = filterQuestions(all, {
           seminary: btn.dataset.seminary || "chongshin",
@@ -317,7 +334,7 @@ function renderSetup(questions, q) {
 
   function renderTopicRow(track, index, opts = {}) {
     const tags = opts.tags || (track.tag ? ["기출", track.tag] : [track.tag]);
-    const subject = opts.subject || track.subject || "성경";
+    const subject = "subject" in opts ? opts.subject : track.subject || "성경";
     const mode = opts.mode || track.mode || "study";
     const ts = getTopicStats(
       questions,
@@ -532,6 +549,40 @@ function renderSetup(questions, q) {
 
     <section class="study-section card">
       <div class="study-section-head">
+        <h2>성경고사 문제은행 2026</h2>
+        <p class="muted small">문제은행 PDF + 정답지 기반 · 구약 200 + 신약 200</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${BIBLE_BANK_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: "성경",
+            mode: t.mode || "study",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>원문 기출 2020–2022</h2>
+        <p class="muted small">HWP 기출 + 정답 매칭 · 연도별 영어/성경 50문항</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${ORIGINAL_EXAM_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: t.subject || "",
+            mode: t.mode || "study",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
         <h2>기출 다빈도 — 성경 권별</h2>
         <p class="muted small">총신 00–14 · S필수 → A중요 순으로 공략</p>
       </div>
@@ -605,6 +656,10 @@ function renderSetup(questions, q) {
           <select name="tag">
             <option value="">전체</option>
             <option value="기출">기출</option>
+            <option value="문제은행">성경고사 문제은행</option>
+            <option value="2026문제은행">2026 문제은행</option>
+            <option value="구약">구약</option>
+            <option value="신약">신약</option>
             <option value="단어장300">단어장300</option>
             <option value="성경영어">성경영어(ESV)</option>
             <option value="문법">문법</option>
@@ -733,7 +788,7 @@ function renderActive(root, session, allQuestions, onFinish) {
         return;
       }
       const idx = parseInt(btn.dataset.index, 10);
-      commitAnswer(session, dq, idx, idx === dq.answer, root, allQuestions, onFinish);
+      commitAnswer(session, dq, idx, isChoiceCorrect(dq.answer, idx), root, allQuestions, onFinish);
     });
   });
 

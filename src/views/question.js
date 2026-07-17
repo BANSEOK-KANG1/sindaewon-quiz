@@ -5,6 +5,10 @@ import { toggleBookmark, isBookmarked } from "../storage/progress.js";
 
 const CIRCLE = ["①", "②", "③", "④"];
 
+function isChoiceCorrect(answer, idx) {
+  return Array.isArray(answer) ? answer.includes(idx) : idx === answer;
+}
+
 export async function renderQuestion(root, { id }) {
   const questions = await loadQuestions();
   const q = getQuestionById(questions, id);
@@ -23,7 +27,7 @@ export async function renderQuestion(root, { id }) {
             .map(
               (c, i) =>
                 `<li>${CIRCLE[i]} ${escapeHtml(c)}${
-                  showAnswer && i === q.answer ? ' <span class="correct">정답</span>' : ""
+                  showAnswer && isChoiceCorrect(q.answer, i) ? ' <span class="correct">정답</span>' : ""
                 }</li>`
             )
             .join("")}</ol>`

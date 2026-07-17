@@ -9,6 +9,8 @@ export async function renderHome(root) {
   const counts = countBySeminaryAndSubject(questions);
   const total = questions.length;
   const grad = questions.filter((q) => q.tags?.includes("기출")).length;
+  const bibleBank = questions.filter((q) => q.tags?.includes("문제은행")).length;
+  const originalExam = questions.filter((q) => q.tags?.includes("원문기출")).length;
   const vocab = questions.filter((q) => q.tags?.includes("단어장300")).length;
   const memory = questions.filter((q) => q.tags?.includes("암송")).length;
   const today = getTodayProgress(30);
@@ -52,6 +54,16 @@ export async function renderHome(root) {
         <strong>기출 학습 10</strong>
         <span>해설 보면서 복습</span>
       </a>
+      <a class="mode-card" href="#/quiz?mode=exam&tags=원문기출&count=25&auto=1">
+        <span class="mode-kicker">원문기출</span>
+        <strong>20–22 기출 25</strong>
+        <span>영어·성경 HWP</span>
+      </a>
+      <a class="mode-card" href="#/quiz?mode=exam&tags=2026문제은행&subject=성경&count=30&auto=1">
+        <span class="mode-kicker">문제은행</span>
+        <strong>성경고사 30</strong>
+        <span>2026 문제은행</span>
+      </a>
       <a class="mode-card" href="#/quiz?mode=study&tags=동의어&subject=영어&count=15&auto=1">
         <span class="mode-kicker">영어</span>
         <strong>동의어 드릴</strong>
@@ -91,7 +103,7 @@ export async function renderHome(root) {
         .join("")}
     </section>
 
-    <p class="muted small home-footnote">기출 ${grad.toLocaleString("ko-KR")} · 단어장 ${vocab.toLocaleString("ko-KR")} · 암송 ${memory}. 하단 <strong>학습</strong>에서 15일 영어 코스와 권별 전략을 고르세요.</p>
+    <p class="muted small home-footnote">기출 ${grad.toLocaleString("ko-KR")} · 원문기출 ${originalExam.toLocaleString("ko-KR")} · 문제은행 ${bibleBank.toLocaleString("ko-KR")} · 단어장 ${vocab.toLocaleString("ko-KR")} · 암송 ${memory}. 하단 <strong>학습</strong>에서 15일 영어 코스와 권별 전략을 고르세요.</p>
   `;
 
   root.querySelectorAll("a[href^='#']").forEach((a) => {
