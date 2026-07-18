@@ -18,7 +18,7 @@ function mergeWithPasted(base) {
 
 export async function loadQuestions() {
   if (cache) return cache;
-  const res = await fetch("/data/questions.json");
+  const res = await fetch(`${import.meta.env.BASE_URL}data/questions.json`);
   if (!res.ok) throw new Error("문제 데이터를 불러오지 못했습니다.");
   const data = await res.json();
   cache = mergeWithPasted(data.questions || []);
