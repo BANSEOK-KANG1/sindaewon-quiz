@@ -7,9 +7,16 @@ const PAGE_SIZE = 40;
 
 const TAG_PRESETS = [
   { value: "", label: "전체" },
+  { value: "필수", label: "필수 (가중치5)" },
+  { value: "중요", label: "중요" },
+  { value: "권장", label: "권장" },
+  { value: "신_유형", label: "신(약) 유형" },
+  { value: "성종유형", label: "성종유형" },
+  { value: "신유형", label: "신유형" },
+  { value: "목유형", label: "목유형" },
   { value: "기출", label: "기출" },
+  { value: "원문기출", label: "원문기출 20–22" },
   { value: "문제은행", label: "성경고사 문제은행" },
-  { value: "2026문제은행", label: "2026 문제은행" },
   { value: "구약", label: "구약" },
   { value: "신약", label: "신약" },
   { value: "단어장300", label: "단어장300" },
@@ -22,13 +29,10 @@ const TAG_PRESETS = [
   { value: "신학영어", label: "신학영어" },
   { value: "구문", label: "구문" },
   { value: "기출어휘", label: "기출어휘" },
-  { value: "Day1", label: "Day1" },
-  { value: "Day10", label: "Day10 신학" },
   { value: "암송", label: "암송" },
   { value: "창세기", label: "창세기" },
   { value: "시편", label: "시편" },
   { value: "이사야", label: "이사야" },
-  { value: "신_유형", label: "신(약) 유형" },
 ];
 
 export async function renderBrowse(root) {

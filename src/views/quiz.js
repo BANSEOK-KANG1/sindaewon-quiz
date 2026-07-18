@@ -8,8 +8,8 @@ import {
 } from "../data/questions.js";
 import {
   BIBLE_BOOK_TRACKS,
-  BIBLE_BANK_TRACKS,
-  ORIGINAL_EXAM_TRACKS,
+  PRACTICE_TRACKS,
+  IMPORTANCE_TRACKS,
   EXAM_TYPE_TRACKS,
   VOCAB_DAY_TRACKS,
   ENGLISH_DRILL_TRACKS,
@@ -21,6 +21,7 @@ import {
   recommendCount,
   suggestVocabDay,
   suggestBibleFocus,
+  suggestExamTypeFocus,
   currentPhase,
 } from "../data/study-curriculum.js";
 import { getQuery, navigate } from "../router.js";
@@ -58,9 +59,11 @@ function pickQuizPool(filtered, count, { mode = "study" } = {}) {
   const wrongIds = new Set(getWrongNotes().map((n) => n.questionId));
   const exposure = getExposureCounts();
 
-  // 매번 다르게: 랜덤 키에 오답·미출제 문제만 약간 가중
+  // 매번 다르게: 중요도(weight) + 오답·미출제 가중
   const scored = pool.map((q) => {
     let key = Math.random();
+    const w = typeof q.weight === "number" ? q.weight : (q.tags || []).includes("필수") ? 5 : (q.tags || []).includes("중요") ? 3 : 1;
+    key += w * 0.12;
     if (wrongIds.has(q.id)) key += 0.4;
     if (!exposure[q.id]) key += 0.2;
     return { q, key };
@@ -327,10 +330,11 @@ function renderSetup(questions, q) {
   const statCtx = { exposure, wrongIds };
 
   const gichulTotal = filterQuestions(questions, { seminary: "chongshin", tags: ["기출"] }).length;
-  const vocabTotal = filterQuestions(questions, { seminary: "chongshin", subject: "영어", tags: ["단어장300"] }).length;
   const vocabDay = suggestVocabDay(questions, exposure);
   const bibleFocus = suggestBibleFocus(questions, exposure);
+  const typeFocus = suggestExamTypeFocus(questions, exposure);
   const phase = currentPhase(vocabDay);
+  const mustTotal = filterQuestions(questions, { seminary: "chongshin", tags: ["필수"] }).length;
 
   function renderTopicRow(track, index, opts = {}) {
     const tags = opts.tags || (track.tag ? ["기출", track.tag] : [track.tag]);
@@ -345,11 +349,14 @@ function renderSetup(questions, q) {
     const count = opts.count || recommendCount(ts.total, track.recommend || 15);
     const tier = track.tier
       ? `<span class="topic-tier tier-${track.tier.toLowerCase()}">${TIER_LABELS[track.tier] || track.tier}</span>`
-      : track.focus
-        ? `<span class="topic-tier tier-a">${track.focus}</span>`
-        : "";
+      : track.weight
+        ? `<span class="topic-tier tier-${track.weight >= 5 ? "s" : track.weight >= 3 ? "a" : "b"}">W${track.weight}</span>`
+        : track.focus
+          ? `<span class="topic-tier tier-a">${track.focus}</span>`
+          : "";
     const wrongBadge = ts.wrong ? `<span class="topic-wrong">${ts.wrong}오답</span>` : "";
     const hint = opts.hint || track.hint || track.theme || "";
+    const countHint = track.count ? ` · 빈도 ${track.count}` : "";
     return `
       <button type="button" class="topic-row" data-quick
         data-mode="${mode}"
@@ -359,7 +366,7 @@ function renderSetup(questions, q) {
         ${index != null ? `<span class="topic-rank">${index}</span>` : ""}
         <div class="topic-info">
           <strong>${track.label}${track.theme ? ` · ${track.theme}` : ""}</strong>
-          <span class="muted small">${hint}${track.range ? ` · ${track.range}` : ""}</span>
+          <span class="muted small">${hint}${track.range ? ` · ${track.range}` : ""}${countHint}</span>
           <span class="topic-meta">${ts.total}문항 · ${ts.pct}% 학습${wrongBadge ? ` · ${wrongBadge}` : ""}</span>
         </div>
         ${tier}
@@ -375,7 +382,7 @@ function renderSetup(questions, q) {
   return `
     <header class="page-header">
       <h1>학습</h1>
-      <p class="muted">오늘 ${today.answered}/${today.goal} · 연속 ${today.streak}일 · 기출 ${gichulTotal.toLocaleString("ko-KR")} · 단어장 ${vocabTotal.toLocaleString("ko-KR")}</p>
+      <p class="muted">총신 중심 · 오늘 ${today.answered}/${today.goal} · 필수 ${mustTotal.toLocaleString("ko-KR")} · 기출 ${gichulTotal.toLocaleString("ko-KR")}</p>
     </header>
 
     <div class="daily-goal card">
@@ -389,36 +396,42 @@ function renderSetup(questions, q) {
 
     <section class="strategy-card card">
       <p class="mode-kicker">오늘 전략 · ${phase.label}</p>
-      <h2 class="strategy-title">${bibleFocus.label} + ${vocabDay.label}</h2>
+      <h2 class="strategy-title">${typeFocus.label} → ${bibleFocus.label} → ${vocabDay.label}</h2>
       <p class="muted small">${phase.goal}</p>
       <ol class="strategy-steps">
-        <li><strong>성경 ${bibleFocus.label}</strong> — ${bibleFocus.hint || ""} (${bibleFocus.pct}% 학습)</li>
-        <li><strong>영어 ${vocabDay.label}</strong> — ${vocabDay.theme} · ${vocabDay.range} (${vocabDay.pct}% 학습)</li>
-        <li><strong>회상</strong> — 한→영 플래시로 오늘 단어 재확인</li>
+        <li><strong>유형 ${typeFocus.label}</strong> — ${typeFocus.hint || ""} (${typeFocus.pct}% 학습)</li>
+        <li><strong>권 ${bibleFocus.label}</strong> — ${bibleFocus.hint || ""} (${bibleFocus.pct}% 학습)</li>
+        <li><strong>영어 ${vocabDay.label}</strong> — ${vocabDay.theme} (${vocabDay.pct}% 학습)</li>
       </ol>
       <div class="strategy-actions">
         <button type="button" class="btn btn-primary" data-quick
-          data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-count="10">
-          성경 10문항
+          data-mode="study" data-tags="${typeFocus.tag}" data-subject="성경" data-count="15">
+          유형 15
         </button>
         <button type="button" class="btn btn-secondary" data-quick
-          data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-count="20">
-          단어 영→한 20
+          data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-count="10">
+          권별 10
         </button>
         <button type="button" class="btn btn-ghost" data-quick
-          data-mode="flash" data-tags="${vocabDay.tag},한영" data-subject="영어" data-count="20">
-          한→영 회상
+          data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-count="20">
+          영→한 20
         </button>
       </div>
-      <p class="muted small strategy-note">루틴: 신규 20개 → 유의·반의어 → 예문 → 가림 회상 → 전날 누적 복습</p>
+      <p class="muted small strategy-note">공략 순서: 기출 유형 가중치 → 다빈도 권 → 실전 모의 → 영어</p>
     </section>
 
     <section class="mode-grid">
       <button type="button" class="mode-card mode-study" data-quick
-        data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-count="10">
-        <span class="mode-kicker">추천</span>
-        <strong>${bibleFocus.label} 10</strong>
-        <span>다빈도 권 · 해설</span>
+        data-mode="study" data-tags="필수" data-subject="성경" data-count="15">
+        <span class="mode-kicker">필수</span>
+        <strong>필수 가중 15</strong>
+        <span>가중치 5</span>
+      </button>
+      <button type="button" class="mode-card" data-quick
+        data-mode="study" data-tags="${typeFocus.tag}" data-subject="성경" data-count="15">
+        <span class="mode-kicker">유형</span>
+        <strong>${typeFocus.label}</strong>
+        <span>${typeFocus.hint || ""}</span>
       </button>
       <button type="button" class="mode-card" data-quick
         data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-count="20">
@@ -427,15 +440,9 @@ function renderSetup(questions, q) {
         <span>${vocabDay.theme}</span>
       </button>
       <button type="button" class="mode-card" data-quick
-        data-mode="flash" data-tags="한영" data-subject="영어" data-count="20">
-        <span class="mode-kicker">회상</span>
-        <strong>한→영 플래시</strong>
-        <span>뜻 보고 단어 맞히기</span>
-      </button>
-      <button type="button" class="mode-card" data-quick
-        data-mode="exam" data-tags="기출" data-subject="성경" data-count="20">
-        <span class="mode-kicker">도전</span>
-        <strong>기출 시험 20</strong>
+        data-mode="exam" data-tags="필수" data-count="25">
+        <span class="mode-kicker">모의</span>
+        <strong>필수 시험 25</strong>
         <span>점수 집중</span>
       </button>
     </section>
@@ -449,9 +456,68 @@ function renderSetup(questions, q) {
         : ""
     }
 
+    <section class="study-section card study-section-accent">
+      <div class="study-section-head">
+        <h2>1. 기출 유형 (가중치)</h2>
+        <p class="muted small">신_유형 → 성종·신유형 → 목유형 → 학기형 순으로 공략</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${IMPORTANCE_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: [t.tag],
+            subject: "성경",
+            mode: t.mode,
+            count: t.recommend,
+          })
+        ).join("")}
+        ${EXAM_TYPE_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: [t.tag],
+            subject: "성경",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+    </section>
+
     <section class="study-section card">
       <div class="study-section-head">
-        <h2>영어 단어장 300 · 15일</h2>
+        <h2>2. 성경 권별 (출제 빈도)</h2>
+        <p class="muted small">기출·문제은행·원문 합산 · S필수 → A중요</p>
+      </div>
+      <div class="topic-list">
+        ${topBooks.map((t, i) => renderTopicRow(t, i + 1)).join("")}
+      </div>
+      ${
+        moreBooks.length
+          ? `<details class="topic-more">
+              <summary>11위 이하 더 보기 (${moreBooks.length}권)</summary>
+              <div class="topic-list">${moreBooks.map((t, i) => renderTopicRow(t, i + 11)).join("")}</div>
+            </details>`
+          : ""
+      }
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>3. 실전 세트</h2>
+        <p class="muted small">필수 모의 · 통합 기출 · 원문기출 · 문제은행</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${PRACTICE_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: t.subject || "",
+            mode: t.mode || "exam",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>4. 영어 단어장 300 · 15일</h2>
         <p class="muted small">2020–22 기출 맞춤 · 뜻·동의어·반의어·예문 묶음</p>
       </div>
       <div class="topic-list">
@@ -485,8 +551,8 @@ function renderSetup(questions, q) {
 
     <section class="study-section card">
       <div class="study-section-head">
-        <h2>영어 회독 방식</h2>
-        <p class="muted small">1회독 영한 → 2회독 한영 → 3회독 동의·반의어 → 신학·구문</p>
+        <h2>영어 회독 · 성경영어 · 문법</h2>
+        <p class="muted small">회독 방식 / ESV 병행 / 빈출 문법</p>
       </div>
       <div class="topic-list topic-list-compact">
         ${ENGLISH_DRILL_TRACKS.map((t) =>
@@ -497,15 +563,6 @@ function renderSetup(questions, q) {
             count: t.recommend,
           })
         ).join("")}
-      </div>
-    </section>
-
-    <section class="study-section card study-section-accent">
-      <div class="study-section-head">
-        <h2>신대원 전용 · 성경 영어</h2>
-        <p class="muted small">ESV + 개역개정 병행 · 독해·암송·핵심 신학어</p>
-      </div>
-      <div class="topic-list">
         ${BIBLE_ENGLISH_TRACKS.map((t) =>
           renderTopicRow(t, null, {
             tags: t.tags,
@@ -515,23 +572,7 @@ function renderSetup(questions, q) {
           })
         ).join("")}
       </div>
-      <details class="topic-more">
-        <summary>주제별 (구원·은혜·믿음·사랑…)</summary>
-        <div class="keyword-chips" style="padding-top:0.75rem">
-          ${BIBLE_ENGLISH_THEMES.map(
-            (t) =>
-              `<button type="button" class="chip-btn" data-quick data-mode="study" data-tags="성경영어,${t.tag}" data-subject="영어" data-count="10" title="${t.hint}">${t.label}</button>`
-          ).join("")}
-        </div>
-      </details>
-    </section>
-
-    <section class="study-section card">
-      <div class="study-section-head">
-        <h2>영어 문법</h2>
-        <p class="muted small">관계대명사·가정법·분사·수동태 등 필답 빈출 문법</p>
-      </div>
-      <button type="button" class="btn btn-secondary btn-block" style="margin:0 1rem 0.5rem;width:auto"
+      <button type="button" class="btn btn-secondary btn-block" style="margin:0.75rem 1rem 0.5rem;width:auto"
         data-quick data-mode="study" data-tags="문법,신대원영어" data-subject="영어" data-count="20">
         문법 종합 20문항
       </button>
@@ -545,68 +586,15 @@ function renderSetup(questions, q) {
           })
         ).join("")}
       </div>
-    </section>
-
-    <section class="study-section card">
-      <div class="study-section-head">
-        <h2>성경고사 문제은행 2026</h2>
-        <p class="muted small">문제은행 PDF + 정답지 기반 · 구약 200 + 신약 200</p>
-      </div>
-      <div class="topic-list topic-list-compact">
-        ${BIBLE_BANK_TRACKS.map((t) =>
-          renderTopicRow(t, null, {
-            tags: t.tags,
-            subject: "성경",
-            mode: t.mode || "study",
-            count: t.recommend,
-          })
-        ).join("")}
-      </div>
-    </section>
-
-    <section class="study-section card">
-      <div class="study-section-head">
-        <h2>원문 기출 2020–2022</h2>
-        <p class="muted small">HWP 기출 + 정답 매칭 · 연도별 영어/성경 50문항</p>
-      </div>
-      <div class="topic-list topic-list-compact">
-        ${ORIGINAL_EXAM_TRACKS.map((t) =>
-          renderTopicRow(t, null, {
-            tags: t.tags,
-            subject: t.subject || "",
-            mode: t.mode || "study",
-            count: t.recommend,
-          })
-        ).join("")}
-      </div>
-    </section>
-
-    <section class="study-section card">
-      <div class="study-section-head">
-        <h2>기출 다빈도 — 성경 권별</h2>
-        <p class="muted small">총신 00–14 · S필수 → A중요 순으로 공략</p>
-      </div>
-      <div class="topic-list">
-        ${topBooks.map((t, i) => renderTopicRow(t, i + 1)).join("")}
-      </div>
-      ${
-        moreBooks.length
-          ? `<details class="topic-more">
-              <summary>11위 이하 더 보기 (${moreBooks.length}권)</summary>
-              <div class="topic-list">${moreBooks.map((t, i) => renderTopicRow(t, i + 11)).join("")}</div>
-            </details>`
-          : ""
-      }
-    </section>
-
-    <section class="study-section card">
-      <div class="study-section-head">
-        <h2>시험 유형별</h2>
-        <p class="muted small">필답 출제 패턴 · 3단계에서 집중</p>
-      </div>
-      <div class="topic-list topic-list-compact">
-        ${EXAM_TYPE_TRACKS.map((t) => renderTopicRow(t, null, { tags: ["기출", t.tag] })).join("")}
-      </div>
+      <details class="topic-more">
+        <summary>성경영어 주제별</summary>
+        <div class="keyword-chips" style="padding-top:0.75rem">
+          ${BIBLE_ENGLISH_THEMES.map(
+            (t) =>
+              `<button type="button" class="chip-btn" data-quick data-mode="study" data-tags="성경영어,${t.tag}" data-subject="영어" data-count="10" title="${t.hint}">${t.label}</button>`
+          ).join("")}
+        </div>
+      </details>
     </section>
 
     <section class="study-section card">
@@ -655,7 +643,13 @@ function renderSetup(questions, q) {
         <label>태그
           <select name="tag">
             <option value="">전체</option>
+            <option value="필수">필수 (가중치5)</option>
+            <option value="중요">중요</option>
+            <option value="권장">권장</option>
             <option value="기출">기출</option>
+            <option value="신_유형">신(약) 유형</option>
+            <option value="성종유형">성종유형</option>
+            <option value="원문기출">원문기출</option>
             <option value="문제은행">성경고사 문제은행</option>
             <option value="2026문제은행">2026 문제은행</option>
             <option value="구약">구약</option>

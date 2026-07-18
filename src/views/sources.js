@@ -12,9 +12,10 @@ const CHECKLIST = [
   { id: "cs-bible-2017", label: "총신 성경 2017" },
   { id: "cs-bible-2018", label: "총신 성경 2018" },
   { id: "cs-bible-2019", label: "총신 성경 2019" },
-  { id: "cs-bible-2020", label: "총신 성경 2020" },
+  { id: "cs-bible-2020", label: "총신 성경 2020–22 원문" },
   { id: "cs-english-recent", label: "총신 영어 (최근 연도)" },
-  { id: "js-bible-book", label: "장신 성경문제집 (출판부)" },
+  { id: "cs-bank-2026", label: "총신 성경고사 문제은행 2026" },
+  { id: "js-bible-book", label: "장신 기출 (미수집 · 추후)" },
   { id: "community-verify", label: "커뮤니티 자료 교차검증" },
 ];
 
