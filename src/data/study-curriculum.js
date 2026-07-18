@@ -143,7 +143,7 @@ export const PRACTICE_TRACKS = [
 
 /** 장신 대학 성경종합고사 문제집 [구약] — 정답 미수록(탐색·표시용) */
 export const JANGSIN_TRACKS = [
-  { label: "장신 구약 전체", tags: ["장신"], hint: "문제집 300문항 · 정답 추후 반영", recommend: 20, subject: "성경", seminary: "jangsin", mode: "study" },
+  { label: "장신 구약 전체", tags: ["장신", "장신기출"], hint: "문제집 300문항 · 정답 추후 반영", recommend: 20, subject: "성경", seminary: "jangsin", mode: "study" },
   { label: "난이도 A (기초)", tags: ["장신", "난이도A"], hint: "필수 기초", recommend: 15, subject: "성경", seminary: "jangsin" },
   { label: "난이도 B", tags: ["장신", "난이도B"], hint: "중요", recommend: 15, subject: "성경", seminary: "jangsin" },
   { label: "난이도 C", tags: ["장신", "난이도C"], hint: "심화", recommend: 15, subject: "성경", seminary: "jangsin" },
@@ -376,11 +376,14 @@ export function suggestVocabDay(questions, exposure = {}) {
   return { ...last, pct: 100, total: 20, seen: 20, done: true };
 }
 
-/** 노출이 낮은 다빈도 권 우선 */
-export function suggestBibleFocus(questions, exposure = {}) {
+/** 노출이 낮은 다빈도 권 우선 (총신 기출만) */
+export function suggestBibleFocus(questions, exposure = {}, seminary = "chongshin") {
   for (const book of BIBLE_BOOK_TRACKS) {
     const pool = questions.filter(
-      (q) => (q.tags || []).includes("기출") && (q.tags || []).includes(book.tag)
+      (q) =>
+        q.seminary === seminary &&
+        (q.tags || []).includes("기출") &&
+        (q.tags || []).includes(book.tag)
     );
     if (!pool.length) continue;
     const seen = pool.filter((q) => exposure[q.id]).length;
@@ -392,10 +395,12 @@ export function suggestBibleFocus(questions, exposure = {}) {
   return { ...BIBLE_BOOK_TRACKS[0], pct: 100, total: 0, seen: 0, done: true };
 }
 
-/** 노출이 낮은 고가중 유형 우선 */
-export function suggestExamTypeFocus(questions, exposure = {}) {
+/** 노출이 낮은 고가중 유형 우선 (총신만) */
+export function suggestExamTypeFocus(questions, exposure = {}, seminary = "chongshin") {
   for (const track of EXAM_TYPE_TRACKS) {
-    const pool = questions.filter((q) => (q.tags || []).includes(track.tag));
+    const pool = questions.filter(
+      (q) => q.seminary === seminary && (q.tags || []).includes(track.tag)
+    );
     if (!pool.length) continue;
     const seen = pool.filter((q) => exposure[q.id]).length;
     const pct = Math.round((seen / pool.length) * 100);

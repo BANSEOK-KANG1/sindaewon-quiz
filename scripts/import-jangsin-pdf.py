@@ -104,7 +104,7 @@ def parse_questions(text: str) -> list[dict]:
                 break
 
         weight = DIFF_WEIGHT[diff]
-        tier = DIFF_TIER[diff]
+        tier_tag = "장신필수" if diff == "A" else "장신중요"
         questions.append(
             {
                 "id": f"jangsin-ot-{num:03d}",
@@ -119,12 +119,12 @@ def parse_questions(text: str) -> list[dict]:
                 "tags": sorted(
                     {
                         "장신",
-                        "기출",
+                        "장신기출",
                         "문제집",
                         "구약",
                         book,
                         f"난이도{diff}",
-                        tier,
+                        tier_tag,
                         f"가중치{weight}",
                         "정답미수록",
                     }

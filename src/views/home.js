@@ -14,7 +14,7 @@ export async function renderHome(root) {
   const counts = countBySeminaryAndSubject(questions);
   const total = questions.length;
   const must = questions.filter((q) => q.tags?.includes("필수") && q.seminary === "chongshin").length;
-  const grad = questions.filter((q) => q.tags?.includes("기출")).length;
+  const grad = questions.filter((q) => q.tags?.includes("기출") && q.seminary === "chongshin").length;
   const jangsin = questions.filter((q) => q.seminary === "jangsin").length;
   const vocab = questions.filter((q) => q.tags?.includes("단어장300")).length;
   const today = getTodayProgress(30);
@@ -22,8 +22,8 @@ export async function renderHome(root) {
   const stats = getStudyStats();
   const exposure = getExposureCounts();
   const vocabDay = suggestVocabDay(questions, exposure);
-  const bibleFocus = suggestBibleFocus(questions, exposure);
-  const typeFocus = suggestExamTypeFocus(questions, exposure);
+  const bibleFocus = suggestBibleFocus(questions, exposure, "chongshin");
+  const typeFocus = suggestExamTypeFocus(questions, exposure, "chongshin");
   const phase = currentPhase(vocabDay);
 
   root.innerHTML = `
@@ -49,7 +49,7 @@ export async function renderHome(root) {
       <div class="strategy-actions" style="margin-top:0.75rem">
         <a class="btn btn-primary" href="#/quiz?mode=study&tags=${encodeURIComponent(typeFocus.tag)}&subject=성경&seminary=chongshin&count=15&auto=1">유형 15</a>
         <a class="btn btn-secondary" href="#/quiz?mode=study&tags=기출,${encodeURIComponent(bibleFocus.tag)}&subject=성경&seminary=chongshin&count=10&auto=1">권별 10</a>
-        <a class="btn btn-ghost" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&count=20&auto=1">영→한 20</a>
+        <a class="btn btn-ghost" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">영→한 20</a>
       </div>
     </section>
 
@@ -69,15 +69,15 @@ export async function renderHome(root) {
         <strong>장신 구약 암송</strong>
         <span>2027 입시 25구절</span>
       </a>
-      <a class="mode-card" href="#/quiz?mode=exam&tags=원문기출&count=25&auto=1">
+      <a class="mode-card" href="#/quiz?mode=exam&tags=원문기출&seminary=chongshin&count=25&auto=1">
         <span class="mode-kicker">실전</span>
         <strong>20–22 원문 25</strong>
-        <span>최근 학년도</span>
+        <span>총신 · 최근 학년도</span>
       </a>
-      <a class="mode-card" href="#/quiz?mode=study&tags=동의어&subject=영어&count=15&auto=1">
+      <a class="mode-card" href="#/quiz?mode=study&tags=동의어&subject=영어&seminary=chongshin&count=15&auto=1">
         <span class="mode-kicker">영어</span>
         <strong>동의어 드릴</strong>
-        <span>단어장 3회독</span>
+        <span>총신 · 단어장 3회독</span>
       </a>
       <a class="mode-card" href="${wrong ? "#/wrong-note" : "#/quiz?mode=exam&tags=기출&subject=성경&seminary=chongshin&count=20&auto=1"}">
         <span class="mode-kicker">${wrong ? "오답" : "기출"}</span>
@@ -105,8 +105,8 @@ export async function renderHome(root) {
             <p class="stat">총 <strong>${semTotal.toLocaleString("ko-KR")}</strong> / 전체 ${total.toLocaleString("ko-KR")}</p>
             ${note}
             <div class="card-actions">
-              <a class="btn btn-primary" href="#/quiz?seminary=${s.id}&restart=1">학습 시작</a>
-              <a class="btn btn-secondary" href="#/browse?seminary=${s.id}">탐색</a>
+              <a class="btn btn-primary" href="#/quiz?seminary=${s.id}&restart=1">${s.shortName} 학습</a>
+              <a class="btn btn-secondary" href="#/browse?seminary=${s.id}">${s.shortName} 탐색</a>
             </div>
           </article>`;
         })

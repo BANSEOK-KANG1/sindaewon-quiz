@@ -222,10 +222,7 @@ export async function renderQuiz(root) {
           tagsMode,
         });
         if (!pool.length) {
-          pool = filterQuestions(all, { seminary: "chongshin" });
-        }
-        if (!pool.length) {
-          alert("문제가 없습니다.");
+          alert("선택한 학교·조건에 맞는 문제가 없습니다.");
           return;
         }
         const n = Math.min(count, pool.length);
@@ -233,10 +230,23 @@ export async function renderQuiz(root) {
       });
     });
 
+    rootEl.querySelectorAll("#goto-jangsin-study").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        clearQuizSession();
+        navigate("/quiz?seminary=jangsin&restart=1");
+      });
+    });
+    rootEl.querySelectorAll("#goto-chongshin-study, #goto-chongshin-study-2").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        clearQuizSession();
+        navigate("/quiz?seminary=chongshin&restart=1");
+      });
+    });
+
     rootEl.querySelectorAll("[data-browse]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const params = new URLSearchParams();
-        params.set("seminary", "chongshin");
+        params.set("seminary", btn.dataset.seminary || "chongshin");
         if (btn.dataset.subject) params.set("subject", btn.dataset.subject);
         if (btn.dataset.tag) params.set("tag", btn.dataset.tag);
         if (btn.dataset.search) params.set("q", btn.dataset.search);
@@ -311,7 +321,10 @@ export async function renderQuiz(root) {
       tagsMode: q.get("tagsMode") || "all",
       year: q.get("year") || "",
     });
-    if (!pool.length) pool = filterQuestions(questions, { seminary: "chongshin" });
+    if (!pool.length) {
+      alert("선택한 조건에 맞는 문제가 없습니다.");
+      return;
+    }
     startSession(pickQuizPool(pool, Math.min(count, pool.length), { mode }), mode);
     return;
   }
@@ -343,19 +356,21 @@ function renderSetup(questions, q) {
 
   const gichulTotal = filterQuestions(questions, { seminary: "chongshin", tags: ["기출"] }).length;
   const vocabDay = suggestVocabDay(questions, exposure);
-  const bibleFocus = suggestBibleFocus(questions, exposure);
-  const typeFocus = suggestExamTypeFocus(questions, exposure);
+  const bibleFocus = suggestBibleFocus(questions, exposure, "chongshin");
+  const typeFocus = suggestExamTypeFocus(questions, exposure, "chongshin");
   const phase = currentPhase(vocabDay);
   const mustTotal = filterQuestions(questions, { seminary: "chongshin", tags: ["필수"] }).length;
+  const jangsinBook = filterQuestions(questions, { seminary: "jangsin", tags: ["장신기출"] }).length;
+  const jangsinMem = filterQuestions(questions, { seminary: "jangsin", tags: ["구약암송"] }).length;
 
   function renderTopicRow(track, index, opts = {}) {
     const tags = opts.tags || (track.tag ? ["기출", track.tag] : [track.tag]);
     const subject = "subject" in opts ? opts.subject : track.subject || "성경";
     const mode = opts.mode || track.mode || "study";
-    const seminary = opts.seminary || track.seminary || "chongshin";
+    const rowSem = opts.seminary || track.seminary || "chongshin";
     const ts = getTopicStats(
       questions,
-      { seminary, subject, tags, tagsMode: "all" },
+      { seminary: rowSem, subject, tags, tagsMode: "all" },
       statCtx
     );
     if (!ts.total) return "";
@@ -375,7 +390,7 @@ function renderSetup(questions, q) {
         data-mode="${mode}"
         data-tags="${tags.join(",")}"
         data-subject="${subject}"
-        data-seminary="${seminary}"
+        data-seminary="${rowSem}"
         data-count="${count}">
         ${index != null ? `<span class="topic-rank">${index}</span>` : ""}
         <div class="topic-info">
@@ -393,11 +408,83 @@ function renderSetup(questions, q) {
   const vocabEarly = VOCAB_DAY_TRACKS.slice(0, 9);
   const vocabLate = VOCAB_DAY_TRACKS.slice(9);
 
+  const schoolSwitch = `
+    <div class="keyword-chips" style="margin:0.5rem 0 1rem">
+      <button type="button" class="chip-btn ${seminary === "chongshin" ? "active" : ""}" id="goto-chongshin-study">총신 학습</button>
+      <button type="button" class="chip-btn ${seminary === "jangsin" ? "active" : ""}" id="goto-jangsin-study">장신 학습</button>
+    </div>`;
+
+  // 장신 전용 학습 화면 — 총신 성경 트랙과 분리
+  if (seminary === "jangsin") {
+    return `
+    <header class="page-header">
+      <h1>장신 학습</h1>
+      <p class="muted">장로회신학대 · 문제집 ${jangsinBook} · 암송 ${jangsinMem} · 총신 자료와 분리</p>
+    </header>
+    ${schoolSwitch}
+    <section class="strategy-card card">
+      <p class="mode-kicker">장신 오늘</p>
+      <h2 class="strategy-title">구약 문제집 + 2027 암송</h2>
+      <p class="muted small">문제집은 정답 미수록(열람) · 암송은 개역개정 본문으로 채점 가능</p>
+      <div class="strategy-actions">
+        <button type="button" class="btn btn-primary" data-quick
+          data-mode="flash" data-tags="구약암송,한암송" data-subject="성경" data-seminary="jangsin" data-count="15">
+          암송 플래시 15
+        </button>
+        <button type="button" class="btn btn-secondary" data-quick
+          data-mode="study" data-tags="장신,장신기출" data-subject="성경" data-seminary="jangsin" data-count="15">
+          문제집 열람 15
+        </button>
+        <button type="button" class="btn btn-ghost" data-quick
+          data-mode="study" data-tags="구약암송,장절맞히기" data-subject="성경" data-seminary="jangsin" data-count="15">
+          장절 맞히기
+        </button>
+      </div>
+    </section>
+    <section class="study-section card study-section-accent">
+      <div class="study-section-head">
+        <h2>2027 구약 암송</h2>
+        <p class="muted small">입시 암송구절 25곳 · 개역개정</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${JANGSIN_MEMORY_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: "성경",
+            seminary: "jangsin",
+            mode: t.mode || "flash",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+    </section>
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>성경문제집 [구약]</h2>
+        <p class="muted small">300문항 · 난이도 A/B/C · 정답지 미반영</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${JANGSIN_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: "성경",
+            seminary: "jangsin",
+            mode: t.mode || "study",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+    </section>
+    <p class="muted small" style="margin-top:1rem">총신 기출·영어는 <button type="button" class="chip-btn" id="goto-chongshin-study-2">총신 학습</button>에서 따로 공부하세요.</p>
+    `;
+  }
+
   return `
     <header class="page-header">
-      <h1>학습</h1>
-      <p class="muted">총신 중심 · 오늘 ${today.answered}/${today.goal} · 필수 ${mustTotal.toLocaleString("ko-KR")} · 기출 ${gichulTotal.toLocaleString("ko-KR")}</p>
+      <h1>총신 학습</h1>
+      <p class="muted">총신대 · 오늘 ${today.answered}/${today.goal} · 필수 ${mustTotal.toLocaleString("ko-KR")} · 기출 ${gichulTotal.toLocaleString("ko-KR")}</p>
     </header>
+    ${schoolSwitch}
 
     <div class="daily-goal card">
       <div class="daily-goal-top">
@@ -419,15 +506,15 @@ function renderSetup(questions, q) {
       </ol>
       <div class="strategy-actions">
         <button type="button" class="btn btn-primary" data-quick
-          data-mode="study" data-tags="${typeFocus.tag}" data-subject="성경" data-count="15">
+          data-mode="study" data-tags="${typeFocus.tag}" data-subject="성경" data-seminary="chongshin" data-count="15">
           유형 15
         </button>
         <button type="button" class="btn btn-secondary" data-quick
-          data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-count="10">
+          data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-seminary="chongshin" data-count="10">
           권별 10
         </button>
         <button type="button" class="btn btn-ghost" data-quick
-          data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-count="20">
+          data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-seminary="chongshin" data-count="20">
           영→한 20
         </button>
       </div>
@@ -436,25 +523,25 @@ function renderSetup(questions, q) {
 
     <section class="mode-grid">
       <button type="button" class="mode-card mode-study" data-quick
-        data-mode="study" data-tags="필수" data-subject="성경" data-count="15">
+        data-mode="study" data-tags="필수" data-subject="성경" data-seminary="chongshin" data-count="15">
         <span class="mode-kicker">필수</span>
         <strong>필수 가중 15</strong>
         <span>가중치 5</span>
       </button>
       <button type="button" class="mode-card" data-quick
-        data-mode="study" data-tags="${typeFocus.tag}" data-subject="성경" data-count="15">
+        data-mode="study" data-tags="${typeFocus.tag}" data-subject="성경" data-seminary="chongshin" data-count="15">
         <span class="mode-kicker">유형</span>
         <strong>${typeFocus.label}</strong>
         <span>${typeFocus.hint || ""}</span>
       </button>
       <button type="button" class="mode-card" data-quick
-        data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-count="20">
+        data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-seminary="chongshin" data-count="20">
         <span class="mode-kicker">영어</span>
         <strong>${vocabDay.label} 영→한</strong>
         <span>${vocabDay.theme}</span>
       </button>
       <button type="button" class="mode-card" data-quick
-        data-mode="exam" data-tags="필수" data-count="25">
+        data-mode="exam" data-tags="필수" data-seminary="chongshin" data-count="25">
         <span class="mode-kicker">모의</span>
         <strong>필수 시험 25</strong>
         <span>점수 집중</span>
@@ -472,14 +559,15 @@ function renderSetup(questions, q) {
 
     <section class="study-section card study-section-accent">
       <div class="study-section-head">
-        <h2>1. 기출 유형 (가중치)</h2>
-        <p class="muted small">신_유형 → 성종·신유형 → 목유형 → 학기형 순으로 공략</p>
+        <h2>1. 기출 유형 (가중치) · 총신</h2>
+        <p class="muted small">신_유형 → 성종·신유형 → 목유형 → 학기형</p>
       </div>
       <div class="topic-list topic-list-compact">
         ${IMPORTANCE_TRACKS.map((t) =>
           renderTopicRow(t, null, {
             tags: [t.tag],
             subject: "성경",
+            seminary: "chongshin",
             mode: t.mode,
             count: t.recommend,
           })
@@ -488,6 +576,7 @@ function renderSetup(questions, q) {
           renderTopicRow(t, null, {
             tags: [t.tag],
             subject: "성경",
+            seminary: "chongshin",
             count: t.recommend,
           })
         ).join("")}
@@ -496,17 +585,17 @@ function renderSetup(questions, q) {
 
     <section class="study-section card">
       <div class="study-section-head">
-        <h2>2. 성경 권별 (출제 빈도)</h2>
-        <p class="muted small">기출·문제은행·원문 합산 · S필수 → A중요</p>
+        <h2>2. 성경 권별 · 총신</h2>
+        <p class="muted small">총신 기출·문제은행·원문 합산 · S필수 → A중요</p>
       </div>
       <div class="topic-list">
-        ${topBooks.map((t, i) => renderTopicRow(t, i + 1)).join("")}
+        ${topBooks.map((t, i) => renderTopicRow(t, i + 1, { seminary: "chongshin" })).join("")}
       </div>
       ${
         moreBooks.length
           ? `<details class="topic-more">
               <summary>11위 이하 더 보기 (${moreBooks.length}권)</summary>
-              <div class="topic-list">${moreBooks.map((t, i) => renderTopicRow(t, i + 11)).join("")}</div>
+              <div class="topic-list">${moreBooks.map((t, i) => renderTopicRow(t, i + 11, { seminary: "chongshin" })).join("")}</div>
             </details>`
           : ""
       }
@@ -514,7 +603,7 @@ function renderSetup(questions, q) {
 
     <section class="study-section card">
       <div class="study-section-head">
-        <h2>3. 실전 세트</h2>
+        <h2>3. 실전 세트 · 총신</h2>
         <p class="muted small">필수 모의 · 통합 기출 · 원문기출 · 문제은행</p>
       </div>
       <div class="topic-list topic-list-compact">
@@ -524,43 +613,6 @@ function renderSetup(questions, q) {
             subject: t.subject || "",
             seminary: t.seminary || "chongshin",
             mode: t.mode || "exam",
-            count: t.recommend,
-          })
-        ).join("")}
-      </div>
-    </section>
-
-    <section class="study-section card">
-      <div class="study-section-head">
-        <h2>장신 · 성경문제집 [구약]</h2>
-        <p class="muted small">대학 성경종합고사 300문항 · 난이도 A/B/C · <strong>정답지 미반영</strong>(열람 학습)</p>
-      </div>
-      <div class="topic-list topic-list-compact">
-        ${JANGSIN_TRACKS.map((t) =>
-          renderTopicRow(t, null, {
-            tags: t.tags,
-            subject: t.subject || "성경",
-            seminary: "jangsin",
-            mode: t.mode || "study",
-            count: t.recommend,
-          })
-        ).join("")}
-      </div>
-      <p class="muted small" style="padding:0 1rem 1rem">정답지를 주시면 채점·시험 모드까지 바로 연결합니다.</p>
-    </section>
-
-    <section class="study-section card study-section-accent">
-      <div class="study-section-head">
-        <h2>장신 · 2027 구약 암송</h2>
-        <p class="muted small">입시 암송구절 25곳 · 개역개정 본문 · 장절↔본문 드릴</p>
-      </div>
-      <div class="topic-list topic-list-compact">
-        ${JANGSIN_MEMORY_TRACKS.map((t) =>
-          renderTopicRow(t, null, {
-            tags: t.tags,
-            subject: "성경",
-            seminary: "jangsin",
-            mode: t.mode || "flash",
             count: t.recommend,
           })
         ).join("")}

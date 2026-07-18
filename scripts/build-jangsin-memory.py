@@ -197,7 +197,7 @@ def build_questions(passages: list[dict]) -> list[dict]:
             "2027입시",
             "구약",
             book,
-            "필수",
+            "장신필수",
             "가중치5",
         }
 
