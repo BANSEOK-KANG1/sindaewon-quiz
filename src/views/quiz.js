@@ -981,6 +981,7 @@ function renderFlashFront(session, q, modeLabel, pct) {
       <div class="flash-back hidden">
         <p>${escapeHtml(hasAnswer(q) ? formatAnswer(q) : "정답 미수록")}</p>
         ${q.explanation ? `<p class="muted small">${escapeHtml(q.explanation)}</p>` : ""}
+        ${renderChoiceNotesHtml(q)}
       </div>
     </button>
     <div class="flash-actions btn-row hidden">
@@ -1009,7 +1010,7 @@ function renderFeedback(session, q, modeLabel, pctDone) {
       <p><span class="muted">정답</span> · <strong>${escapeHtml(unanswered || !hasAnswer(q) ? "정답 미수록 (정답지 대기)" : formatAnswer(q))}</strong></p>
       ${
         !unanswered && !correct && selected != null && selected !== "miss" && selected !== "self-miss"
-          ? `<p class="muted small">내 답: ${escapeHtml(String(selected))}</p>`
+          ? `<p class="muted small">내 답: ${escapeHtml(formatSelectedLabel(q, selected))}</p>`
           : ""
       }
       ${
@@ -1017,6 +1018,7 @@ function renderFeedback(session, q, modeLabel, pctDone) {
           ? `<div class="feedback-expl"><p class="muted small">해설</p><p>${escapeHtml(q.explanation).replace(/\n/g, "<br>")}</p></div>`
           : ""
       }
+      ${showExplain ? renderChoiceNotesHtml(q) : ""}
       <button type="button" class="btn btn-primary btn-block" id="next-q">${
         session.index + 1 >= session.total ? "결과 보기" : "다음 문제"
       }</button>
@@ -1055,4 +1057,30 @@ function escapeHtml(str) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+/** 선택지 텍스트 기준으로 뜻·틀린 이유 목록 HTML (셔플 순서 반영) */
+function renderChoiceNotesHtml(q) {
+  const notes = q.choiceNotes;
+  if (!notes || q.type !== "multiple" || !Array.isArray(q.choices)) return "";
+  const rows = q.choices
+    .map((c, i) => {
+      const note = notes[c];
+      if (!note) return "";
+      const ok = isChoiceCorrect(q.answer, i);
+      return `<li class="${ok ? "choice-note-ok" : "choice-note-bad"}"><span class="choice-mark">${CIRCLE[i]}</span> <strong>${escapeHtml(c)}</strong> — ${escapeHtml(note)}</li>`;
+    })
+    .filter(Boolean)
+    .join("");
+  if (!rows) return "";
+  return `<div class="choice-notes"><p class="muted small">선택지 정리</p><ul>${rows}</ul></div>`;
+}
+
+function formatSelectedLabel(q, selected) {
+  if (selected == null || selected === "miss" || selected === "self-miss" || selected === "self-ok") return "";
+  if (typeof selected === "number" && Array.isArray(q.choices)) {
+    const text = q.choices[selected];
+    return text != null ? `${CIRCLE[selected] || ""} ${text}`.trim() : String(selected);
+  }
+  return String(selected);
 }

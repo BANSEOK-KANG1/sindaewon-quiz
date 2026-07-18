@@ -11,7 +11,8 @@
     "import:csv": "node scripts/import-csv.js",
     "cap:sync": "npm run build && npx cap sync android",
     "android:open": "npx cap open android",
-    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug"
+    "android:apk": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "enrich:english": "python3 scripts/enrich-english-choice-notes.py"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.4.1",

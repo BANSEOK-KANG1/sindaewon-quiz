@@ -544,6 +544,38 @@
   border-radius: 10px;
 }
 
+.choice-notes {
+  margin: 0.5rem 0 1rem;
+  padding: 0.75rem;
+  background: var(--bg);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.choice-notes ul {
+  margin: 0.35rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.choice-notes li {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0.35rem 0;
+}
+
+.choice-notes .choice-note-ok {
+  color: #067647;
+}
+
+.choice-notes .choice-note-bad {
+  color: var(--text);
+}
+
+.choice-notes .choice-note-bad strong {
+  font-weight: 600;
+}
+
 .feedback-pop,
 .result-pop,
 .quiz-card-live {

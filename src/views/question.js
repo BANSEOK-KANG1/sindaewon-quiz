@@ -54,6 +54,18 @@ export async function renderQuestion(root, { id }) {
         ? `<section class="explanation card"><h2>해설</h2><p>${escapeHtml(q.explanation).replace(/\n/g, "<br>")}</p></section>`
         : "";
 
+    const choiceNotes =
+      showAnswer && q.choiceNotes && q.choices
+        ? `<section class="explanation card choice-notes-detail"><h2>선택지 정리</h2><ul>${q.choices
+            .map((c, i) => {
+              const note = q.choiceNotes[c];
+              if (!note) return "";
+              const ok = isChoiceCorrect(q.answer, i);
+              return `<li class="${ok ? "choice-note-ok" : "choice-note-bad"}">${CIRCLE[i]} <strong>${escapeHtml(c)}</strong> — ${escapeHtml(note)}</li>`;
+            })
+            .join("")}</ul></section>`
+        : "";
+
     root.innerHTML = `
       <header class="page-header">
         <button type="button" class="btn btn-ghost back-btn">← 탐색</button>
@@ -63,6 +75,7 @@ export async function renderQuestion(root, { id }) {
       </header>
       ${choices}
       ${explanation}
+      ${choiceNotes}
       <div class="toolbar">
         <button type="button" class="btn btn-primary" id="toggle-answer">${showAnswer ? "정답 숨기기" : "정답 보기"}</button>
         <button type="button" class="btn btn-secondary" id="bookmark">${bookmarked ? "북마크 해제" : "북마크"}</button>
