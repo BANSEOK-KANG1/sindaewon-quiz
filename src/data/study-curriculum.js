@@ -152,6 +152,46 @@ export const JANGSIN_TRACKS = [
   { label: "장신 · 창세기", tags: ["장신", "창세기"], hint: "모세오경", recommend: 10, subject: "성경", seminary: "jangsin" },
 ];
 
+/** 장신 2027 입시 구약 암송 (개역개정 본문) */
+export const JANGSIN_MEMORY_TRACKS = [
+  {
+    label: "암송 전체 (플래시)",
+    tags: ["구약암송", "한암송"],
+    hint: "2027 입시 25구절 · 장절→본문",
+    recommend: 25,
+    subject: "성경",
+    seminary: "jangsin",
+    mode: "flash",
+  },
+  {
+    label: "장절 맞히기",
+    tags: ["구약암송", "장절맞히기"],
+    hint: "본문 보고 장절 고르기",
+    recommend: 15,
+    subject: "성경",
+    seminary: "jangsin",
+    mode: "study",
+  },
+  {
+    label: "본문 맞히기",
+    tags: ["구약암송", "본문맞히기"],
+    hint: "장절 보고 본문 고르기",
+    recommend: 15,
+    subject: "성경",
+    seminary: "jangsin",
+    mode: "study",
+  },
+  {
+    label: "한→암송 (단답)",
+    tags: ["구약암송", "한암송"],
+    hint: "장절 보고 본문 입력",
+    recommend: 15,
+    subject: "성경",
+    seminary: "jangsin",
+    mode: "flash",
+  },
+];
+
 /** @deprecated 하위 호환 — PRACTICE_TRACKS로 통합 */
 export const BIBLE_BANK_TRACKS = [
   { label: "문제은행 전체", tags: ["문제은행"], hint: "구약+신약 400문항", recommend: 20 },

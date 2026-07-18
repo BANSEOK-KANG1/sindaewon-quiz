@@ -10,6 +10,7 @@ import {
   BIBLE_BOOK_TRACKS,
   PRACTICE_TRACKS,
   JANGSIN_TRACKS,
+  JANGSIN_MEMORY_TRACKS,
   IMPORTANCE_TRACKS,
   EXAM_TYPE_TRACKS,
   VOCAB_DAY_TRACKS,
@@ -546,6 +547,24 @@ function renderSetup(questions, q) {
         ).join("")}
       </div>
       <p class="muted small" style="padding:0 1rem 1rem">정답지를 주시면 채점·시험 모드까지 바로 연결합니다.</p>
+    </section>
+
+    <section class="study-section card study-section-accent">
+      <div class="study-section-head">
+        <h2>장신 · 2027 구약 암송</h2>
+        <p class="muted small">입시 암송구절 25곳 · 개역개정 본문 · 장절↔본문 드릴</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${JANGSIN_MEMORY_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: "성경",
+            seminary: "jangsin",
+            mode: t.mode || "flash",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
     </section>
 
     <section class="study-section card">

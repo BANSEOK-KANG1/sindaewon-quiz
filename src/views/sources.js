@@ -16,6 +16,7 @@ const CHECKLIST = [
   { id: "cs-english-recent", label: "총신 영어 (최근 연도)" },
   { id: "cs-bank-2026", label: "총신 성경고사 문제은행 2026" },
   { id: "js-bible-book", label: "장신 구약 문제집 PDF (300문항 반영)" },
+  { id: "js-memory-2027", label: "장신 2027 구약 암송구절 (25구절 반영)" },
   { id: "js-bible-answers", label: "장신 정답지 (미수집)" },
   { id: "community-verify", label: "커뮤니티 자료 교차검증" },
 ];

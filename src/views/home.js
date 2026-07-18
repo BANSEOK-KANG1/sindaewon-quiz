@@ -64,6 +64,11 @@ export async function renderHome(root) {
         <strong>구약 문제집 15</strong>
         <span>정답 미수록 · 열람</span>
       </a>
+      <a class="mode-card" href="#/quiz?mode=flash&tags=구약암송,한암송&subject=성경&seminary=jangsin&count=25&auto=1">
+        <span class="mode-kicker">암송</span>
+        <strong>장신 구약 암송</strong>
+        <span>2027 입시 25구절</span>
+      </a>
       <a class="mode-card" href="#/quiz?mode=exam&tags=원문기출&count=25&auto=1">
         <span class="mode-kicker">실전</span>
         <strong>20–22 원문 25</strong>
@@ -91,7 +96,7 @@ export async function renderHome(root) {
             .join(" · ");
           const note =
             s.id === "jangsin"
-              ? `<p class="muted small">구약 문제집 ${jangsin}문항 · 정답지 대기</p>`
+              ? `<p class="muted small">문제집 ${questions.filter((q) => q.source === "jangsin-ot-book").length} · 암송 ${questions.filter((q) => q.source === "jangsin-memory-2027").length}</p>`
               : `<p class="muted small">필수 ${must.toLocaleString("ko-KR")} · 가중치 학습</p>`;
           return `
           <article class="card seminary-card">
