@@ -7,6 +7,8 @@ const PAGE_SIZE = 40;
 
 const TAG_PRESETS = [
   { value: "", label: "전체" },
+  { value: "장신", label: "장신 문제집" },
+  { value: "난이도A", label: "장신 난이도 A" },
   { value: "필수", label: "필수 (가중치5)" },
   { value: "중요", label: "중요" },
   { value: "권장", label: "권장" },

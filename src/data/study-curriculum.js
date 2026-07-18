@@ -106,6 +106,7 @@ export const PRACTICE_TRACKS = [
     recommend: 20,
     mode: "study",
     subject: "성경",
+    seminary: "chongshin",
   },
   {
     label: "2020–22 원문기출",
@@ -138,6 +139,17 @@ export const PRACTICE_TRACKS = [
     recommend: 25,
     mode: "exam",
   },
+];
+
+/** 장신 대학 성경종합고사 문제집 [구약] — 정답 미수록(탐색·표시용) */
+export const JANGSIN_TRACKS = [
+  { label: "장신 구약 전체", tags: ["장신"], hint: "문제집 300문항 · 정답 추후 반영", recommend: 20, subject: "성경", seminary: "jangsin", mode: "study" },
+  { label: "난이도 A (기초)", tags: ["장신", "난이도A"], hint: "필수 기초", recommend: 15, subject: "성경", seminary: "jangsin" },
+  { label: "난이도 B", tags: ["장신", "난이도B"], hint: "중요", recommend: 15, subject: "성경", seminary: "jangsin" },
+  { label: "난이도 C", tags: ["장신", "난이도C"], hint: "심화", recommend: 15, subject: "성경", seminary: "jangsin" },
+  { label: "장신 · 시편", tags: ["장신", "시편"], hint: "다빈도", recommend: 15, subject: "성경", seminary: "jangsin" },
+  { label: "장신 · 이사야", tags: ["장신", "이사야"], hint: "예언서", recommend: 10, subject: "성경", seminary: "jangsin" },
+  { label: "장신 · 창세기", tags: ["장신", "창세기"], hint: "모세오경", recommend: 10, subject: "성경", seminary: "jangsin" },
 ];
 
 /** @deprecated 하위 호환 — PRACTICE_TRACKS로 통합 */

@@ -9,6 +9,7 @@ import {
 import {
   BIBLE_BOOK_TRACKS,
   PRACTICE_TRACKS,
+  JANGSIN_TRACKS,
   IMPORTANCE_TRACKS,
   EXAM_TYPE_TRACKS,
   VOCAB_DAY_TRACKS,
@@ -47,13 +48,23 @@ function isObjective(q) {
   return q.type === "multiple" || q.type === "ox";
 }
 
+function hasAnswer(q) {
+  if (q.answer == null || q.answer === "") return false;
+  if (Array.isArray(q.answer) && !q.answer.length) return false;
+  return true;
+}
+
 function pickQuizPool(filtered, count, { mode = "study" } = {}) {
   // 플래시(암송)만 주관식 허용, 학습·시험은 객관식 위주
+  // 장신 등 정답 미수록 문항은 학습 모드에서만 허용(열람·자기점검)
   let pool = filtered;
-  if (mode !== "flash") {
-    const objective = filtered.filter(isObjective);
+  if (mode === "exam") {
+    pool = filtered.filter((q) => isObjective(q) && hasAnswer(q));
+  } else if (mode !== "flash") {
+    const objective = filtered.filter((q) => isObjective(q) && (hasAnswer(q) || (q.tags || []).includes("정답미수록")));
     if (objective.length >= Math.min(count, 4)) pool = objective;
     else if (objective.length) pool = objective;
+    else pool = filtered.filter((q) => hasAnswer(q) || (q.tags || []).includes("정답미수록"));
   }
 
   const wrongIds = new Set(getWrongNotes().map((n) => n.questionId));
@@ -204,7 +215,7 @@ export async function renderQuiz(root) {
               : "";
 
         let pool = filterQuestions(all, {
-          seminary: btn.dataset.seminary || "chongshin",
+          seminary: btn.dataset.seminary || (tags.includes("장신") ? "jangsin" : "chongshin"),
           subject: subject || undefined,
           tags: tags.length ? tags : undefined,
           tagsMode,
@@ -340,9 +351,10 @@ function renderSetup(questions, q) {
     const tags = opts.tags || (track.tag ? ["기출", track.tag] : [track.tag]);
     const subject = "subject" in opts ? opts.subject : track.subject || "성경";
     const mode = opts.mode || track.mode || "study";
+    const seminary = opts.seminary || track.seminary || "chongshin";
     const ts = getTopicStats(
       questions,
-      { seminary: "chongshin", subject, tags, tagsMode: "all" },
+      { seminary, subject, tags, tagsMode: "all" },
       statCtx
     );
     if (!ts.total) return "";
@@ -362,6 +374,7 @@ function renderSetup(questions, q) {
         data-mode="${mode}"
         data-tags="${tags.join(",")}"
         data-subject="${subject}"
+        data-seminary="${seminary}"
         data-count="${count}">
         ${index != null ? `<span class="topic-rank">${index}</span>` : ""}
         <div class="topic-info">
@@ -508,11 +521,31 @@ function renderSetup(questions, q) {
           renderTopicRow(t, null, {
             tags: t.tags,
             subject: t.subject || "",
+            seminary: t.seminary || "chongshin",
             mode: t.mode || "exam",
             count: t.recommend,
           })
         ).join("")}
       </div>
+    </section>
+
+    <section class="study-section card">
+      <div class="study-section-head">
+        <h2>장신 · 성경문제집 [구약]</h2>
+        <p class="muted small">대학 성경종합고사 300문항 · 난이도 A/B/C · <strong>정답지 미반영</strong>(열람 학습)</p>
+      </div>
+      <div class="topic-list topic-list-compact">
+        ${JANGSIN_TRACKS.map((t) =>
+          renderTopicRow(t, null, {
+            tags: t.tags,
+            subject: t.subject || "성경",
+            seminary: "jangsin",
+            mode: t.mode || "study",
+            count: t.recommend,
+          })
+        ).join("")}
+      </div>
+      <p class="muted small" style="padding:0 1rem 1rem">정답지를 주시면 채점·시험 모드까지 바로 연결합니다.</p>
     </section>
 
     <section class="study-section card">
@@ -782,7 +815,8 @@ function renderActive(root, session, allQuestions, onFinish) {
         return;
       }
       const idx = parseInt(btn.dataset.index, 10);
-      commitAnswer(session, dq, idx, isChoiceCorrect(dq.answer, idx), root, allQuestions, onFinish);
+      const ok = hasAnswer(dq) ? isChoiceCorrect(dq.answer, idx) : true;
+      commitAnswer(session, dq, idx, ok, root, allQuestions, onFinish);
     });
   });
 
@@ -830,8 +864,12 @@ function renderActive(root, session, allQuestions, onFinish) {
 }
 
 function commitAnswer(session, q, selected, correct, root, allQuestions, onFinish) {
-  session.answers.push({ questionId: q.id, selected, correct });
-  if (correct) {
+  const unanswered = !hasAnswer(q);
+  session.answers.push({ questionId: q.id, selected, correct: unanswered ? true : correct, unanswered });
+  if (unanswered) {
+    // 정답 미수록: 오답노트·점수 집계에서 제외, 열람만
+    session.combo = session.combo || 0;
+  } else if (correct) {
     session.score += 1;
     session.combo = (session.combo || 0) + 1;
     session.bestCombo = Math.max(session.bestCombo || 0, session.combo);
@@ -851,7 +889,7 @@ function commitAnswer(session, q, selected, correct, root, allQuestions, onFinis
   const mode = session.mode || "study";
   // 시험 모드도 짧게 피드백 (학습보단 짧게 보이지만 동일 플로우)
   session.phase = "feedback";
-  session.lastResult = { correct, selected };
+  session.lastResult = { correct: unanswered ? true : correct, selected, unanswered };
   saveQuizSession(session);
   renderActive(root, session, allQuestions, onFinish);
 }
@@ -870,7 +908,7 @@ function renderFlashFront(session, q, modeLabel, pct) {
       <p class="flash-front">${escapeHtml(q.question)}</p>
       <p class="flash-reveal-hint muted">탭해서 정답 보기</p>
       <div class="flash-back hidden">
-        <p>${escapeHtml(formatAnswer(q))}</p>
+        <p>${escapeHtml(hasAnswer(q) ? formatAnswer(q) : "정답 미수록")}</p>
         ${q.explanation ? `<p class="muted small">${escapeHtml(q.explanation)}</p>` : ""}
       </div>
     </button>
@@ -882,8 +920,8 @@ function renderFlashFront(session, q, modeLabel, pct) {
 }
 
 function renderFeedback(session, q, modeLabel, pctDone) {
-  const { correct, selected } = session.lastResult;
-  const showExplain = (session.mode || "study") !== "exam" || !correct;
+  const { correct, selected, unanswered } = session.lastResult;
+  const showExplain = (session.mode || "study") !== "exam" || !correct || unanswered;
   const combo = session.combo || 0;
   return `
     <div class="quiz-hud">
@@ -894,12 +932,12 @@ function renderFeedback(session, q, modeLabel, pctDone) {
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${Math.round(((session.index + 1) / session.total) * 100)}%"></div></div>
     </div>
-    <article class="card feedback-card ${correct ? "is-correct" : "is-wrong"} feedback-pop">
-      <p class="feedback-emoji">${correct ? "맞아요" : "아쉬워요"}</p>
+    <article class="card feedback-card ${unanswered ? "" : correct ? "is-correct" : "is-wrong"} feedback-pop">
+      <p class="feedback-emoji">${unanswered ? "열람" : correct ? "맞아요" : "아쉬워요"}</p>
       <p class="question-title small-q">${escapeHtml(q.question)}</p>
-      <p><span class="muted">정답</span> · <strong>${escapeHtml(formatAnswer(q))}</strong></p>
+      <p><span class="muted">정답</span> · <strong>${escapeHtml(unanswered || !hasAnswer(q) ? "정답 미수록 (정답지 대기)" : formatAnswer(q))}</strong></p>
       ${
-        !correct && selected != null && selected !== "miss" && selected !== "self-miss"
+        !unanswered && !correct && selected != null && selected !== "miss" && selected !== "self-miss"
           ? `<p class="muted small">내 답: ${escapeHtml(String(selected))}</p>`
           : ""
       }

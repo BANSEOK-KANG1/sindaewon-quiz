@@ -15,7 +15,8 @@ const CHECKLIST = [
   { id: "cs-bible-2020", label: "총신 성경 2020–22 원문" },
   { id: "cs-english-recent", label: "총신 영어 (최근 연도)" },
   { id: "cs-bank-2026", label: "총신 성경고사 문제은행 2026" },
-  { id: "js-bible-book", label: "장신 기출 (미수집 · 추후)" },
+  { id: "js-bible-book", label: "장신 구약 문제집 PDF (300문항 반영)" },
+  { id: "js-bible-answers", label: "장신 정답지 (미수집)" },
   { id: "community-verify", label: "커뮤니티 자료 교차검증" },
 ];
 
