@@ -8,6 +8,7 @@ import {
 } from "../data/study-curriculum.js";
 import { navigate } from "../router.js";
 import { getTodayProgress, getWrongNotes, getStudyStats, getExposureCounts } from "../storage/progress.js";
+import { icon } from "../lib/icons.js";
 
 export async function renderHome(root) {
   const questions = await loadQuestions();
@@ -27,60 +28,86 @@ export async function renderHome(root) {
   const phase = currentPhase(vocabDay);
 
   root.innerHTML = `
-    <header class="page-header home-hero">
-      <p class="brand-mark">${UI.appTitle}</p>
-      <h1>오늘도 한 세트</h1>
-      <p class="muted">${phase.label} · ${typeFocus.label} · ${bibleFocus.label}</p>
+    <header class="home-hero-v2">
+      <div class="home-hero-copy">
+        <p class="eyebrow">${icon("sparkles")} ${phase.label}</p>
+        <h1>합격까지,<br />오늘 할 공부만 선명하게</h1>
+        <p>${typeFocus.label} · ${bibleFocus.label} · ${vocabDay.label} 순서로 학습하세요.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#/quiz?mode=study&tags=${encodeURIComponent(typeFocus.tag)}&subject=성경&seminary=chongshin&count=15&auto=1">
+            ${icon("circle-play")} 오늘 학습 시작
+          </a>
+          <a class="btn btn-soft" href="#/admissions">${icon("graduation-cap")} 입시 가이드</a>
+        </div>
+      </div>
+      <div class="today-ring" style="--progress:${today.pct}" aria-label="오늘 목표 ${today.pct}% 달성">
+        <div><strong>${today.answered}</strong><span>/ ${today.goal}문항</span></div>
+        <p>${today.pct >= 100 ? "목표 달성" : "오늘 진도"}</p>
+      </div>
     </header>
 
-    <div class="daily-goal card home-goal">
-      <div class="daily-goal-top">
-        <span>오늘 ${today.answered}/${today.goal}</span>
-        <span>🔥 ${today.streak}일</span>
-      </div>
-      <div class="progress-track"><div class="progress-fill" style="width:${today.pct}%"></div></div>
-      <p class="muted small">누적 ${stats.totalAnswered || 0}문항 · 정답 ${stats.totalCorrect || 0}</p>
-    </div>
+    <section class="home-stat-strip" aria-label="학습 현황">
+      <div><span class="stat-icon">${icon("flame")}</span><p><strong>${today.streak}일</strong><span>연속 학습</span></p></div>
+      <div><span class="stat-icon">${icon("check-circle-2")}</span><p><strong>${(stats.totalCorrect || 0).toLocaleString("ko-KR")}</strong><span>누적 정답</span></p></div>
+      <div><span class="stat-icon">${icon("notebook-pen")}</span><p><strong>${wrong}</strong><span>복습할 오답</span></p></div>
+    </section>
 
-    <section class="strategy-card card">
-      <p class="mode-kicker">오늘 전략 (총신 가중치)</p>
-      <h2 class="strategy-title">${typeFocus.label} + ${bibleFocus.label} + ${vocabDay.label}</h2>
-      <p class="muted small">${typeFocus.hint || ""} · ${vocabDay.theme} · ${phase.goal}</p>
-      <div class="strategy-actions" style="margin-top:0.75rem">
-        <a class="btn btn-primary" href="#/quiz?mode=study&tags=${encodeURIComponent(typeFocus.tag)}&subject=성경&seminary=chongshin&count=15&auto=1">유형 15</a>
-        <a class="btn btn-secondary" href="#/quiz?mode=study&tags=기출,${encodeURIComponent(bibleFocus.tag)}&subject=성경&seminary=chongshin&count=10&auto=1">권별 10</a>
-        <a class="btn btn-ghost" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">영→한 20</a>
+    <section class="english-spotlight">
+      <div class="english-spotlight-icon">${icon("languages")}</div>
+      <div class="english-spotlight-copy">
+        <p class="eyebrow">영어 집중</p>
+        <h2>어휘부터 원문기출까지 한 흐름으로</h2>
+        <p>총 ${questions.filter((q) => q.subject === "영어").length.toLocaleString("ko-KR")}문항 · 단어장 300 · 문법 · 독해 · 2020–22 원문</p>
+      </div>
+      <div class="english-spotlight-actions">
+        <a class="btn btn-light" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("book-open")} 오늘 단어 20</a>
+        <a class="text-link text-link-light" href="#/admissions">4주 계획 ${icon("arrow-right")}</a>
       </div>
     </section>
 
+    <section class="strategy-card card">
+      <p class="mode-kicker">${icon("target")} 오늘 전략 · 총신 가중치</p>
+      <h2 class="strategy-title">${typeFocus.label} + ${bibleFocus.label} + ${vocabDay.label}</h2>
+      <p class="muted small">${typeFocus.hint || ""} · ${vocabDay.theme} · ${phase.goal}</p>
+      <div class="strategy-actions" style="margin-top:0.75rem">
+        <a class="btn btn-primary" href="#/quiz?mode=study&tags=${encodeURIComponent(typeFocus.tag)}&subject=성경&seminary=chongshin&count=15&auto=1">${icon("circle-play")} 유형 15</a>
+        <a class="btn btn-secondary" href="#/quiz?mode=study&tags=기출,${encodeURIComponent(bibleFocus.tag)}&subject=성경&seminary=chongshin&count=10&auto=1">${icon("book-open")} 권별 10</a>
+        <a class="btn btn-ghost" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("languages")} 영→한 20</a>
+      </div>
+    </section>
+
+    <div class="section-heading section-heading-home">
+      <div><p class="eyebrow">바로 시작</p><h2>원하는 방식으로 공부하세요</h2></div>
+      <a class="text-link" href="#/quiz">전체 학습 ${icon("chevron-right")}</a>
+    </div>
     <section class="mode-grid home-modes">
       <a class="mode-card mode-study" href="#/quiz?mode=study&tags=필수&subject=성경&seminary=chongshin&count=15&auto=1">
-        <span class="mode-kicker">필수</span>
+        <span class="mode-icon">${icon("target")}</span><span class="mode-kicker">필수</span>
         <strong>필수 가중 15</strong>
         <span>총신 · 가중치 5</span>
       </a>
       <a class="mode-card" href="#/quiz?mode=study&tags=장신&subject=성경&seminary=jangsin&count=15&auto=1">
-        <span class="mode-kicker">장신</span>
+        <span class="mode-icon">${icon("book-open")}</span><span class="mode-kicker">장신</span>
         <strong>구약 문제집 15</strong>
         <span>정답 미수록 · 열람</span>
       </a>
       <a class="mode-card" href="#/quiz?mode=flash&tags=구약암송,한암송&subject=성경&seminary=jangsin&count=25&auto=1">
-        <span class="mode-kicker">암송</span>
+        <span class="mode-icon">${icon("bookmark")}</span><span class="mode-kicker">암송</span>
         <strong>장신 구약 암송</strong>
         <span>2027 입시 25구절</span>
       </a>
       <a class="mode-card" href="#/quiz?mode=exam&tags=원문기출&seminary=chongshin&count=25&auto=1">
-        <span class="mode-kicker">실전</span>
+        <span class="mode-icon">${icon("timer")}</span><span class="mode-kicker">실전</span>
         <strong>20–22 원문 25</strong>
         <span>총신 · 최근 학년도</span>
       </a>
       <a class="mode-card" href="#/quiz?mode=study&tags=동의어&subject=영어&seminary=chongshin&count=15&auto=1">
-        <span class="mode-kicker">영어</span>
+        <span class="mode-icon">${icon("languages")}</span><span class="mode-kicker">영어</span>
         <strong>동의어 드릴</strong>
         <span>총신 · 단어장 3회독</span>
       </a>
       <a class="mode-card" href="${wrong ? "#/wrong-note" : "#/quiz?mode=exam&tags=기출&subject=성경&seminary=chongshin&count=20&auto=1"}">
-        <span class="mode-kicker">${wrong ? "오답" : "기출"}</span>
+        <span class="mode-icon">${icon(wrong ? "notebook-pen" : "file-check-2")}</span><span class="mode-kicker">${wrong ? "오답" : "기출"}</span>
         <strong>${wrong ? `틀린 ${wrong}건` : "기출 시험 20"}</strong>
         <span>${wrong ? "다시 풀기" : "총신 통합"}</span>
       </a>
@@ -100,6 +127,7 @@ export async function renderHome(root) {
               : `<p class="muted small">필수 ${must.toLocaleString("ko-KR")} · 가중치 학습</p>`;
           return `
           <article class="card seminary-card">
+            <span class="seminary-icon">${icon(s.id === "chongshin" ? "graduation-cap" : "book-open")}</span>
             <h2>${s.name}</h2>
             <p class="card-meta">${lines || "아직 등록된 문제 없음"}</p>
             <p class="stat">총 <strong>${semTotal.toLocaleString("ko-KR")}</strong> / 전체 ${total.toLocaleString("ko-KR")}</p>

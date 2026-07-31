@@ -44,6 +44,34 @@ import {
 const CIRCLE = ["①", "②", "③", "④"];
 const WRONG_QUIZ_KEY = "wrong-note-quiz-ids";
 const DAILY_GOAL = 30;
+let examTimerId = null;
+
+function elapsedSeconds(session) {
+  const end = session.finishedAt || Date.now();
+  return Math.max(0, Math.round((end - (session.startedAt || end)) / 1000));
+}
+
+function formatElapsed(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  return `${String(minutes).padStart(2, "0")}:${String(rest).padStart(2, "0")}`;
+}
+
+function mountExamClock(session) {
+  if (examTimerId) window.clearInterval(examTimerId);
+  if (session.mode !== "exam" || session.finished) return;
+  const update = () => {
+    const clock = document.querySelector("[data-exam-clock]");
+    if (!clock) {
+      window.clearInterval(examTimerId);
+      examTimerId = null;
+      return;
+    }
+    clock.textContent = formatElapsed(elapsedSeconds(session));
+  };
+  update();
+  examTimerId = window.setInterval(update, 1000);
+}
 
 function isObjective(q) {
   return q.type === "multiple" || q.type === "ox";
@@ -148,6 +176,7 @@ export async function renderQuiz(root) {
       answers: [],
       finished: false,
       total: pool.length,
+      startedAt: Date.now(),
       combo: 0,
       bestCombo: 0,
       phase: "answer", // answer | feedback
@@ -158,6 +187,11 @@ export async function renderQuiz(root) {
   }
 
   function showResult(s) {
+    if (examTimerId) window.clearInterval(examTimerId);
+    if (!s.finishedAt) {
+      s.finishedAt = Date.now();
+      saveQuizSession(s);
+    }
     recordExposures(s.ids || []);
     const correct = s.answers.filter((a) => a.correct).length;
     recordStudySession({
@@ -335,6 +369,10 @@ export async function renderQuiz(root) {
   }
 
   if (session?.ids?.length) {
+    if (!session.startedAt) {
+      session.startedAt = Date.now();
+      saveQuizSession(session);
+    }
     renderActive(root, session, questions, showResult);
     return;
   }
@@ -799,6 +837,7 @@ function renderActive(root, session, allQuestions, onFinish) {
   const mode = session.mode || "study";
   const pct = Math.round((session.index / session.total) * 100);
   const modeLabel = mode === "exam" ? "시험" : mode === "flash" ? "플래시" : "학습";
+  const examClock = mode === "exam" ? `<span class="exam-clock" data-exam-clock>${formatElapsed(elapsedSeconds(session))}</span>` : "";
   const dq = displayQuestion(session, q);
 
   if (session.phase === "feedback" && session.lastResult) {
@@ -861,6 +900,7 @@ function renderActive(root, session, allQuestions, onFinish) {
       <div class="quiz-hud-row">
         <span class="badge">${modeLabel}</span>
         <span class="combo ${session.combo >= 3 ? "combo-hot" : ""}">${session.combo > 0 ? `${session.combo}연속` : "시작"}</span>
+        ${examClock}
         <span class="muted small">${session.index + 1}/${session.total}</span>
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -870,6 +910,7 @@ function renderActive(root, session, allQuestions, onFinish) {
       <div class="choices-stack">${choices}</div>
     </article>
   `;
+  mountExamClock(session);
 
   const lock = () => {
     root.querySelectorAll(".choice-btn").forEach((b) => {
@@ -958,7 +999,20 @@ function commitAnswer(session, q, selected, correct, root, allQuestions, onFinis
   }
 
   const mode = session.mode || "study";
-  // 시험 모드도 짧게 피드백 (학습보단 짧게 보이지만 동일 플로우)
+  if (mode === "exam") {
+    session.phase = "answer";
+    session.lastResult = null;
+    session.index += 1;
+    if (session.index >= session.total) {
+      session.finished = true;
+      session.finishedAt = Date.now();
+    }
+    saveQuizSession(session);
+    if (session.finished) onFinish(session);
+    else renderActive(root, session, allQuestions, onFinish);
+    return;
+  }
+
   session.phase = "feedback";
   session.lastResult = { correct: unanswered ? true : correct, selected, unanswered };
   saveQuizSession(session);
@@ -1031,6 +1085,8 @@ function renderResult(session) {
   const wrong = session.answers.filter((a) => !a.correct).length;
   const msg = gradeMessage(pct);
   const today = getTodayProgress(DAILY_GOAL);
+  const spent = elapsedSeconds(session);
+  const pace = session.answers.length ? Math.round(spent / session.answers.length) : 0;
   return `
     <header class="page-header"><h1>오늘의 결과</h1></header>
     <article class="card result-card result-pop">
@@ -1038,6 +1094,7 @@ function renderResult(session) {
       <p class="result-score">${session.score} / ${session.total}</p>
       <p class="muted">${msg.sub}</p>
       <p class="muted small">정답률 ${pct}% · 오답 ${wrong} · 최고연속 ${session.bestCombo || 0}</p>
+      ${session.mode === "exam" ? `<div class="result-metrics"><div><span>소요 시간</span><strong>${formatElapsed(spent)}</strong></div><div><span>문항당</span><strong>${pace}초</strong></div><div><span>완주</span><strong>${session.answers.length}문항</strong></div></div>` : ""}
       <div class="daily-goal inline">
         <div class="daily-goal-top"><span>오늘</span><strong>${today.answered}/${today.goal}</strong></div>
         <div class="progress-track"><div class="progress-fill" style="width:${today.pct}%"></div></div>

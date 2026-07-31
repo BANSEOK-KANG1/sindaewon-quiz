@@ -1,11 +1,13 @@
 import { UI } from "./config.js";
 import { registerRoute, startRouter, navigate } from "./router.js";
 import { renderHome } from "./views/home.js";
+import { renderAdmissions } from "./views/admissions.js";
 import { renderBrowse } from "./views/browse.js";
 import { renderQuestion } from "./views/question.js";
 import { renderQuiz } from "./views/quiz.js";
 import { renderWrongNote } from "./views/wrong-note.js";
 import { renderSources } from "./views/sources.js";
+import { hydrateIcons, icon } from "./lib/icons.js";
 
 import "./styles/base.css";
 import "./styles/layout.css";
@@ -14,31 +16,42 @@ import "./styles/components.css";
 const app = document.querySelector("#app");
 
 const NAV = [
-  { hash: "#/", label: UI.nav.home, icon: "⌂" },
-  { hash: "#/browse", label: UI.nav.browse, icon: "☰" },
-  { hash: "#/quiz", label: UI.nav.quiz, icon: "▶" },
-  { hash: "#/wrong-note", label: UI.nav.wrongNote, icon: "✎" },
-  { hash: "#/sources", label: UI.nav.sources, icon: "↗" },
+  { hash: "#/", label: UI.nav.home, icon: "house" },
+  { hash: "#/admissions", label: UI.nav.admissions, icon: "graduation-cap" },
+  { hash: "#/quiz", label: UI.nav.quiz, icon: "circle-play" },
+  { hash: "#/browse", label: UI.nav.browse, icon: "search" },
+  { hash: "#/wrong-note", label: UI.nav.wrongNote, icon: "notebook-pen" },
+  { hash: "#/sources", label: UI.nav.sources, icon: "files" },
 ];
+
+const BOTTOM_NAV = NAV.filter((item) => item.hash !== "#/sources");
 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";
   app.innerHTML = `
     <div class="app-shell">
       <aside class="sidebar" aria-label="주 메뉴">
-        <div class="brand">${UI.appTitle}</div>
+        <a href="#/" class="brand" aria-label="${UI.appTitle} 홈">
+          <span class="brand-icon">${icon("graduation-cap")}</span>
+          <span><strong>${UI.appTitle}</strong><small>SEMINARY PREP</small></span>
+        </a>
         <nav class="side-nav">
           ${NAV.map(
             (n) =>
-              `<a href="${n.hash}" class="nav-link ${current.startsWith(n.hash.replace(/\/$/, "")) || (n.hash === "#/" && current === "#/") ? "active" : ""}">${n.label}</a>`
+              `<a href="${n.hash}" class="nav-link ${isActive(n.hash, current) ? "active" : ""}">${icon(n.icon)}<span>${n.label}</span></a>`
           ).join("")}
         </nav>
+        <div class="sidebar-note">
+          ${icon("sparkles")}
+          <p><strong>영어 집중 준비</strong><span>어휘부터 실전까지 4주 계획</span></p>
+          <a href="#/admissions">계획 보기 ${icon("chevron-right")}</a>
+        </div>
       </aside>
       <main class="main" id="view-root">${contentHtml}</main>
       <nav class="bottom-nav" aria-label="하단 메뉴">
-        ${NAV.map(
+        ${BOTTOM_NAV.map(
           (n) =>
-            `<a href="${n.hash}" class="bottom-link ${isActive(n.hash, current) ? "active" : ""}"><span class="icon">${n.icon}</span><span>${n.label}</span></a>`
+            `<a href="${n.hash}" class="bottom-link ${isActive(n.hash, current) ? "active" : ""}"><span class="icon">${icon(n.icon)}</span><span>${n.label === UI.nav.admissions ? "입시" : n.label}</span></a>`
         ).join("")}
       </nav>
     </div>
@@ -64,6 +77,8 @@ async function renderView(matched) {
   try {
     if (matched.path.startsWith("/question/")) {
       await renderQuestion(root, matched.params);
+    } else if (matched.path === "/admissions") {
+      await renderAdmissions(root);
     } else if (matched.path === "/browse" || matched.path.startsWith("/browse")) {
       await renderBrowse(root);
     } else if (matched.path === "/quiz" || matched.path.startsWith("/quiz")) {
@@ -75,12 +90,14 @@ async function renderView(matched) {
     } else {
       await renderHome(root);
     }
+    hydrateIcons(app);
   } catch (err) {
     root.innerHTML = `<p class="error">${err.message}</p>`;
   }
 }
 
 registerRoute("/", () => {});
+registerRoute("/admissions", () => {});
 registerRoute("/browse", () => {});
 registerRoute("/question/:id", () => {});
 registerRoute("/quiz", () => {});

@@ -19,6 +19,7 @@ export const UI = {
   appTitle: "신대원 기출",
   nav: {
     home: "홈",
+    admissions: "입시 가이드",
     browse: "탐색",
     quiz: "학습",
     wrongNote: "오답노트",

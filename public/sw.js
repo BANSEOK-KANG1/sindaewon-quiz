@@ -1,12 +1,11 @@
 /* 신대원 기출 — 오프라인 셸 캐시 */
-const CACHE = "sindaewon-quiz-v2";
+const CACHE = "sindaewon-quiz-v3";
 const PRECACHE = [
   "./",
   "./index.html",
   "./manifest.webmanifest",
-  "./favicon.svg",
-  "./icon-192.png",
-  "./icon-512.png",
+  "./icon-192-v2.png",
+  "./icon-512-v2.png",
   "./data/questions.json",
 ];
 
