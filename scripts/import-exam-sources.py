@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
 import struct
 import zlib
 from pathlib import Path
@@ -407,9 +408,17 @@ def main() -> None:
         replace_sources={"bible-bank-2026", HWP_SOURCE, "hwp-exam-draft"},
     )
 
+    # HWP 지문·밑줄 유실 문항 제외, OCR 정리, 해설 보강을 공통 규칙으로 적용한다.
+    subprocess.run(
+        ["node", str(ROOT / "scripts" / "curate-content.js")],
+        cwd=ROOT,
+        check=True,
+    )
+
     total = len(json.loads(QUESTIONS_JSON.read_text(encoding="utf-8"))["questions"])
+    curated_hwp_total = len(json.loads(OUT_HWP_READY.read_text(encoding="utf-8")))
     print(f"bible-bank questions: {len(bible_bank)}")
-    print(f"hwp ready questions: {len(hwp_ready)}")
+    print(f"hwp ready questions: {curated_hwp_total}")
     print(f"questions.json total: {total}")
     print(f"wrote: {OUT_QUESTION_BANK}")
     print(f"wrote: {OUT_HWP_READY}")
@@ -417,4 +426,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

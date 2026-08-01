@@ -35,6 +35,8 @@ export const LINKS = {
   quizletOtMc: "https://quizlet.com/kr/44632793/",
   quizletEnglish: "https://quizlet.com/kr/893342880/",
   cstsent: "https://cstsent.csu.ac.kr/",
+  chongshinGuide2026:
+    "https://cstsent.csu.ac.kr/api/file/getPdf?destFilename=%EC%9E%85%EC%8B%9C%EC%9A%94%EA%B0%95&path=board%2F202505%2F%2F4571afbf-682b-4d45-89fe-208c6d7d2da3.pdf",
   puts: "http://www.puts.ac.kr/www/sub/haksa_sw/",
   chongshinAdmissions: "https://www.chongshin.ac.kr/",
 };

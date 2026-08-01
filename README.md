@@ -102,6 +102,8 @@ npm run import
 **출력:** `public/data/questions.json`  
 ID는 `chongshin-bible-001`처럼 과목별로 **파일 구간마다 리셋하지 않고** 연속 부여됩니다(성경 full + bible 병합 시 한 번에 번호 매김).
 
+가져온 자료는 `npm run curate`에서 한 번 더 검수합니다. 원문 추출 중 지문·밑줄 위치가 유실된 항목은 제외하고, OCR 잡문자를 정리하며, 비어 있는 해설에는 정답·자료 기준 안내를 보강합니다. `npm run build`와 `npm run import`에는 이 검수 과정이 자동으로 포함됩니다.
+
 ### 장신 필답 CSV → JSON 병합
 
 서술형·단답형은 CSV 템플릿을 사용합니다.

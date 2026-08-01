@@ -1168,6 +1168,8 @@
   margin: 0;
   font-size: clamp(1.25rem, 4vw, 1.65rem);
   letter-spacing: -0.035em;
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .section-heading-home {
@@ -1391,6 +1393,145 @@
   line-height: 1.55;
 }
 
+.admission-fact-grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.score-blueprint,
+.admission-fact-card {
+  min-width: 0;
+  padding: 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.score-blueprint {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--primary);
+  color: #fff;
+}
+
+.score-blueprint > p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.74rem;
+  font-weight: 700;
+}
+
+.score-blueprint > strong {
+  margin: 0.25rem 0 1rem;
+  font-size: 2.75rem;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.score-blueprint > strong span {
+  margin-left: 0.15rem;
+  font-size: 0.9rem;
+  letter-spacing: 0;
+}
+
+.score-stack {
+  display: flex;
+  height: 4.4rem;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.score-stack > span {
+  width: calc(var(--score) * 1%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.55rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.score-stack > span:last-child {
+  border-right: 0;
+}
+
+.score-stack b {
+  font-size: 0.7rem;
+}
+
+.score-stack em {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 0.68rem;
+  font-style: normal;
+}
+
+.admission-fact-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.admission-fact-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.fact-label {
+  margin: 0 0 0.1rem;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 750;
+}
+
+.admission-fact-card ul {
+  grid-column: 1 / -1;
+  list-style: none;
+  padding: 0;
+  margin: 0.3rem 0 0;
+}
+
+.admission-fact-card li {
+  display: grid;
+  grid-template-columns: 3.2rem minmax(0, 1fr);
+  gap: 0.55rem;
+  padding: 0.45rem 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.78rem;
+}
+
+.admission-fact-card li span {
+  color: var(--muted);
+}
+
+.verified-source-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 1rem;
+  margin-top: 0.8rem;
+  border-radius: 14px;
+  background: var(--primary-soft);
+}
+
+.verified-source-row p {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.6;
+}
+
+.verified-source-row p > .app-icon {
+  margin-top: 0.15rem;
+  color: var(--primary);
+}
+
 .admission-roadmap {
   list-style: none;
   padding: 0;
@@ -1436,6 +1577,54 @@
   border: 1px solid var(--border);
   border-radius: 18px;
   background: var(--surface);
+}
+
+.english-exam-brief {
+  display: grid;
+  gap: 1rem;
+  padding: 1.15rem;
+  margin-bottom: 0.8rem;
+  border-radius: 18px;
+  background: var(--accent-soft);
+}
+
+.english-exam-brief h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.08rem;
+  word-break: keep-all;
+}
+
+.english-exam-brief > div > p:not(.eyebrow) {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.english-exam-brief dl {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.english-exam-brief dl > div {
+  display: flex;
+  flex-direction: column;
+  padding: 0.65rem;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.english-exam-brief dt {
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+
+.english-exam-brief dd {
+  margin: 0.1rem 0 0;
+  color: var(--text);
+  font-size: 0.73rem;
 }
 
 .english-track-card {
@@ -1639,6 +1828,42 @@
   line-height: 1.6;
 }
 
+.source-health-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55rem;
+  margin-bottom: 0.75rem;
+}
+
+.source-health-grid > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.85rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--surface);
+}
+
+.source-health-grid strong {
+  font-size: clamp(1.05rem, 5vw, 1.45rem);
+}
+
+.source-health-grid span {
+  color: var(--muted);
+  font-size: 0.68rem;
+}
+
+.source-quality-note {
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: 13px;
+  background: var(--primary-soft);
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.6;
+}
+
 .result-metrics {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1683,6 +1908,20 @@
   .week-plan-grid {
     grid-template-columns: 1fr 1fr;
   }
+
+  .verified-source-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .verified-source-row p {
+    max-width: 720px;
+  }
+
+  .verified-source-row .btn {
+    flex: 0 0 auto;
+  }
 }
 
 @media (min-width: 720px) {
@@ -1701,10 +1940,31 @@
     grid-template-columns: 1fr 1fr;
   }
 
+  .admission-fact-grid {
+    grid-template-columns: 0.8fr 1fr 1fr;
+  }
+
+  .english-exam-brief {
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 1fr);
+    align-items: center;
+  }
+
   .exam-lab {
     grid-template-columns: minmax(0, 1fr) minmax(270px, 0.75fr);
     align-items: center;
     padding: 2rem;
+  }
+}
+
+@media (max-width: 559px) {
+  .section-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .section-caption {
+    align-self: flex-start;
   }
 }
 

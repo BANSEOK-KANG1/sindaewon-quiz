@@ -57,7 +57,7 @@ export async function renderHome(root) {
       <div class="english-spotlight-copy">
         <p class="eyebrow">영어 집중</p>
         <h2>어휘부터 원문기출까지 한 흐름으로</h2>
-        <p>총 ${questions.filter((q) => q.subject === "영어").length.toLocaleString("ko-KR")}문항 · 단어장 300 · 문법 · 독해 · 2020–22 원문</p>
+        <p>총 ${questions.filter((q) => q.subject === "영어").length.toLocaleString("ko-KR")}문항 · 핵심 300단어 · 1,200 연습문항 · 문법 · 독해 · 검수 원문</p>
       </div>
       <div class="english-spotlight-actions">
         <a class="btn btn-light" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("book-open")} 오늘 단어 20</a>
@@ -98,8 +98,8 @@ export async function renderHome(root) {
       </a>
       <a class="mode-card" href="#/quiz?mode=exam&tags=원문기출&seminary=chongshin&count=25&auto=1">
         <span class="mode-icon">${icon("timer")}</span><span class="mode-kicker">실전</span>
-        <strong>20–22 원문 25</strong>
-        <span>총신 · 최근 학년도</span>
+        <strong>검수 원문 25</strong>
+        <span>총신 · 2020–22 수록 자료</span>
       </a>
       <a class="mode-card" href="#/quiz?mode=study&tags=동의어&subject=영어&seminary=chongshin&count=15&auto=1">
         <span class="mode-icon">${icon("languages")}</span><span class="mode-kicker">영어</span>

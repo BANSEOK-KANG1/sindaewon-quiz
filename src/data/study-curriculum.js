@@ -111,7 +111,7 @@ export const PRACTICE_TRACKS = [
   {
     label: "2020–22 원문기출",
     tags: ["원문기출"],
-    hint: "HWP 영어·성경 300문항",
+    hint: "HWP 원문 중 검수 완료 문항",
     recommend: 25,
     mode: "exam",
   },
@@ -135,7 +135,7 @@ export const PRACTICE_TRACKS = [
     label: "2022 영어",
     tags: ["2022학년도"],
     subject: "영어",
-    hint: "최근 학년도",
+    hint: "2022 수록 자료",
     recommend: 25,
     mode: "exam",
   },

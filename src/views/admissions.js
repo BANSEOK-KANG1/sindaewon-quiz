@@ -8,8 +8,8 @@ const ENGLISH_TRACKS = [
   {
     icon: "library-big",
     tag: "단어장300",
-    title: "핵심 어휘 300",
-    desc: "영→한으로 뜻을 연결하고 한→영으로 회상합니다.",
+    title: "핵심 300단어",
+    desc: "300단어를 영→한·한→영·유의어·반의어 1,200문항으로 반복합니다.",
     action: "영→한 20",
     href: "/quiz?mode=study&tags=단어장300,영한&subject=영어&seminary=chongshin&count=20&auto=1",
   },
@@ -41,7 +41,7 @@ const ENGLISH_TRACKS = [
     icon: "timer",
     tag: "원문기출",
     title: "원문기출 실전",
-    desc: "2020–22 자료를 피드백 없이 연속으로 풉니다.",
+    desc: "2020–22 원문 중 단독 출제가 가능한 검수 완료 문항만 연속으로 풉니다.",
     action: "실전 25",
     href: "/quiz?mode=exam&tags=원문기출&subject=영어&seminary=chongshin&count=25&auto=1",
   },
@@ -95,6 +95,11 @@ export async function renderAdmissions(root) {
   const originalEnglish = questions.filter(
     (item) => item.subject === "영어" && item.tags?.includes("원문기출")
   ).length;
+  const englishBreakdown = {
+    vocab: questions.filter((item) => item.subject === "영어" && item.tags?.includes("단어장300")).length,
+    grammar: questions.filter((item) => item.subject === "영어" && item.tags?.includes("문법")).length,
+    reading: questions.filter((item) => item.subject === "영어" && item.tags?.includes("독해")).length,
+  };
 
   root.innerHTML = `
     <header class="guide-hero">
@@ -113,7 +118,7 @@ export async function renderAdmissions(root) {
         <span>${icon("languages")}</span>
         <strong>${number(englishTotal)}</strong>
         <p>영어 학습 문항</p>
-        <div><span>원문기출</span><b>${number(originalEnglish)}</b></div>
+        <div><span>검수 완료 원문</span><b>${number(originalEnglish)}</b></div>
       </div>
     </header>
 
@@ -121,7 +126,7 @@ export async function renderAdmissions(root) {
       <div class="section-heading">
         <div>
           <p class="eyebrow">학교별 준비</p>
-          <h2 id="school-guide-title">먼저 지원 학교의 범위를 확인하세요</h2>
+          <h2 id="school-guide-title">지원 학교의 전형부터 확인하세요</h2>
         </div>
         <span class="section-caption">앱 수록 자료 기준</span>
       </div>
@@ -172,6 +177,49 @@ export async function renderAdmissions(root) {
       </aside>
     </section>
 
+    <section class="guide-section" aria-labelledby="verified-guide-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">공식 요강 기준</p>
+          <h2 id="verified-guide-title">총신 M.Div. 일반전형 핵심 구조</h2>
+        </div>
+        <span class="section-caption">최근 확인 자료 · 2026학년도</span>
+      </div>
+      <div class="admission-fact-grid">
+        <article class="score-blueprint">
+          <p>총점</p>
+          <strong>200<span>점</span></strong>
+          <div class="score-stack" aria-label="총신 일반전형 배점">
+            <span style="--score:50"><b>성경</b><em>100점</em></span>
+            <span style="--score:25"><b>영어</b><em>50점</em></span>
+            <span style="--score:25"><b>심층면접</b><em>50점</em></span>
+          </div>
+        </article>
+        <article class="admission-fact-card">
+          <span class="icon-box">${icon("book-check")}</span>
+          <div><p class="fact-label">필답고사 150점</p><h3>성경 100 + 영어 50</h3></div>
+          <ul>
+            <li><strong>성경</strong><span>한글 개역개정판 기준</span></li>
+            <li><strong>영어</strong><span>본교 자체 출제 · 어휘·문법·독해</span></li>
+            <li><strong>결시</strong><span>필답 과목 결시 시 불합격 처리</span></li>
+          </ul>
+        </article>
+        <article class="admission-fact-card">
+          <span class="icon-box icon-box-warm">${icon("files")}</span>
+          <div><p class="fact-label">지원·서류 확인</p><h3>자격과 추천서를 먼저</h3></div>
+          <ul>
+            <li><strong>학력</strong><span>학사학위 취득(예정) 또는 동등 학력</span></li>
+            <li><strong>신앙</strong><span>세례·입교 경과기간과 교단 요건 확인</span></li>
+            <li><strong>서류</strong><span>추천서·세례증명·졸업/성적증명 등</span></li>
+          </ul>
+        </article>
+      </div>
+      <div class="verified-source-row">
+        <p>${icon("file-check-2")} <span><strong>자료 기준</strong> 위 내용은 2026학년도 총신대학교 신학대학원 M.Div. 일반전형 공식 모집요강을 요약했습니다. 2027학년도 일정·기준일·서류양식은 새 요강 발표 후 다시 확인해야 합니다.</span></p>
+        <a class="btn btn-secondary" href="${LINKS.chongshinGuide2026}" target="_blank" rel="noopener">2026 공식 요강 ${icon("external-link")}</a>
+      </div>
+    </section>
+
     <section class="guide-section" aria-labelledby="roadmap-title">
       <div class="section-heading">
         <div>
@@ -199,6 +247,19 @@ export async function renderAdmissions(root) {
           <h2 id="english-title">외우기 → 구별하기 → 읽기 → 실전</h2>
         </div>
         <span class="section-caption">5단계</span>
+      </div>
+      <div class="english-exam-brief">
+        <div>
+          <p class="eyebrow">영어 50점 대비</p>
+          <h3>공식 출제영역을 앱 학습으로 연결했습니다</h3>
+          <p>어휘에서 점수를 확보하고, 문법 근거를 빠르게 찾은 뒤, 독해와 원문 세트로 시간 안배를 고정하세요.</p>
+        </div>
+        <dl>
+          <div><dt>어휘</dt><dd>핵심 300단어 · ${number(englishBreakdown.vocab)} 연습문항</dd></div>
+          <div><dt>문법</dt><dd>관계사·가정법·분사 등 ${number(englishBreakdown.grammar)}문항</dd></div>
+          <div><dt>독해</dt><dd>문장·성경 영어 ${number(englishBreakdown.reading)}문항</dd></div>
+          <div><dt>원문</dt><dd>2020–22 검수 완료 ${number(originalEnglish)}문항</dd></div>
+        </dl>
       </div>
       <div class="english-track-list">
         ${ENGLISH_TRACKS.map((track, index) => {
@@ -268,7 +329,7 @@ export async function renderAdmissions(root) {
       </div>
     </section>
 
-    <p class="source-disclaimer">이 화면의 문항 수와 학습 범위는 앱에 수록된 자료 기준입니다. 실제 지원 자격과 전형 방식은 해마다 바뀔 수 있으므로 반드시 학교가 발표한 해당 연도 모집요강을 최종 기준으로 삼으세요.</p>
+    <p class="source-disclaimer">문항 수와 학습 범위는 앱 수록 자료 기준입니다. HWP 추출 과정에서 지문이나 밑줄 위치가 유실된 영어 문항은 원본 대조 전까지 출제 대상에서 제외했습니다. 실제 지원 자격과 전형 방식은 해마다 바뀔 수 있으므로 반드시 학교가 발표한 해당 연도 모집요강을 최종 기준으로 삼으세요.</p>
   `;
 
   root.querySelectorAll("a[href^='#/']").forEach((link) => {

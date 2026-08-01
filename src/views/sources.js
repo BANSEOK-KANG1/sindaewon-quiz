@@ -13,7 +13,7 @@ const CHECKLIST = [
   { id: "cs-bible-2018", label: "총신 성경 2018" },
   { id: "cs-bible-2019", label: "총신 성경 2019" },
   { id: "cs-bible-2020", label: "총신 성경 2020–22 원문" },
-  { id: "cs-english-recent", label: "총신 영어 (최근 연도)" },
+  { id: "cs-english-recent", label: "총신 영어 2020–22 원문 (검수 완료본)" },
   { id: "cs-bank-2026", label: "총신 성경고사 문제은행 2026" },
   { id: "js-bible-book", label: "장신 구약 문제집 PDF (300문항 반영)" },
   { id: "js-memory-2027", label: "장신 2027 구약 암송구절 (25구절 반영)" },
@@ -26,12 +26,23 @@ export async function renderSources(root) {
   const checklist = getCollectionChecklist();
   const done = CHECKLIST.filter((c) => checklist[c.id]).length;
   const pastedCount = getPastedQuestions().length;
+  const verifiedOriginals = questions.filter(
+    (question) => question.subject === "영어" && question.tags?.includes("원문기출")
+  ).length;
+  const explained = questions.filter((question) => String(question.explanation || "").trim()).length;
+  const browseOnly = questions.filter((question) => question.tags?.includes("정답미수록")).length;
 
   root.innerHTML = `
     <header class="page-header">
       <h1>자료 모으기</h1>
       <p class="muted">앱에 ${questions.length}문항 등록됨 (붙여넣기 ${pastedCount} · JSON ${questions.length - pastedCount}) · 수집 체크 ${done}/${CHECKLIST.length}</p>
     </header>
+    <section class="source-health-grid" aria-label="문항 검수 현황">
+      <div><strong>${verifiedOriginals}</strong><span>영어 검수 원문</span></div>
+      <div><strong>${explained.toLocaleString("ko-KR")}</strong><span>해설·정답 안내</span></div>
+      <div><strong>${browseOnly}</strong><span>정답 미수록 열람</span></div>
+    </section>
+    <p class="source-quality-note">원문 추출 중 지문·밑줄 위치가 유실된 문항과 객관식 형식이 깨진 문항은 출제 목록에서 제외했습니다. 장신 구약 문제집의 정답 미수록 문항은 점수에 반영하지 않고 열람용으로만 제공합니다.</p>
     <section class="card">
       <h2>공식·참고 링크</h2>
       <ul class="link-list">
@@ -40,6 +51,7 @@ export async function renderSources(root) {
         <li><a href="${LINKS.quizletOtMc}" target="_blank" rel="noopener">Quizlet — 구약 객관식 (44632793)</a></li>
         <li><a href="${LINKS.quizletEnglish}" target="_blank" rel="noopener">Quizlet — 영어 (893342880)</a></li>
         <li><a href="${LINKS.cstsent}" target="_blank" rel="noopener">총신 신학대학원 입시 (cstsent)</a></li>
+        <li><a href="${LINKS.chongshinGuide2026}" target="_blank" rel="noopener">총신 M.Div. 2026 일반전형 공식 모집요강</a></li>
         <li><a href="${LINKS.puts}" target="_blank" rel="noopener">장로회신학대 신대원 학사안내 (puts)</a></li>
         <li><a href="${LINKS.chongshinAdmissions}" target="_blank" rel="noopener">총신대 입학정보</a></li>
       </ul>
