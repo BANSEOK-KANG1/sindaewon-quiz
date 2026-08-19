@@ -7,6 +7,7 @@ const KEYS = {
   collection: `${PREFIX}collection-checklist`,
   exposure: `${PREFIX}exposure`,
   studyStats: `${PREFIX}study-stats`,
+  questionStats: `${PREFIX}question-stats`,
 };
 
 function read(key, fallback) {
@@ -104,6 +105,45 @@ export function recordExposures(ids) {
   write(KEYS.exposure, map);
 }
 
+function normalizeQuestionStat() {
+  return {
+    attempts: 0,
+    correct: 0,
+    wrong: 0,
+    unanswered: 0,
+    lastSeenAt: 0,
+    lastWrongAt: 0,
+    lastCorrectAt: 0,
+  };
+}
+
+export function getQuestionStats() {
+  return read(KEYS.questionStats, {});
+}
+
+export function recordQuestionAttempt(questionId, { correct, unanswered } = {}) {
+  const map = getQuestionStats();
+  const stat = { ...normalizeQuestionStat(), ...(map[questionId] || {}) };
+  const now = Date.now();
+
+  stat.attempts += 1;
+  stat.lastSeenAt = now;
+
+  if (unanswered) {
+    stat.unanswered = (stat.unanswered || 0) + 1;
+  } else if (correct) {
+    stat.correct = (stat.correct || 0) + 1;
+    stat.lastCorrectAt = now;
+  } else {
+    stat.wrong = (stat.wrong || 0) + 1;
+    stat.lastWrongAt = now;
+  }
+
+  map[questionId] = stat;
+  write(KEYS.questionStats, map);
+  return stat;
+}
+
 export function getStudyStats() {
   return read(KEYS.studyStats, {
     streak: 0,
@@ -115,31 +155,39 @@ export function getStudyStats() {
   });
 }
 
-export function recordStudySession({ answered, correct, bestCombo }) {
+export function recordStudySession({ answered, correct, bestCombo, countForToday = true }) {
   const stats = getStudyStats();
-  const day = todayKey();
   const yesterday = (() => {
     const d = new Date();
     d.setDate(d.getDate() - 1);
     return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
   })();
 
-  if (stats.lastStudyDay === day) {
-    // keep streak
-  } else if (stats.lastStudyDay === yesterday) {
-    stats.streak = (stats.streak || 0) + 1;
-  } else {
-    stats.streak = 1;
+  if (countForToday) {
+    const day = todayKey();
+    if (stats.lastStudyDay === day) {
+      // keep streak
+    } else if (stats.lastStudyDay === yesterday) {
+      stats.streak = (stats.streak || 0) + 1;
+    } else {
+      stats.streak = 1;
+    }
+    stats.lastStudyDay = day;
   }
-  stats.lastStudyDay = day;
+
   stats.totalAnswered = (stats.totalAnswered || 0) + answered;
   stats.totalCorrect = (stats.totalCorrect || 0) + correct;
   stats.bestCombo = Math.max(stats.bestCombo || 0, bestCombo || 0);
-  if (!stats.daily) stats.daily = {};
-  const d = stats.daily[day] || { answered: 0, correct: 0 };
-  d.answered += answered;
-  d.correct += correct;
-  stats.daily[day] = d;
+
+  if (countForToday) {
+    const day = todayKey();
+    if (!stats.daily) stats.daily = {};
+    const d = stats.daily[day] || { answered: 0, correct: 0 };
+    d.answered += answered;
+    d.correct += correct;
+    stats.daily[day] = d;
+  }
+
   write(KEYS.studyStats, stats);
   return stats;
 }

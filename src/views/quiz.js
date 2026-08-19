@@ -37,6 +37,8 @@ import {
   getExposureCounts,
   recordExposures,
   recordStudySession,
+  recordQuestionAttempt,
+  getQuestionStats,
   getTodayProgress,
   getStudyStats,
 } from "../storage/progress.js";
@@ -45,6 +47,67 @@ const CIRCLE = ["①", "②", "③", "④"];
 const WRONG_QUIZ_KEY = "wrong-note-quiz-ids";
 const DAILY_GOAL = 30;
 let examTimerId = null;
+
+function shouldCountForToday(mode, options = {}) {
+  if (typeof options.countForToday === "boolean") return options.countForToday;
+  return mode === "study";
+}
+
+const EXAM_TAG_RX = /(기출|원문|유형|문제은행|실전|시험|권별|단계)/;
+
+function getExamTagSignalWeights(questions) {
+  const freq = new Map();
+  for (const q of questions) {
+    for (const tag of q.tags || []) {
+      const t = String(tag);
+      if (!EXAM_TAG_RX.test(t)) continue;
+      freq.set(t, (freq.get(t) || 0) + 1);
+    }
+  }
+
+  return [...freq.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 6)
+    .map(([tag], i) => [tag, Math.max(0.05, 0.35 - i * 0.04)]);
+}
+
+function getQuestionPriority(q, now, history, topExamTagWeights = []) {
+  const stat = history[q.id];
+  const attempts = stat?.attempts || 0;
+  const correct = stat?.correct || 0;
+  const wrong = stat?.wrong || 0;
+
+  if (!attempts) {
+    return 0.9;
+  }
+
+  const correctRate = attempts ? correct / attempts : 0;
+  const wrongRate = attempts ? wrong / attempts : 0;
+  const seenGapDays = stat.lastSeenAt ? (now - stat.lastSeenAt) / 86400000 : 30;
+
+  let p = 0;
+  p += (1 - correctRate) * 0.9;
+  p += wrongRate * 0.6;
+  p += Math.min(0.35, wrong * 0.08);
+
+  if (seenGapDays >= 14) p += 0.25;
+  else if (seenGapDays >= 7) p += 0.12;
+
+  if (attempts >= 5 && correctRate >= 0.9) p -= 0.18;
+
+  if (!stat?.lastWrongAt) {
+    p += 0.06;
+  }
+
+  let examBoost = 0;
+  if (topExamTagWeights.length) {
+    for (const [tag, w] of topExamTagWeights) {
+      if ((q.tags || []).includes(tag)) examBoost += w;
+    }
+  }
+
+  return p + examBoost;
+}
 
 function elapsedSeconds(session) {
   const end = session.finishedAt || Date.now();
@@ -98,6 +161,9 @@ function pickQuizPool(filtered, count, { mode = "study" } = {}) {
 
   const wrongIds = new Set(getWrongNotes().map((n) => n.questionId));
   const exposure = getExposureCounts();
+  const questionStats = getQuestionStats();
+  const examTagWeights = mode === "exam" ? getExamTagSignalWeights(pool) : [];
+  const now = Date.now();
 
   // 매번 다르게: 중요도(weight) + 오답·미출제 가중
   const scored = pool.map((q) => {
@@ -106,6 +172,7 @@ function pickQuizPool(filtered, count, { mode = "study" } = {}) {
     key += w * 0.12;
     if (wrongIds.has(q.id)) key += 0.4;
     if (!exposure[q.id]) key += 0.2;
+    key += getQuestionPriority(q, now, questionStats, examTagWeights);
     return { q, key };
   });
   scored.sort((a, b) => b.key - a.key);
@@ -165,11 +232,13 @@ export async function renderQuiz(root) {
     session = null;
   }
 
-  function startSession(pool, mode = "study") {
+  function startSession(pool, mode = "study", options = {}) {
+    const countForToday = shouldCountForToday(mode, options);
     session = {
       mode,
       seminary: pool[0]?.seminary || "",
       subject: pool[0]?.subject || "",
+      countForToday,
       ids: pool.map((x) => x.id),
       index: 0,
       score: 0,
@@ -194,17 +263,19 @@ export async function renderQuiz(root) {
     }
     recordExposures(s.ids || []);
     const correct = s.answers.filter((a) => a.correct).length;
+    const countForToday = s.countForToday ?? (s.mode === "study");
     recordStudySession({
       answered: s.answers.length,
       correct,
       bestCombo: s.bestCombo || 0,
+      countForToday,
     });
     root.innerHTML = renderResult(s);
     root.querySelector("#retry-wrong")?.addEventListener("click", () => {
       const wrongIds = s.answers.filter((a) => !a.correct).map((a) => a.questionId);
       if (!wrongIds.length) return;
       const pool = questions.filter((x) => wrongIds.includes(x.id));
-      startSession(pool, "study");
+      startSession(pool, "study", { countForToday: false });
     });
     root.querySelector("#new-quiz")?.addEventListener("click", () => {
       clearQuizSession();
@@ -234,7 +305,7 @@ export async function renderQuiz(root) {
             alert("오답이 없습니다.");
             return;
           }
-          startSession(pool, mode);
+          startSession(pool, mode, { countForToday: false });
           return;
         }
 
@@ -336,7 +407,7 @@ export async function renderQuiz(root) {
       });
       return;
     }
-    startSession(shuffle(pool), "study");
+    startSession(shuffle(pool), "study", { countForToday: false });
     return;
   }
 
@@ -978,6 +1049,7 @@ function renderActive(root, session, allQuestions, onFinish) {
 function commitAnswer(session, q, selected, correct, root, allQuestions, onFinish) {
   const unanswered = !hasAnswer(q);
   session.answers.push({ questionId: q.id, selected, correct: unanswered ? true : correct, unanswered });
+  recordQuestionAttempt(q.id, { correct: unanswered ? true : correct, unanswered });
   if (unanswered) {
     // 정답 미수록: 오답노트·점수 집계에서 제외, 열람만
     session.combo = session.combo || 0;
