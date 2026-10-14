@@ -385,6 +385,12 @@ export function buildPlan(startKey) {
   return days;
 }
 
+/** 오늘 계획 퀴즈 단계의 문항 수 합 — 오늘 목표로 쓴다 */
+export function planQuestionGoal(day, fallback = 30) {
+  const n = (day?.steps || []).reduce((sum, s) => sum + (s.kind === "manual" ? 0 : s.count || 0), 0);
+  return n || fallback;
+}
+
 export function stepKey(date, stepId) {
   return `${date}:${stepId}`;
 }

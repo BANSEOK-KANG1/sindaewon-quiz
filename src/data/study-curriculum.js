@@ -57,7 +57,7 @@ export const EXAM_TYPE_TRACKS = [
 
 /** 중요도 티어 트랙 (문항 weight 태그) */
 export const IMPORTANCE_TRACKS = [
-  { tag: "필수", label: "필수 (가중치 5)", hint: "신_유형·원문기출·다빈도권", recommend: 20, mode: "study", weight: 5 },
+  { tag: "필수", label: "필수 (가중치 5)", hint: "신(약) 유형·원문기출·다빈도권", recommend: 20, mode: "study", weight: 5 },
   { tag: "중요", label: "중요 (가중치 3–4)", hint: "성종·신유형·문제은행", recommend: 20, mode: "study", weight: 4 },
   { tag: "권장", label: "권장 (가중치 1–2)", hint: "보조·암송·저빈도", recommend: 15, mode: "study", weight: 2 },
 ];
@@ -272,11 +272,11 @@ export const STRATEGY_PHASES = [
     label: "1단계 · 필수 유형",
     days: "1–10일",
     bible: ["창세기", "시편", "이사야", "출애굽기"],
-    bibleHint: "빈도 S권 + 신_유형",
+    bibleHint: "빈도 S권 + 신(약) 유형",
     examTypes: ["신_유형"],
     vocabDays: [1, 2, 3, 4, 5, 6, 7, 8, 9],
     vocabHint: "일반 어휘 Day 1–9",
-    goal: "신_유형·창세기 집중 + 단어 180개",
+    goal: "신(약) 유형·창세기 집중 + 단어 180개",
   },
   {
     id: "phase2",

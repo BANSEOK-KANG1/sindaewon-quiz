@@ -1,7 +1,16 @@
 import { SEMINARIES, UI } from "../config.js";
 import { loadQuestions, countBySeminaryAndSubject } from "../data/questions.js";
 import { suggestVocabDay } from "../data/study-curriculum.js";
-import { buildPlan, nextPlanStep, stepKey, toDateKey, dDay, EXAMS, PHASES } from "../data/daily-plan.js";
+import {
+  buildPlan,
+  nextPlanStep,
+  stepKey,
+  toDateKey,
+  dDay,
+  planQuestionGoal,
+  EXAMS,
+  PHASES,
+} from "../data/daily-plan.js";
 import { navigate } from "../router.js";
 import {
   getTodayProgress,
@@ -20,7 +29,6 @@ export async function renderHome(root) {
   const grad = questions.filter((q) => q.tags?.includes("기출") && q.seminary === "chongshin").length;
   const jangsin = questions.filter((q) => q.seminary === "jangsin").length;
   const vocab = questions.filter((q) => q.tags?.includes("단어장300")).length;
-  const today = getTodayProgress(30);
   const wrong = getWrongNotes().length;
   const stats = getStudyStats();
   const exposure = getExposureCounts();
@@ -30,6 +38,8 @@ export async function renderHome(root) {
   const plan = buildPlan(planProgress.startDate);
   const todayKey = toDateKey();
   const todayPlan = plan.find((d) => d.date === todayKey);
+  const today = getTodayProgress(planQuestionGoal(todayPlan));
+  const vocabStep = todayPlan?.steps.find((s) => s.tags?.includes("단어장300"));
   const next = nextPlanStep(plan, planProgress.done, todayKey);
   const isDone = (s) => Boolean(planProgress.done[stepKey(todayKey, s.id)]);
   const planDone = todayPlan ? todayPlan.steps.filter(isDone).length : 0;
@@ -40,13 +50,30 @@ export async function renderHome(root) {
     <header class="home-hero-v2">
       <div class="home-hero-copy">
         <p class="eyebrow">${icon("sparkles")} ${exam.short} ${dDay(todayKey, exam.date)} · ${phaseLabel}</p>
-        <h1>합격까지,<br />오늘 할 공부만 선명하게</h1>
-        <p>${todayPlan ? `${todayPlan.dayNo}일차 · ${todayPlan.title} · ${planDone}/${todayPlan.steps.length} 완료` : "전체 계획에서 날짜를 골라 학습하세요."}</p>
+        <h1>${todayPlan ? todayPlan.title : "오늘 할 공부만 선명하게"}</h1>
+        <p>${todayPlan ? `${todayPlan.dayNo}일차 · 단계 ${planDone}/${todayPlan.steps.length} · 문항 ${today.answered}/${today.goal} · 약 ${todayPlan.minutes}분` : "전체 계획에서 날짜를 골라 학습하세요."}</p>
+        <div class="progress-track hero-progress" aria-hidden="true"><div class="progress-fill" style="width:${today.pct}%"></div></div>
+        ${
+          todayPlan
+            ? `<ol class="plan-steps">
+                ${todayPlan.steps
+                  .map(
+                    (s) => `<li class="${isDone(s) ? "done" : ""}${next?.step.id === s.id ? " current" : ""}">
+                      <span class="plan-check">${isDone(s) ? "✓" : ""}</span>
+                      <span><strong>${s.label}</strong><span class="muted small"> · ${s.detail}</span></span>
+                    </li>`
+                  )
+                  .join("")}
+              </ol>`
+            : ""
+        }
         <div class="hero-actions">
-          <a class="btn btn-primary" href="${next ? "#/quiz?plan=next" : "#/plan"}">
-            ${icon("circle-play")} ${next ? (planDone ? `이어서 · ${next.step.label}` : "오늘 학습 시작") : "오늘 계획 완료"}
-          </a>
-          <a class="btn btn-soft" href="#/admissions">${icon("graduation-cap")} 입시 가이드</a>
+          ${
+            next
+              ? `<a class="btn btn-primary hero-next" href="#/quiz?plan=next">${icon("circle-play")} ${planDone ? "이어서" : "시작"} · ${next.step.label}</a>`
+              : `<p class="plan-complete">오늘 퀴즈 계획을 모두 끝냈어요</p>`
+          }
+          <a class="btn btn-soft" href="#/plan">${icon("calendar-days")} 전체 계획</a>
         </div>
       </div>
       <div class="today-ring" style="--progress:${today.pct}" aria-label="오늘 목표 ${today.pct}% 달성">
@@ -69,33 +96,14 @@ export async function renderHome(root) {
         <p>총 ${questions.filter((q) => q.subject === "영어").length.toLocaleString("ko-KR")}문항 · 핵심 300단어 · 1,200 연습문항 · 문법 · 독해 · 검수 원문</p>
       </div>
       <div class="english-spotlight-actions">
-        <a class="btn btn-light" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("book-open")} 오늘 단어 20</a>
-        <a class="text-link text-link-light" href="#/admissions">4주 계획 ${icon("arrow-right")}</a>
+        ${
+          vocabStep
+            ? `<a class="btn btn-light" href="#/quiz?plan=${encodeURIComponent(stepKey(todayKey, vocabStep.id))}">${icon("book-open")} ${vocabStep.label}</a>`
+            : `<a class="btn btn-light" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("book-open")} 단어 ${vocabDay.label} 20</a>`
+        }
+        <a class="text-link text-link-light" href="#/admissions">입시·영어 가이드 ${icon("arrow-right")}</a>
       </div>
     </section>
-
-    ${
-      todayPlan
-        ? `<section class="strategy-card card plan-today">
-            <p class="mode-kicker">${icon("calendar-days")} 오늘 계획 · 약 ${todayPlan.minutes}분</p>
-            <h2 class="strategy-title">${todayPlan.title}</h2>
-            <ol class="plan-steps">
-              ${todayPlan.steps
-                .map(
-                  (s) => `<li class="${isDone(s) ? "done" : ""}${next?.step.id === s.id ? " current" : ""}">
-                    <span class="plan-check">${isDone(s) ? "✓" : ""}</span>
-                    <span><strong>${s.label}</strong><span class="muted small"> · ${s.detail}</span></span>
-                  </li>`
-                )
-                .join("")}
-            </ol>
-            <div class="strategy-actions">
-              ${next ? `<a class="btn btn-primary" href="#/quiz?plan=next">${icon("circle-play")} 다음 학습 · ${next.step.label}</a>` : ""}
-              <a class="btn btn-ghost" href="#/plan">${icon("calendar-days")} 전체 계획</a>
-            </div>
-          </section>`
-        : ""
-    }
 
     <div class="section-heading section-heading-home">
       <div><p class="eyebrow">바로 시작</p><h2>원하는 방식으로 공부하세요</h2></div>

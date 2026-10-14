@@ -133,7 +133,8 @@
 
 .filter-bar {
   display: grid;
-  gap: 0.75rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem 0.75rem;
   margin-bottom: 1rem;
   background: var(--surface);
   padding: 1rem;
@@ -149,7 +150,8 @@
   font-weight: 600;
 }
 
-.filter-bar .grow {
+.filter-bar .grow,
+.filter-bar button[type="submit"] {
   grid-column: 1 / -1;
 }
 
@@ -172,6 +174,9 @@
   }
   .filter-bar .grow {
     grid-column: 1 / -1;
+  }
+  .filter-bar button[type="submit"] {
+    grid-column: auto;
   }
 }
 
@@ -392,7 +397,7 @@
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 .paste-form textarea {
@@ -2161,9 +2166,207 @@
   border-top: 1px solid var(--border);
 }
 
+.plan-day > summary,
+.plan-week > summary {
+  list-style: none;
+}
+
+.plan-day > summary::-webkit-details-marker,
+.plan-week > summary::-webkit-details-marker {
+  display: none;
+}
+
+.plan-day > summary::after,
+.plan-week > summary::after {
+  content: "›";
+  color: var(--muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: transform 0.15s ease;
+}
+
+.plan-day[open] > summary::after,
+.plan-week[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+.plan-week > summary > .muted {
+  margin-left: auto;
+}
+
+.plan-today-tag {
+  display: inline-block;
+  margin-right: 0.35rem;
+  padding: 0.05rem 0.4rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  vertical-align: 0.1em;
+}
+
+.plan-total-label {
+  margin: 0 0 0.3rem;
+}
+
+.plan-complete {
+  margin: 0.5rem 0;
+  padding: 0.6rem 0.8rem;
+  border-radius: 10px;
+  background: #e7f3ee;
+  color: var(--success);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.plan-today .progress-track {
+  margin: 0.35rem 0 0.25rem;
+}
+
+.plan-all-link {
+  display: block;
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.hero-progress {
+  margin: 0.6rem 0 0.25rem;
+}
+
+.home-hero-copy .plan-steps {
+  margin-bottom: 0;
+}
+
+.hero-actions .hero-next {
+  flex: 1 1 100%;
+  justify-content: center;
+}
+
+@media (max-width: 639px) {
+  .home-hero-v2 .today-ring {
+    display: none;
+  }
+}
+
+/* —— 퀴즈 상단 —— */
+.hud-quit {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.hud-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.hud-count {
+  flex-shrink: 0;
+}
+
+/* —— 결과 —— */
+.result-next {
+  margin: 0.75rem 0 0.5rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 12px;
+  background: var(--primary-soft);
+  text-align: left;
+}
+
+.result-next p {
+  margin: 0;
+}
+
+.result-next strong {
+  display: block;
+  margin: 0.15rem 0;
+  color: var(--primary);
+}
+
+.result-links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* —— 오답노트 —— */
+.wrong-filters {
+  padding: 0 0 0.75rem;
+}
+
+.chip-btn:disabled {
+  opacity: 0.45;
+}
+
+.wrong-list {
+  margin-top: 1rem;
+}
+
+.wrong-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.wrong-meta .muted {
+  margin-left: auto;
+}
+
+.wrong-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #b42318;
+}
+
+.wrong-question {
+  margin: 0.6rem 0 0.5rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.wrong-answer,
+.wrong-mine {
+  margin: 0.2rem 0;
+  font-size: 0.9rem;
+}
+
+.wrong-answer span,
+.wrong-mine span {
+  display: inline-block;
+  min-width: 2.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.wrong-answer span {
+  color: var(--success);
+}
+
+.wrong-mine {
+  color: var(--muted);
+}
+
+.wrong-mine span {
+  color: #b42318;
+}
+
 .plan-day > summary {
   display: grid;
-  grid-template-columns: 5.2rem 1fr auto;
+  grid-template-columns: 5.2rem 1fr auto auto;
   gap: 0.5rem;
   align-items: center;
   padding: 0.6rem 0;
@@ -2216,11 +2419,6 @@
 .paused-actions {
   display: flex;
   gap: 0.5rem;
-}
-
-.result-next-detail {
-  margin: -0.25rem 0 0.5rem;
-  text-align: center;
 }
 
 @media (prefers-reduced-motion: reduce) {

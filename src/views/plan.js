@@ -51,8 +51,8 @@ function renderDay(day, done, todayKey, open = false) {
     <details class="plan-day ${isToday ? "plan-day-today" : ""} ${status}" ${open ? "open" : ""} id="day-${day.date}">
       <summary>
         <span class="plan-day-date">${formatDateLabel(day.date)}</span>
-        <span class="plan-day-title">${day.examDay ? "🎯 " : ""}${day.title}</span>
-        <span class="plan-day-count">${doneCount}/${day.steps.length}</span>
+        <span class="plan-day-title">${isToday ? `<span class="plan-today-tag">오늘</span>` : ""}${day.examDay ? "🎯 " : ""}${day.title}</span>
+        <span class="plan-day-count">${complete ? "완료" : `${doneCount}/${day.steps.length}`}</span>
       </summary>
       <ol class="plan-step-list">
         ${day.steps.map((s) => renderStep(day, s, done, todayKey)).join("")}
@@ -101,13 +101,14 @@ export async function renderPlan(root) {
   root.innerHTML = `
     <header class="page-header">
       <h1>학습 계획</h1>
-      <p class="muted">${formatDateLabel(progress.startDate)} 시작 · 전체 ${totalDone}/${allSteps.length} 단계 (${pct}%)</p>
+      <p class="muted">${formatDateLabel(progress.startDate)} 시작 · ${plan.length}일 · ${totalDone}/${allSteps.length}단계 완료</p>
     </header>
 
     <div class="plan-dday">
       <div class="plan-dday-item"><span>${EXAMS.chongshin.label}</span><strong>${dDay(todayKey, EXAMS.chongshin.date)}</strong></div>
       <div class="plan-dday-item"><span>${EXAMS.jangsin.label}</span><strong>${dDay(todayKey, EXAMS.jangsin.date)}</strong></div>
     </div>
+    <p class="muted small plan-total-label">전체 진행 ${pct}%${missed.length ? ` · 밀린 단계 ${missed.length}` : ""}</p>
     <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width:${pct}%"></div></div>
 
     ${
@@ -203,8 +204,4 @@ export async function renderPlan(root) {
       navigate(a.getAttribute("href").slice(1));
     });
   });
-
-  if (today) {
-    root.querySelector(`#day-${today.date}`)?.setAttribute("open", "");
-  }
 }

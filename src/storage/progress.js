@@ -36,7 +36,8 @@ export function getWrongNotes() {
 export function addWrongNote(entry) {
   const list = getWrongNotes();
   const existing = list.findIndex((e) => e.questionId === entry.questionId);
-  const item = { ...entry, updatedAt: Date.now() };
+  const missCount = (existing >= 0 ? list[existing].missCount || 1 : 0) + 1;
+  const item = { ...entry, missCount, updatedAt: Date.now() };
   if (existing >= 0) list[existing] = item;
   else list.unshift(item);
   write(KEYS.wrongNotes, list.slice(0, 500));

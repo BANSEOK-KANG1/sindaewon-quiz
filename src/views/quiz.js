@@ -49,6 +49,7 @@ import {
   stepKey,
   toDateKey,
   dDay,
+  planQuestionGoal,
   EXAMS,
 } from "../data/daily-plan.js";
 
@@ -58,6 +59,11 @@ const DAILY_GOAL = 30;
 // 일반 학습·시험에 섞는 오답노트 문항 상한. 오답 집중 복습은 오답노트 퀴즈에서 한다.
 const WRONG_REVIEW_SHARE = 0.2;
 let examTimerId = null;
+
+function todayGoal() {
+  const day = buildPlan(getPlanProgress().startDate).find((d) => d.date === toDateKey());
+  return planQuestionGoal(day, DAILY_GOAL);
+}
 
 function shouldCountForToday(mode, options = {}) {
   if (typeof options.countForToday === "boolean") return options.countForToday;
@@ -291,7 +297,7 @@ export async function renderQuiz(root) {
     }
     const { day, step } = found;
     const planStep = stepKey(day.date, step.id);
-    const extra = { planStep, planLabel: step.label };
+    const extra = { planStep, planLabel: step.label, countForToday: true };
 
     if (step.kind === "wrong") {
       const ids = getWrongNotes().map((n) => n.questionId);
@@ -312,7 +318,7 @@ export async function renderQuiz(root) {
       return;
     }
     const picked = pickQuizPool(pool, Math.min(step.count, pool.length), { mode: step.mode, excludeWrong: true });
-    startSession(picked, step.mode, { source: "plan", ...extra });
+    startSession(picked, step.mode, { ...extra, source: "plan" });
   }
 
   function showResult(s) {
@@ -341,10 +347,6 @@ export async function renderQuiz(root) {
       const wrongIds = s.answers.filter((a) => !a.correct).map((a) => a.questionId);
       if (!wrongIds.length) return;
       startWrongSession(wrongIds);
-    });
-    root.querySelector("#new-quiz")?.addEventListener("click", () => {
-      clearQuizSession();
-      navigate("/quiz?restart=1");
     });
     root.querySelector("#keep-study")?.addEventListener("click", () => {
       clearQuizSession();
@@ -565,12 +567,14 @@ function renderTodayPlanCard() {
   const doneCount = day.steps.filter(isDone).length;
   const next = nextPlanStep(plan, progress.done, todayKey);
   const exam = todayKey <= EXAMS.chongshin.date ? EXAMS.chongshin : EXAMS.jangsin;
+  const today = getTodayProgress(planQuestionGoal(day, DAILY_GOAL));
 
   return `
     <section class="strategy-card card plan-today">
       <p class="mode-kicker">오늘 계획 · ${day.dayNo}일차 · ${exam.short} ${dDay(todayKey, exam.date)}</p>
       <h2 class="strategy-title">${day.title}</h2>
-      <p class="muted small">${doneCount}/${day.steps.length} 완료 · 약 ${day.minutes}분</p>
+      <p class="muted small">단계 ${doneCount}/${day.steps.length} · 문항 ${today.answered}/${today.goal} · 약 ${day.minutes}분</p>
+      <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width:${today.pct}%"></div></div>
       <ol class="plan-steps">
         ${day.steps
           .map(
@@ -581,14 +585,12 @@ function renderTodayPlanCard() {
           )
           .join("")}
       </ol>
-      <div class="strategy-actions">
-        ${
-          next
-            ? `<button type="button" class="btn btn-primary" id="plan-next">다음 학습 · ${next.step.label}</button>`
-            : `<button type="button" class="btn btn-secondary" disabled>오늘 퀴즈 계획 완료</button>`
-        }
-        <a class="btn btn-ghost" href="#/plan">전체 계획</a>
-      </div>
+      ${
+        next
+          ? `<button type="button" class="btn btn-primary btn-block" id="plan-next">다음 학습 · ${next.step.label}</button>`
+          : `<p class="plan-complete">오늘 퀴즈 계획을 모두 끝냈어요</p>`
+      }
+      <a class="text-link plan-all-link" href="#/plan">전체 계획 보기 ›</a>
     </section>`;
 }
 
@@ -596,7 +598,6 @@ function renderSetup(questions, q, paused = null) {
   const seminary = q.get("seminary") || "chongshin";
   const sem = SEMINARIES[seminary] || SEMINARIES.chongshin;
   const years = getYears(questions);
-  const today = getTodayProgress(DAILY_GOAL);
   const stats = getStudyStats();
   const wrongCount = getWrongNotes().length;
   const wrongIds = new Set(getWrongNotes().map((n) => n.questionId));
@@ -731,18 +732,9 @@ function renderSetup(questions, q, paused = null) {
   return `
     <header class="page-header">
       <h1>총신 학습</h1>
-      <p class="muted">총신대 · 오늘 ${today.answered}/${today.goal} · 필수 ${mustTotal.toLocaleString("ko-KR")} · 기출 ${gichulTotal.toLocaleString("ko-KR")}</p>
+      <p class="muted">필수 ${mustTotal.toLocaleString("ko-KR")} · 기출 ${gichulTotal.toLocaleString("ko-KR")} · 누적 정답 ${(stats.totalCorrect || 0).toLocaleString("ko-KR")} · 최고 연속 ${stats.bestCombo || 0}</p>
     </header>
     ${schoolSwitch}
-
-    <div class="daily-goal card">
-      <div class="daily-goal-top">
-        <span>오늘의 목표</span>
-        <strong>${today.answered} / ${today.goal}</strong>
-      </div>
-      <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width:${today.pct}%"></div></div>
-      <p class="muted small">누적 정답 ${stats.totalCorrect || 0} · 최고 연속 ${stats.bestCombo || 0}</p>
-    </div>
 
     ${renderPausedBanner(paused)}
     ${renderTodayPlanCard()}
@@ -786,7 +778,7 @@ function renderSetup(questions, q, paused = null) {
     <section class="study-section card study-section-accent">
       <div class="study-section-head">
         <h2>1. 기출 유형 (가중치) · 총신</h2>
-        <p class="muted small">신_유형 → 성종·신유형 → 목유형 → 학기형</p>
+        <p class="muted small">신(약) 유형 → 성종·신유형 → 목유형 → 학기형</p>
       </div>
       <div class="topic-list topic-list-compact">
         ${IMPORTANCE_TRACKS.map((t) =>
@@ -1030,6 +1022,7 @@ function renderActive(root, session, allQuestions, onFinish) {
 
   if (session.phase === "feedback" && session.lastResult) {
     root.innerHTML = renderFeedback(session, dq, modeLabel, pct);
+    bindQuit(root, session);
     root.querySelector("#next-q")?.addEventListener("click", () => {
       session.phase = "answer";
       session.lastResult = null;
@@ -1044,6 +1037,7 @@ function renderActive(root, session, allQuestions, onFinish) {
 
   if (mode === "flash") {
     root.innerHTML = renderFlashFront(session, q, modeLabel, pct);
+    bindQuit(root, session);
     let revealed = false;
     const reveal = () => {
       if (revealed) return;
@@ -1084,20 +1078,13 @@ function renderActive(root, session, allQuestions, onFinish) {
           </div>`;
 
   root.innerHTML = `
-    <div class="quiz-hud">
-      <div class="quiz-hud-row">
-        <span class="badge">${modeLabel}</span>
-        <span class="combo ${session.combo >= 3 ? "combo-hot" : ""}">${session.combo > 0 ? `${session.combo}연속` : "시작"}</span>
-        ${examClock}
-        <span class="muted small">${session.index + 1}/${session.total}</span>
-      </div>
-      <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-    </div>
+    ${renderHud(session, modeLabel, pct, examClock)}
     <article class="card quiz-card quiz-card-live">
       <p class="question-title">${escapeHtml(dq.question)}</p>
       <div class="choices-stack">${choices}</div>
     </article>
   `;
+  bindQuit(root, session);
   mountExamClock(session);
 
   const lock = () => {
@@ -1181,6 +1168,8 @@ function commitAnswer(session, q, selected, correct, root, allQuestions, onFinis
       questionId: q.id,
       question: q.question,
       selected,
+      selectedLabel: formatSelectedLabel(q, selected),
+      answerLabel: formatAnswer(q),
       correctAnswer: q.answer,
       seminary: q.seminary,
       subject: q.subject,
@@ -1208,16 +1197,39 @@ function commitAnswer(session, q, selected, correct, root, allQuestions, onFinis
   renderActive(root, session, allQuestions, onFinish);
 }
 
-function renderFlashFront(session, q, modeLabel, pct) {
+function renderHud(session, modeLabel, pct, extra = "") {
+  const combo = session.combo || 0;
+  const title = session.planLabel || (session.source === "wrong" ? "오답 복습" : "");
   return `
     <div class="quiz-hud">
       <div class="quiz-hud-row">
+        <button type="button" class="hud-quit" id="quit-session" aria-label="그만하기">✕</button>
         <span class="badge">${modeLabel}</span>
-        <span class="combo ${session.combo >= 3 ? "combo-hot" : ""}">${session.combo > 0 ? `${session.combo}연속` : "시작"}</span>
-        <span class="muted small">${session.index + 1}/${session.total}</span>
+        ${title ? `<span class="hud-title">${escapeHtml(title)}</span>` : ""}
+        <span class="combo ${combo >= 3 ? "combo-hot" : ""}">${combo > 1 ? `${combo}연속` : ""}</span>
+        ${extra}
+        <span class="muted small hud-count">${session.index + 1}/${session.total}</span>
       </div>
       <div class="progress-track"><div class="progress-fill" style="width:${pct}%"></div></div>
-    </div>
+    </div>`;
+}
+
+function bindQuit(root, session) {
+  root.querySelector("#quit-session")?.addEventListener("click", () => {
+    const answered = session.answers?.length || 0;
+    const msg = answered
+      ? `${answered}문항 풀었어요. 여기서 그만할까요?\n푼 문항의 정오답 기록은 남고, 이 단계는 완료로 표시되지 않아요.`
+      : "이 학습을 그만할까요?";
+    if (!confirm(msg)) return;
+    if (examTimerId) window.clearInterval(examTimerId);
+    clearQuizSession();
+    navigate(session.planStep ? "/plan" : session.source === "wrong" ? "/wrong-note" : "/quiz?restart=1");
+  });
+}
+
+function renderFlashFront(session, q, modeLabel, pct) {
+  return `
+    ${renderHud(session, modeLabel, pct)}
     <button type="button" class="flash-card" id="flash-card">
       <p class="flash-front">${escapeHtml(q.question)}</p>
       <p class="flash-reveal-hint muted">탭해서 정답 보기</p>
@@ -1237,16 +1249,8 @@ function renderFlashFront(session, q, modeLabel, pct) {
 function renderFeedback(session, q, modeLabel, pctDone) {
   const { correct, selected, unanswered } = session.lastResult;
   const showExplain = (session.mode || "study") !== "exam" || !correct || unanswered;
-  const combo = session.combo || 0;
   return `
-    <div class="quiz-hud">
-      <div class="quiz-hud-row">
-        <span class="badge">${modeLabel}</span>
-        <span class="combo ${combo >= 3 ? "combo-hot" : ""}">${combo > 0 ? `${combo}연속!` : "이어서"}</span>
-        <span class="muted small">${session.index + 1}/${session.total}</span>
-      </div>
-      <div class="progress-track"><div class="progress-fill" style="width:${Math.round(((session.index + 1) / session.total) * 100)}%"></div></div>
-    </div>
+    ${renderHud(session, modeLabel, Math.round(((session.index + 1) / session.total) * 100))}
     <article class="card feedback-card ${unanswered ? "" : correct ? "is-correct" : "is-wrong"} feedback-pop">
       <p class="feedback-emoji">${unanswered ? "열람" : correct ? "맞아요" : "아쉬워요"}</p>
       <p class="question-title small-q">${escapeHtml(q.question)}</p>
@@ -1273,11 +1277,14 @@ function renderResult(session, next = null) {
   const pct = Math.round((session.score / session.total) * 100) || 0;
   const wrong = session.answers.filter((a) => !a.correct).length;
   const msg = gradeMessage(pct);
-  const today = getTodayProgress(DAILY_GOAL);
+  const today = getTodayProgress(todayGoal());
+  const progress = getPlanProgress();
+  const planDay = buildPlan(progress.startDate).find((d) => d.date === toDateKey());
+  const planDone = planDay ? planDay.steps.filter((s) => progress.done[stepKey(planDay.date, s.id)]).length : 0;
   const spent = elapsedSeconds(session);
   const pace = session.answers.length ? Math.round(spent / session.answers.length) : 0;
   return `
-    <header class="page-header"><h1>오늘의 결과</h1></header>
+    <header class="page-header"><h1>결과</h1></header>
     <article class="card result-card result-pop">
       ${session.planLabel ? `<p class="mode-kicker">${session.source === "wrong" ? "오답 복습" : "계획 학습"} · ${escapeHtml(session.planLabel)} 완료</p>` : session.source === "wrong" ? `<p class="mode-kicker">오답 복습</p>` : ""}
       <p class="result-title">${msg.title}</p>
@@ -1286,20 +1293,26 @@ function renderResult(session, next = null) {
       <p class="muted small">정답률 ${pct}% · 오답 ${wrong} · 최고연속 ${session.bestCombo || 0}</p>
       ${session.mode === "exam" ? `<div class="result-metrics"><div><span>소요 시간</span><strong>${formatElapsed(spent)}</strong></div><div><span>문항당</span><strong>${pace}초</strong></div><div><span>완주</span><strong>${session.answers.length}문항</strong></div></div>` : ""}
       <div class="daily-goal inline">
-        <div class="daily-goal-top"><span>오늘</span><strong>${today.answered}/${today.goal}</strong></div>
+        <div class="daily-goal-top"><span>오늘 계획</span><strong>${planDay ? `${planDone}/${planDay.steps.length}단계` : `${today.answered}/${today.goal}`}</strong></div>
         <div class="progress-track"><div class="progress-fill" style="width:${today.pct}%"></div></div>
-        <p class="muted small">연속 학습 ${today.streak}일</p>
+        <p class="muted small">문항 ${today.answered}/${today.goal} · 연속 학습 ${today.streak}일</p>
       </div>
       ${
         next
-          ? `<button type="button" class="btn btn-primary btn-block" id="keep-study">다음 학습 · ${escapeHtml(next.step.label)}</button>
-             <p class="muted small result-next-detail">${escapeHtml(next.step.detail)}</p>`
-          : `<button type="button" class="btn btn-primary btn-block" id="keep-study">오늘 계획 완료 · 새 기출 10문항 더</button>`
+          ? `<div class="result-next">
+               <p class="muted small">다음 학습</p>
+               <strong>${escapeHtml(next.step.label)}</strong>
+               <p class="muted small">${escapeHtml(next.step.detail)}</p>
+             </div>
+             <button type="button" class="btn btn-primary btn-block" id="keep-study">이어서 학습</button>`
+          : `<p class="plan-complete">오늘 퀴즈 계획을 모두 끝냈어요</p>
+             <button type="button" class="btn btn-primary btn-block" id="keep-study">새 기출 10문항 더</button>`
       }
-      <button type="button" class="btn btn-ghost btn-block" id="open-plan">전체 계획 보기</button>
-      <button type="button" class="btn btn-secondary btn-block" id="retry-wrong" ${wrong ? "" : "disabled"}>방금 틀린 ${wrong}문항 다시</button>
-      <button type="button" class="btn btn-ghost btn-block" id="new-quiz">모드 선택으로</button>
-      <a class="btn btn-ghost btn-block" href="#/wrong-note">오답노트</a>
+      ${wrong ? `<button type="button" class="btn btn-secondary btn-block" id="retry-wrong">방금 틀린 ${wrong}문항 다시</button>` : ""}
+      <div class="result-links">
+        <button type="button" class="btn btn-ghost" id="open-plan">전체 계획</button>
+        <a class="btn btn-ghost" href="#/wrong-note">오답노트</a>
+      </div>
     </article>
   `;
 }
