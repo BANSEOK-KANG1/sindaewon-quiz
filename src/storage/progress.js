@@ -8,6 +8,7 @@ const KEYS = {
   exposure: `${PREFIX}exposure`,
   studyStats: `${PREFIX}study-stats`,
   questionStats: `${PREFIX}question-stats`,
+  planProgress: `${PREFIX}plan-progress`,
 };
 
 function read(key, fallback) {
@@ -46,6 +47,26 @@ export function removeWrongNote(questionId) {
     KEYS.wrongNotes,
     getWrongNotes().filter((e) => e.questionId !== questionId)
   );
+}
+
+/** 날짜별 학습 계획 — 시작일과 완료한 단계("YYYY-MM-DD:stepId") */
+export function getPlanProgress() {
+  const data = read(KEYS.planProgress, null);
+  if (data?.startDate) return { done: {}, ...data };
+  const fresh = { startDate: todayKey(), done: {} };
+  write(KEYS.planProgress, fresh);
+  return fresh;
+}
+
+export function setPlanStepDone(key, done = true, result = null) {
+  const data = getPlanProgress();
+  if (done) data.done[key] = { at: Date.now(), ...(result || {}) };
+  else delete data.done[key];
+  write(KEYS.planProgress, data);
+}
+
+export function resetPlanStart(dateKey) {
+  write(KEYS.planProgress, { startDate: dateKey, done: getPlanProgress().done });
 }
 
 export function getBookmarks() {

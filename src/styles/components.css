@@ -1978,6 +1978,251 @@
   }
 }
 
+/* —— 날짜별 학습 계획 —— */
+.plan-steps {
+  list-style: none;
+  margin: 0.75rem 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.plan-steps li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.plan-steps li.done strong,
+.plan-step.done strong {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.plan-steps li.current strong {
+  color: var(--primary);
+}
+
+.plan-check {
+  flex-shrink: 0;
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: 0.1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #fff;
+  background: var(--surface);
+}
+
+.done > .plan-check {
+  background: var(--success);
+  border-color: var(--success);
+}
+
+.plan-steps li.current .plan-check {
+  border-color: var(--primary);
+}
+
+.plan-step-list {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.plan-step {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--border);
+}
+
+.plan-step:first-child {
+  border-top: none;
+}
+
+.plan-step-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.plan-go {
+  flex-shrink: 0;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.plan-manual {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.plan-dday {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+
+.plan-dday-item {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.plan-dday-item span {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.plan-dday-item strong {
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.plan-today {
+  margin-top: 1rem;
+}
+
+.plan-missed {
+  margin-bottom: 1rem;
+  border-color: #f3c9a8;
+}
+
+.plan-missed h2,
+.plan-weeks h2 {
+  font-size: 1rem;
+  margin: 0 0 0.25rem;
+}
+
+.plan-phases {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.plan-phase {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding-left: 0.75rem;
+  border-left: 3px solid var(--border);
+}
+
+.plan-phase.current {
+  border-left-color: var(--primary);
+}
+
+.plan-milestones {
+  margin: 0.5rem 0 0;
+  padding-left: 1.1rem;
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.plan-weeks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.plan-week > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.plan-day {
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.plan-day > summary {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.6rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.plan-day-date {
+  font-weight: 700;
+}
+
+.plan-day-title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.plan-day-count {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.plan-day-today > summary {
+  color: var(--primary);
+}
+
+.plan-day-complete .plan-day-count {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.plan-day-missed .plan-day-count {
+  color: #b42318;
+}
+
+.paused-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.paused-card p {
+  margin: 0.15rem 0 0;
+}
+
+.paused-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.result-next-detail {
+  margin: -0.25rem 0 0.5rem;
+  text-align: center;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

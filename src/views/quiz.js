@@ -22,9 +22,7 @@ import {
   TIER_LABELS,
   recommendCount,
   suggestVocabDay,
-  suggestBibleFocus,
   suggestExamTypeFocus,
-  currentPhase,
 } from "../data/study-curriculum.js";
 import { getQuery, navigate } from "../router.js";
 import {
@@ -41,11 +39,24 @@ import {
   getQuestionStats,
   getTodayProgress,
   getStudyStats,
+  getPlanProgress,
+  setPlanStepDone,
 } from "../storage/progress.js";
+import {
+  buildPlan,
+  nextPlanStep,
+  findPlanStep,
+  stepKey,
+  toDateKey,
+  dDay,
+  EXAMS,
+} from "../data/daily-plan.js";
 
 const CIRCLE = ["①", "②", "③", "④"];
 const WRONG_QUIZ_KEY = "wrong-note-quiz-ids";
 const DAILY_GOAL = 30;
+// 일반 학습·시험에 섞는 오답노트 문항 상한. 오답 집중 복습은 오답노트 퀴즈에서 한다.
+const WRONG_REVIEW_SHARE = 0.2;
 let examTimerId = null;
 
 function shouldCountForToday(mode, options = {}) {
@@ -146,7 +157,7 @@ function hasAnswer(q) {
   return true;
 }
 
-function pickQuizPool(filtered, count, { mode = "study" } = {}) {
+function pickQuizPool(filtered, count, { mode = "study", excludeWrong = false } = {}) {
   // 플래시(암송)만 주관식 허용, 학습·시험은 객관식 위주
   // 장신 등 정답 미수록 문항은 학습 모드에서만 허용(열람·자기점검)
   let pool = filtered;
@@ -165,20 +176,24 @@ function pickQuizPool(filtered, count, { mode = "study" } = {}) {
   const examTagWeights = mode === "exam" ? getExamTagSignalWeights(pool) : [];
   const now = Date.now();
 
-  // 매번 다르게: 중요도(weight) + 오답·미출제 가중
+  // 매번 다르게: 중요도(weight) + 미출제·약점 가중
   const scored = pool.map((q) => {
     let key = Math.random();
     const w = typeof q.weight === "number" ? q.weight : (q.tags || []).includes("필수") ? 5 : (q.tags || []).includes("중요") ? 3 : 1;
     key += w * 0.12;
-    if (wrongIds.has(q.id)) key += 0.4;
     if (!exposure[q.id]) key += 0.2;
     key += getQuestionPriority(q, now, questionStats, examTagWeights);
     return { q, key };
   });
   scored.sort((a, b) => b.key - a.key);
-  const picked = scored.slice(0, count).map((s) => s.q);
+
+  const review = scored.filter((s) => wrongIds.has(s.q.id));
+  const fresh = scored.filter((s) => !wrongIds.has(s.q.id));
+  const reviewTake = excludeWrong ? 0 : Math.min(review.length, Math.floor(count * WRONG_REVIEW_SHARE));
+  const picked = [...review.slice(0, reviewTake), ...fresh.slice(0, count - reviewTake)];
+  if (picked.length < count) picked.push(...review.slice(reviewTake, reviewTake + count - picked.length));
   // 출제 순서도 매번 랜덤
-  return shuffle(picked);
+  return shuffle(picked.map((s) => s.q));
 }
 
 /** 세션 내에서 보기 순서를 섞어 매번 다른 배치로 보여준다 (정답 인덱스 재매핑) */
@@ -250,9 +265,54 @@ export async function renderQuiz(root) {
       bestCombo: 0,
       phase: "answer", // answer | feedback
       lastResult: null,
+      source: options.source || "custom", // custom | plan | wrong
+      planStep: options.planStep || null,
+      planLabel: options.planLabel || "",
     };
     saveQuizSession(session);
     renderActive(root, session, questions, showResult);
+  }
+
+  function startWrongSession(ids, count, extra = {}) {
+    const idSet = new Set(ids);
+    const pool = shuffle(questions.filter((x) => idSet.has(x.id))).slice(0, count || undefined);
+    if (!pool.length) return false;
+    startSession(pool, "study", { countForToday: false, source: "wrong", ...extra });
+    return true;
+  }
+
+  /** 계획 단계 시작. 오답 복습 단계 외에는 오답노트 문항을 섞지 않는다. */
+  function startPlanStep(key) {
+    const plan = buildPlan(getPlanProgress().startDate);
+    const found = key === "next" ? nextPlanStep(plan, getPlanProgress().done, toDateKey()) : findPlanStep(plan, key);
+    if (!found) {
+      navigate("/plan");
+      return;
+    }
+    const { day, step } = found;
+    const planStep = stepKey(day.date, step.id);
+    const extra = { planStep, planLabel: step.label };
+
+    if (step.kind === "wrong") {
+      const ids = getWrongNotes().map((n) => n.questionId);
+      if (startWrongSession(ids, step.count, extra)) return;
+      setPlanStepDone(planStep, true, { skipped: "오답 없음" });
+      startPlanStep("next");
+      return;
+    }
+
+    const pool = filterQuestions(questions, {
+      seminary: step.seminary || "chongshin",
+      subject: step.subject || undefined,
+      tags: step.tags,
+    });
+    if (!pool.length) {
+      setPlanStepDone(planStep, true, { skipped: "문항 없음" });
+      startPlanStep("next");
+      return;
+    }
+    const picked = pickQuizPool(pool, Math.min(step.count, pool.length), { mode: step.mode, excludeWrong: true });
+    startSession(picked, step.mode, { source: "plan", ...extra });
   }
 
   function showResult(s) {
@@ -261,21 +321,26 @@ export async function renderQuiz(root) {
       s.finishedAt = Date.now();
       saveQuizSession(s);
     }
-    recordExposures(s.ids || []);
     const correct = s.answers.filter((a) => a.correct).length;
-    const countForToday = s.countForToday ?? (s.mode === "study");
-    recordStudySession({
-      answered: s.answers.length,
-      correct,
-      bestCombo: s.bestCombo || 0,
-      countForToday,
-    });
-    root.innerHTML = renderResult(s);
+    if (!s.recorded) {
+      recordExposures(s.ids || []);
+      recordStudySession({
+        answered: s.answers.length,
+        correct,
+        bestCombo: s.bestCombo || 0,
+        countForToday: s.countForToday ?? (s.mode === "study"),
+      });
+      if (s.planStep) setPlanStepDone(s.planStep, true, { correct, total: s.answers.length });
+      s.recorded = true;
+      saveQuizSession(s);
+    }
+    const plan = buildPlan(getPlanProgress().startDate);
+    const next = nextPlanStep(plan, getPlanProgress().done, toDateKey());
+    root.innerHTML = renderResult(s, next);
     root.querySelector("#retry-wrong")?.addEventListener("click", () => {
       const wrongIds = s.answers.filter((a) => !a.correct).map((a) => a.questionId);
       if (!wrongIds.length) return;
-      const pool = questions.filter((x) => wrongIds.includes(x.id));
-      startSession(pool, "study", { countForToday: false });
+      startWrongSession(wrongIds);
     });
     root.querySelector("#new-quiz")?.addEventListener("click", () => {
       clearQuizSession();
@@ -283,7 +348,12 @@ export async function renderQuiz(root) {
     });
     root.querySelector("#keep-study")?.addEventListener("click", () => {
       clearQuizSession();
-      navigate("/quiz?mode=study&tag=기출&count=10&auto=1");
+      if (next) startPlanStep(stepKey(next.day.date, next.step.id));
+      else navigate("/quiz?mode=study&tag=기출&count=10&auto=1&fresh=1");
+    });
+    root.querySelector("#open-plan")?.addEventListener("click", () => {
+      clearQuizSession();
+      navigate("/plan");
     });
     root.querySelector("a[href='#/wrong-note']")?.addEventListener("click", (e) => {
       e.preventDefault();
@@ -299,13 +369,7 @@ export async function renderQuiz(root) {
         const fromWrong = btn.dataset.fromWrong === "1";
 
         if (fromWrong) {
-          const ids = getWrongNotes().map((n) => n.questionId);
-          const pool = shuffle(all.filter((x) => ids.includes(x.id))).slice(0, count);
-          if (!pool.length) {
-            alert("오답이 없습니다.");
-            return;
-          }
-          startSession(pool, mode, { countForToday: false });
+          if (!startWrongSession(getWrongNotes().map((n) => n.questionId), count)) alert("오답이 없습니다.");
           return;
         }
 
@@ -397,8 +461,7 @@ export async function renderQuiz(root) {
       ids = [];
     }
     sessionStorage.removeItem(WRONG_QUIZ_KEY);
-    const pool = questions.filter((x) => ids.includes(x.id));
-    if (!pool.length) {
+    if (!startWrongSession(ids)) {
       root.innerHTML = `<p class="empty">오답 퀴즈를 시작할 문제가 없습니다.</p>
         <a class="btn btn-primary" href="#/wrong-note">오답노트로</a>`;
       root.querySelector("a")?.addEventListener("click", (e) => {
@@ -407,7 +470,13 @@ export async function renderQuiz(root) {
       });
       return;
     }
-    startSession(shuffle(pool), "study", { countForToday: false });
+    return;
+  }
+
+  // 날짜별 계획 단계 (plan=next 또는 plan=YYYY-MM-DD:stepId)
+  if (q.get("plan")) {
+    clearQuizSession();
+    startPlanStep(q.get("plan"));
     return;
   }
 
@@ -430,16 +499,23 @@ export async function renderQuiz(root) {
       alert("선택한 조건에 맞는 문제가 없습니다.");
       return;
     }
-    startSession(pickQuizPool(pool, Math.min(count, pool.length), { mode }), mode);
+    const excludeWrong = q.get("fresh") === "1";
+    startSession(pickQuizPool(pool, Math.min(count, pool.length), { mode, excludeWrong }), mode);
     return;
   }
 
+  // 끝난 세션의 결과는 끝난 직후에만 보여 준다. 탭을 다시 열면 새 학습 화면.
   if (session?.finished) {
-    showResult(session);
-    return;
+    if (!session.recorded) showResult(session);
+    else {
+      clearQuizSession();
+      session = null;
+    }
+    if (session) return;
   }
 
-  if (session?.ids?.length) {
+  // 오답 복습 중이던 세션은 학습 탭을 열 때 자동으로 이어 붙이지 않는다.
+  if (session?.ids?.length && session.source !== "wrong") {
     if (!session.startedAt) {
       session.startedAt = Date.now();
       saveQuizSession(session);
@@ -448,11 +524,75 @@ export async function renderQuiz(root) {
     return;
   }
 
-  root.innerHTML = renderSetup(questions, q);
+  root.innerHTML = renderSetup(questions, q, session?.ids?.length ? session : null);
   bindSetup(root, questions);
+  root.querySelector("#resume-session")?.addEventListener("click", () => {
+    renderActive(root, session, questions, showResult);
+  });
+  root.querySelector("#drop-session")?.addEventListener("click", () => {
+    clearQuizSession();
+    session = null;
+    root.querySelector("#paused-session")?.remove();
+  });
+  root.querySelector("#plan-next")?.addEventListener("click", () => {
+    clearQuizSession();
+    startPlanStep("next");
+  });
 }
 
-function renderSetup(questions, q) {
+function renderPausedBanner(s) {
+  if (!s) return "";
+  return `
+    <div class="card paused-card" id="paused-session">
+      <div>
+        <strong>오답 복습 중이던 세션</strong>
+        <p class="muted small">${s.index + 1} / ${s.total}번째 · 계획 학습과 별개입니다</p>
+      </div>
+      <div class="paused-actions">
+        <button type="button" class="btn btn-secondary" id="resume-session">이어 풀기</button>
+        <button type="button" class="btn btn-ghost" id="drop-session">닫기</button>
+      </div>
+    </div>`;
+}
+
+function renderTodayPlanCard() {
+  const progress = getPlanProgress();
+  const plan = buildPlan(progress.startDate);
+  const todayKey = toDateKey();
+  const day = plan.find((d) => d.date === todayKey);
+  if (!day) return "";
+  const isDone = (s) => Boolean(progress.done[stepKey(day.date, s.id)]);
+  const doneCount = day.steps.filter(isDone).length;
+  const next = nextPlanStep(plan, progress.done, todayKey);
+  const exam = todayKey <= EXAMS.chongshin.date ? EXAMS.chongshin : EXAMS.jangsin;
+
+  return `
+    <section class="strategy-card card plan-today">
+      <p class="mode-kicker">오늘 계획 · ${day.dayNo}일차 · ${exam.short} ${dDay(todayKey, exam.date)}</p>
+      <h2 class="strategy-title">${day.title}</h2>
+      <p class="muted small">${doneCount}/${day.steps.length} 완료 · 약 ${day.minutes}분</p>
+      <ol class="plan-steps">
+        ${day.steps
+          .map(
+            (s) => `<li class="${isDone(s) ? "done" : ""}${next?.step.id === s.id ? " current" : ""}">
+              <span class="plan-check">${isDone(s) ? "✓" : ""}</span>
+              <span><strong>${s.label}</strong><span class="muted small"> · ${s.detail}</span></span>
+            </li>`
+          )
+          .join("")}
+      </ol>
+      <div class="strategy-actions">
+        ${
+          next
+            ? `<button type="button" class="btn btn-primary" id="plan-next">다음 학습 · ${next.step.label}</button>`
+            : `<button type="button" class="btn btn-secondary" disabled>오늘 퀴즈 계획 완료</button>`
+        }
+        <a class="btn btn-ghost" href="#/plan">전체 계획</a>
+      </div>
+    </section>`;
+}
+
+function renderSetup(questions, q, paused = null) {
   const seminary = q.get("seminary") || "chongshin";
   const sem = SEMINARIES[seminary] || SEMINARIES.chongshin;
   const years = getYears(questions);
@@ -465,9 +605,7 @@ function renderSetup(questions, q) {
 
   const gichulTotal = filterQuestions(questions, { seminary: "chongshin", tags: ["기출"] }).length;
   const vocabDay = suggestVocabDay(questions, exposure);
-  const bibleFocus = suggestBibleFocus(questions, exposure, "chongshin");
   const typeFocus = suggestExamTypeFocus(questions, exposure, "chongshin");
-  const phase = currentPhase(vocabDay);
   const mustTotal = filterQuestions(questions, { seminary: "chongshin", tags: ["필수"] }).length;
   const jangsinBook = filterQuestions(questions, { seminary: "jangsin", tags: ["장신기출"] }).length;
   const jangsinMem = filterQuestions(questions, { seminary: "jangsin", tags: ["구약암송"] }).length;
@@ -531,8 +669,10 @@ function renderSetup(questions, q) {
       <p class="muted">장로회신학대 · 문제집 ${jangsinBook} · 암송 ${jangsinMem} · 총신 자료와 분리</p>
     </header>
     ${schoolSwitch}
+    ${renderPausedBanner(paused)}
+    ${renderTodayPlanCard()}
     <section class="strategy-card card">
-      <p class="mode-kicker">장신 오늘</p>
+      <p class="mode-kicker">장신 바로가기</p>
       <h2 class="strategy-title">구약 문제집 + 2027 암송</h2>
       <p class="muted small">문제집은 정답 미수록(열람) · 암송은 개역개정 본문으로 채점 가능</p>
       <div class="strategy-actions">
@@ -604,31 +744,8 @@ function renderSetup(questions, q) {
       <p class="muted small">누적 정답 ${stats.totalCorrect || 0} · 최고 연속 ${stats.bestCombo || 0}</p>
     </div>
 
-    <section class="strategy-card card">
-      <p class="mode-kicker">오늘 전략 · ${phase.label}</p>
-      <h2 class="strategy-title">${typeFocus.label} → ${bibleFocus.label} → ${vocabDay.label}</h2>
-      <p class="muted small">${phase.goal}</p>
-      <ol class="strategy-steps">
-        <li><strong>유형 ${typeFocus.label}</strong> — ${typeFocus.hint || ""} (${typeFocus.pct}% 학습)</li>
-        <li><strong>권 ${bibleFocus.label}</strong> — ${bibleFocus.hint || ""} (${bibleFocus.pct}% 학습)</li>
-        <li><strong>영어 ${vocabDay.label}</strong> — ${vocabDay.theme} (${vocabDay.pct}% 학습)</li>
-      </ol>
-      <div class="strategy-actions">
-        <button type="button" class="btn btn-primary" data-quick
-          data-mode="study" data-tags="${typeFocus.tag}" data-subject="성경" data-seminary="chongshin" data-count="15">
-          유형 15
-        </button>
-        <button type="button" class="btn btn-secondary" data-quick
-          data-mode="study" data-tags="기출,${bibleFocus.tag}" data-subject="성경" data-seminary="chongshin" data-count="10">
-          권별 10
-        </button>
-        <button type="button" class="btn btn-ghost" data-quick
-          data-mode="study" data-tags="${vocabDay.tag},영한" data-subject="영어" data-seminary="chongshin" data-count="20">
-          영→한 20
-        </button>
-      </div>
-      <p class="muted small strategy-note">공략 순서: 기출 유형 가중치 → 다빈도 권 → 실전 모의 → 영어</p>
-    </section>
+    ${renderPausedBanner(paused)}
+    ${renderTodayPlanCard()}
 
     <section class="mode-grid">
       <button type="button" class="mode-card mode-study" data-quick
@@ -1152,7 +1269,7 @@ function renderFeedback(session, q, modeLabel, pctDone) {
   `;
 }
 
-function renderResult(session) {
+function renderResult(session, next = null) {
   const pct = Math.round((session.score / session.total) * 100) || 0;
   const wrong = session.answers.filter((a) => !a.correct).length;
   const msg = gradeMessage(pct);
@@ -1162,6 +1279,7 @@ function renderResult(session) {
   return `
     <header class="page-header"><h1>오늘의 결과</h1></header>
     <article class="card result-card result-pop">
+      ${session.planLabel ? `<p class="mode-kicker">${session.source === "wrong" ? "오답 복습" : "계획 학습"} · ${escapeHtml(session.planLabel)} 완료</p>` : session.source === "wrong" ? `<p class="mode-kicker">오답 복습</p>` : ""}
       <p class="result-title">${msg.title}</p>
       <p class="result-score">${session.score} / ${session.total}</p>
       <p class="muted">${msg.sub}</p>
@@ -1172,8 +1290,14 @@ function renderResult(session) {
         <div class="progress-track"><div class="progress-fill" style="width:${today.pct}%"></div></div>
         <p class="muted small">연속 학습 ${today.streak}일</p>
       </div>
-      <button type="button" class="btn btn-primary btn-block" id="keep-study">이어서 10문항 더</button>
-      <button type="button" class="btn btn-secondary btn-block" id="retry-wrong" ${wrong ? "" : "disabled"}>오답만 다시</button>
+      ${
+        next
+          ? `<button type="button" class="btn btn-primary btn-block" id="keep-study">다음 학습 · ${escapeHtml(next.step.label)}</button>
+             <p class="muted small result-next-detail">${escapeHtml(next.step.detail)}</p>`
+          : `<button type="button" class="btn btn-primary btn-block" id="keep-study">오늘 계획 완료 · 새 기출 10문항 더</button>`
+      }
+      <button type="button" class="btn btn-ghost btn-block" id="open-plan">전체 계획 보기</button>
+      <button type="button" class="btn btn-secondary btn-block" id="retry-wrong" ${wrong ? "" : "disabled"}>방금 틀린 ${wrong}문항 다시</button>
       <button type="button" class="btn btn-ghost btn-block" id="new-quiz">모드 선택으로</button>
       <a class="btn btn-ghost btn-block" href="#/wrong-note">오답노트</a>
     </article>

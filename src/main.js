@@ -7,6 +7,7 @@ import { renderQuestion } from "./views/question.js";
 import { renderQuiz } from "./views/quiz.js";
 import { renderWrongNote } from "./views/wrong-note.js";
 import { renderSources } from "./views/sources.js";
+import { renderPlan } from "./views/plan.js";
 import { hydrateIcons, icon } from "./lib/icons.js";
 
 import "./styles/base.css";
@@ -17,14 +18,16 @@ const app = document.querySelector("#app");
 
 const NAV = [
   { hash: "#/", label: UI.nav.home, icon: "house" },
-  { hash: "#/admissions", label: UI.nav.admissions, icon: "graduation-cap" },
+  { hash: "#/plan", label: UI.nav.plan, icon: "calendar-days" },
   { hash: "#/quiz", label: UI.nav.quiz, icon: "circle-play" },
-  { hash: "#/browse", label: UI.nav.browse, icon: "search" },
   { hash: "#/wrong-note", label: UI.nav.wrongNote, icon: "notebook-pen" },
+  { hash: "#/browse", label: UI.nav.browse, icon: "search" },
+  { hash: "#/admissions", label: UI.nav.admissions, icon: "graduation-cap" },
   { hash: "#/sources", label: UI.nav.sources, icon: "files" },
 ];
 
-const BOTTOM_NAV = NAV.filter((item) => item.hash !== "#/sources");
+// 하단 탭은 5개까지 — 입시 가이드·자료는 홈과 사이드 메뉴에서 연다.
+const BOTTOM_NAV = NAV.filter((item) => item.hash !== "#/sources" && item.hash !== "#/admissions");
 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";
@@ -43,8 +46,8 @@ function shell(contentHtml) {
         </nav>
         <div class="sidebar-note">
           ${icon("sparkles")}
-          <p><strong>영어 집중 준비</strong><span>어휘부터 실전까지 4주 계획</span></p>
-          <a href="#/admissions">계획 보기 ${icon("chevron-right")}</a>
+          <p><strong>날짜별 학습 계획</strong><span>총신 11/28 · 장신 12/10까지 하루 단위</span></p>
+          <a href="#/plan">계획 보기 ${icon("chevron-right")}</a>
         </div>
       </aside>
       <main class="main" id="view-root">${contentHtml}</main>
@@ -87,6 +90,8 @@ async function renderView(matched) {
       await renderWrongNote(root);
     } else if (matched.path === "/sources") {
       await renderSources(root);
+    } else if (matched.path === "/plan") {
+      await renderPlan(root);
     } else {
       await renderHome(root);
     }
@@ -103,6 +108,7 @@ registerRoute("/question/:id", () => {});
 registerRoute("/quiz", () => {});
 registerRoute("/wrong-note", () => {});
 registerRoute("/sources", () => {});
+registerRoute("/plan", () => {});
 
 startRouter(renderView);
 

@@ -1,13 +1,15 @@
 import { SEMINARIES, UI } from "../config.js";
 import { loadQuestions, countBySeminaryAndSubject } from "../data/questions.js";
-import {
-  suggestVocabDay,
-  suggestBibleFocus,
-  suggestExamTypeFocus,
-  currentPhase,
-} from "../data/study-curriculum.js";
+import { suggestVocabDay } from "../data/study-curriculum.js";
+import { buildPlan, nextPlanStep, stepKey, toDateKey, dDay, EXAMS, PHASES } from "../data/daily-plan.js";
 import { navigate } from "../router.js";
-import { getTodayProgress, getWrongNotes, getStudyStats, getExposureCounts } from "../storage/progress.js";
+import {
+  getTodayProgress,
+  getWrongNotes,
+  getStudyStats,
+  getExposureCounts,
+  getPlanProgress,
+} from "../storage/progress.js";
 import { icon } from "../lib/icons.js";
 
 export async function renderHome(root) {
@@ -23,19 +25,26 @@ export async function renderHome(root) {
   const stats = getStudyStats();
   const exposure = getExposureCounts();
   const vocabDay = suggestVocabDay(questions, exposure);
-  const bibleFocus = suggestBibleFocus(questions, exposure, "chongshin");
-  const typeFocus = suggestExamTypeFocus(questions, exposure, "chongshin");
-  const phase = currentPhase(vocabDay);
+
+  const planProgress = getPlanProgress();
+  const plan = buildPlan(planProgress.startDate);
+  const todayKey = toDateKey();
+  const todayPlan = plan.find((d) => d.date === todayKey);
+  const next = nextPlanStep(plan, planProgress.done, todayKey);
+  const isDone = (s) => Boolean(planProgress.done[stepKey(todayKey, s.id)]);
+  const planDone = todayPlan ? todayPlan.steps.filter(isDone).length : 0;
+  const exam = todayKey <= EXAMS.chongshin.date ? EXAMS.chongshin : EXAMS.jangsin;
+  const phaseLabel = todayPlan ? PHASES[todayPlan.phase]?.label : "계획 기간 밖";
 
   root.innerHTML = `
     <header class="home-hero-v2">
       <div class="home-hero-copy">
-        <p class="eyebrow">${icon("sparkles")} ${phase.label}</p>
+        <p class="eyebrow">${icon("sparkles")} ${exam.short} ${dDay(todayKey, exam.date)} · ${phaseLabel}</p>
         <h1>합격까지,<br />오늘 할 공부만 선명하게</h1>
-        <p>${typeFocus.label} · ${bibleFocus.label} · ${vocabDay.label} 순서로 학습하세요.</p>
+        <p>${todayPlan ? `${todayPlan.dayNo}일차 · ${todayPlan.title} · ${planDone}/${todayPlan.steps.length} 완료` : "전체 계획에서 날짜를 골라 학습하세요."}</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#/quiz?mode=study&tags=${encodeURIComponent(typeFocus.tag)}&subject=성경&seminary=chongshin&count=15&auto=1">
-            ${icon("circle-play")} 오늘 학습 시작
+          <a class="btn btn-primary" href="${next ? "#/quiz?plan=next" : "#/plan"}">
+            ${icon("circle-play")} ${next ? (planDone ? `이어서 · ${next.step.label}` : "오늘 학습 시작") : "오늘 계획 완료"}
           </a>
           <a class="btn btn-soft" href="#/admissions">${icon("graduation-cap")} 입시 가이드</a>
         </div>
@@ -65,16 +74,28 @@ export async function renderHome(root) {
       </div>
     </section>
 
-    <section class="strategy-card card">
-      <p class="mode-kicker">${icon("target")} 오늘 전략 · 총신 가중치</p>
-      <h2 class="strategy-title">${typeFocus.label} + ${bibleFocus.label} + ${vocabDay.label}</h2>
-      <p class="muted small">${typeFocus.hint || ""} · ${vocabDay.theme} · ${phase.goal}</p>
-      <div class="strategy-actions" style="margin-top:0.75rem">
-        <a class="btn btn-primary" href="#/quiz?mode=study&tags=${encodeURIComponent(typeFocus.tag)}&subject=성경&seminary=chongshin&count=15&auto=1">${icon("circle-play")} 유형 15</a>
-        <a class="btn btn-secondary" href="#/quiz?mode=study&tags=기출,${encodeURIComponent(bibleFocus.tag)}&subject=성경&seminary=chongshin&count=10&auto=1">${icon("book-open")} 권별 10</a>
-        <a class="btn btn-ghost" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("languages")} 영→한 20</a>
-      </div>
-    </section>
+    ${
+      todayPlan
+        ? `<section class="strategy-card card plan-today">
+            <p class="mode-kicker">${icon("calendar-days")} 오늘 계획 · 약 ${todayPlan.minutes}분</p>
+            <h2 class="strategy-title">${todayPlan.title}</h2>
+            <ol class="plan-steps">
+              ${todayPlan.steps
+                .map(
+                  (s) => `<li class="${isDone(s) ? "done" : ""}${next?.step.id === s.id ? " current" : ""}">
+                    <span class="plan-check">${isDone(s) ? "✓" : ""}</span>
+                    <span><strong>${s.label}</strong><span class="muted small"> · ${s.detail}</span></span>
+                  </li>`
+                )
+                .join("")}
+            </ol>
+            <div class="strategy-actions">
+              ${next ? `<a class="btn btn-primary" href="#/quiz?plan=next">${icon("circle-play")} 다음 학습 · ${next.step.label}</a>` : ""}
+              <a class="btn btn-ghost" href="#/plan">${icon("calendar-days")} 전체 계획</a>
+            </div>
+          </section>`
+        : ""
+    }
 
     <div class="section-heading section-heading-home">
       <div><p class="eyebrow">바로 시작</p><h2>원하는 방식으로 공부하세요</h2></div>
