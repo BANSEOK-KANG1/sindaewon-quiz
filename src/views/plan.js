@@ -6,11 +6,12 @@ import {
   daysBetween,
   formatDateLabel,
   nextPlanStep,
+  focusDay,
   EXAMS,
   MILESTONES,
   PHASES,
 } from "../data/daily-plan.js";
-import { getPlanProgress, setPlanStepDone, resetPlanStart } from "../storage/progress.js";
+import { getPlanProgress, setPlanStepDone } from "../storage/progress.js";
 import { navigate } from "../router.js";
 
 const MODE_LABEL = { study: "학습", exam: "시험", flash: "플래시" };
@@ -65,7 +66,7 @@ export async function renderPlan(root) {
   const plan = buildPlan(progress.startDate);
   const todayKey = toDateKey();
   const done = progress.done;
-  const today = plan.find((d) => d.date === todayKey);
+  const today = focusDay(plan, todayKey);
   const next = nextPlanStep(plan, done, todayKey);
 
   const allSteps = plan.flatMap((d) => d.steps.map((s) => ({ d, s })));
@@ -101,12 +102,11 @@ export async function renderPlan(root) {
   root.innerHTML = `
     <header class="page-header">
       <h1>학습 계획</h1>
-      <p class="muted">${formatDateLabel(progress.startDate)} 시작 · ${plan.length}일 · ${totalDone}/${allSteps.length}단계 완료</p>
+      <p class="muted">${formatDateLabel(plan[0].date)} – ${formatDateLabel(plan[plan.length - 1].date)} · ${plan.length}일 · ${totalDone}/${allSteps.length}단계 완료</p>
     </header>
 
     <div class="plan-dday">
       <div class="plan-dday-item"><span>${EXAMS.chongshin.label}</span><strong>${dDay(todayKey, EXAMS.chongshin.date)}</strong></div>
-      <div class="plan-dday-item"><span>${EXAMS.jangsin.label}</span><strong>${dDay(todayKey, EXAMS.jangsin.date)}</strong></div>
     </div>
     <p class="muted small plan-total-label">전체 진행 ${pct}%${missed.length ? ` · 밀린 단계 ${missed.length}` : ""}</p>
     <div class="progress-track" aria-hidden="true"><div class="progress-fill" style="width:${pct}%"></div></div>
@@ -114,7 +114,7 @@ export async function renderPlan(root) {
     ${
       today
         ? `<section class="strategy-card card plan-today">
-            <p class="mode-kicker">오늘 · ${today.dayNo}일차 · ${PHASES[today.phase]?.label || ""}</p>
+            <p class="mode-kicker">${today.preview ? "시작 전 · 미리 보기" : "오늘"} · ${today.dayNo}일차 · ${PHASES[today.phase]?.label || ""}</p>
             <h2 class="strategy-title">${today.title}</h2>
             <p class="muted small">약 ${today.minutes}분 · 위에서부터 순서대로</p>
             <ol class="plan-step-list">
@@ -180,8 +180,7 @@ export async function renderPlan(root) {
     </section>
 
     <p class="muted small" style="margin-top:1rem">
-      일정이 많이 밀렸다면 오늘을 1일차로 다시 나눌 수 있습니다. 완료 기록은 그대로 남습니다.
-      <button type="button" class="chip-btn" id="plan-reset">오늘부터 다시 짜기</button>
+      시험일에 맞춘 고정 일정입니다. 평일에 못 끝낸 단계는 '밀린 학습'에 남으니 주말에 채우고, 11/23부터는 새 문제 대신 오답만 봅니다.
     </p>
   `;
 
@@ -192,11 +191,6 @@ export async function renderPlan(root) {
     });
   });
 
-  root.querySelector("#plan-reset")?.addEventListener("click", () => {
-    if (!confirm("오늘을 1일차로 계획을 다시 나눌까요?")) return;
-    resetPlanStart(todayKey);
-    renderPlan(root);
-  });
 
   root.querySelectorAll("a[href^='#/']").forEach((a) => {
     a.addEventListener("click", (e) => {

@@ -8,6 +8,7 @@ import {
   toDateKey,
   dDay,
   planQuestionGoal,
+  focusDay,
   EXAMS,
   PHASES,
 } from "../data/daily-plan.js";
@@ -37,13 +38,13 @@ export async function renderHome(root) {
   const planProgress = getPlanProgress();
   const plan = buildPlan(planProgress.startDate);
   const todayKey = toDateKey();
-  const todayPlan = plan.find((d) => d.date === todayKey);
+  const todayPlan = focusDay(plan, todayKey);
   const today = getTodayProgress(planQuestionGoal(todayPlan));
   const vocabStep = todayPlan?.steps.find((s) => s.tags?.includes("단어장300"));
   const next = nextPlanStep(plan, planProgress.done, todayKey);
-  const isDone = (s) => Boolean(planProgress.done[stepKey(todayKey, s.id)]);
+  const isDone = (s) => Boolean(planProgress.done[stepKey(todayPlan.date, s.id)]);
   const planDone = todayPlan ? todayPlan.steps.filter(isDone).length : 0;
-  const exam = todayKey <= EXAMS.chongshin.date ? EXAMS.chongshin : EXAMS.jangsin;
+  const exam = EXAMS.chongshin;
   const phaseLabel = todayPlan ? PHASES[todayPlan.phase]?.label : "계획 기간 밖";
 
   root.innerHTML = `
@@ -51,7 +52,7 @@ export async function renderHome(root) {
       <div class="home-hero-copy">
         <p class="eyebrow">${icon("sparkles")} ${exam.short} ${dDay(todayKey, exam.date)} · ${phaseLabel}</p>
         <h1>${todayPlan ? todayPlan.title : "오늘 할 공부만 선명하게"}</h1>
-        <p>${todayPlan ? `${todayPlan.dayNo}일차 · 단계 ${planDone}/${todayPlan.steps.length} · 문항 ${today.answered}/${today.goal} · 약 ${todayPlan.minutes}분` : "전체 계획에서 날짜를 골라 학습하세요."}</p>
+        <p>${todayPlan ? `${todayPlan.preview ? "11/9(월) 시작 · 미리 풀어도 1일차로 기록 · " : ""}${todayPlan.dayNo}일차 · 단계 ${planDone}/${todayPlan.steps.length} · 문항 ${today.answered}/${today.goal} · 약 ${todayPlan.minutes}분` : "전체 계획에서 날짜를 골라 학습하세요."}</p>
         <div class="progress-track hero-progress" aria-hidden="true"><div class="progress-fill" style="width:${today.pct}%"></div></div>
         ${
           todayPlan
@@ -98,7 +99,7 @@ export async function renderHome(root) {
       <div class="english-spotlight-actions">
         ${
           vocabStep
-            ? `<a class="btn btn-light" href="#/quiz?plan=${encodeURIComponent(stepKey(todayKey, vocabStep.id))}">${icon("book-open")} ${vocabStep.label}</a>`
+            ? `<a class="btn btn-light" href="#/quiz?plan=${encodeURIComponent(stepKey(todayPlan.date, vocabStep.id))}">${icon("book-open")} ${vocabStep.label}</a>`
             : `<a class="btn btn-light" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("book-open")} 단어 ${vocabDay.label} 20</a>`
         }
         <a class="text-link text-link-light" href="#/admissions">입시·영어 가이드 ${icon("arrow-right")}</a>
@@ -115,15 +116,15 @@ export async function renderHome(root) {
         <strong>필수 가중 15</strong>
         <span>총신 · 가중치 5</span>
       </a>
-      <a class="mode-card" href="#/quiz?mode=study&tags=장신&subject=성경&seminary=jangsin&count=15&auto=1">
-        <span class="mode-icon">${icon("book-open")}</span><span class="mode-kicker">장신</span>
-        <strong>구약 문제집 15</strong>
-        <span>정답 미수록 · 열람</span>
+      <a class="mode-card" href="#/quiz?mode=study&tags=2026문제은행&subject=성경&seminary=chongshin&count=20&auto=1">
+        <span class="mode-icon">${icon("book-open")}</span><span class="mode-kicker">문제은행</span>
+        <strong>2026 문제은행 20</strong>
+        <span>총신 성경고사 · 구약·신약</span>
       </a>
-      <a class="mode-card" href="#/quiz?mode=flash&tags=구약암송,한암송&subject=성경&seminary=jangsin&count=25&auto=1">
+      <a class="mode-card" href="#/quiz?mode=flash&tags=암송,신약&subject=성경&seminary=chongshin&count=20&auto=1">
         <span class="mode-icon">${icon("bookmark")}</span><span class="mode-kicker">암송</span>
-        <strong>장신 구약 암송</strong>
-        <span>2027 입시 25구절</span>
+        <strong>신약 암송 20</strong>
+        <span>총신 · 장절 보고 본문</span>
       </a>
       <a class="mode-card" href="#/quiz?mode=exam&tags=원문기출&seminary=chongshin&count=25&auto=1">
         <span class="mode-icon">${icon("timer")}</span><span class="mode-kicker">실전</span>
@@ -144,6 +145,7 @@ export async function renderHome(root) {
 
     <section class="card-grid">
       ${Object.values(SEMINARIES)
+        .filter((s) => s.id === "chongshin")
         .map((s) => {
           const subCounts = counts[s.id] || {};
           const semTotal = Object.values(subCounts).reduce((a, b) => a + b, 0);

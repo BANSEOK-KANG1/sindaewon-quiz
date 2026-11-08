@@ -51,6 +51,7 @@ import {
   dDay,
   planQuestionGoal,
   EXAMS,
+  focusDay,
 } from "../data/daily-plan.js";
 
 const CIRCLE = ["①", "②", "③", "④"];
@@ -61,7 +62,7 @@ const WRONG_REVIEW_SHARE = 0.2;
 let examTimerId = null;
 
 function todayGoal() {
-  const day = buildPlan(getPlanProgress().startDate).find((d) => d.date === toDateKey());
+  const day = focusDay(buildPlan(getPlanProgress().startDate), toDateKey());
   return planQuestionGoal(day, DAILY_GOAL);
 }
 
@@ -307,11 +308,20 @@ export async function renderQuiz(root) {
       return;
     }
 
-    const pool = filterQuestions(questions, {
+    let pool = filterQuestions(questions, {
       seminary: step.seminary || "chongshin",
       subject: step.subject || undefined,
       tags: step.tags,
     });
+    if (step.anyTags?.length) {
+      pool = pool.filter((x) => step.anyTags.some((t) => (x.tags || []).includes(t)));
+    }
+    // fresh: 같은 범위를 여러 세트로 나눴을 때 세트마다 안 푼 문항이 먼저 나오게 한다
+    if (step.fresh) {
+      const exposure = getExposureCounts();
+      const unseen = pool.filter((x) => !exposure[x.id]);
+      if (unseen.length >= Math.min(step.count, 4)) pool = unseen;
+    }
     if (!pool.length) {
       setPlanStepDone(planStep, true, { skipped: "문항 없음" });
       startPlanStep("next");
@@ -561,12 +571,12 @@ function renderTodayPlanCard() {
   const progress = getPlanProgress();
   const plan = buildPlan(progress.startDate);
   const todayKey = toDateKey();
-  const day = plan.find((d) => d.date === todayKey);
+  const day = focusDay(plan, todayKey);
   if (!day) return "";
   const isDone = (s) => Boolean(progress.done[stepKey(day.date, s.id)]);
   const doneCount = day.steps.filter(isDone).length;
   const next = nextPlanStep(plan, progress.done, todayKey);
-  const exam = todayKey <= EXAMS.chongshin.date ? EXAMS.chongshin : EXAMS.jangsin;
+  const exam = EXAMS.chongshin;
   const today = getTodayProgress(planQuestionGoal(day, DAILY_GOAL));
 
   return `
@@ -1279,7 +1289,7 @@ function renderResult(session, next = null) {
   const msg = gradeMessage(pct);
   const today = getTodayProgress(todayGoal());
   const progress = getPlanProgress();
-  const planDay = buildPlan(progress.startDate).find((d) => d.date === toDateKey());
+  const planDay = focusDay(buildPlan(progress.startDate), toDateKey());
   const planDone = planDay ? planDay.steps.filter((s) => progress.done[stepKey(planDay.date, s.id)]).length : 0;
   const spent = elapsedSeconds(session);
   const pace = session.answers.length ? Math.round(spent / session.answers.length) : 0;

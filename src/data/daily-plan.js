@@ -1,69 +1,29 @@
-/** 날짜별 학습 계획 — 총신 필답(11/28) → 장신 성경·논술(12/10) */
-import { BIBLE_BOOK_TRACKS, VOCAB_DAY_TRACKS, EXAM_TYPE_TRACKS } from "./study-curriculum.js";
+/**
+ * 날짜별 학습 계획 — 총신 필답·면접(11/28) 20일 계획 (11/9 ~ 11/27)
+ * 2026-11-08 작성. 장신은 지원하지 않으므로 계획에서 뺐다.
+ * 기준 시간: 평일 성경 약 2시간 + 영어 40분, 주말 성경 약 4~5시간 + 영어 1시간.
+ * 성경 순서: 최근 원문기출 → 2026 문제은행 → 옛 기출(00–14) 권별 → 오답·실전.
+ */
+import { VOCAB_DAY_TRACKS } from "./study-curriculum.js";
 
-const typeLabel = (tag) => EXAM_TYPE_TRACKS.find((t) => t.tag === tag)?.label || tag;
+export const PLAN_START = "2026-11-09";
 
 export const EXAMS = {
   chongshin: { date: "2026-11-28", label: "총신 필답·면접", short: "총신" },
-  jangsin: { date: "2026-12-10", label: "장신 성경·논술", short: "장신" },
 };
 
 export const MILESTONES = [
-  { date: "2026-11-02", label: "총신 원서접수 시작", detail: "~11/13 17:00 · 서류 도착 마감 동일" },
-  { date: "2026-11-10", label: "장신 원서접수 시작", detail: "~11/12 17:00" },
-  { date: "2026-11-12", label: "장신 원서접수 마감", detail: "17:00까지" },
-  { date: "2026-11-13", label: "총신 원서·서류 도착 마감", detail: "17:00까지" },
-  { date: "2026-11-20", label: "장신 추천소견서·자기소개서 마감", detail: "17:00까지" },
-  { date: "2026-11-28", label: "총신 필답·면접", detail: "시험일" },
-  { date: "2026-12-10", label: "장신 성경·논술", detail: "시험일" },
-  { date: "2027-01-06", label: "장신 면접", detail: "1/6–1/7" },
+  { date: "2026-11-09", label: "교무입학팀 전화 (지원 자격)", detail: "031-679-1710 · 교적·노회·추천서 요건 확인" },
+  { date: "2026-11-10", label: "원서 입력·전형료·등기 발송", detail: "통화 결과 확인 후 · 봉투에 '일반전형/이름'" },
+  { date: "2026-11-13", label: "총신 원서·서류 도착 마감", detail: "17:00까지 · 등기 배송 조회" },
+  { date: "2026-11-28", label: "총신 필답·면접", detail: "08:00 필답 · 10:50~ 면접" },
 ];
 
 export const PHASES = {
-  base: { id: "base", label: "1단계 · 기초 다지기", goal: "신(약) 유형 + 다빈도 권 + 단어 1회독(영→한)" },
-  expand: { id: "expand", label: "2단계 · 유형 확장", goal: "성종·신유형·목유형 + 단어 2·3회독 + 문법·독해" },
-  final: { id: "final", label: "3단계 · 총신 실전", goal: "매일 모의 50문항 + 약점 권 + 단어 회상" },
-  jangsin: { id: "jangsin", label: "4단계 · 장신 집중", goal: "암송 25구절 + 장신 문제집 + 논술 개요" },
+  recent: { id: "recent", label: "1단계 · 최근 기출·문제은행", goal: "2020–22 원문기출 150 + 2026 문제은행 구약 199·신약 100 + 신약 암송" },
+  books: { id: "books", label: "2단계 · 권별 기출 회독", goal: "00–14 기출을 창세기부터 신약까지 · 가중치 높은 문항 먼저" },
+  final: { id: "final", label: "3단계 · 오답·실전", goal: "새 문제 없이 오답노트 회독 + 원문기출 시험 모드" },
 };
-
-const BASE_TYPES = ["신_유형"];
-const EXPAND_TYPES = ["성종유형", "신유형", "목유형", "신_유형", "성(여)유형", "성(겨)유형"];
-
-const VOCAB_PASSES = [
-  { tag: "영한", mode: "study", label: "영→한", pass: "1회독" },
-  { tag: "동의어", mode: "study", label: "동의어", pass: "2회독" },
-  { tag: "반의어", mode: "study", label: "반의어", pass: "3회독" },
-  { tag: "한영", mode: "flash", label: "한→영 회상", pass: "4회독" },
-];
-
-const MOCK_SETS = [
-  { tags: ["필수"], label: "필수 가중 모의 25", count: 25, subject: "성경" },
-  { tags: ["문제은행"], label: "문제은행 모의 30", count: 30, subject: "성경" },
-  { tags: ["기출"], label: "총신 기출 통합 모의 25", count: 25, subject: "성경" },
-  { tags: ["2022학년도"], label: "2022학년도 성경 25", count: 25, subject: "성경" },
-];
-
-const ESSAY_TOPICS = [
-  "소명: 왜 목회자의 길을 가려 하는가",
-  "교회의 공공성과 사회적 책임",
-  "성경 해석의 원리와 설교",
-  "고난과 신앙 — 욥기·시편을 중심으로",
-  "다음 세대 신앙 교육",
-  "예배의 본질과 회복",
-  "선교적 교회와 지역 사회",
-  "한국 교회의 위기와 갱신",
-];
-
-const S_BOOKS = BIBLE_BOOK_TRACKS.filter((b) => b.tier === "S");
-const A_BOOKS = BIBLE_BOOK_TRACKS.filter((b) => b.tier === "A");
-const B_BOOKS = BIBLE_BOOK_TRACKS.filter((b) => b.tier === "B");
-
-/** S권은 이틀씩, A·B권은 하루씩 — 기초·확장 기간에 순환 */
-const BOOK_ROTATION = [
-  ...S_BOOKS.flatMap((b) => [b, b]),
-  ...A_BOOKS,
-  ...B_BOOKS,
-];
 
 const DAY_MS = 86400000;
 
@@ -95,284 +55,215 @@ export function formatDateLabel(key) {
   return `${d.getMonth() + 1}/${d.getDate()} (${w})`;
 }
 
-function quiz(id, label, detail, { mode = "study", tags, subject, seminary = "chongshin", count, minutes }) {
-  return { id, kind: "quiz", label, detail, mode, tags, subject, seminary, count, minutes };
+/**
+ * 퀴즈 단계.
+ * tags: 모두 포함해야 하는 태그 · anyTags: 하나 이상 포함 · fresh: 아직 안 푼 문항 우선
+ */
+function quiz(id, label, detail, { mode = "study", tags, anyTags, subject, seminary = "chongshin", count, minutes, fresh = false }) {
+  return { id, kind: "quiz", label, detail, mode, tags, anyTags, subject, seminary, count, fresh, minutes: minutes ?? Math.round(count * 1.1) };
 }
 
-function wrongReview(id, count = 15) {
-  return {
-    id,
-    kind: "wrong",
-    label: `오답 복습 ${count}`,
-    detail: "이번 주 틀린 문항만 다시 — 맞히면 오답노트에서 빠짐",
-    mode: "study",
-    count,
-    minutes: 15,
-  };
+function wrongReview(id, count, detail = "틀린 문항만 다시 · 맞히면 오답노트에서 빠짐") {
+  return { id, kind: "wrong", label: `오답 복습 ${count}`, detail, mode: "study", count, minutes: Math.round(count * 1.1) };
 }
 
 function manual(id, label, detail, minutes) {
   return { id, kind: "manual", label, detail, minutes };
 }
 
-function memoryStep(id) {
-  return quiz(id, "장신 암송 5구절", "2027 입시 25구절에서 무작위 5개 · 장절 보고 본문 소리 내어", {
-    mode: "flash",
-    tags: ["구약암송", "한암송"],
-    subject: "성경",
-    seminary: "jangsin",
-    count: 5,
-    minutes: 10,
-  });
-}
-
-function vocabStep(id, vocabIndex, review = false) {
-  const pass = VOCAB_PASSES[Math.floor(vocabIndex / VOCAB_DAY_TRACKS.length) % VOCAB_PASSES.length];
-  const day = VOCAB_DAY_TRACKS[vocabIndex % VOCAB_DAY_TRACKS.length];
-  return quiz(
-    id,
-    `단어 ${day.label} · ${pass.label}${review ? " 복습" : ""}`,
-    `${review ? "어제 단어 다시 · " : ""}${pass.pass} · ${day.theme} (${day.range}) 20개`,
-    { mode: pass.mode, tags: ["단어장300", day.tag, pass.tag], subject: "영어", count: 20, minutes: 15 }
+/** 성경 블록을 30문항 안팎의 세트로 나눈다. 같은 범위라도 fresh라서 세트마다 새 문항이 나온다. */
+function bibleBlock(prefix, label, total, opts, chunk = 30) {
+  const n = Math.max(1, Math.ceil(total / chunk));
+  const size = Math.ceil(total / n);
+  return Array.from({ length: n }, (_, i) =>
+    quiz(`${prefix}-${i + 1}`, n > 1 ? `${label} ${i + 1}/${n}` : label, opts.detail || "", {
+      subject: "성경",
+      fresh: true,
+      ...opts,
+      count: i === n - 1 ? total - size * (n - 1) : size,
+    })
   );
 }
 
-function englishSkillStep(id, dayIndex) {
-  return dayIndex % 2 === 0
-    ? quiz(id, "영어 문법 10", "어법 판단 · 틀린 보기 이유까지 해설 확인", {
-        tags: ["문법"],
-        subject: "영어",
-        count: 10,
-        minutes: 15,
-      })
-    : quiz(id, "영어 독해 10", "주제·빈칸·내용일치 · 지문 끝까지 읽고 풀기", {
-        tags: ["독해"],
-        subject: "영어",
-        count: 10,
-        minutes: 20,
-      });
-}
+const OLD = ["기출", "00-14"];
+const books = (...b) => ({ tags: OLD, anyTags: b });
 
-function bookStep(id, book, count) {
-  return quiz(id, `${book.label} 기출 ${count}`, `빈도 ${book.tier}권 · ${book.hint}`, {
-    tags: ["기출", book.tag],
-    subject: "성경",
-    count,
-    minutes: Math.round(count * 1.2),
-  });
-}
+/** 날짜별 성경 범위 (총 문항은 그날 할 분량 — 범위가 더 크면 가중치 높은 것부터) */
+const BIBLE_DAYS = {
+  "2026-11-09": { title: "최근 기출 2020–22 (1)", phase: "recent", blocks: [["recent", "원문기출 성경", 75, { tags: ["원문기출"], detail: "2020–22 실제 시험 · 해설까지" }]] },
+  "2026-11-10": { title: "최근 기출 2020–22 (2)", phase: "recent", blocks: [["recent", "원문기출 성경", 75, { tags: ["원문기출"], detail: "어제 안 푼 문항 위주" }]] },
+  "2026-11-11": { title: "2026 문제은행 · 구약 (1)", phase: "recent", blocks: [["bank-ot", "문제은행 구약", 100, { tags: ["2026문제은행", "구약"], detail: "2026 성경고사 문제은행" }, 34]] },
+  "2026-11-12": { title: "2026 문제은행 · 구약 (2)", phase: "recent", blocks: [["bank-ot", "문제은행 구약", 99, { tags: ["2026문제은행", "구약"], detail: "어제 안 푼 문항 위주" }, 33]] },
+  "2026-11-13": {
+    title: "2026 문제은행 · 신약 (1) + 암송",
+    phase: "recent",
+    blocks: [
+      ["bank-nt", "문제은행 신약", 100, { tags: ["2026문제은행", "신약"], detail: "2026 성경고사 문제은행" }, 34],
+      ["memory", "신약 암송", 25, { tags: ["암송", "신약"], mode: "flash", detail: "장절 보고 본문 떠올리기" }, 25],
+    ],
+  },
+  "2026-11-14": { title: "창세기", phase: "books", blocks: [["gen", "창세기 기출", 240, { ...books("창세기"), detail: "가장 많이 나온 권 · 가중치 높은 문항 먼저" }]] },
+  "2026-11-15": { title: "출애굽기 ~ 룻기", phase: "books", blocks: [["pent", "출애굽기~룻기 기출", 240, { ...books("출애굽기", "레위기", "민수기", "신명기", "여호수아", "사사기", "룻기"), detail: "오경 나머지 + 정복·사사 시대" }]] },
+  "2026-11-16": { title: "사무엘상·하", phase: "books", blocks: [["sam", "사무엘 기출", 112, { ...books("사무엘상", "사무엘하"), detail: "사무엘·사울·다윗" }, 28]] },
+  "2026-11-17": { title: "열왕기상·하", phase: "books", blocks: [["kings", "열왕기 기출", 120, { ...books("열왕기상", "열왕기하"), detail: "솔로몬·분열 왕국·엘리야·엘리사" }]] },
+  "2026-11-18": {
+    title: "역대 ~ 에스더 + 암송",
+    phase: "books",
+    blocks: [
+      ["chron", "역대~에스더 기출", 100, { ...books("역대상", "역대하", "에스라", "느헤미야", "에스더"), detail: "포로 귀환·성전·성벽 재건" }, 25],
+      ["memory2", "신약 암송", 25, { tags: ["암송", "신약"], mode: "flash", detail: "안 외운 구절 위주" }, 25],
+    ],
+  },
+  "2026-11-19": { title: "욥기·시편", phase: "books", blocks: [["poetry", "욥기·시편 기출", 120, { ...books("욥기", "시편"), detail: "시편은 '필수' 문항이 먼저 나옵니다" }]] },
+  "2026-11-20": { title: "잠언 ~ 이사야", phase: "books", blocks: [["isa", "잠언~이사야 기출", 120, { ...books("잠언", "전도서", "아가", "이사야"), detail: "지혜서 + 이사야 메시아 예언" }]] },
+  "2026-11-21": {
+    title: "예레미야 ~ 말라기",
+    phase: "books",
+    blocks: [["proph", "예레미야~말라기 기출", 240, { ...books("예레미야", "예레미야애가", "에스겔", "다니엘", "호세아", "요엘", "아모스", "오바댜", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스가랴", "말라기"), detail: "대선지서 + 소선지서 12권" }]],
+  },
+  "2026-11-22": {
+    title: "문제은행 신약 (2) + 남은 기출",
+    phase: "books",
+    blocks: [
+      ["bank-nt2", "문제은행 신약", 100, { tags: ["2026문제은행", "신약"], detail: "11/13에 안 푼 문항 위주" }, 34],
+      ["rest", "안 푼 기출", 140, { tags: OLD, detail: "신약 포함 · 아직 안 푼 문항부터" }, 35],
+    ],
+  },
+};
 
-function buildChongshinDay(phaseId, ctx) {
+/** 영어: 11/9~11/23 15일 = 단어장 Day 1~15 */
+function englishSteps(key, isWeekend) {
+  const i = daysBetween(PLAN_START, key);
   const steps = [];
-  const isMockDay = phaseId !== "final" && ctx.phaseDay % 7 === 6;
-
-  if (isMockDay) {
+  if (i >= 0 && i < VOCAB_DAY_TRACKS.length) {
+    const day = VOCAB_DAY_TRACKS[i];
     steps.push(
-      quiz("mock-bible", "주간 모의 · 필수 성경 25", "시험 모드 · 시간 재고 한 번에", {
-        mode: "exam",
-        tags: ["필수"],
-        subject: "성경",
-        count: 25,
-        minutes: 30,
-      }),
-      quiz("mock-eng", "주간 모의 · 원문기출 영어 25", "2020–22 원문 · 시험 모드", {
-        mode: "exam",
+      quiz("vocab", `단어 ${day.label} · 영→한 20`, `${day.theme} (${day.range})`, {
+        tags: ["단어장300", day.tag, "영한"],
+        subject: "영어",
+        count: 20,
+        minutes: 12,
+      })
+    );
+    if (i > 0) {
+      const prev = VOCAB_DAY_TRACKS[i - 1];
+      steps.push(
+        quiz("vocab-review", `단어 ${prev.label} · 한→영 복습 20`, "어제 단어 · 뜻 보고 영어 떠올리기", {
+          mode: "flash",
+          tags: ["단어장300", prev.tag, "한영"],
+          subject: "영어",
+          count: 20,
+          minutes: 8,
+        })
+      );
+    }
+    steps.push(
+      quiz("eng-past", "원문기출 영어 5", "2020–22 실제 시험 · 질문 먼저 읽고 근거 문장 찾기", {
         tags: ["원문기출"],
         subject: "영어",
-        count: 25,
-        minutes: 35,
+        count: 5,
+        fresh: true,
+        minutes: 10,
       }),
-      wrongReview("wrong", 20),
-      vocabStep("vocab", Math.max(0, ctx.vocabIndex - 1), true),
-      memoryStep("memory")
+      quiz("grammar", "문법 3", "틀린 보기 이유까지 해설 확인", { tags: ["문법", "신대원영어"], subject: "영어", count: 3, fresh: true, minutes: 5 })
     );
-    return { steps, title: "주간 모의고사 + 한 주 복습" };
-  }
-
-  if (phaseId === "final") {
-    const mock = MOCK_SETS[ctx.phaseDay % MOCK_SETS.length];
-    const book = [...S_BOOKS, ...A_BOOKS.slice(0, 4)][ctx.phaseDay % (S_BOOKS.length + 4)];
+    if (isWeekend) {
+      steps.push(
+        quiz("eng-mock", "영어 실전 25", "원문기출 시험 모드 · 시간 재고 한 번에", { mode: "exam", tags: ["원문기출"], subject: "영어", count: 25, minutes: 35 }),
+        quiz("bible-eng", "성경 영어 10", "영어 구절 독해·빈칸", { tags: ["성경영어"], subject: "영어", count: 10, minutes: 10 })
+      );
+    }
+  } else {
     steps.push(
-      quiz("mock", `실전 · ${mock.label}`, "시험 모드 · 시간 재고 끝까지", {
-        mode: "exam",
-        tags: mock.tags,
-        subject: mock.subject,
-        count: mock.count,
-        minutes: Math.round(mock.count * 1.2),
-      }),
-      ctx.phaseDay % 2 === 0
-        ? quiz("eng", "실전 · 원문기출 영어 15", "시험 모드", {
-            mode: "exam",
-            tags: ["원문기출"],
-            subject: "영어",
-            count: 15,
-            minutes: 20,
-          })
-        : englishSkillStep("eng", 1),
-      bookStep("book", book, 10),
-      quiz("vocab", "단어 한→영 회상 20", "단어장 전체 무작위 · 뜻 보고 영어 떠올리기", {
+      quiz("vocab-recall", "단어 한→영 회상 20", "단어장 전체 · 헷갈린 단어 위주", {
         mode: "flash",
         tags: ["단어장300", "한영"],
         subject: "영어",
         count: 20,
-        minutes: 15,
-      }),
-      wrongReview("wrong", 10),
-      memoryStep("memory")
+        minutes: 10,
+      })
     );
-    return { steps, title: `실전 모의 · ${book.label} 점검` };
+  }
+  return steps;
+}
+
+function buildDay(key) {
+  const d = parseDateKey(key);
+  const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+  const exam = EXAMS.chongshin.date;
+
+  if (key === exam) {
+    return {
+      phase: "final",
+      title: "시험일 · 총신 필답·면접",
+      examDay: true,
+      steps: [manual("exam", "총신 필답·면접", "08:00 필답 시작 전 도착 · 수험표·신분증·필기구 · 결시 과목 있으면 불합격", 0)],
+    };
   }
 
-  const book = BOOK_ROTATION[ctx.bookIndex % BOOK_ROTATION.length];
-  ctx.bookIndex += 1;
-  const types = phaseId === "base" ? BASE_TYPES : EXPAND_TYPES;
-  const typeTag = types[ctx.phaseDay % types.length];
-  const typeCount = phaseId === "base" ? 20 : 15;
-  steps.push(
-    quiz("type", `${typeLabel(typeTag)} ${typeCount}`, phaseId === "base" ? "필답 최다 유형 · 해설 읽으며 개념 정리" : "유형 순환 · 틀린 보기 메모", {
-      tags: [typeTag],
-      subject: "성경",
-      count: typeCount,
-      minutes: Math.round(typeCount * 1.2),
-    }),
-    bookStep("book", book, book.tier === "S" ? 15 : 12),
-    vocabStep("vocab", ctx.vocabIndex),
-    ...(phaseId === "expand" || ctx.phaseDay >= 3 ? [englishSkillStep("eng", ctx.phaseDay)] : []),
-    memoryStep("memory")
-  );
-  ctx.vocabIndex += 1;
-  return { steps, title: `${book.label} · ${typeLabel(typeTag)}` };
-}
+  const bible = BIBLE_DAYS[key];
+  if (bible) {
+    const steps = bible.blocks.flatMap(([prefix, label, total, opts, chunk]) => bibleBlock(prefix, label, total, opts, chunk));
+    steps.push(...englishSteps(key, isWeekend));
+    if (isWeekend) steps.push(manual("interview", "면접 답변 30분", "면접준비.md · 소명, 왜 총신, 통합 교회 교적 설명, 개혁주의 기초", 30));
+    return { phase: bible.phase, title: bible.title, steps };
+  }
 
-function buildJangsinDay(j) {
-  const levels = ["난이도A", "난이도B", "난이도C"];
-  const books = ["시편", "이사야", "창세기"];
-  const level = levels[j % levels.length];
-  const book = books[j % books.length];
-  const recall = j % 2 === 0
-    ? { tags: ["구약암송", "장절맞히기"], label: "장절 맞히기 15", detail: "본문 보고 장절 고르기" }
-    : { tags: ["구약암송", "본문맞히기"], label: "본문 맞히기 15", detail: "장절 보고 본문 고르기" };
-  return {
-    title: `장신 · ${level.replace("난이도", "난이도 ")} · ${book}`,
-    steps: [
-      quiz("memory-all", "암송 25구절 전체 플래시", "2027 입시 구절 · 장절→본문 소리 내어", {
-        mode: "flash",
-        tags: ["구약암송", "한암송"],
-        subject: "성경",
-        seminary: "jangsin",
-        count: 25,
-        minutes: 25,
-      }),
-      quiz("recall", recall.label, recall.detail, {
-        tags: recall.tags,
-        subject: "성경",
-        seminary: "jangsin",
-        count: 15,
-        minutes: 15,
-      }),
-      quiz("bank", `장신 문제집 ${level.replace("난이도", "")} 15`, "정답 미수록 · 풀고 해설·본문으로 자기 채점", {
-        tags: ["장신", level],
-        subject: "성경",
-        seminary: "jangsin",
-        count: 15,
-        minutes: 20,
-      }),
-      quiz("book", `장신 · ${book} 10`, "장신 다빈도 권", {
-        tags: ["장신", book],
-        subject: "성경",
-        seminary: "jangsin",
-        count: 10,
-        minutes: 12,
-      }),
-      manual("essay", "논술 개요 1편", `주제: ${ESSAY_TOPICS[j % ESSAY_TOPICS.length]} — 서론·본론 3단·결론 개요를 손으로`, 40),
-    ],
+  // 3단계: 오답·실전 (11/23 ~ 11/27)
+  const finalDays = {
+    "2026-11-23": {
+      title: "오답노트 1회독 (1)",
+      steps: [wrongReview("wrong-1", 40), wrongReview("wrong-2", 40), wrongReview("wrong-3", 40)],
+    },
+    "2026-11-24": {
+      title: "오답노트 1회독 (2) + 면접 리허설",
+      steps: [
+        wrongReview("wrong-1", 40),
+        wrongReview("wrong-2", 40),
+        quiz("must", "필수 가중 25", "가중치 5 문항 무작위 · 인물·지명·숫자 확인", { tags: ["필수"], subject: "성경", count: 25 }),
+        manual("rehearsal", "면접 리허설 1", "소리 내어 · 가족이나 목사님 앞에서", 30),
+      ],
+    },
+    "2026-11-25": {
+      title: "원문기출 실전 (시간 재기)",
+      steps: [
+        quiz("mock-1", "원문기출 성경 실전 1/3", "시험 모드 · 시간 재고 한 번에", { mode: "exam", tags: ["원문기출"], subject: "성경", count: 50, minutes: 55 }),
+        quiz("mock-2", "원문기출 성경 실전 2/3", "시험 모드", { mode: "exam", tags: ["원문기출"], subject: "성경", count: 50, minutes: 55, fresh: true }),
+        quiz("mock-3", "원문기출 성경 실전 3/3", "시험 모드", { mode: "exam", tags: ["원문기출"], subject: "성경", count: 50, minutes: 55, fresh: true }),
+        quiz("mock-eng", "원문기출 영어 실전 30", "시험 모드", { mode: "exam", tags: ["원문기출"], subject: "영어", count: 30, minutes: 40 }),
+      ],
+    },
+    "2026-11-26": {
+      title: "오답노트 2회독 + 면접 리허설",
+      steps: [
+        wrongReview("wrong-1", 40, "계속 틀리는 문항만 남았는지 확인"),
+        wrongReview("wrong-2", 40, "계속 틀리는 문항만 남았는지 확인"),
+        manual("rehearsal", "면접 리허설 2", "예상 질문 전부 소리 내어 한 번씩", 30),
+      ],
+    },
+    "2026-11-27": {
+      title: "시험 전날 · 가볍게",
+      steps: [
+        wrongReview("wrong-1", 20, "새로 외우지 말고 아는 것 확인"),
+        manual("ready", "준비물·동선 확인", "수험표 출력, 신분증, 필기구, 양지캠퍼스 이동 시간 · 일찍 자기", 10),
+      ],
+    },
   };
+  const fd = finalDays[key];
+  if (!fd) return null;
+  return { phase: "final", title: fd.title, steps: [...fd.steps, ...englishSteps(key, false)] };
 }
 
-/**
- * startKey부터 장신 시험일까지 하루 단위 계획.
- * 총신 이전 기간을 기초(55%)·확장(45%)·실전(마지막 최소 7일)으로 나눈다.
- */
-export function buildPlan(startKey) {
-  const chongshin = EXAMS.chongshin.date;
-  const jangsin = EXAMS.jangsin.date;
+/** 11/9 ~ 11/28 고정 일정. startKey는 하위 호환용으로 받기만 한다. */
+export function buildPlan(_startKey) {
   const days = [];
-  const ctx = { bookIndex: 0, vocabIndex: 0, phaseDay: 0 };
-
-  const studyDays = Math.max(0, daysBetween(startKey, chongshin) - 1);
-  const finalLen = Math.min(studyDays, Math.max(7, Math.round(studyDays * 0.25)));
-  const preFinal = studyDays - finalLen;
-  const baseLen = Math.ceil(preFinal * 0.55);
-
-  let lastPhase = null;
-  let jangsinIndex = 0;
-
-  for (let i = 0, key = startKey; daysBetween(key, jangsin) >= 0; i += 1, key = addDays(key, 1)) {
+  for (let i = 0, key = PLAN_START; daysBetween(key, EXAMS.chongshin.date) >= 0; i += 1, key = addDays(key, 1)) {
+    const day = buildDay(key);
+    if (!day) continue;
     const milestones = MILESTONES.filter((m) => m.date === key);
-    let day;
-
-    if (key === chongshin || key === jangsin) {
-      const exam = key === chongshin ? EXAMS.chongshin : EXAMS.jangsin;
-      day = {
-        phase: key === chongshin ? "final" : "jangsin",
-        title: `시험일 · ${exam.label}`,
-        examDay: true,
-        steps: [manual("exam", exam.label, "수험표·신분증·필기구 확인 후 출발", 0)],
-      };
-    } else if (key === addDays(chongshin, -1) || key === addDays(jangsin, -1)) {
-      const isChongshin = key === addDays(chongshin, -1);
-      day = {
-        phase: isChongshin ? "final" : "jangsin",
-        title: "시험 전날 · 가볍게 정리",
-        steps: isChongshin
-          ? [
-              quiz("light", "필수 성경 15", "새로 외우지 말고 아는 것 확인", {
-                tags: ["필수"],
-                subject: "성경",
-                count: 15,
-                minutes: 15,
-              }),
-              quiz("vocab", "단어 동의어 15", "헷갈렸던 단어만 훑기", {
-                tags: ["단어장300", "동의어"],
-                subject: "영어",
-                count: 15,
-                minutes: 10,
-              }),
-              wrongReview("wrong", 10),
-              manual("ready", "준비물·동선 확인", "수험표 출력, 신분증, 필기구, 고사장 이동 시간", 10),
-            ]
-          : [
-              quiz("memory-all", "암송 25구절 최종 점검", "장절→본문 전체", {
-                mode: "flash",
-                tags: ["구약암송", "한암송"],
-                subject: "성경",
-                seminary: "jangsin",
-                count: 25,
-                minutes: 25,
-              }),
-              manual("essay", "논술 개요 다시 보기", "써 둔 개요 중 3편만 소리 내어 읽기", 20),
-              manual("ready", "준비물·동선 확인", "수험표, 신분증, 필기구, 고사장 이동 시간", 10),
-            ],
-      };
-    } else if (daysBetween(key, chongshin) > 0) {
-      const phaseId = i < baseLen ? "base" : i < preFinal ? "expand" : "final";
-      if (phaseId !== lastPhase) {
-        ctx.phaseDay = 0;
-        lastPhase = phaseId;
-      }
-      const built = buildChongshinDay(phaseId, ctx);
-      ctx.phaseDay += 1;
-      day = { phase: phaseId, ...built };
-    } else {
-      day = { phase: "jangsin", ...buildJangsinDay(jangsinIndex) };
-      jangsinIndex += 1;
+    if (!day.examDay) {
+      for (const m of milestones) day.steps.unshift(manual(`ms-${m.date}`, m.label, m.detail, 10));
     }
-
-    for (const m of milestones) {
-      if (day.examDay) continue;
-      day.steps.push(manual(`ms-${m.date}`, m.label, m.detail, 10));
-    }
-
     days.push({
       date: key,
       dayNo: i + 1,
@@ -395,9 +286,17 @@ export function stepKey(date, stepId) {
   return `${date}:${stepId}`;
 }
 
+/** 오늘 계획. 시작일 전이면 1일차를 미리 보여 준다 (미리 풀면 1일차 기록으로 남음). */
+export function focusDay(plan, todayKey) {
+  const day = plan.find((d) => d.date === todayKey);
+  if (day) return day;
+  if (plan.length && todayKey < plan[0].date) return { ...plan[0], preview: true };
+  return null;
+}
+
 /** 오늘 계획 중 아직 안 한 첫 퀴즈 단계 (수동 체크 단계는 건너뜀) */
 export function nextPlanStep(plan, done, todayKey) {
-  const day = plan.find((d) => d.date === todayKey);
+  const day = focusDay(plan, todayKey);
   if (!day) return null;
   const step = day.steps.find((s) => s.kind !== "manual" && !done[stepKey(day.date, s.id)]);
   return step ? { day, step } : null;
