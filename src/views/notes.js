@@ -17,6 +17,7 @@ import {
 } from "../storage/notes-progress.js";
 import { navigate, getQuery } from "../router.js";
 import { icon, hydrateIcons } from "../lib/icons.js";
+import { studyTabs } from "./english.js";
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -73,6 +74,7 @@ export async function renderNotes(root) {
       : "";
 
   root.innerHTML = `
+    ${studyTabs("bible")}
     <header class="page-header">
       <h1>성경 66권 핵심</h1>
       <p class="muted">한 권을 1분 카드 여러 장으로 · 출퇴근, 점심, 자기 전에 몇 장씩</p>

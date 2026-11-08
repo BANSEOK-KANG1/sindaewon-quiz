@@ -1,0 +1,3002 @@
+[
+  {
+    "no": 1,
+    "source": "21",
+    "word": "authentic",
+    "pos": "형",
+    "meaning": "진짜의, 진정한",
+    "synonym": "genuine",
+    "antonym": "fake",
+    "example": "The document appears authentic."
+  },
+  {
+    "no": 2,
+    "source": "21",
+    "word": "genuine",
+    "pos": "형",
+    "meaning": "진품의, 진실한",
+    "synonym": "authentic",
+    "antonym": "counterfeit",
+    "example": "Her concern was genuine."
+  },
+  {
+    "no": 3,
+    "source": "20",
+    "word": "candid",
+    "pos": "형",
+    "meaning": "솔직한, 숨김없는",
+    "synonym": "frank",
+    "antonym": "evasive",
+    "example": "He gave a candid answer."
+  },
+  {
+    "no": 4,
+    "source": "예상",
+    "word": "sincere",
+    "pos": "형",
+    "meaning": "진심 어린, 성실한",
+    "synonym": "earnest",
+    "antonym": "insincere",
+    "example": "Her apology sounded sincere."
+  },
+  {
+    "no": 5,
+    "source": "예상",
+    "word": "impartial",
+    "pos": "형",
+    "meaning": "공정한, 치우치지 않은",
+    "synonym": "unbiased",
+    "antonym": "prejudiced",
+    "example": "A judge must remain impartial."
+  },
+  {
+    "no": 6,
+    "source": "20",
+    "word": "biased",
+    "pos": "형",
+    "meaning": "편향된",
+    "synonym": "prejudiced",
+    "antonym": "impartial",
+    "example": "The report was clearly biased."
+  },
+  {
+    "no": 7,
+    "source": "20",
+    "word": "prejudiced",
+    "pos": "형",
+    "meaning": "편견을 가진",
+    "synonym": "biased",
+    "antonym": "open-minded",
+    "example": "A prejudiced view distorts judgment."
+  },
+  {
+    "no": 8,
+    "source": "21",
+    "word": "reproach",
+    "pos": "동/명",
+    "meaning": "비난하다; 비난",
+    "synonym": "blame",
+    "antonym": "praise",
+    "example": "Do not reproach him unfairly."
+  },
+  {
+    "no": 9,
+    "source": "20",
+    "word": "chide",
+    "pos": "동",
+    "meaning": "꾸짖다",
+    "synonym": "scold",
+    "antonym": "commend",
+    "example": "The teacher may chide careless students."
+  },
+  {
+    "no": 10,
+    "source": "20",
+    "word": "censure",
+    "pos": "동/명",
+    "meaning": "혹평하다; 공식적 비난",
+    "synonym": "condemn",
+    "antonym": "approve",
+    "example": "The council will censure the misconduct."
+  },
+  {
+    "no": 11,
+    "source": "21",
+    "word": "commend",
+    "pos": "동",
+    "meaning": "칭찬하다, 추천하다",
+    "synonym": "praise",
+    "antonym": "condemn",
+    "example": "They commend her faithful service."
+  },
+  {
+    "no": 12,
+    "source": "21",
+    "word": "laud",
+    "pos": "동",
+    "meaning": "찬양하다, 칭송하다",
+    "synonym": "praise",
+    "antonym": "criticize",
+    "example": "Many laud his courage."
+  },
+  {
+    "no": 13,
+    "source": "21",
+    "word": "revere",
+    "pos": "동",
+    "meaning": "깊이 존경하다",
+    "synonym": "venerate",
+    "antonym": "despise",
+    "example": "They revere the wise elder."
+  },
+  {
+    "no": 14,
+    "source": "20·21",
+    "word": "despise",
+    "pos": "동",
+    "meaning": "경멸하다",
+    "synonym": "scorn",
+    "antonym": "admire",
+    "example": "Never despise the weak."
+  },
+  {
+    "no": 15,
+    "source": "20",
+    "word": "disdain",
+    "pos": "동/명",
+    "meaning": "업신여기다; 경멸",
+    "synonym": "scorn",
+    "antonym": "respect",
+    "example": "He did not disdain humble work."
+  },
+  {
+    "no": 16,
+    "source": "21",
+    "word": "contempt",
+    "pos": "명",
+    "meaning": "경멸, 멸시",
+    "synonym": "scorn",
+    "antonym": "respect",
+    "example": "His sneer showed contempt."
+  },
+  {
+    "no": 17,
+    "source": "20",
+    "word": "condone",
+    "pos": "동",
+    "meaning": "묵인하다, 용납하다",
+    "synonym": "tolerate",
+    "antonym": "condemn",
+    "example": "We cannot condone dishonest conduct."
+  },
+  {
+    "no": 18,
+    "source": "21",
+    "word": "approve",
+    "pos": "동",
+    "meaning": "승인하다, 좋게 여기다",
+    "synonym": "endorse",
+    "antonym": "reject",
+    "example": "The committee will approve the plan."
+  },
+  {
+    "no": 19,
+    "source": "20·21",
+    "word": "condemn",
+    "pos": "동",
+    "meaning": "비난하다, 유죄 판결하다",
+    "synonym": "denounce",
+    "antonym": "commend",
+    "example": "The prophet may condemn injustice."
+  },
+  {
+    "no": 20,
+    "source": "예상",
+    "word": "vindicate",
+    "pos": "동",
+    "meaning": "정당성을 입증하다, 혐의를 벗기다",
+    "synonym": "justify",
+    "antonym": "accuse",
+    "example": "The evidence will vindicate her claim."
+  },
+  {
+    "no": 21,
+    "source": "20",
+    "word": "lucid",
+    "pos": "형",
+    "meaning": "명료한, 이해하기 쉬운",
+    "synonym": "clear",
+    "antonym": "muddled",
+    "example": "The lecturer gave a lucid explanation."
+  },
+  {
+    "no": 22,
+    "source": "20",
+    "word": "cogent",
+    "pos": "형",
+    "meaning": "설득력 있고 논리적인",
+    "synonym": "convincing",
+    "antonym": "unconvincing",
+    "example": "She presented a cogent argument."
+  },
+  {
+    "no": 23,
+    "source": "예상",
+    "word": "coherent",
+    "pos": "형",
+    "meaning": "일관성 있고 조리 있는",
+    "synonym": "logical",
+    "antonym": "incoherent",
+    "example": "The essay is coherent and focused."
+  },
+  {
+    "no": 24,
+    "source": "예상",
+    "word": "explicit",
+    "pos": "형",
+    "meaning": "명백한, 구체적인",
+    "synonym": "clear",
+    "antonym": "ambiguous",
+    "example": "The command was explicit."
+  },
+  {
+    "no": 25,
+    "source": "예상",
+    "word": "obscure",
+    "pos": "형/동",
+    "meaning": "불분명한; 가리다",
+    "synonym": "unclear",
+    "antonym": "obvious",
+    "example": "The reference remains obscure."
+  },
+  {
+    "no": 26,
+    "source": "20",
+    "word": "muddled",
+    "pos": "형",
+    "meaning": "혼란스러운, 뒤죽박죽인",
+    "synonym": "confused",
+    "antonym": "lucid",
+    "example": "His reasoning sounded muddled."
+  },
+  {
+    "no": 27,
+    "source": "20",
+    "word": "delineate",
+    "pos": "동",
+    "meaning": "상세히 묘사하다, 윤곽을 밝히다",
+    "synonym": "outline",
+    "antonym": "blur",
+    "example": "The rules delineate each duty."
+  },
+  {
+    "no": 28,
+    "source": "예상",
+    "word": "articulate",
+    "pos": "동/형",
+    "meaning": "명확히 표현하다; 표현력 있는",
+    "synonym": "express",
+    "antonym": "mumble",
+    "example": "She can articulate her belief clearly."
+  },
+  {
+    "no": 29,
+    "source": "21",
+    "word": "utter",
+    "pos": "동",
+    "meaning": "말하다, 발설하다",
+    "synonym": "speak",
+    "antonym": "withhold",
+    "example": "Do not utter a false word."
+  },
+  {
+    "no": 30,
+    "source": "21",
+    "word": "proclaim",
+    "pos": "동",
+    "meaning": "선포하다",
+    "synonym": "announce",
+    "antonym": "conceal",
+    "example": "They proclaim the gospel openly."
+  },
+  {
+    "no": 31,
+    "source": "21",
+    "word": "declare",
+    "pos": "동",
+    "meaning": "선언하다, 밝히다",
+    "synonym": "announce",
+    "antonym": "deny",
+    "example": "The witness will declare the truth."
+  },
+  {
+    "no": 32,
+    "source": "20",
+    "word": "disclose",
+    "pos": "동",
+    "meaning": "폭로하다, 공개하다",
+    "synonym": "reveal",
+    "antonym": "conceal",
+    "example": "He refused to disclose the name."
+  },
+  {
+    "no": 33,
+    "source": "21",
+    "word": "manifest",
+    "pos": "동/형",
+    "meaning": "분명히 나타내다; 명백한",
+    "synonym": "reveal",
+    "antonym": "hide",
+    "example": "Their actions manifest compassion."
+  },
+  {
+    "no": 34,
+    "source": "21",
+    "word": "veil",
+    "pos": "동/명",
+    "meaning": "가리다; 베일",
+    "synonym": "conceal",
+    "antonym": "uncover",
+    "example": "Fear can veil the truth."
+  },
+  {
+    "no": 35,
+    "source": "20",
+    "word": "abridge",
+    "pos": "동",
+    "meaning": "요약하다, 줄이다",
+    "synonym": "shorten",
+    "antonym": "expand",
+    "example": "Editors may abridge the novel."
+  },
+  {
+    "no": 36,
+    "source": "22",
+    "word": "abbreviate",
+    "pos": "동",
+    "meaning": "축약하다",
+    "synonym": "shorten",
+    "antonym": "spell out",
+    "example": "Please abbreviate the long title."
+  },
+  {
+    "no": 37,
+    "source": "예상",
+    "word": "elaborate",
+    "pos": "동/형",
+    "meaning": "상세히 설명하다; 정교한",
+    "synonym": "expand",
+    "antonym": "simplify",
+    "example": "Please elaborate on your answer."
+  },
+  {
+    "no": 38,
+    "source": "22",
+    "word": "interpret",
+    "pos": "동",
+    "meaning": "해석하다",
+    "synonym": "explain",
+    "antonym": "misread",
+    "example": "Readers interpret the passage differently."
+  },
+  {
+    "no": 39,
+    "source": "22",
+    "word": "infer",
+    "pos": "동",
+    "meaning": "추론하다",
+    "synonym": "deduce",
+    "antonym": "state",
+    "example": "We can infer his purpose from context."
+  },
+  {
+    "no": 40,
+    "source": "21",
+    "word": "discern",
+    "pos": "동",
+    "meaning": "분별하다, 알아차리다",
+    "synonym": "perceive",
+    "antonym": "overlook",
+    "example": "Wisdom helps us discern truth."
+  },
+  {
+    "no": 41,
+    "source": "20·21·22",
+    "word": "anxiety",
+    "pos": "명",
+    "meaning": "불안, 염려",
+    "synonym": "worry",
+    "antonym": "calm",
+    "example": "Prayer eased her anxiety."
+  },
+  {
+    "no": 42,
+    "source": "21",
+    "word": "phobia",
+    "pos": "명",
+    "meaning": "공포증, 강한 두려움",
+    "synonym": "fear",
+    "antonym": "fondness",
+    "example": "His phobia limited his travel."
+  },
+  {
+    "no": 43,
+    "source": "21",
+    "word": "despondent",
+    "pos": "형",
+    "meaning": "낙담한, 의기소침한",
+    "synonym": "depressed",
+    "antonym": "hopeful",
+    "example": "He felt despondent after the loss."
+  },
+  {
+    "no": 44,
+    "source": "21",
+    "word": "forlorn",
+    "pos": "형",
+    "meaning": "쓸쓸한, 버림받은 듯한",
+    "synonym": "desolate",
+    "antonym": "cheerful",
+    "example": "The child looked forlorn."
+  },
+  {
+    "no": 45,
+    "source": "21",
+    "word": "aghast",
+    "pos": "형",
+    "meaning": "경악한",
+    "synonym": "shocked",
+    "antonym": "unmoved",
+    "example": "They were aghast at the news."
+  },
+  {
+    "no": 46,
+    "source": "21",
+    "word": "ominous",
+    "pos": "형",
+    "meaning": "불길한",
+    "synonym": "foreboding",
+    "antonym": "promising",
+    "example": "Dark clouds looked ominous."
+  },
+  {
+    "no": 47,
+    "source": "20",
+    "word": "distressed",
+    "pos": "형",
+    "meaning": "괴로워하는, 고통받는",
+    "synonym": "troubled",
+    "antonym": "relieved",
+    "example": "She appeared deeply distressed."
+  },
+  {
+    "no": 48,
+    "source": "20",
+    "word": "vexation",
+    "pos": "명",
+    "meaning": "짜증, 걱정, 괴로움",
+    "synonym": "annoyance",
+    "antonym": "delight",
+    "example": "He spoke out of great vexation."
+  },
+  {
+    "no": 49,
+    "source": "21",
+    "word": "wrathful",
+    "pos": "형",
+    "meaning": "몹시 화난",
+    "synonym": "angry",
+    "antonym": "gentle",
+    "example": "The wrathful ruler punished them."
+  },
+  {
+    "no": 50,
+    "source": "20",
+    "word": "fury",
+    "pos": "명",
+    "meaning": "격노",
+    "synonym": "rage",
+    "antonym": "calm",
+    "example": "Haman was filled with fury."
+  },
+  {
+    "no": 51,
+    "source": "22",
+    "word": "compassion",
+    "pos": "명",
+    "meaning": "연민, 긍휼",
+    "synonym": "mercy",
+    "antonym": "cruelty",
+    "example": "Compassion moved her to help."
+  },
+  {
+    "no": 52,
+    "source": "22",
+    "word": "sympathy",
+    "pos": "명",
+    "meaning": "동정, 공감",
+    "synonym": "compassion",
+    "antonym": "indifference",
+    "example": "He expressed sympathy for the grieving."
+  },
+  {
+    "no": 53,
+    "source": "22",
+    "word": "humility",
+    "pos": "명",
+    "meaning": "겸손",
+    "synonym": "modesty",
+    "antonym": "arrogance",
+    "example": "Humility makes learning possible."
+  },
+  {
+    "no": 54,
+    "source": "21",
+    "word": "arrogant",
+    "pos": "형",
+    "meaning": "오만한",
+    "synonym": "proud",
+    "antonym": "humble",
+    "example": "An arrogant answer offended them."
+  },
+  {
+    "no": 55,
+    "source": "20",
+    "word": "opinionated",
+    "pos": "형",
+    "meaning": "자기주장이 강한, 독선적인",
+    "synonym": "dogmatic",
+    "antonym": "open-minded",
+    "example": "The leader sounded opinionated."
+  },
+  {
+    "no": 56,
+    "source": "21",
+    "word": "impulsive",
+    "pos": "형",
+    "meaning": "충동적인",
+    "synonym": "spontaneous",
+    "antonym": "deliberate",
+    "example": "An impulsive choice caused trouble."
+  },
+  {
+    "no": 57,
+    "source": "21",
+    "word": "spontaneous",
+    "pos": "형",
+    "meaning": "자발적인, 즉흥적인",
+    "synonym": "unplanned",
+    "antonym": "deliberate",
+    "example": "The crowd gave spontaneous applause."
+  },
+  {
+    "no": 58,
+    "source": "20",
+    "word": "circumspect",
+    "pos": "형",
+    "meaning": "신중한",
+    "synonym": "cautious",
+    "antonym": "reckless",
+    "example": "Be circumspect in difficult matters."
+  },
+  {
+    "no": 59,
+    "source": "22",
+    "word": "receptive",
+    "pos": "형",
+    "meaning": "잘 받아들이는, 수용적인",
+    "synonym": "open",
+    "antonym": "resistant",
+    "example": "Good students remain receptive to correction."
+  },
+  {
+    "no": 60,
+    "source": "22",
+    "word": "resistant",
+    "pos": "형",
+    "meaning": "저항하는, 받아들이지 않는",
+    "synonym": "opposed",
+    "antonym": "receptive",
+    "example": "He was resistant to change."
+  },
+  {
+    "no": 61,
+    "source": "20·21",
+    "word": "hazard",
+    "pos": "명",
+    "meaning": "위험 요소",
+    "synonym": "danger",
+    "antonym": "safety",
+    "example": "Debris can become a serious hazard."
+  },
+  {
+    "no": 62,
+    "source": "예상",
+    "word": "peril",
+    "pos": "명",
+    "meaning": "큰 위험",
+    "synonym": "danger",
+    "antonym": "security",
+    "example": "The village was in peril."
+  },
+  {
+    "no": 63,
+    "source": "20",
+    "word": "threat",
+    "pos": "명",
+    "meaning": "위협",
+    "synonym": "menace",
+    "antonym": "protection",
+    "example": "They eliminated the threat."
+  },
+  {
+    "no": 64,
+    "source": "20",
+    "word": "jeopardize",
+    "pos": "동",
+    "meaning": "위태롭게 하다",
+    "synonym": "endanger",
+    "antonym": "protect",
+    "example": "One mistake can jeopardize the mission."
+  },
+  {
+    "no": 65,
+    "source": "20",
+    "word": "forestall",
+    "pos": "동",
+    "meaning": "미리 막다",
+    "synonym": "prevent",
+    "antonym": "permit",
+    "example": "Wise action may forestall conflict."
+  },
+  {
+    "no": 66,
+    "source": "21",
+    "word": "thwart",
+    "pos": "동",
+    "meaning": "좌절시키다, 방해하다",
+    "synonym": "frustrate",
+    "antonym": "assist",
+    "example": "No one can thwart God's purpose."
+  },
+  {
+    "no": 67,
+    "source": "20",
+    "word": "hinder",
+    "pos": "동",
+    "meaning": "방해하다",
+    "synonym": "impede",
+    "antonym": "help",
+    "example": "Fear can hinder honest speech."
+  },
+  {
+    "no": 68,
+    "source": "22",
+    "word": "impede",
+    "pos": "동",
+    "meaning": "지연시키다, 방해하다",
+    "synonym": "obstruct",
+    "antonym": "facilitate",
+    "example": "Heavy rain may impede travel."
+  },
+  {
+    "no": 69,
+    "source": "예상",
+    "word": "obstruct",
+    "pos": "동",
+    "meaning": "막다, 방해하다",
+    "synonym": "block",
+    "antonym": "clear",
+    "example": "Pride can obstruct understanding."
+  },
+  {
+    "no": 70,
+    "source": "20",
+    "word": "incite",
+    "pos": "동",
+    "meaning": "선동하다, 부추기다",
+    "synonym": "provoke",
+    "antonym": "calm",
+    "example": "The speech could incite violence."
+  },
+  {
+    "no": 71,
+    "source": "예상",
+    "word": "provoke",
+    "pos": "동",
+    "meaning": "유발하다, 도발하다",
+    "synonym": "trigger",
+    "antonym": "soothe",
+    "example": "Harsh words may provoke anger."
+  },
+  {
+    "no": 72,
+    "source": "22",
+    "word": "tumult",
+    "pos": "명",
+    "meaning": "소동, 혼란",
+    "synonym": "commotion",
+    "antonym": "calm",
+    "example": "The city fell into tumult."
+  },
+  {
+    "no": 73,
+    "source": "21·22",
+    "word": "commotion",
+    "pos": "명",
+    "meaning": "소란, 소동",
+    "synonym": "uproar",
+    "antonym": "stillness",
+    "example": "A loud commotion filled the hall."
+  },
+  {
+    "no": 74,
+    "source": "21·22",
+    "word": "uproar",
+    "pos": "명",
+    "meaning": "대소동, 떠들썩함",
+    "synonym": "tumult",
+    "antonym": "quiet",
+    "example": "The decision caused an uproar."
+  },
+  {
+    "no": 75,
+    "source": "21",
+    "word": "dissension",
+    "pos": "명",
+    "meaning": "불화, 의견 충돌",
+    "synonym": "discord",
+    "antonym": "agreement",
+    "example": "Dissension divided the group."
+  },
+  {
+    "no": 76,
+    "source": "21",
+    "word": "discord",
+    "pos": "명",
+    "meaning": "불화, 불일치",
+    "synonym": "conflict",
+    "antonym": "harmony",
+    "example": "The issue created discord."
+  },
+  {
+    "no": 77,
+    "source": "21",
+    "word": "hostility",
+    "pos": "명",
+    "meaning": "적대감",
+    "synonym": "enmity",
+    "antonym": "friendship",
+    "example": "Their hostility gradually disappeared."
+  },
+  {
+    "no": 78,
+    "source": "21",
+    "word": "enmity",
+    "pos": "명",
+    "meaning": "원한, 적의",
+    "synonym": "hostility",
+    "antonym": "amity",
+    "example": "The passage describes deep enmity."
+  },
+  {
+    "no": 79,
+    "source": "21·22",
+    "word": "persecute",
+    "pos": "동",
+    "meaning": "박해하다",
+    "synonym": "oppress",
+    "antonym": "protect",
+    "example": "Authorities may persecute believers."
+  },
+  {
+    "no": 80,
+    "source": "21",
+    "word": "afflict",
+    "pos": "동",
+    "meaning": "괴롭히다, 고통을 주다",
+    "synonym": "trouble",
+    "antonym": "comfort",
+    "example": "Disease can afflict the poor."
+  },
+  {
+    "no": 81,
+    "source": "20",
+    "word": "fortify",
+    "pos": "동",
+    "meaning": "강화하다, 요새화하다",
+    "synonym": "strengthen",
+    "antonym": "weaken",
+    "example": "They will fortify the city wall."
+  },
+  {
+    "no": 82,
+    "source": "21",
+    "word": "reinforce",
+    "pos": "동",
+    "meaning": "강화하다, 보강하다",
+    "synonym": "strengthen",
+    "antonym": "undermine",
+    "example": "Examples reinforce the main point."
+  },
+  {
+    "no": 83,
+    "source": "20",
+    "word": "strengthen",
+    "pos": "동",
+    "meaning": "강하게 하다",
+    "synonym": "fortify",
+    "antonym": "weaken",
+    "example": "Trials can strengthen faith."
+  },
+  {
+    "no": 84,
+    "source": "21",
+    "word": "amend",
+    "pos": "동",
+    "meaning": "개정하다, 고치다",
+    "synonym": "revise",
+    "antonym": "leave unchanged",
+    "example": "The council may amend the rule."
+  },
+  {
+    "no": 85,
+    "source": "21",
+    "word": "improve",
+    "pos": "동",
+    "meaning": "향상시키다",
+    "synonym": "enhance",
+    "antonym": "deteriorate",
+    "example": "Practice will improve comprehension."
+  },
+  {
+    "no": 86,
+    "source": "20",
+    "word": "revive",
+    "pos": "동",
+    "meaning": "되살리다, 부흥시키다",
+    "synonym": "restore",
+    "antonym": "suppress",
+    "example": "The reform may revive the community."
+  },
+  {
+    "no": 87,
+    "source": "21·22",
+    "word": "restore",
+    "pos": "동",
+    "meaning": "회복시키다, 돌려주다",
+    "synonym": "renew",
+    "antonym": "damage",
+    "example": "The shepherd will restore the lost sheep."
+  },
+  {
+    "no": 88,
+    "source": "21·22",
+    "word": "transform",
+    "pos": "동",
+    "meaning": "변화시키다",
+    "synonym": "convert",
+    "antonym": "preserve",
+    "example": "Truth can transform a life."
+  },
+  {
+    "no": 89,
+    "source": "22",
+    "word": "modify",
+    "pos": "동",
+    "meaning": "수정하다, 변화시키다",
+    "synonym": "alter",
+    "antonym": "retain",
+    "example": "Experience may modify behavior."
+  },
+  {
+    "no": 90,
+    "source": "20",
+    "word": "eliminate",
+    "pos": "동",
+    "meaning": "제거하다",
+    "synonym": "remove",
+    "antonym": "retain",
+    "example": "They hope to eliminate the danger."
+  },
+  {
+    "no": 91,
+    "source": "예상",
+    "word": "eradicate",
+    "pos": "동",
+    "meaning": "근절하다",
+    "synonym": "eliminate",
+    "antonym": "preserve",
+    "example": "The campaign seeks to eradicate disease."
+  },
+  {
+    "no": 92,
+    "source": "21",
+    "word": "renounce",
+    "pos": "동",
+    "meaning": "공식적으로 포기하다",
+    "synonym": "repudiate",
+    "antonym": "retain",
+    "example": "They renounce disgraceful practices."
+  },
+  {
+    "no": 93,
+    "source": "20",
+    "word": "relinquish",
+    "pos": "동",
+    "meaning": "포기하다, 내주다",
+    "synonym": "surrender",
+    "antonym": "keep",
+    "example": "He refused to relinquish control."
+  },
+  {
+    "no": 94,
+    "source": "21",
+    "word": "forsake",
+    "pos": "동",
+    "meaning": "버리다, 저버리다",
+    "synonym": "abandon",
+    "antonym": "remain",
+    "example": "God will not forsake his people."
+  },
+  {
+    "no": 95,
+    "source": "22",
+    "word": "expel",
+    "pos": "동",
+    "meaning": "내쫓다, 추방하다",
+    "synonym": "eject",
+    "antonym": "admit",
+    "example": "The school may expel the offender."
+  },
+  {
+    "no": 96,
+    "source": "21",
+    "word": "exclude",
+    "pos": "동",
+    "meaning": "제외하다",
+    "synonym": "omit",
+    "antonym": "include",
+    "example": "Do not exclude important evidence."
+  },
+  {
+    "no": 97,
+    "source": "21·22",
+    "word": "abandon",
+    "pos": "동",
+    "meaning": "버리다, 포기하다",
+    "synonym": "forsake",
+    "antonym": "continue",
+    "example": "They did not abandon the mission."
+  },
+  {
+    "no": 98,
+    "source": "20",
+    "word": "postpone",
+    "pos": "동",
+    "meaning": "연기하다",
+    "synonym": "delay",
+    "antonym": "advance",
+    "example": "Rain may postpone the event."
+  },
+  {
+    "no": 99,
+    "source": "22",
+    "word": "defer",
+    "pos": "동",
+    "meaning": "미루다, 연기하다",
+    "synonym": "postpone",
+    "antonym": "expedite",
+    "example": "They chose to defer the decision."
+  },
+  {
+    "no": 100,
+    "source": "22",
+    "word": "fulfill",
+    "pos": "동",
+    "meaning": "성취하다, 이행하다",
+    "synonym": "accomplish",
+    "antonym": "fail",
+    "example": "He will fulfill the promise."
+  },
+  {
+    "no": 101,
+    "source": "22",
+    "word": "scanty",
+    "pos": "형",
+    "meaning": "부족한, 빈약한",
+    "synonym": "insufficient",
+    "antonym": "abundant",
+    "example": "The evidence was scanty."
+  },
+  {
+    "no": 102,
+    "source": "예상",
+    "word": "meager",
+    "pos": "형",
+    "meaning": "빈약한, 얼마 안 되는",
+    "synonym": "scanty",
+    "antonym": "ample",
+    "example": "They survived on meager supplies."
+  },
+  {
+    "no": 103,
+    "source": "22",
+    "word": "abundant",
+    "pos": "형",
+    "meaning": "풍부한",
+    "synonym": "plentiful",
+    "antonym": "scarce",
+    "example": "The land produced abundant fruit."
+  },
+  {
+    "no": 104,
+    "source": "22",
+    "word": "aggregate",
+    "pos": "동/명",
+    "meaning": "모으다; 총합",
+    "synonym": "combine",
+    "antonym": "separate",
+    "example": "The system will aggregate the data."
+  },
+  {
+    "no": 105,
+    "source": "예상",
+    "word": "accumulate",
+    "pos": "동",
+    "meaning": "축적하다",
+    "synonym": "gather",
+    "antonym": "disperse",
+    "example": "Wisdom can accumulate over time."
+  },
+  {
+    "no": 106,
+    "source": "예상",
+    "word": "diminish",
+    "pos": "동",
+    "meaning": "줄이다, 감소하다",
+    "synonym": "decrease",
+    "antonym": "increase",
+    "example": "Fear began to diminish."
+  },
+  {
+    "no": 107,
+    "source": "22",
+    "word": "reduce",
+    "pos": "동",
+    "meaning": "줄이다",
+    "synonym": "decrease",
+    "antonym": "increase",
+    "example": "Therapy may reduce stress."
+  },
+  {
+    "no": 108,
+    "source": "22",
+    "word": "extend",
+    "pos": "동",
+    "meaning": "늘리다, 연장하다",
+    "synonym": "lengthen",
+    "antonym": "shorten",
+    "example": "They will extend the deadline."
+  },
+  {
+    "no": 109,
+    "source": "20",
+    "word": "expand",
+    "pos": "동",
+    "meaning": "확대하다",
+    "synonym": "enlarge",
+    "antonym": "contract",
+    "example": "The ministry plans to expand."
+  },
+  {
+    "no": 110,
+    "source": "21",
+    "word": "surpassing",
+    "pos": "형",
+    "meaning": "뛰어난, 능가하는",
+    "synonym": "extraordinary",
+    "antonym": "inferior",
+    "example": "The power is surpassing."
+  },
+  {
+    "no": 111,
+    "source": "20·21",
+    "word": "eminent",
+    "pos": "형",
+    "meaning": "저명한, 뛰어난",
+    "synonym": "distinguished",
+    "antonym": "unknown",
+    "example": "An eminent scholar delivered the lecture."
+  },
+  {
+    "no": 112,
+    "source": "20",
+    "word": "sterling",
+    "pos": "형",
+    "meaning": "훌륭한, 뛰어난",
+    "synonym": "excellent",
+    "antonym": "inferior",
+    "example": "She showed sterling character."
+  },
+  {
+    "no": 113,
+    "source": "20",
+    "word": "superlative",
+    "pos": "형/명",
+    "meaning": "최고의; 최상급",
+    "synonym": "excellent",
+    "antonym": "mediocre",
+    "example": "The choir gave a superlative performance."
+  },
+  {
+    "no": 114,
+    "source": "22",
+    "word": "feasible",
+    "pos": "형",
+    "meaning": "실행 가능한",
+    "synonym": "practicable",
+    "antonym": "impossible",
+    "example": "The proposal seems feasible."
+  },
+  {
+    "no": 115,
+    "source": "22",
+    "word": "achievable",
+    "pos": "형",
+    "meaning": "달성 가능한",
+    "synonym": "attainable",
+    "antonym": "unreachable",
+    "example": "The goal is achievable."
+  },
+  {
+    "no": 116,
+    "source": "22",
+    "word": "inevitable",
+    "pos": "형",
+    "meaning": "피할 수 없는",
+    "synonym": "unavoidable",
+    "antonym": "avoidable",
+    "example": "Some change is inevitable."
+  },
+  {
+    "no": 117,
+    "source": "22",
+    "word": "mundane",
+    "pos": "형",
+    "meaning": "세속적인, 일상적인",
+    "synonym": "ordinary",
+    "antonym": "heavenly",
+    "example": "Even mundane work can matter."
+  },
+  {
+    "no": 118,
+    "source": "22",
+    "word": "perennial",
+    "pos": "형",
+    "meaning": "지속되는, 반복되는",
+    "synonym": "enduring",
+    "antonym": "temporary",
+    "example": "This is a perennial question."
+  },
+  {
+    "no": 119,
+    "source": "예상",
+    "word": "exceptional",
+    "pos": "형",
+    "meaning": "이례적으로 뛰어난",
+    "synonym": "outstanding",
+    "antonym": "ordinary",
+    "example": "Her insight was exceptional."
+  },
+  {
+    "no": 120,
+    "source": "예상",
+    "word": "adequate",
+    "pos": "형",
+    "meaning": "충분한, 적절한",
+    "synonym": "sufficient",
+    "antonym": "inadequate",
+    "example": "The evidence is adequate."
+  },
+  {
+    "no": 121,
+    "source": "21",
+    "word": "appoint",
+    "pos": "동",
+    "meaning": "임명하다, 지정하다",
+    "synonym": "designate",
+    "antonym": "dismiss",
+    "example": "They appoint elders for the church."
+  },
+  {
+    "no": 122,
+    "source": "20·22",
+    "word": "official",
+    "pos": "명/형",
+    "meaning": "관리; 공식적인",
+    "synonym": "administrator",
+    "antonym": "private citizen",
+    "example": "A school official arranged the event."
+  },
+  {
+    "no": 123,
+    "source": "20",
+    "word": "authority",
+    "pos": "명",
+    "meaning": "권위, 당국",
+    "synonym": "power",
+    "antonym": "powerlessness",
+    "example": "The authority investigated the matter."
+  },
+  {
+    "no": 124,
+    "source": "21",
+    "word": "custom",
+    "pos": "명",
+    "meaning": "관습, 풍습",
+    "synonym": "tradition",
+    "antonym": "innovation",
+    "example": "They followed the ancient custom."
+  },
+  {
+    "no": 125,
+    "source": "21",
+    "word": "contemporary",
+    "pos": "형/명",
+    "meaning": "현대의; 동시대인",
+    "synonym": "modern",
+    "antonym": "ancient",
+    "example": "The issue affects contemporary society."
+  },
+  {
+    "no": 126,
+    "source": "21",
+    "word": "clandestine",
+    "pos": "형",
+    "meaning": "비밀의, 은밀한",
+    "synonym": "secret",
+    "antonym": "open",
+    "example": "They held a clandestine meeting."
+  },
+  {
+    "no": 127,
+    "source": "21",
+    "word": "collaboration",
+    "pos": "명",
+    "meaning": "협업, 공동 작업",
+    "synonym": "cooperation",
+    "antonym": "rivalry",
+    "example": "The project requires collaboration."
+  },
+  {
+    "no": 128,
+    "source": "22",
+    "word": "cooperation",
+    "pos": "명",
+    "meaning": "협력",
+    "synonym": "collaboration",
+    "antonym": "conflict",
+    "example": "Trust can fuel cooperation."
+  },
+  {
+    "no": 129,
+    "source": "21·22",
+    "word": "volunteer",
+    "pos": "명/동",
+    "meaning": "자원봉사자; 자원하다",
+    "synonym": "helper",
+    "antonym": "conscript",
+    "example": "A volunteer brought the therapy dog."
+  },
+  {
+    "no": 130,
+    "source": "22",
+    "word": "oversee",
+    "pos": "동",
+    "meaning": "감독하다",
+    "synonym": "supervise",
+    "antonym": "neglect",
+    "example": "Timothy stayed to oversee the church."
+  },
+  {
+    "no": 131,
+    "source": "예상",
+    "word": "administer",
+    "pos": "동",
+    "meaning": "관리하다, 집행하다",
+    "synonym": "manage",
+    "antonym": "mismanage",
+    "example": "Leaders administer the program fairly."
+  },
+  {
+    "no": 132,
+    "source": "22",
+    "word": "entrust",
+    "pos": "동",
+    "meaning": "맡기다",
+    "synonym": "commit",
+    "antonym": "withhold",
+    "example": "The master will entrust resources to them."
+  },
+  {
+    "no": 133,
+    "source": "21",
+    "word": "retain",
+    "pos": "동",
+    "meaning": "보유하다, 유지하다",
+    "synonym": "keep",
+    "antonym": "relinquish",
+    "example": "The editor chose to retain the phrase."
+  },
+  {
+    "no": 134,
+    "source": "20",
+    "word": "acquire",
+    "pos": "동",
+    "meaning": "얻다, 습득하다",
+    "synonym": "obtain",
+    "antonym": "lose",
+    "example": "Students acquire skill through practice."
+  },
+  {
+    "no": 135,
+    "source": "20·22",
+    "word": "possess",
+    "pos": "동",
+    "meaning": "소유하다",
+    "synonym": "own",
+    "antonym": "lack",
+    "example": "They possess valuable knowledge."
+  },
+  {
+    "no": 136,
+    "source": "22",
+    "word": "asset",
+    "pos": "명",
+    "meaning": "자산, 유용한 강점",
+    "synonym": "resource",
+    "antonym": "liability",
+    "example": "Good judgment is an asset."
+  },
+  {
+    "no": 137,
+    "source": "20",
+    "word": "inheritance",
+    "pos": "명",
+    "meaning": "유산, 상속",
+    "synonym": "legacy",
+    "antonym": "dispossession",
+    "example": "Believers await their inheritance."
+  },
+  {
+    "no": 138,
+    "source": "20",
+    "word": "guarantee",
+    "pos": "명/동",
+    "meaning": "보증; 보장하다",
+    "synonym": "assurance",
+    "antonym": "uncertainty",
+    "example": "The Spirit is a guarantee."
+  },
+  {
+    "no": 139,
+    "source": "20",
+    "word": "equivalent",
+    "pos": "형/명",
+    "meaning": "동등한; 동등한 것",
+    "synonym": "equal",
+    "antonym": "different",
+    "example": "These expressions are equivalent."
+  },
+  {
+    "no": 140,
+    "source": "21",
+    "word": "distinction",
+    "pos": "명",
+    "meaning": "차이, 구별",
+    "synonym": "difference",
+    "antonym": "similarity",
+    "example": "The passage makes no distinction."
+  },
+  {
+    "no": 141,
+    "source": "20",
+    "word": "insight",
+    "pos": "명",
+    "meaning": "통찰력",
+    "synonym": "understanding",
+    "antonym": "ignorance",
+    "example": "The passage offers valuable insight."
+  },
+  {
+    "no": 142,
+    "source": "20",
+    "word": "wisdom",
+    "pos": "명",
+    "meaning": "지혜",
+    "synonym": "discernment",
+    "antonym": "folly",
+    "example": "Wisdom guides sound judgment."
+  },
+  {
+    "no": 143,
+    "source": "20·21",
+    "word": "counsel",
+    "pos": "명/동",
+    "meaning": "조언; 조언하다",
+    "synonym": "advice",
+    "antonym": "misguidance",
+    "example": "He hid counsel without knowledge."
+  },
+  {
+    "no": 144,
+    "source": "21",
+    "word": "conscience",
+    "pos": "명",
+    "meaning": "양심",
+    "synonym": "moral sense",
+    "antonym": "callousness",
+    "example": "Truth appealed to their conscience."
+  },
+  {
+    "no": 145,
+    "source": "21",
+    "word": "discernment",
+    "pos": "명",
+    "meaning": "분별력",
+    "synonym": "judgment",
+    "antonym": "confusion",
+    "example": "Discernment grows through practice."
+  },
+  {
+    "no": 146,
+    "source": "21",
+    "word": "speculation",
+    "pos": "명",
+    "meaning": "추측, 사색",
+    "synonym": "conjecture",
+    "antonym": "certainty",
+    "example": "The claim remains speculation."
+  },
+  {
+    "no": 147,
+    "source": "예상",
+    "word": "evidence",
+    "pos": "명",
+    "meaning": "증거",
+    "synonym": "proof",
+    "antonym": "disproof",
+    "example": "The evidence supports the conclusion."
+  },
+  {
+    "no": 148,
+    "source": "예상",
+    "word": "demonstrate",
+    "pos": "동",
+    "meaning": "입증하다, 보여주다",
+    "synonym": "show",
+    "antonym": "conceal",
+    "example": "The results demonstrate real progress."
+  },
+  {
+    "no": 149,
+    "source": "21",
+    "word": "exemplify",
+    "pos": "동",
+    "meaning": "예시하다, 전형적으로 보여주다",
+    "synonym": "illustrate",
+    "antonym": "contradict",
+    "example": "His life can exemplify humility."
+  },
+  {
+    "no": 150,
+    "source": "예상",
+    "word": "illustrate",
+    "pos": "동",
+    "meaning": "설명하다, 예시하다",
+    "synonym": "demonstrate",
+    "antonym": "obscure",
+    "example": "The parable will illustrate the truth."
+  },
+  {
+    "no": 151,
+    "source": "예상",
+    "word": "assumption",
+    "pos": "명",
+    "meaning": "가정, 전제",
+    "synonym": "presumption",
+    "antonym": "fact",
+    "example": "Question every hidden assumption."
+  },
+  {
+    "no": 152,
+    "source": "예상",
+    "word": "perspective",
+    "pos": "명",
+    "meaning": "관점",
+    "synonym": "viewpoint",
+    "antonym": "narrowness",
+    "example": "Context changes our perspective."
+  },
+  {
+    "no": 153,
+    "source": "22",
+    "word": "sophisticated",
+    "pos": "형",
+    "meaning": "정교한, 세련된",
+    "synonym": "advanced",
+    "antonym": "simple",
+    "example": "The theory is sophisticated."
+  },
+  {
+    "no": 154,
+    "source": "22",
+    "word": "pedantic",
+    "pos": "형",
+    "meaning": "지나치게 현학적인",
+    "synonym": "bookish",
+    "antonym": "practical",
+    "example": "A pedantic explanation may confuse readers."
+  },
+  {
+    "no": 155,
+    "source": "21·22",
+    "word": "intellectual",
+    "pos": "형/명",
+    "meaning": "지적인; 지식인",
+    "synonym": "rational",
+    "antonym": "unthinking",
+    "example": "Intellectual humility promotes learning."
+  },
+  {
+    "no": 156,
+    "source": "22",
+    "word": "quantitative",
+    "pos": "형",
+    "meaning": "수량적인",
+    "synonym": "numerical",
+    "antonym": "qualitative",
+    "example": "The study used quantitative data."
+  },
+  {
+    "no": 157,
+    "source": "예상",
+    "word": "objective",
+    "pos": "형/명",
+    "meaning": "객관적인; 목표",
+    "synonym": "impartial",
+    "antonym": "subjective",
+    "example": "An objective reader checks the evidence."
+  },
+  {
+    "no": 158,
+    "source": "22",
+    "word": "appropriate",
+    "pos": "형",
+    "meaning": "적절한",
+    "synonym": "suitable",
+    "antonym": "inappropriate",
+    "example": "Choose the most appropriate title."
+  },
+  {
+    "no": 159,
+    "source": "22",
+    "word": "significant",
+    "pos": "형",
+    "meaning": "중요한, 의미 있는",
+    "synonym": "important",
+    "antonym": "trivial",
+    "example": "The word has significant meaning."
+  },
+  {
+    "no": 160,
+    "source": "22",
+    "word": "ultimate",
+    "pos": "형",
+    "meaning": "궁극적인, 최종의",
+    "synonym": "final",
+    "antonym": "intermediate",
+    "example": "God's glory is the ultimate goal."
+  },
+  {
+    "no": 161,
+    "source": "22",
+    "word": "hardship",
+    "pos": "명",
+    "meaning": "고난, 어려움",
+    "synonym": "adversity",
+    "antonym": "ease",
+    "example": "He endured hardship for years."
+  },
+  {
+    "no": 162,
+    "source": "예상",
+    "word": "adversity",
+    "pos": "명",
+    "meaning": "역경",
+    "synonym": "hardship",
+    "antonym": "prosperity",
+    "example": "Faith can grow through adversity."
+  },
+  {
+    "no": 163,
+    "source": "22",
+    "word": "exhaust",
+    "pos": "동",
+    "meaning": "기진맥진하게 하다, 고갈시키다",
+    "synonym": "deplete",
+    "antonym": "refresh",
+    "example": "Long debates can exhaust the group."
+  },
+  {
+    "no": 164,
+    "source": "21",
+    "word": "endure",
+    "pos": "동",
+    "meaning": "견디다",
+    "synonym": "bear",
+    "antonym": "quit",
+    "example": "They endure suffering with hope."
+  },
+  {
+    "no": 165,
+    "source": "예상",
+    "word": "persevere",
+    "pos": "동",
+    "meaning": "인내하며 계속하다",
+    "synonym": "persist",
+    "antonym": "give up",
+    "example": "She will persevere despite opposition."
+  },
+  {
+    "no": 166,
+    "source": "21·22",
+    "word": "prevail",
+    "pos": "동",
+    "meaning": "이기다, 우세하다",
+    "synonym": "triumph",
+    "antonym": "fail",
+    "example": "Truth will prevail in the end."
+  },
+  {
+    "no": 167,
+    "source": "21",
+    "word": "devastate",
+    "pos": "동",
+    "meaning": "황폐화하다, 큰 충격을 주다",
+    "synonym": "destroy",
+    "antonym": "restore",
+    "example": "Fire can devastate a region."
+  },
+  {
+    "no": 168,
+    "source": "21",
+    "word": "crush",
+    "pos": "동",
+    "meaning": "짓누르다, 분쇄하다",
+    "synonym": "overwhelm",
+    "antonym": "uplift",
+    "example": "Trouble did not crush their hope."
+  },
+  {
+    "no": 169,
+    "source": "21",
+    "word": "perplex",
+    "pos": "동",
+    "meaning": "당혹하게 하다",
+    "synonym": "confuse",
+    "antonym": "clarify",
+    "example": "The question may perplex beginners."
+  },
+  {
+    "no": 170,
+    "source": "21·22",
+    "word": "despair",
+    "pos": "명/동",
+    "meaning": "절망; 절망하다",
+    "synonym": "hopelessness",
+    "antonym": "hope",
+    "example": "They were perplexed but not in despair."
+  },
+  {
+    "no": 171,
+    "source": "21",
+    "word": "disgraceful",
+    "pos": "형",
+    "meaning": "수치스러운",
+    "synonym": "shameful",
+    "antonym": "honorable",
+    "example": "They renounced disgraceful ways."
+  },
+  {
+    "no": 172,
+    "source": "21",
+    "word": "underhanded",
+    "pos": "형",
+    "meaning": "비열한, 은밀히 부정한",
+    "synonym": "dishonest",
+    "antonym": "upright",
+    "example": "He rejected underhanded tactics."
+  },
+  {
+    "no": 173,
+    "source": "21",
+    "word": "cunning",
+    "pos": "형/명",
+    "meaning": "교활한; 교활함",
+    "synonym": "crafty",
+    "antonym": "honest",
+    "example": "They refused to practice cunning."
+  },
+  {
+    "no": 174,
+    "source": "20·21",
+    "word": "erratic",
+    "pos": "형",
+    "meaning": "불규칙한, 종잡을 수 없는",
+    "synonym": "unpredictable",
+    "antonym": "steady",
+    "example": "His behavior became erratic."
+  },
+  {
+    "no": 175,
+    "source": "20",
+    "word": "dissolute",
+    "pos": "형",
+    "meaning": "방탕한, 타락한",
+    "synonym": "depraved",
+    "antonym": "virtuous",
+    "example": "They rejected dissolute behavior."
+  },
+  {
+    "no": 176,
+    "source": "20",
+    "word": "unbridled",
+    "pos": "형",
+    "meaning": "통제되지 않은",
+    "synonym": "unrestrained",
+    "antonym": "controlled",
+    "example": "Unbridled anger harms others."
+  },
+  {
+    "no": 177,
+    "source": "20",
+    "word": "blameless",
+    "pos": "형",
+    "meaning": "흠 없는, 비난받을 것 없는",
+    "synonym": "innocent",
+    "antonym": "guilty",
+    "example": "They were called to be blameless."
+  },
+  {
+    "no": 178,
+    "source": "20·22",
+    "word": "worthless",
+    "pos": "형",
+    "meaning": "가치 없는",
+    "synonym": "useless",
+    "antonym": "valuable",
+    "example": "The master condemned the worthless servant."
+  },
+  {
+    "no": 179,
+    "source": "22",
+    "word": "faithful",
+    "pos": "형",
+    "meaning": "충실한, 신실한",
+    "synonym": "loyal",
+    "antonym": "unfaithful",
+    "example": "The faithful servant received praise."
+  },
+  {
+    "no": 180,
+    "source": "20·22",
+    "word": "wicked",
+    "pos": "형",
+    "meaning": "악한",
+    "synonym": "evil",
+    "antonym": "righteous",
+    "example": "The wicked servant hid the talent."
+  },
+  {
+    "no": 181,
+    "source": "예상",
+    "word": "covenant",
+    "pos": "명",
+    "meaning": "언약",
+    "synonym": "pact",
+    "antonym": "breach",
+    "example": "God established a covenant with his people."
+  },
+  {
+    "no": 182,
+    "source": "예상",
+    "word": "commandment",
+    "pos": "명",
+    "meaning": "계명, 명령",
+    "synonym": "precept",
+    "antonym": "violation",
+    "example": "They remembered the commandment."
+  },
+  {
+    "no": 183,
+    "source": "20",
+    "word": "transgress",
+    "pos": "동",
+    "meaning": "법이나 명령을 어기다",
+    "synonym": "violate",
+    "antonym": "obey",
+    "example": "Mordecai chose to transgress the king's command."
+  },
+  {
+    "no": 184,
+    "source": "20",
+    "word": "trespass",
+    "pos": "명/동",
+    "meaning": "허물, 범죄; 침해하다",
+    "synonym": "sin",
+    "antonym": "obedience",
+    "example": "Each trespass requires forgiveness."
+  },
+  {
+    "no": 185,
+    "source": "21",
+    "word": "repent",
+    "pos": "동",
+    "meaning": "회개하다",
+    "synonym": "turn back",
+    "antonym": "persist in sin",
+    "example": "Job chose to repent."
+  },
+  {
+    "no": 186,
+    "source": "예상",
+    "word": "repentance",
+    "pos": "명",
+    "meaning": "회개",
+    "synonym": "contrition",
+    "antonym": "impenitence",
+    "example": "True repentance changes direction."
+  },
+  {
+    "no": 187,
+    "source": "21",
+    "word": "curse",
+    "pos": "명/동",
+    "meaning": "저주; 저주하다",
+    "synonym": "condemnation",
+    "antonym": "blessing",
+    "example": "She uttered a curse."
+  },
+  {
+    "no": 188,
+    "source": "20·21·22",
+    "word": "bless",
+    "pos": "동",
+    "meaning": "복을 주다, 찬송하다",
+    "synonym": "favor",
+    "antonym": "curse",
+    "example": "May God bless his people."
+  },
+  {
+    "no": 189,
+    "source": "21",
+    "word": "consecrate",
+    "pos": "동",
+    "meaning": "거룩하게 구별하다",
+    "synonym": "dedicate",
+    "antonym": "profane",
+    "example": "They consecrate the gift to God."
+  },
+  {
+    "no": 190,
+    "source": "21",
+    "word": "dedicate",
+    "pos": "동",
+    "meaning": "바치다, 헌신하다",
+    "synonym": "consecrate",
+    "antonym": "withhold",
+    "example": "She will dedicate the silver."
+  },
+  {
+    "no": 191,
+    "source": "21",
+    "word": "ordain",
+    "pos": "동",
+    "meaning": "임명하다, 성직을 수여하다",
+    "synonym": "appoint",
+    "antonym": "disqualify",
+    "example": "Micah chose to ordain a priest."
+  },
+  {
+    "no": 192,
+    "source": "21",
+    "word": "sanctuary",
+    "pos": "명",
+    "meaning": "성소, 피난처",
+    "synonym": "holy place",
+    "antonym": "profane place",
+    "example": "They worshiped in the sanctuary."
+  },
+  {
+    "no": 193,
+    "source": "21",
+    "word": "shrine",
+    "pos": "명",
+    "meaning": "성소, 제단이 있는 곳",
+    "synonym": "sanctuary",
+    "antonym": "secular site",
+    "example": "Micah built a shrine."
+  },
+  {
+    "no": 194,
+    "source": "21",
+    "word": "sojourn",
+    "pos": "동/명",
+    "meaning": "잠시 머물다; 체류",
+    "synonym": "tarry",
+    "antonym": "depart",
+    "example": "The Levite came to sojourn there."
+  },
+  {
+    "no": 195,
+    "source": "21·22",
+    "word": "dwell",
+    "pos": "동",
+    "meaning": "살다, 거하다",
+    "synonym": "reside",
+    "antonym": "leave",
+    "example": "They will dwell in peace."
+  },
+  {
+    "no": 196,
+    "source": "20·22",
+    "word": "exile",
+    "pos": "명/동",
+    "meaning": "포로 생활, 추방; 추방하다",
+    "synonym": "banishment",
+    "antonym": "homecoming",
+    "example": "The remnant survived the exile."
+  },
+  {
+    "no": 197,
+    "source": "20",
+    "word": "remnant",
+    "pos": "명",
+    "meaning": "남은 자, 나머지",
+    "synonym": "remainder",
+    "antonym": "whole",
+    "example": "A remnant returned to Jerusalem."
+  },
+  {
+    "no": 198,
+    "source": "21",
+    "word": "offspring",
+    "pos": "명",
+    "meaning": "자손",
+    "synonym": "descendant",
+    "antonym": "ancestor",
+    "example": "Her offspring would continue the line."
+  },
+  {
+    "no": 199,
+    "source": "21",
+    "word": "yoke",
+    "pos": "명",
+    "meaning": "멍에, 속박",
+    "synonym": "burden",
+    "antonym": "freedom",
+    "example": "Peter warned against placing a yoke."
+  },
+  {
+    "no": 200,
+    "source": "20",
+    "word": "petition",
+    "pos": "명",
+    "meaning": "청원, 간구",
+    "synonym": "request",
+    "antonym": "refusal",
+    "example": "Eli spoke about Hannah's petition."
+  },
+  {
+    "no": 201,
+    "source": "20·21",
+    "word": "grace",
+    "pos": "명",
+    "meaning": "은혜",
+    "synonym": "favor",
+    "antonym": "merit",
+    "example": "We are saved through grace."
+  },
+  {
+    "no": 202,
+    "source": "21",
+    "word": "mercy",
+    "pos": "명",
+    "meaning": "자비, 긍휼",
+    "synonym": "compassion",
+    "antonym": "judgment",
+    "example": "The ministry exists by God's mercy."
+  },
+  {
+    "no": 203,
+    "source": "20·21",
+    "word": "salvation",
+    "pos": "명",
+    "meaning": "구원",
+    "synonym": "deliverance",
+    "antonym": "condemnation",
+    "example": "The gospel announces salvation."
+  },
+  {
+    "no": 204,
+    "source": "20",
+    "word": "redemption",
+    "pos": "명",
+    "meaning": "구속, 속량",
+    "synonym": "deliverance",
+    "antonym": "bondage",
+    "example": "Redemption comes through Christ."
+  },
+  {
+    "no": 205,
+    "source": "20",
+    "word": "forgiveness",
+    "pos": "명",
+    "meaning": "용서",
+    "synonym": "pardon",
+    "antonym": "condemnation",
+    "example": "They received forgiveness of sins."
+  },
+  {
+    "no": 206,
+    "source": "예상",
+    "word": "atonement",
+    "pos": "명",
+    "meaning": "속죄",
+    "synonym": "expiation",
+    "antonym": "guilt",
+    "example": "The sermon explained atonement."
+  },
+  {
+    "no": 207,
+    "source": "예상",
+    "word": "reconciliation",
+    "pos": "명",
+    "meaning": "화해, 관계 회복",
+    "synonym": "restoration",
+    "antonym": "enmity",
+    "example": "The gospel brings reconciliation."
+  },
+  {
+    "no": 208,
+    "source": "예상",
+    "word": "justification",
+    "pos": "명",
+    "meaning": "칭의, 의롭다 하심",
+    "synonym": "acquittal",
+    "antonym": "condemnation",
+    "example": "Paul teaches justification by faith."
+  },
+  {
+    "no": 209,
+    "source": "예상",
+    "word": "sanctification",
+    "pos": "명",
+    "meaning": "성화, 거룩하게 됨",
+    "synonym": "holiness",
+    "antonym": "corruption",
+    "example": "Sanctification is a lifelong work."
+  },
+  {
+    "no": 210,
+    "source": "예상",
+    "word": "resurrection",
+    "pos": "명",
+    "meaning": "부활",
+    "synonym": "rising",
+    "antonym": "death",
+    "example": "Christian hope rests on resurrection."
+  },
+  {
+    "no": 211,
+    "source": "20",
+    "word": "predestine",
+    "pos": "동",
+    "meaning": "미리 정하다, 예정하다",
+    "synonym": "foreordain",
+    "antonym": "leave to chance",
+    "example": "God may predestine people for adoption."
+  },
+  {
+    "no": 212,
+    "source": "20",
+    "word": "adoption",
+    "pos": "명",
+    "meaning": "양자 됨, 입양",
+    "synonym": "sonship",
+    "antonym": "rejection",
+    "example": "Believers receive adoption as children."
+  },
+  {
+    "no": 213,
+    "source": "20",
+    "word": "election",
+    "pos": "명",
+    "meaning": "선택, 택하심",
+    "synonym": "choice",
+    "antonym": "rejection",
+    "example": "The passage speaks of divine election."
+  },
+  {
+    "no": 214,
+    "source": "20·21·22",
+    "word": "gospel",
+    "pos": "명",
+    "meaning": "복음",
+    "synonym": "good news",
+    "antonym": "falsehood",
+    "example": "They heard the word of the gospel."
+  },
+  {
+    "no": 215,
+    "source": "21·22",
+    "word": "faith",
+    "pos": "명",
+    "meaning": "믿음",
+    "synonym": "trust",
+    "antonym": "unbelief",
+    "example": "Their hearts were cleansed by faith."
+  },
+  {
+    "no": 216,
+    "source": "22",
+    "word": "obedience",
+    "pos": "명",
+    "meaning": "순종",
+    "synonym": "submission",
+    "antonym": "rebellion",
+    "example": "Mission seeks the obedience of faith."
+  },
+  {
+    "no": 217,
+    "source": "22",
+    "word": "righteousness",
+    "pos": "명",
+    "meaning": "의, 의로움",
+    "synonym": "justice",
+    "antonym": "iniquity",
+    "example": "The shepherd guides paths of righteousness."
+  },
+  {
+    "no": 218,
+    "source": "예상",
+    "word": "iniquity",
+    "pos": "명",
+    "meaning": "죄악, 불의",
+    "synonym": "wickedness",
+    "antonym": "righteousness",
+    "example": "The prophet denounced iniquity."
+  },
+  {
+    "no": 219,
+    "source": "20·21",
+    "word": "glory",
+    "pos": "명",
+    "meaning": "영광",
+    "synonym": "honor",
+    "antonym": "shame",
+    "example": "The passage praises God's glory."
+  },
+  {
+    "no": 220,
+    "source": "예상",
+    "word": "providence",
+    "pos": "명",
+    "meaning": "섭리",
+    "synonym": "divine care",
+    "antonym": "chance",
+    "example": "They trusted God's providence."
+  },
+  {
+    "no": 221,
+    "source": "21·22",
+    "word": "apostle",
+    "pos": "명",
+    "meaning": "사도",
+    "synonym": "messenger",
+    "antonym": "false apostle",
+    "example": "Paul served as an apostle."
+  },
+  {
+    "no": 222,
+    "source": "21",
+    "word": "disciple",
+    "pos": "명",
+    "meaning": "제자",
+    "synonym": "follower",
+    "antonym": "adversary",
+    "example": "A disciple learns from the teacher."
+  },
+  {
+    "no": 223,
+    "source": "21",
+    "word": "Gentile",
+    "pos": "명/형",
+    "meaning": "이방인; 이방인의",
+    "synonym": "non-Jew",
+    "antonym": "Jew",
+    "example": "The Gentiles heard the gospel."
+  },
+  {
+    "no": 224,
+    "source": "21",
+    "word": "Pharisee",
+    "pos": "명",
+    "meaning": "바리새인",
+    "synonym": "religious leader",
+    "antonym": "Sadducee",
+    "example": "Some Pharisees demanded circumcision."
+  },
+  {
+    "no": 225,
+    "source": "21",
+    "word": "ministry",
+    "pos": "명",
+    "meaning": "사역, 직무",
+    "synonym": "service",
+    "antonym": "neglect",
+    "example": "They received ministry by mercy."
+  },
+  {
+    "no": 226,
+    "source": "22",
+    "word": "missionary",
+    "pos": "명/형",
+    "meaning": "선교사; 선교의",
+    "synonym": "envoy",
+    "antonym": "settled resident",
+    "example": "The missionary crossed cultures."
+  },
+  {
+    "no": 227,
+    "source": "22",
+    "word": "commission",
+    "pos": "명/동",
+    "meaning": "위임, 사명; 위임하다",
+    "synonym": "mandate",
+    "antonym": "prohibition",
+    "example": "They obeyed the Great Commission."
+  },
+  {
+    "no": 228,
+    "source": "22",
+    "word": "apostleship",
+    "pos": "명",
+    "meaning": "사도직",
+    "synonym": "apostolic office",
+    "antonym": "lay office",
+    "example": "Paul received apostleship."
+  },
+  {
+    "no": 229,
+    "source": "예상",
+    "word": "evangelize",
+    "pos": "동",
+    "meaning": "복음을 전하다",
+    "synonym": "preach",
+    "antonym": "silence",
+    "example": "They evangelize unreached communities."
+  },
+  {
+    "no": 230,
+    "source": "20·21",
+    "word": "witness",
+    "pos": "명/동",
+    "meaning": "증인; 증언하다",
+    "synonym": "testify",
+    "antonym": "deny",
+    "example": "Peter bore witness to God's work."
+  },
+  {
+    "no": 231,
+    "source": "21",
+    "word": "conversion",
+    "pos": "명",
+    "meaning": "회심, 전환",
+    "synonym": "transformation",
+    "antonym": "apostasy",
+    "example": "They reported the conversion of Gentiles."
+  },
+  {
+    "no": 232,
+    "source": "21",
+    "word": "circumcise",
+    "pos": "동",
+    "meaning": "할례를 행하다",
+    "synonym": "perform circumcision",
+    "antonym": "leave uncircumcised",
+    "example": "Some demanded they circumcise converts."
+  },
+  {
+    "no": 233,
+    "source": "22",
+    "word": "church planting",
+    "pos": "명구",
+    "meaning": "교회 개척",
+    "synonym": "church establishment",
+    "antonym": "church closure",
+    "example": "Church planting requires patient leadership."
+  },
+  {
+    "no": 234,
+    "source": "22",
+    "word": "outreach",
+    "pos": "명",
+    "meaning": "대외 봉사, 전도 활동",
+    "synonym": "mission",
+    "antonym": "withdrawal",
+    "example": "The church developed local outreach."
+  },
+  {
+    "no": 235,
+    "source": "22",
+    "word": "unreached",
+    "pos": "형",
+    "meaning": "복음을 접하지 못한",
+    "synonym": "unevangelized",
+    "antonym": "reached",
+    "example": "Paul sought unreached peoples."
+  },
+  {
+    "no": 236,
+    "source": "21·22",
+    "word": "elder",
+    "pos": "명",
+    "meaning": "장로, 연장자",
+    "synonym": "overseer",
+    "antonym": "novice",
+    "example": "The church appointed an elder."
+  },
+  {
+    "no": 237,
+    "source": "22",
+    "word": "shepherd",
+    "pos": "명/동",
+    "meaning": "목자; 돌보다",
+    "synonym": "pastor",
+    "antonym": "wolf",
+    "example": "The Lord is my shepherd."
+  },
+  {
+    "no": 238,
+    "source": "예상",
+    "word": "pastor",
+    "pos": "명/동",
+    "meaning": "목회자; 목양하다",
+    "synonym": "minister",
+    "antonym": "neglect",
+    "example": "A pastor cares for the congregation."
+  },
+  {
+    "no": 239,
+    "source": "예상",
+    "word": "congregation",
+    "pos": "명",
+    "meaning": "회중, 교인 집단",
+    "synonym": "assembly",
+    "antonym": "individual",
+    "example": "The congregation listened carefully."
+  },
+  {
+    "no": 240,
+    "source": "예상",
+    "word": "doctrine",
+    "pos": "명",
+    "meaning": "교리, 가르침",
+    "synonym": "teaching",
+    "antonym": "heresy",
+    "example": "Sound doctrine shapes belief."
+  },
+  {
+    "no": 241,
+    "source": "21·22",
+    "word": "Scripture",
+    "pos": "명",
+    "meaning": "성경",
+    "synonym": "Bible",
+    "antonym": "secular text",
+    "example": "Scripture guides the church."
+  },
+  {
+    "no": 242,
+    "source": "예상",
+    "word": "exegesis",
+    "pos": "명",
+    "meaning": "본문 주해, 뜻을 끌어내는 해석",
+    "synonym": "interpretation",
+    "antonym": "eisegesis",
+    "example": "Careful exegesis begins with context."
+  },
+  {
+    "no": 243,
+    "source": "예상",
+    "word": "hermeneutics",
+    "pos": "명",
+    "meaning": "해석학",
+    "synonym": "interpretive theory",
+    "antonym": "misreading",
+    "example": "Hermeneutics studies how texts are understood."
+  },
+  {
+    "no": 244,
+    "source": "20·22",
+    "word": "context",
+    "pos": "명",
+    "meaning": "문맥, 배경",
+    "synonym": "setting",
+    "antonym": "isolation",
+    "example": "Context clarifies the sentence."
+  },
+  {
+    "no": 245,
+    "source": "22",
+    "word": "embodiment",
+    "pos": "명",
+    "meaning": "구현, 체현",
+    "synonym": "incarnation",
+    "antonym": "abstraction",
+    "example": "The goal of interpretation is embodiment."
+  },
+  {
+    "no": 246,
+    "source": "22",
+    "word": "incarnation",
+    "pos": "명",
+    "meaning": "성육신, 육체로 나타남",
+    "synonym": "embodiment",
+    "antonym": "disembodiment",
+    "example": "Christian doctrine teaches incarnation."
+  },
+  {
+    "no": 247,
+    "source": "예상",
+    "word": "revelation",
+    "pos": "명",
+    "meaning": "계시, 드러냄",
+    "synonym": "disclosure",
+    "antonym": "concealment",
+    "example": "Theology studies divine revelation."
+  },
+  {
+    "no": 248,
+    "source": "예상",
+    "word": "inspiration",
+    "pos": "명",
+    "meaning": "영감; 성경 영감",
+    "synonym": "divine influence",
+    "antonym": "fabrication",
+    "example": "The doctrine of inspiration concerns Scripture."
+  },
+  {
+    "no": 249,
+    "source": "예상",
+    "word": "canonical",
+    "pos": "형",
+    "meaning": "정경의, 규범적인",
+    "synonym": "scriptural",
+    "antonym": "noncanonical",
+    "example": "The letter became part of canonical Scripture."
+  },
+  {
+    "no": 250,
+    "source": "예상",
+    "word": "literal",
+    "pos": "형",
+    "meaning": "문자 그대로의",
+    "synonym": "plain",
+    "antonym": "figurative",
+    "example": "A literal reading follows ordinary meaning."
+  },
+  {
+    "no": 251,
+    "source": "예상",
+    "word": "figurative",
+    "pos": "형",
+    "meaning": "비유적인",
+    "synonym": "symbolic",
+    "antonym": "literal",
+    "example": "The poem uses figurative language."
+  },
+  {
+    "no": 252,
+    "source": "22",
+    "word": "historical",
+    "pos": "형",
+    "meaning": "역사적인, 역사적 배경의",
+    "synonym": "past",
+    "antonym": "ahistorical",
+    "example": "Historical distance affects interpretation."
+  },
+  {
+    "no": 253,
+    "source": "예상",
+    "word": "theological",
+    "pos": "형",
+    "meaning": "신학적인",
+    "synonym": "doctrinal",
+    "antonym": "secular",
+    "example": "The passage raises a theological question."
+  },
+  {
+    "no": 254,
+    "source": "예상",
+    "word": "dogma",
+    "pos": "명",
+    "meaning": "교리, 독단적 신조",
+    "synonym": "doctrine",
+    "antonym": "skepticism",
+    "example": "The council debated church dogma."
+  },
+  {
+    "no": 255,
+    "source": "예상",
+    "word": "commentary",
+    "pos": "명",
+    "meaning": "주석, 해설",
+    "synonym": "exposition",
+    "antonym": "silence",
+    "example": "The commentary explains the difficult verse."
+  },
+  {
+    "no": 256,
+    "source": "22",
+    "word": "narrative",
+    "pos": "명/형",
+    "meaning": "서사; 서술의",
+    "synonym": "story",
+    "antonym": "argument",
+    "example": "The passage uses a narrative structure."
+  },
+  {
+    "no": 257,
+    "source": "예상",
+    "word": "parable",
+    "pos": "명",
+    "meaning": "비유",
+    "synonym": "allegory",
+    "antonym": "literal report",
+    "example": "The talents passage is a parable."
+  },
+  {
+    "no": 258,
+    "source": "예상",
+    "word": "prophecy",
+    "pos": "명",
+    "meaning": "예언",
+    "synonym": "prediction",
+    "antonym": "retrospection",
+    "example": "The text connects prophecy and fulfillment."
+  },
+  {
+    "no": 259,
+    "source": "예상",
+    "word": "symbolism",
+    "pos": "명",
+    "meaning": "상징 표현",
+    "synonym": "figurative meaning",
+    "antonym": "literalism",
+    "example": "Biblical poetry often uses symbolism."
+  },
+  {
+    "no": 260,
+    "source": "예상",
+    "word": "application",
+    "pos": "명",
+    "meaning": "적용",
+    "synonym": "practice",
+    "antonym": "neglect",
+    "example": "Interpretation should lead to application."
+  },
+  {
+    "no": 261,
+    "source": "예상",
+    "word": "acquiesce",
+    "pos": "동",
+    "meaning": "마지못해 동의하다",
+    "synonym": "consent",
+    "antonym": "resist",
+    "example": "They may acquiesce to the request."
+  },
+  {
+    "no": 262,
+    "source": "예상",
+    "word": "bolster",
+    "pos": "동",
+    "meaning": "강화하다, 북돋우다",
+    "synonym": "reinforce",
+    "antonym": "undermine",
+    "example": "New evidence may bolster the claim."
+  },
+  {
+    "no": 263,
+    "source": "예상",
+    "word": "avert",
+    "pos": "동",
+    "meaning": "피하다, 막다",
+    "synonym": "prevent",
+    "antonym": "cause",
+    "example": "Wise action can avert disaster."
+  },
+  {
+    "no": 264,
+    "source": "예상",
+    "word": "admonish",
+    "pos": "동",
+    "meaning": "훈계하다, 경고하다",
+    "synonym": "rebuke",
+    "antonym": "praise",
+    "example": "The elder may admonish the careless."
+  },
+  {
+    "no": 265,
+    "source": "예상",
+    "word": "forthright",
+    "pos": "형",
+    "meaning": "솔직하고 단도직입적인",
+    "synonym": "candid",
+    "antonym": "evasive",
+    "example": "She gave a forthright reply."
+  },
+  {
+    "no": 266,
+    "source": "예상",
+    "word": "concise",
+    "pos": "형",
+    "meaning": "간결한",
+    "synonym": "brief",
+    "antonym": "verbose",
+    "example": "Write a concise summary."
+  },
+  {
+    "no": 267,
+    "source": "예상",
+    "word": "initiate",
+    "pos": "동",
+    "meaning": "시작하다",
+    "synonym": "begin",
+    "antonym": "terminate",
+    "example": "The church will initiate the program."
+  },
+  {
+    "no": 268,
+    "source": "예상",
+    "word": "foster",
+    "pos": "동",
+    "meaning": "촉진하다, 기르다",
+    "synonym": "promote",
+    "antonym": "hinder",
+    "example": "Discussion can foster understanding."
+  },
+  {
+    "no": 269,
+    "source": "예상",
+    "word": "alleviate",
+    "pos": "동",
+    "meaning": "완화하다",
+    "synonym": "relieve",
+    "antonym": "aggravate",
+    "example": "Therapy may alleviate anxiety."
+  },
+  {
+    "no": 270,
+    "source": "예상",
+    "word": "detrimental",
+    "pos": "형",
+    "meaning": "해로운",
+    "synonym": "harmful",
+    "antonym": "beneficial",
+    "example": "Bias is detrimental to judgment."
+  },
+  {
+    "no": 271,
+    "source": "22",
+    "word": "advantageous",
+    "pos": "형",
+    "meaning": "유리한, 이로운",
+    "synonym": "beneficial",
+    "antonym": "disadvantageous",
+    "example": "Cooperation is advantageous to both sides."
+  },
+  {
+    "no": 272,
+    "source": "예상",
+    "word": "viable",
+    "pos": "형",
+    "meaning": "실행 가능한, 생존 가능한",
+    "synonym": "feasible",
+    "antonym": "impractical",
+    "example": "The plan remains viable."
+  },
+  {
+    "no": 273,
+    "source": "22",
+    "word": "ubiquitous",
+    "pos": "형",
+    "meaning": "어디에나 있는",
+    "synonym": "omnipresent",
+    "antonym": "rare",
+    "example": "Mobile devices are ubiquitous."
+  },
+  {
+    "no": 274,
+    "source": "예상",
+    "word": "pervasive",
+    "pos": "형",
+    "meaning": "널리 퍼진",
+    "synonym": "widespread",
+    "antonym": "limited",
+    "example": "The problem is pervasive."
+  },
+  {
+    "no": 275,
+    "source": "예상",
+    "word": "ambiguous",
+    "pos": "형",
+    "meaning": "모호한, 여러 뜻으로 해석되는",
+    "synonym": "unclear",
+    "antonym": "explicit",
+    "example": "The phrase is ambiguous."
+  },
+  {
+    "no": 276,
+    "source": "21",
+    "word": "indispensable",
+    "pos": "형",
+    "meaning": "없어서는 안 되는",
+    "synonym": "essential",
+    "antonym": "optional",
+    "example": "Context is indispensable for interpretation."
+  },
+  {
+    "no": 277,
+    "source": "예상",
+    "word": "resilient",
+    "pos": "형",
+    "meaning": "회복력이 강한",
+    "synonym": "tough",
+    "antonym": "fragile",
+    "example": "The community remained resilient."
+  },
+  {
+    "no": 278,
+    "source": "예상",
+    "word": "prudent",
+    "pos": "형",
+    "meaning": "신중하고 현명한",
+    "synonym": "wise",
+    "antonym": "reckless",
+    "example": "A prudent leader checks the facts."
+  },
+  {
+    "no": 279,
+    "source": "예상",
+    "word": "scrupulous",
+    "pos": "형",
+    "meaning": "양심적이고 세심한",
+    "synonym": "conscientious",
+    "antonym": "careless",
+    "example": "The scholar was scrupulous with sources."
+  },
+  {
+    "no": 280,
+    "source": "예상",
+    "word": "vulnerable",
+    "pos": "형",
+    "meaning": "취약한, 상처받기 쉬운",
+    "synonym": "exposed",
+    "antonym": "secure",
+    "example": "The poor remain vulnerable to crisis."
+  },
+  {
+    "no": 281,
+    "source": "20",
+    "word": "succumb to",
+    "pos": "구",
+    "meaning": "~에 굴복하다",
+    "synonym": "yield to",
+    "antonym": "resist",
+    "example": "Do not succumb to temptation."
+  },
+  {
+    "no": 282,
+    "source": "20",
+    "word": "yield to",
+    "pos": "구",
+    "meaning": "~에 굴복하다, 양보하다",
+    "synonym": "give in to",
+    "antonym": "resist",
+    "example": "He refused to yield to pressure."
+  },
+  {
+    "no": 283,
+    "source": "21",
+    "word": "take into account",
+    "pos": "구",
+    "meaning": "~을 고려하다",
+    "synonym": "consider",
+    "antonym": "ignore",
+    "example": "A fair solution must take both sides into account."
+  },
+  {
+    "no": 284,
+    "source": "21·22",
+    "word": "bring about",
+    "pos": "구",
+    "meaning": "초래하다, 이루다",
+    "synonym": "cause",
+    "antonym": "prevent",
+    "example": "Faith can bring about lasting change."
+  },
+  {
+    "no": 285,
+    "source": "21",
+    "word": "bring forth",
+    "pos": "구",
+    "meaning": "낳다, 산출하다",
+    "synonym": "produce",
+    "antonym": "suppress",
+    "example": "The land will bring forth fruit."
+  },
+  {
+    "no": 286,
+    "source": "21",
+    "word": "tamper with",
+    "pos": "구",
+    "meaning": "함부로 손대다, 왜곡하다",
+    "synonym": "interfere with",
+    "antonym": "preserve",
+    "example": "Do not tamper with God's word."
+  },
+  {
+    "no": 287,
+    "source": "21",
+    "word": "keep A from -ing",
+    "pos": "구",
+    "meaning": "A가 ~하지 못하게 막다",
+    "synonym": "prevent A from",
+    "antonym": "allow A to",
+    "example": "Fear can keep us from speaking."
+  },
+  {
+    "no": 288,
+    "source": "21",
+    "word": "lose heart",
+    "pos": "구",
+    "meaning": "낙심하다",
+    "synonym": "be discouraged",
+    "antonym": "take courage",
+    "example": "They did not lose heart."
+  },
+  {
+    "no": 289,
+    "source": "22",
+    "word": "be hard pressed",
+    "pos": "구",
+    "meaning": "심한 압박을 받다",
+    "synonym": "be under pressure",
+    "antonym": "be at ease",
+    "example": "They may be hard pressed on every side."
+  },
+  {
+    "no": 290,
+    "source": "22",
+    "word": "set one's mind on",
+    "pos": "구",
+    "meaning": "~에 마음을 두다",
+    "synonym": "focus on",
+    "antonym": "turn away from",
+    "example": "Set your mind on things above."
+  },
+  {
+    "no": 291,
+    "source": "22",
+    "word": "be receptive to",
+    "pos": "구",
+    "meaning": "~을 잘 받아들이다",
+    "synonym": "be open to",
+    "antonym": "be resistant to",
+    "example": "Remain receptive to correction."
+  },
+  {
+    "no": 292,
+    "source": "22",
+    "word": "be in charge of",
+    "pos": "구",
+    "meaning": "~을 맡다, 책임지다",
+    "synonym": "be responsible for",
+    "antonym": "be free from",
+    "example": "She is in charge of the program."
+  },
+  {
+    "no": 293,
+    "source": "22",
+    "word": "settle accounts with",
+    "pos": "구",
+    "meaning": "~와 결산하다",
+    "synonym": "reconcile accounts with",
+    "antonym": "ignore debts to",
+    "example": "The master will settle accounts with them."
+  },
+  {
+    "no": 294,
+    "source": "22",
+    "word": "be entrusted with",
+    "pos": "구",
+    "meaning": "~을 맡다",
+    "synonym": "be given responsibility for",
+    "antonym": "be deprived of",
+    "example": "We are entrusted with the gospel."
+  },
+  {
+    "no": 295,
+    "source": "22",
+    "word": "dwell in",
+    "pos": "구",
+    "meaning": "~에 거하다",
+    "synonym": "live in",
+    "antonym": "depart from",
+    "example": "They will dwell in the house of the Lord."
+  },
+  {
+    "no": 296,
+    "source": "21",
+    "word": "be saved through grace",
+    "pos": "구",
+    "meaning": "은혜로 구원받다",
+    "synonym": "receive salvation by grace",
+    "antonym": "earn salvation",
+    "example": "We are saved through grace."
+  },
+  {
+    "no": 297,
+    "source": "21",
+    "word": "put A to the test",
+    "pos": "구",
+    "meaning": "A를 시험하다",
+    "synonym": "test A",
+    "antonym": "trust A fully",
+    "example": "Do not put God to the test."
+  },
+  {
+    "no": 298,
+    "source": "21",
+    "word": "bear witness to",
+    "pos": "구",
+    "meaning": "~을 증언하다",
+    "synonym": "testify to",
+    "antonym": "deny",
+    "example": "The Spirit will bear witness to the truth."
+  },
+  {
+    "no": 299,
+    "source": "20",
+    "word": "wipe out",
+    "pos": "구",
+    "meaning": "완전히 없애다",
+    "synonym": "destroy completely",
+    "antonym": "preserve",
+    "example": "Haman plotted to wipe out the Jews."
+  },
+  {
+    "no": 300,
+    "source": "20",
+    "word": "pour out one's soul",
+    "pos": "구",
+    "meaning": "마음을 쏟아놓다",
+    "synonym": "pray earnestly",
+    "antonym": "hide one's feelings",
+    "example": "Hannah chose to pour out her soul."
+  }
+]

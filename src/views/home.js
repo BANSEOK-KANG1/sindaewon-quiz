@@ -104,6 +104,7 @@ export async function renderHome(root) {
             ? `<a class="btn btn-light" href="#/quiz?plan=${encodeURIComponent(stepKey(todayPlan.date, vocabStep.id))}">${icon("book-open")} ${vocabStep.label}</a>`
             : `<a class="btn btn-light" href="#/quiz?mode=study&tags=${vocabDay.tag},영한&subject=영어&seminary=chongshin&count=20&auto=1">${icon("book-open")} 단어 ${vocabDay.label} 20</a>`
         }
+        <a class="btn btn-light" href="#/english">${icon("languages")} 짬짬이 단어·문법 카드</a>
         <a class="text-link text-link-light" href="#/admissions">입시·영어 가이드 ${icon("arrow-right")}</a>
       </div>
     </section>
