@@ -89,6 +89,12 @@ export async function renderNotes(root) {
 
     ${hero}
 
+    <a class="card notes-review-cta" href="#/topics">
+      <span class="stat-icon">${icon("list-checks")}</span>
+      <span><strong>주제별 핵심 12장</strong><span class="muted small">66권 분류 · 연대표 · 12지파 · 사사 · 왕 · 선지자 · 12제자 · 바울 · 숫자 · 지명 · 기적 · 예언 성취</span></span>
+      ${icon("chevron-right")}
+    </a>
+
     <a class="card notes-review-cta" href="#/review">
       <span class="stat-icon">${icon("brain-circuit")}</span>
       <span><strong>짬짬이 복습 10장</strong><span class="muted small">${readCount ? "읽은 책에서 무작위 · 구절 출처 맞히기와 셀프체크" : "아직 읽은 책이 없으면 전체에서 · 2~3분"}</span></span>

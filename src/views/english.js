@@ -4,6 +4,8 @@
  */
 import WORDS from "../data/vocab-300-words.json";
 import { GRAMMAR, TIPS } from "../data/english-notes.js";
+import { TOPICS } from "../data/book-notes/topics.js";
+import { INTERVIEW } from "../data/interview-cards.js";
 import { PLAN_START, daysBetween, toDateKey } from "../data/daily-plan.js";
 import { VOCAB_DAY_TRACKS } from "../data/study-curriculum.js";
 import { getVocabState, gradeWord, dueWords, vocabSummary, MASTERED_BOX, getDeck, setDeck } from "../storage/vocab-cards.js";
@@ -39,8 +41,9 @@ function bindLinks(root) {
 
 export function studyTabs(active) {
   return `<nav class="notes-tabs" aria-label="짬짬이 학습">
-    <a href="#/notes" class="${active === "bible" ? "active" : ""}">${icon("library-big")} 성경 66권</a>
+    <a href="#/notes" class="${active === "bible" ? "active" : ""}">${icon("library-big")} 성경</a>
     <a href="#/english" class="${active === "english" ? "active" : ""}">${icon("languages")} 영어</a>
+    <a href="#/interview" class="${active === "interview" ? "active" : ""}">${icon("graduation-cap")} 면접</a>
   </nav>`;
 }
 
@@ -251,7 +254,14 @@ function deckCard(item) {
     }`;
 }
 
-function renderDeck(root, name, title, items) {
+const DECK_FINISH = {
+  grammar: { href: `#/quiz?auto=1&mode=study&tags=${encodeURIComponent("문법")}&subject=${encodeURIComponent("영어")}&seminary=chongshin&count=10`, label: "문법 문제 10개 풀기" },
+  tips: { href: `#/quiz?auto=1&mode=study&tags=${encodeURIComponent("원문기출")}&subject=${encodeURIComponent("영어")}&seminary=chongshin&count=10`, label: "원문기출 영어 10개 풀기" },
+  topics: { href: "#/review", label: "짬짬이 복습 10장" },
+  interview: { href: "#/plan", label: "계획으로" },
+};
+
+export function renderDeck(root, name, title, items, back = "#/english") {
   let index = Math.min(getDeck(name).pos, items.length - 1);
 
   function render() {
@@ -260,7 +270,7 @@ function renderDeck(root, name, title, items) {
     root.innerHTML = `
       <div class="notes-reader">
         <header class="notes-reader-head">
-          <a class="btn btn-ghost notes-back" href="#/english" aria-label="뒤로">←</a>
+          <a class="btn btn-ghost notes-back" href="${back}" aria-label="뒤로">←</a>
           <div class="notes-reader-title">
             <strong>${title}</strong>
             <span class="muted small">${done ? "완료" : `${index + 1}/${items.length}`}</span>
@@ -277,8 +287,8 @@ function renderDeck(root, name, title, items) {
                   <h2>${title} ${items.length}장 끝</h2>
                   <p class="muted">${getDeck(name).done}회독</p>
                   <div class="notes-done-actions">
-                    <a class="btn btn-primary btn-block" href="#/quiz?auto=1&mode=study&tags=${encodeURIComponent(name === "grammar" ? "문법" : "원문기출")}&subject=${encodeURIComponent("영어")}&seminary=chongshin&count=10">${icon("circle-play")} ${name === "grammar" ? "문법 문제 10개" : "원문기출 영어 10개"} 풀기</a>
-                    <a class="btn btn-ghost btn-block" href="#/english">영어 홈</a>
+                    <a class="btn btn-primary btn-block" href="${DECK_FINISH[name].href}">${icon("circle-play")} ${DECK_FINISH[name].label}</a>
+                    <a class="btn btn-ghost btn-block" href="${back}">돌아가기</a>
                   </div>
                 </div>`
               : deckCard(items[index])
@@ -334,4 +344,34 @@ export async function renderGrammar(root) {
 
 export async function renderTips(root) {
   renderDeck(root, "tips", "유형별 요령", TIPS);
+}
+
+/* ───────────── 주제별 핵심 · 면접 질문 ───────────── */
+
+export async function renderTopics(root) {
+  renderDeck(root, "topics", "주제별 핵심", TOPICS, "#/notes");
+}
+
+export async function renderInterview(root) {
+  const d = getDeck("interview");
+  if (getQuery().get("start")) {
+    renderDeck(root, "interview", "면접 질문", INTERVIEW, "#/interview");
+    return;
+  }
+  root.innerHTML = `
+    ${studyTabs("interview")}
+    <header class="page-header">
+      <h1>면접 질문 카드</h1>
+      <p class="muted">질문을 보고 소리 내어 1분 · 답 보기는 일반적인 방향만</p>
+    </header>
+    <section class="card notes-today">
+      <p class="mode-kicker">${INTERVIEW.length}장 · ${d.done ? `${d.done}회독 · ` : ""}${d.max >= 0 ? `${Math.min(d.max + 1, INTERVIEW.length)}장까지 봄` : "처음부터"}</p>
+      <a class="btn btn-primary btn-block" href="#/interview?start=1">${icon("circle-play")} ${d.pos ? "이어서" : "시작"}</a>
+      <p class="muted small" style="margin-top:0.6rem">내 답변 초안은 SSD의 면접준비.md에 있어요. 앱은 공개 웹에도 배포되므로 개인 답변은 넣지 않았습니다.</p>
+    </section>
+    <section class="notes-group">
+      <h2>카드 목록</h2>
+      <ol class="notes-list">${INTERVIEW.map((c) => `<li><strong>${esc(c.t)}</strong> <span class="muted small">${esc(c.x)} · 질문 ${c.r.length}</span></li>`).join("")}</ol>
+    </section>`;
+  bindLinks(root);
 }

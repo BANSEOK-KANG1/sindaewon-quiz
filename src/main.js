@@ -9,7 +9,7 @@ import { renderWrongNote } from "./views/wrong-note.js";
 import { renderSources } from "./views/sources.js";
 import { renderPlan } from "./views/plan.js";
 import { renderNotes, renderNoteBook, renderReview } from "./views/notes.js";
-import { renderEnglish, renderWords, renderGrammar, renderTips } from "./views/english.js";
+import { renderEnglish, renderWords, renderGrammar, renderTips, renderTopics, renderInterview } from "./views/english.js";
 import { hydrateIcons, icon } from "./lib/icons.js";
 
 import "./styles/base.css";
@@ -75,7 +75,7 @@ function shell(contentHtml) {
 
 function isActive(hash, current) {
   if (hash === "#/") return current === "#/" || current === "";
-  if (hash === "#/notes") return /^#\/(notes|review|english)/.test(current);
+  if (hash === "#/notes") return /^#\/(notes|review|english|topics|interview)/.test(current);
   return current.startsWith(hash.replace("#", "#"));
 }
 
@@ -100,6 +100,10 @@ async function renderView(matched) {
       await renderGrammar(root);
     } else if (matched.path === "/english/tips") {
       await renderTips(root);
+    } else if (matched.path === "/topics") {
+      await renderTopics(root);
+    } else if (matched.path === "/interview") {
+      await renderInterview(root);
     } else if (matched.path === "/english") {
       await renderEnglish(root);
     } else if (matched.path.startsWith("/notes/")) {
@@ -131,6 +135,8 @@ registerRoute("/notes", () => {});
 registerRoute("/notes/:book", () => {});
 registerRoute("/review", () => {});
 registerRoute("/english", () => {});
+registerRoute("/topics", () => {});
+registerRoute("/interview", () => {});
 registerRoute("/english/words", () => {});
 registerRoute("/english/grammar", () => {});
 registerRoute("/english/tips", () => {});
