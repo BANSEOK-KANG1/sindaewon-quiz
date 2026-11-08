@@ -25,6 +25,7 @@ import {
   suggestExamTypeFocus,
 } from "../data/study-curriculum.js";
 import { getQuery, navigate } from "../router.js";
+import { firstUnread } from "../storage/notes-progress.js";
 import {
   addWrongNote,
   removeWrongNote,
@@ -297,6 +298,10 @@ export async function renderQuiz(root) {
       return;
     }
     const { day, step } = found;
+    if (step.kind === "read") {
+      navigate(`/notes/${encodeURIComponent(firstUnread(step.books))}?from=plan`);
+      return;
+    }
     const planStep = stepKey(day.date, step.id);
     const extra = { planStep, planLabel: step.label, countForToday: true };
 

@@ -13,12 +13,14 @@ import {
 } from "../data/daily-plan.js";
 import { getPlanProgress, setPlanStepDone } from "../storage/progress.js";
 import { navigate } from "../router.js";
+import { syncReadSteps, firstUnread } from "../storage/notes-progress.js";
 
 const MODE_LABEL = { study: "학습", exam: "시험", flash: "플래시" };
 
 function stepMeta(s) {
   if (s.kind === "manual") return "직접 체크";
   if (s.kind === "wrong") return "오답노트";
+  if (s.kind === "read") return `핵심 카드 · ${s.books.length}권`;
   return `${MODE_LABEL[s.mode] || "학습"} · ${s.count}문항`;
 }
 
@@ -27,7 +29,9 @@ function renderStep(day, s, done, todayKey, prefix = "") {
   const rec = done[key];
   const result = rec?.total ? ` · ${rec.correct}/${rec.total}` : rec?.skipped ? ` · ${rec.skipped}` : "";
   const action =
-    s.kind === "manual"
+    s.kind === "read"
+      ? `<a class="btn ${rec ? "btn-ghost" : day.date === todayKey ? "btn-primary" : "btn-secondary"} plan-go" href="#/notes/${encodeURIComponent(firstUnread(s.books))}?from=plan">${rec ? "다시" : "읽기"}</a>`
+      : s.kind === "manual"
       ? `<label class="plan-manual"><input type="checkbox" data-plan-toggle="${key}" ${rec ? "checked" : ""}/> 완료</label>`
       : `<a class="btn ${rec ? "btn-ghost" : day.date === todayKey ? "btn-primary" : "btn-secondary"} plan-go" href="#/quiz?plan=${encodeURIComponent(key)}">${rec ? "다시" : "시작"}</a>`;
   return `
@@ -62,6 +66,7 @@ function renderDay(day, done, todayKey, open = false) {
 }
 
 export async function renderPlan(root) {
+  syncReadSteps(buildPlan(getPlanProgress().startDate));
   const progress = getPlanProgress();
   const plan = buildPlan(progress.startDate);
   const todayKey = toDateKey();

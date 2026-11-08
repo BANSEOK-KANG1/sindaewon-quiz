@@ -21,6 +21,7 @@ import {
   getPlanProgress,
 } from "../storage/progress.js";
 import { icon } from "../lib/icons.js";
+import { syncReadSteps } from "../storage/notes-progress.js";
 
 export async function renderHome(root) {
   const questions = await loadQuestions();
@@ -35,6 +36,7 @@ export async function renderHome(root) {
   const exposure = getExposureCounts();
   const vocabDay = suggestVocabDay(questions, exposure);
 
+  syncReadSteps(buildPlan(getPlanProgress().startDate));
   const planProgress = getPlanProgress();
   const plan = buildPlan(planProgress.startDate);
   const todayKey = toDateKey();
@@ -111,6 +113,16 @@ export async function renderHome(root) {
       <a class="text-link" href="#/quiz">전체 학습 ${icon("chevron-right")}</a>
     </div>
     <section class="mode-grid home-modes">
+      <a class="mode-card mode-study" href="#/notes">
+        <span class="mode-icon">${icon("library-big")}</span><span class="mode-kicker">핵심 카드</span>
+        <strong>성경 66권 핵심</strong>
+        <span>1분 카드 · 짬짬이 읽기</span>
+      </a>
+      <a class="mode-card" href="#/review">
+        <span class="mode-icon">${icon("brain-circuit")}</span><span class="mode-kicker">복습</span>
+        <strong>짬짬이 복습 10장</strong>
+        <span>구절 출처 · 셀프체크</span>
+      </a>
       <a class="mode-card mode-study" href="#/quiz?mode=study&tags=필수&subject=성경&seminary=chongshin&count=15&auto=1">
         <span class="mode-icon">${icon("target")}</span><span class="mode-kicker">필수</span>
         <strong>필수 가중 15</strong>

@@ -8,6 +8,7 @@ import { renderQuiz } from "./views/quiz.js";
 import { renderWrongNote } from "./views/wrong-note.js";
 import { renderSources } from "./views/sources.js";
 import { renderPlan } from "./views/plan.js";
+import { renderNotes, renderNoteBook, renderReview } from "./views/notes.js";
 import { hydrateIcons, icon } from "./lib/icons.js";
 
 import "./styles/base.css";
@@ -19,6 +20,7 @@ const app = document.querySelector("#app");
 const NAV = [
   { hash: "#/", label: UI.nav.home, icon: "house" },
   { hash: "#/plan", label: UI.nav.plan, icon: "calendar-days" },
+  { hash: "#/notes", label: UI.nav.notes, icon: "library-big" },
   { hash: "#/quiz", label: UI.nav.quiz, icon: "circle-play" },
   { hash: "#/wrong-note", label: UI.nav.wrongNote, icon: "notebook-pen" },
   { hash: "#/browse", label: UI.nav.browse, icon: "search" },
@@ -26,8 +28,8 @@ const NAV = [
   { hash: "#/sources", label: UI.nav.sources, icon: "files" },
 ];
 
-// 하단 탭은 5개까지 — 입시 가이드·자료는 홈과 사이드 메뉴에서 연다.
-const BOTTOM_NAV = NAV.filter((item) => item.hash !== "#/sources" && item.hash !== "#/admissions");
+// 하단 탭은 5개까지 — 탐색·입시 가이드·자료는 홈과 사이드 메뉴에서 연다.
+const BOTTOM_NAV = NAV.filter((item) => !["#/sources", "#/admissions", "#/browse"].includes(item.hash));
 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";
@@ -46,7 +48,7 @@ function shell(contentHtml) {
         </nav>
         <div class="sidebar-note">
           ${icon("sparkles")}
-          <p><strong>날짜별 학습 계획</strong><span>총신 11/28 · 장신 12/10까지 하루 단위</span></p>
+          <p><strong>날짜별 학습 계획</strong><span>총신 11/28까지 하루 단위</span></p>
           <a href="#/plan">계획 보기 ${icon("chevron-right")}</a>
         </div>
       </aside>
@@ -90,6 +92,12 @@ async function renderView(matched) {
       await renderWrongNote(root);
     } else if (matched.path === "/sources") {
       await renderSources(root);
+    } else if (matched.path.startsWith("/notes/")) {
+      await renderNoteBook(root, matched.params);
+    } else if (matched.path === "/notes") {
+      await renderNotes(root);
+    } else if (matched.path === "/review") {
+      await renderReview(root);
     } else if (matched.path === "/plan") {
       await renderPlan(root);
     } else {
@@ -109,6 +117,9 @@ registerRoute("/quiz", () => {});
 registerRoute("/wrong-note", () => {});
 registerRoute("/sources", () => {});
 registerRoute("/plan", () => {});
+registerRoute("/notes", () => {});
+registerRoute("/notes/:book", () => {});
+registerRoute("/review", () => {});
 
 startRouter(renderView);
 

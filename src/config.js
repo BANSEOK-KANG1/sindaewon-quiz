@@ -20,6 +20,7 @@ export const UI = {
   nav: {
     home: "홈",
     plan: "계획",
+    notes: "핵심",
     admissions: "입시 가이드",
     browse: "탐색",
     quiz: "학습",

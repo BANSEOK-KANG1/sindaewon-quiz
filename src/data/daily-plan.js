@@ -5,6 +5,7 @@
  * 성경 순서: 최근 원문기출 → 2026 문제은행 → 옛 기출(00–14) 권별 → 오답·실전.
  */
 import { VOCAB_DAY_TRACKS } from "./study-curriculum.js";
+import { BOOK_BY_NAME, bookMinutes } from "./book-notes/index.js";
 
 export const PLAN_START = "2026-11-09";
 
@@ -20,7 +21,7 @@ export const MILESTONES = [
 ];
 
 export const PHASES = {
-  recent: { id: "recent", label: "1단계 · 최근 기출·문제은행", goal: "2020–22 원문기출 150 + 2026 문제은행 구약 199·신약 100 + 신약 암송" },
+  recent: { id: "recent", label: "1단계 · 최근 기출·문제은행", goal: "2020–22 원문기출 150 + 2026 문제은행 구약 199·신약 60 + 신약 암송 + 신약 핵심 카드" },
   books: { id: "books", label: "2단계 · 권별 기출 회독", goal: "00–14 기출을 창세기부터 신약까지 · 가중치 높은 문항 먼저" },
   final: { id: "final", label: "3단계 · 오답·실전", goal: "새 문제 없이 오답노트 회독 + 원문기출 시험 모드" },
 };
@@ -71,6 +72,44 @@ function manual(id, label, detail, minutes) {
   return { id, kind: "manual", label, detail, minutes };
 }
 
+/** 권별 핵심 카드 읽기 — 그날 책을 모두 읽으면 자동으로 완료된다 */
+function read(books) {
+  const label = books.length > 2 ? `${books[0]} ~ ${books[books.length - 1]}` : books.join("·");
+  return {
+    id: "read",
+    kind: "read",
+    label: `핵심 읽기 · ${label}`,
+    detail: `${books.length}권 · 1분 카드로 먼저 훑고 문제로`,
+    books,
+    minutes: books.reduce((n, b) => n + bookMinutes(BOOK_BY_NAME[b]), 0),
+  };
+}
+
+/**
+ * 날짜별 핵심 읽기. 신약은 앱 기출이 적어 1단계(11/9–13)에 먼저 읽고,
+ * 구약은 2단계에서 그날 풀 기출 범위와 맞춘다. 소선지서와 일반서신은 11/23–24.
+ * 하루 순공 2~4시간 기준: 평일 3시간, 주말 4시간 안팎이 되게 맞췄다 (11/8 조정).
+ */
+const READ_DAYS = {
+  "2026-11-09": ["마태복음", "마가복음"],
+  "2026-11-10": ["누가복음", "요한복음"],
+  "2026-11-11": ["사도행전", "로마서"],
+  "2026-11-12": ["고린도전서", "고린도후서", "갈라디아서"],
+  "2026-11-13": ["에베소서", "빌립보서", "골로새서", "데살로니가전서", "데살로니가후서"],
+  "2026-11-14": ["창세기"],
+  "2026-11-15": ["출애굽기", "레위기", "민수기", "신명기"],
+  "2026-11-16": ["여호수아", "사사기", "룻기", "사무엘상", "사무엘하"],
+  "2026-11-17": ["열왕기상", "열왕기하"],
+  "2026-11-18": ["역대상", "역대하", "에스라", "느헤미야", "에스더"],
+  "2026-11-19": ["욥기", "시편"],
+  "2026-11-20": ["잠언", "전도서", "아가", "이사야"],
+  "2026-11-21": ["예레미야", "예레미야애가", "에스겔", "다니엘"],
+  "2026-11-22": ["디모데전서", "디모데후서", "디도서", "빌레몬서", "히브리서"],
+  // 3단계에도 새 책 읽기는 이어 간다 (문제 대신 카드로)
+  "2026-11-23": ["호세아", "요엘", "아모스", "오바댜", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스가랴", "말라기"],
+  "2026-11-24": ["야고보서", "베드로전서", "베드로후서", "요한일서", "요한이서", "요한삼서", "유다서", "요한계시록"],
+};
+
 /** 성경 블록을 30문항 안팎의 세트로 나눈다. 같은 범위라도 fresh라서 세트마다 새 문항이 나온다. */
 function bibleBlock(prefix, label, total, opts, chunk = 30) {
   const n = Math.max(1, Math.ceil(total / chunk));
@@ -98,12 +137,12 @@ const BIBLE_DAYS = {
     title: "2026 문제은행 · 신약 (1) + 암송",
     phase: "recent",
     blocks: [
-      ["bank-nt", "문제은행 신약", 100, { tags: ["2026문제은행", "신약"], detail: "2026 성경고사 문제은행" }, 34],
+      ["bank-nt", "문제은행 신약", 60, { tags: ["2026문제은행", "신약"], detail: "2026 성경고사 문제은행 · 나머지는 11/22" }, 30],
       ["memory", "신약 암송", 25, { tags: ["암송", "신약"], mode: "flash", detail: "장절 보고 본문 떠올리기" }, 25],
     ],
   },
-  "2026-11-14": { title: "창세기", phase: "books", blocks: [["gen", "창세기 기출", 240, { ...books("창세기"), detail: "가장 많이 나온 권 · 가중치 높은 문항 먼저" }]] },
-  "2026-11-15": { title: "출애굽기 ~ 룻기", phase: "books", blocks: [["pent", "출애굽기~룻기 기출", 240, { ...books("출애굽기", "레위기", "민수기", "신명기", "여호수아", "사사기", "룻기"), detail: "오경 나머지 + 정복·사사 시대" }]] },
+  "2026-11-14": { title: "창세기", phase: "books", blocks: [["gen", "창세기 기출", 100, { ...books("창세기"), detail: "가장 많이 나온 권 · 가중치 높은 문항 먼저" }]] },
+  "2026-11-15": { title: "출애굽기 ~ 룻기", phase: "books", blocks: [["pent", "출애굽기~룻기 기출", 100, { ...books("출애굽기", "레위기", "민수기", "신명기", "여호수아", "사사기", "룻기"), detail: "오경 나머지 + 정복·사사 시대" }]] },
   "2026-11-16": { title: "사무엘상·하", phase: "books", blocks: [["sam", "사무엘 기출", 112, { ...books("사무엘상", "사무엘하"), detail: "사무엘·사울·다윗" }, 28]] },
   "2026-11-17": { title: "열왕기상·하", phase: "books", blocks: [["kings", "열왕기 기출", 120, { ...books("열왕기상", "열왕기하"), detail: "솔로몬·분열 왕국·엘리야·엘리사" }]] },
   "2026-11-18": {
@@ -119,14 +158,14 @@ const BIBLE_DAYS = {
   "2026-11-21": {
     title: "예레미야 ~ 말라기",
     phase: "books",
-    blocks: [["proph", "예레미야~말라기 기출", 240, { ...books("예레미야", "예레미야애가", "에스겔", "다니엘", "호세아", "요엘", "아모스", "오바댜", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스가랴", "말라기"), detail: "대선지서 + 소선지서 12권" }]],
+    blocks: [["proph", "예레미야~말라기 기출", 110, { ...books("예레미야", "예레미야애가", "에스겔", "다니엘", "호세아", "요엘", "아모스", "오바댜", "요나", "미가", "나훔", "하박국", "스바냐", "학개", "스가랴", "말라기"), detail: "대선지서 + 소선지서 12권" }]],
   },
   "2026-11-22": {
     title: "문제은행 신약 (2) + 남은 기출",
     phase: "books",
     blocks: [
-      ["bank-nt2", "문제은행 신약", 100, { tags: ["2026문제은행", "신약"], detail: "11/13에 안 푼 문항 위주" }, 34],
-      ["rest", "안 푼 기출", 140, { tags: OLD, detail: "신약 포함 · 아직 안 푼 문항부터" }, 35],
+      ["bank-nt2", "문제은행 신약", 40, { tags: ["2026문제은행", "신약"], detail: "11/13에 안 푼 문항" }, 40],
+      ["rest", "안 푼 기출", 60, { tags: OLD, detail: "신약 포함 · 아직 안 푼 문항부터" }, 30],
     ],
   },
 };
@@ -169,8 +208,7 @@ function englishSteps(key, isWeekend) {
     );
     if (isWeekend) {
       steps.push(
-        quiz("eng-mock", "영어 실전 25", "원문기출 시험 모드 · 시간 재고 한 번에", { mode: "exam", tags: ["원문기출"], subject: "영어", count: 25, minutes: 35 }),
-        quiz("bible-eng", "성경 영어 10", "영어 구절 독해·빈칸", { tags: ["성경영어"], subject: "영어", count: 10, minutes: 10 })
+        quiz("eng-mock", "영어 실전 25", "원문기출 시험 모드 · 시간 재고 한 번에", { mode: "exam", tags: ["원문기출"], subject: "영어", count: 25, minutes: 35 })
       );
     }
   } else {
@@ -204,6 +242,7 @@ function buildDay(key) {
   const bible = BIBLE_DAYS[key];
   if (bible) {
     const steps = bible.blocks.flatMap(([prefix, label, total, opts, chunk]) => bibleBlock(prefix, label, total, opts, chunk));
+    if (READ_DAYS[key]) steps.unshift(read(READ_DAYS[key]));
     steps.push(...englishSteps(key, isWeekend));
     if (isWeekend) steps.push(manual("interview", "면접 답변 30분", "면접준비.md · 소명, 왜 총신, 통합 교회 교적 설명, 개혁주의 기초", 30));
     return { phase: bible.phase, title: bible.title, steps };
@@ -212,15 +251,15 @@ function buildDay(key) {
   // 3단계: 오답·실전 (11/23 ~ 11/27)
   const finalDays = {
     "2026-11-23": {
-      title: "오답노트 1회독 (1)",
-      steps: [wrongReview("wrong-1", 40), wrongReview("wrong-2", 40), wrongReview("wrong-3", 40)],
+      title: "오답노트 1회독 (1) + 소선지서 카드",
+      steps: [wrongReview("wrong-1", 40), wrongReview("wrong-2", 40)],
     },
     "2026-11-24": {
-      title: "오답노트 1회독 (2) + 면접 리허설",
+      title: "오답노트 1회독 (2) + 일반서신 카드 + 리허설",
       steps: [
         wrongReview("wrong-1", 40),
         wrongReview("wrong-2", 40),
-        quiz("must", "필수 가중 25", "가중치 5 문항 무작위 · 인물·지명·숫자 확인", { tags: ["필수"], subject: "성경", count: 25 }),
+        quiz("must", "필수 가중 15", "가중치 5 문항 무작위 · 인물·지명·숫자 확인", { tags: ["필수"], subject: "성경", count: 15 }),
         manual("rehearsal", "면접 리허설 1", "소리 내어 · 가족이나 목사님 앞에서", 30),
       ],
     },
@@ -251,7 +290,9 @@ function buildDay(key) {
   };
   const fd = finalDays[key];
   if (!fd) return null;
-  return { phase: "final", title: fd.title, steps: [...fd.steps, ...englishSteps(key, false)] };
+  const finalSteps = [...fd.steps, ...englishSteps(key, false)];
+  if (READ_DAYS[key]) finalSteps.unshift(read(READ_DAYS[key]));
+  return { phase: "final", title: fd.title, steps: finalSteps };
 }
 
 /** 11/9 ~ 11/28 고정 일정. startKey는 하위 호환용으로 받기만 한다. */

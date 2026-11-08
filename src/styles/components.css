@@ -2431,3 +2431,77 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ───────── 성경 66권 핵심 카드 ───────── */
+.notes-stats { margin-bottom: 0.5rem; }
+.notes-today { margin-top: 1rem; }
+.notes-chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0.5rem 0 0.9rem; }
+.notes-chip {
+  padding: 0.3rem 0.7rem; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--surface-muted); color: var(--text); text-decoration: none; font-size: 0.9rem;
+}
+.notes-chip.read { background: var(--primary-soft); color: var(--success); border-color: transparent; }
+.notes-review-cta {
+  display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text);
+}
+.notes-review-cta > span:nth-child(2) { display: flex; flex-direction: column; flex: 1; gap: 0.15rem; }
+.notes-group { margin-top: 1.25rem; }
+.notes-group h2 { font-size: 1rem; margin-bottom: 0.5rem; }
+.notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 0.5rem; }
+.notes-book {
+  display: flex; flex-direction: column; gap: 0.15rem; padding: 0.65rem 0.7rem; min-height: var(--touch);
+  border-radius: 12px; border: 1px solid var(--border); background: var(--surface);
+  color: var(--text); text-decoration: none;
+}
+.notes-book strong { font-size: 0.95rem; }
+.notes-book span { font-size: 0.75rem; color: var(--muted); }
+.notes-book.read { background: var(--primary-soft); border-color: transparent; }
+.notes-book.read strong { color: var(--success); }
+.notes-book.reading { border-color: var(--accent); }
+
+.notes-reader { max-width: 640px; margin: 0 auto; }
+.notes-reader-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; }
+.notes-back { min-width: var(--touch); padding: 0; font-size: 1.2rem; }
+.notes-reader-title { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.notes-read-tag { font-size: 0.8rem; color: var(--success); background: var(--primary-soft); padding: 0.2rem 0.55rem; border-radius: 999px; }
+.notes-dots { display: flex; gap: 4px; margin: 0 0 0.75rem; }
+.notes-dots span { flex: 1; height: 4px; border-radius: 2px; background: var(--border); }
+.notes-dots span.past { background: var(--primary); opacity: 0.45; }
+.notes-dots span.now { background: var(--primary); }
+.notes-card { min-height: 52vh; padding: 1.25rem 1.1rem; }
+.notes-card-title { font-size: 1.05rem; margin-bottom: 0.75rem; color: var(--primary); }
+.notes-group-label { font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-bottom: 0.25rem; }
+.notes-book-title { font-size: 2rem; margin-bottom: 0.75rem; }
+.notes-summary { font-size: 1.08rem; line-height: 1.65; margin-bottom: 1rem; }
+.notes-list, .notes-people { padding-left: 1.2rem; display: grid; gap: 0.6rem; line-height: 1.6; }
+.notes-people { list-style: none; padding-left: 0; }
+.notes-people li { padding-bottom: 0.55rem; border-bottom: 1px solid var(--border); }
+.notes-people li:last-child { border-bottom: 0; }
+.notes-list.accent li::marker { color: var(--accent); font-weight: 700; }
+.notes-list strong, .notes-people strong { color: var(--text); }
+.notes-verses, .notes-checks { list-style: none; padding: 0; display: grid; gap: 0.6rem; margin-top: 0.5rem; }
+.notes-reveal {
+  width: 100%; text-align: left; display: flex; flex-direction: column; gap: 0.4rem;
+  padding: 0.75rem 0.85rem; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--surface-muted); color: var(--text); font: inherit; line-height: 1.6; cursor: pointer;
+}
+.notes-reveal .answer { display: none; font-weight: 700; color: var(--success); }
+.notes-reveal .hidden-label { font-size: 0.8rem; color: var(--muted); }
+.notes-reveal[aria-expanded="true"] { background: var(--primary-soft); border-color: transparent; }
+.notes-reveal[aria-expanded="true"] .answer { display: inline; }
+.notes-reveal[aria-expanded="true"] .hidden-label { display: none; }
+.notes-q { font-weight: 600; }
+.notes-nav { display: flex; gap: 0.5rem; margin-top: 0.75rem; position: sticky; bottom: calc(64px + env(safe-area-inset-bottom)); }
+.notes-nav .btn { flex: 1; }
+.notes-done { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+.notes-done-mark {
+  width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--primary-soft); color: var(--success); font-size: 2rem; margin: 1rem auto 0.25rem;
+}
+.notes-done-actions { width: 100%; display: grid; gap: 0.5rem; margin-top: 1rem; }
+.notes-review-card { display: flex; flex-direction: column; justify-content: center; gap: 1rem; text-align: center; }
+.notes-review-q { font-size: 1.15rem; line-height: 1.7; font-weight: 600; }
+.notes-review-a { font-size: 1.1rem; color: var(--success); font-weight: 700; }
+@media (min-width: 900px) {
+  .notes-nav { bottom: 1rem; }
+}
