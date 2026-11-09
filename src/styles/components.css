@@ -2565,3 +2565,28 @@
 .track-badge.done { background: var(--surface); color: var(--success); }
 .track-bottom { display: flex; justify-content: space-between; align-items: center; gap: 0.6rem; margin-top: 0.5rem; }
 .track-go { min-height: 40px; padding: 0 0.9rem; flex: none; }
+
+/* ───────── 가리기 모드 ───────── */
+.cover-toggle {
+  min-height: 36px; padding: 0 0.8rem; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--muted); font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer;
+}
+.cover-toggle.on { background: var(--primary); border-color: var(--primary); color: #fff; }
+.notes-card-head { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+.notes-card-head .notes-card-title { margin-bottom: 0; }
+.cover-all { border: 0; background: none; color: var(--primary); font: inherit; font-size: 0.85rem; font-weight: 700; cursor: pointer; padding: 0.3rem 0; }
+.cover-list { gap: 0.45rem; }
+.cover-item {
+  width: 100%; text-align: left; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.35rem;
+  padding: 0.5rem 0.65rem; border-radius: 10px; border: 1px solid var(--border);
+  background: var(--surface-muted); color: var(--text); font: inherit; line-height: 1.55; cursor: pointer;
+}
+.cover-item .cover-tail { display: none; }
+.cover-item .cover-mask {
+  flex: 1; min-width: 6rem; padding: 0 0.5rem; border-radius: 6px; font-size: 0.78rem; color: var(--muted);
+  background: repeating-linear-gradient(135deg, rgba(23, 58, 89, 0.08) 0 6px, rgba(23, 58, 89, 0.04) 6px 12px);
+}
+.cover-item[aria-expanded="true"] { background: var(--primary-soft); border-color: transparent; }
+.cover-item[aria-expanded="true"] .cover-tail { display: inline; }
+.cover-item[aria-expanded="true"] .cover-mask { display: none; }
+.notes-people.cover-list li { border-bottom: 0; padding-bottom: 0; }

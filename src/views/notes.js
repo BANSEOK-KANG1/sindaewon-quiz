@@ -18,6 +18,7 @@ import {
 import { navigate, getQuery } from "../router.js";
 import { icon, hydrateIcons } from "../lib/icons.js";
 import { studyTabs } from "./english.js";
+import { isCover, coverItem, coverToggle, bindCover } from "../lib/cover.js";
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
@@ -137,8 +138,10 @@ function cardBody(book, card) {
         <p class="muted small">${icon("graduation-cap")} ${esc(book.a)}</p>
         <p class="muted small">카드 ${bookCards(book).length - 1}장 · 약 ${bookMinutes(book)}분</p>`;
     case "list":
+      if (isCover()) return `<ol class="notes-list cover-list ${card.accent ? "accent" : ""}">${card.items.map((t) => `<li>${coverItem(t)}</li>`).join("")}</ol>`;
       return `<ol class="notes-list ${card.accent ? "accent" : ""}">${card.items.map((t) => `<li>${emph(t)}</li>`).join("")}</ol>`;
     case "people":
+      if (isCover()) return `<ul class="notes-people cover-list">${card.items.map((t) => `<li>${coverItem(t)}</li>`).join("")}</ul>`;
       return `<ul class="notes-people">${card.items.map((t) => `<li>${emph(t)}</li>`).join("")}</ul>`;
     case "verses":
       return `
@@ -235,13 +238,20 @@ export async function renderNoteBook(root, params) {
             <strong>${book.n}</strong>
             <span class="muted small">${card.title} · ${index + 1}/${cards.length}</span>
           </div>
+          ${card.type !== "done" ? coverToggle() : ""}
           ${isRead ? `<span class="notes-read-tag">✓ 읽음</span>` : ""}
         </header>
         <div class="notes-dots" aria-hidden="true">
           ${cards.map((_, i) => `<span class="${i < index ? "past" : i === index ? "now" : ""}"></span>`).join("")}
         </div>
         <article class="card notes-card notes-card-${card.type}">
-          ${card.type === "done" ? doneBody() : `<h3 class="notes-card-title">${card.title}</h3>${cardBody(book, card)}`}
+          ${
+            card.type === "done"
+              ? doneBody()
+              : `<div class="notes-card-head"><h3 class="notes-card-title">${card.title}</h3>${
+                  isCover() && (card.type === "list" || card.type === "people") ? `<button type="button" class="cover-all" data-cover-all>전부 보기</button>` : ""
+                }</div>${cardBody(book, card)}`
+          }
         </article>
         ${
           card.type === "done"
@@ -259,6 +269,7 @@ export async function renderNoteBook(root, params) {
         btn.setAttribute("aria-expanded", String(!open));
       });
     });
+    bindCover(root, render);
     root.querySelectorAll("[data-nav]").forEach((btn) => {
       btn.addEventListener("click", () => go(btn.dataset.nav));
     });

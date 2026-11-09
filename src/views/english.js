@@ -11,6 +11,7 @@ import { VOCAB_DAY_TRACKS } from "../data/study-curriculum.js";
 import { getVocabState, gradeWord, dueWords, vocabSummary, MASTERED_BOX, getDeck, setDeck } from "../storage/vocab-cards.js";
 import { navigate, getQuery } from "../router.js";
 import { icon, hydrateIcons } from "../lib/icons.js";
+import { isCover, coverItem, coverToggle, bindCover } from "../lib/cover.js";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const split = (s) => {
@@ -229,13 +230,15 @@ export async function renderWords(root) {
 
 /* ───────────── 문법 · 요령 카드 ───────────── */
 
-function deckCard(item) {
+function deckCard(item, coverable = false) {
+  const cover = coverable && isCover();
   const list = (arr, cls, mark) =>
     arr?.length ? `<ul class="eng-ex ${cls}">${arr.map((x) => `<li><span class="eng-mark">${mark}</span>${esc(x)}</li>`).join("")}</ul>` : "";
   return `
     ${item.x ? `<p class="notes-group-label">${esc(item.x)}</p>` : ""}
     <h3 class="notes-card-title eng-title">${esc(item.t)}</h3>
-    <ol class="notes-list">${item.r.map((x) => `<li>${esc(x)}</li>`).join("")}</ol>
+    ${cover ? `<div class="notes-card-head"><span></span><button type="button" class="cover-all" data-cover-all>전부 보기</button></div>` : ""}
+    <ol class="notes-list ${cover ? "cover-list" : ""}">${item.r.map((x) => `<li>${cover ? coverItem(x) : esc(x)}</li>`).join("")}</ol>
     ${list(item.ok, "ok", "✓")}
     ${list(item.ng, "ng", "✗")}
     ${item.trap ? `<p class="eng-trap"><strong>함정</strong> ${esc(item.trap)}</p>` : ""}
@@ -263,6 +266,7 @@ const DECK_FINISH = {
 
 export function renderDeck(root, name, title, items, back = "#/english") {
   let index = Math.min(getDeck(name).pos, items.length - 1);
+  const coverable = name === "topics"; // 인물·연대 목록만 가리기가 의미 있다
 
   function render() {
     const done = index >= items.length;
@@ -275,6 +279,7 @@ export function renderDeck(root, name, title, items, back = "#/english") {
             <strong>${title}</strong>
             <span class="muted small">${done ? "완료" : `${index + 1}/${items.length}`}</span>
           </div>
+          ${coverable && !done ? coverToggle() : ""}
         </header>
         <div class="notes-dots" aria-hidden="true">
           ${items.map((_, i) => `<span class="${i < index ? "past" : i === index ? "now" : ""}"></span>`).join("")}
@@ -291,7 +296,7 @@ export function renderDeck(root, name, title, items, back = "#/english") {
                     <a class="btn btn-ghost btn-block" href="${back}">돌아가기</a>
                   </div>
                 </div>`
-              : deckCard(items[index])
+              : deckCard(items[index], coverable)
           }
         </article>
         ${
@@ -306,6 +311,7 @@ export function renderDeck(root, name, title, items, back = "#/english") {
     root.querySelectorAll(".notes-reveal").forEach((btn) =>
       btn.addEventListener("click", () => btn.setAttribute("aria-expanded", String(btn.getAttribute("aria-expanded") !== "true")))
     );
+    bindCover(root, render);
     root.querySelectorAll("[data-nav]").forEach((btn) =>
       btn.addEventListener("click", () => {
         if (btn.dataset.nav === "next") index += 1;
