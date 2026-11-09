@@ -253,11 +253,26 @@ function grammarCoverCard(item) {
     ${item.trap ? `<div class="cover-list">${coverPair("함정", item.trap, "trap")}</div>` : ""}`;
 }
 
-function deckCard(item, coverable = false) {
+/** 예시 "A → B", "A = B"는 왼쪽을 단서로, 나머지는 '예시'로 가린다 */
+function exampleCover(x) {
+  const m = x.match(/^(.{1,40}?)\s*(→|=)\s*(.+)$/);
+  return m ? coverPair(`${m[1]} ${m[2]}`, m[3], "ok") : coverPair("예시", x, "ok");
+}
+
+/** 유형별 요령 가리기: 요령은 앞부분을 단서로, 예시는 왼쪽만, 함정은 통째로 */
+function tipsCoverCard(item) {
+  return `
+    <h3 class="notes-card-title eng-title">${esc(item.t)}</h3>
+    <div class="notes-card-head"><span class="muted small">단서를 보고 요령을 먼저 떠올리세요</span><button type="button" class="cover-all" data-cover-all>전부 보기</button></div>
+    <ol class="notes-list cover-list">${item.r.map((x) => `<li>${coverItem(x)}</li>`).join("")}</ol>
+    ${item.ok?.length ? `<ul class="notes-list cover-list cover-ok">${item.ok.map((x) => `<li>${exampleCover(x)}</li>`).join("")}</ul>` : ""}
+    ${item.trap ? `<div class="cover-list cover-ok">${coverPair("함정", item.trap, "trap")}</div>` : ""}`;
+}
+
+function deckCard(item, coverable = false, kind = "") {
   const cover = coverable && isCover();
-  if (cover && item.ng !== undefined) {
-    return grammarCoverCard(item) + selfChecks(item);
-  }
+  if (cover && kind === "grammar") return grammarCoverCard(item) + selfChecks(item);
+  if (cover && kind === "tips") return tipsCoverCard(item) + selfChecks(item);
   const list = (arr, cls, mark) =>
     arr?.length ? `<ul class="eng-ex ${cls}">${arr.map((x) => `<li><span class="eng-mark">${mark}</span>${esc(x)}</li>`).join("")}</ul>` : "";
   return `
@@ -296,7 +311,7 @@ const DECK_FINISH = {
 
 export function renderDeck(root, name, title, items, back = "#/english") {
   let index = Math.min(getDeck(name).pos, items.length - 1);
-  const coverable = name === "topics" || name === "grammar"; // 목록·문법 카드만 가린다
+  const coverable = name === "topics" || name === "grammar" || name === "tips"; // 면접 카드만 빼고 가린다
 
   function render() {
     const done = index >= items.length;
@@ -326,7 +341,7 @@ export function renderDeck(root, name, title, items, back = "#/english") {
                     <a class="btn btn-ghost btn-block" href="${back}">돌아가기</a>
                   </div>
                 </div>`
-              : deckCard(items[index], coverable)
+              : deckCard(items[index], coverable, name)
           }
         </article>
         ${

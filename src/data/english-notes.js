@@ -190,10 +190,10 @@ export const TIPS = [
   {
     t: "동의어·반의어 — 가장 많이 나오는 유형",
     r: [
-      "2020–22 영어 89문항 중 30문항 이상이 동의어·반의어·뜻 고르기",
-      "문제를 끝까지 읽는다: 'not synonymous'(동의어가 아닌 것), 'against'(반대)",
-      "보기에 정답의 반의어가 함께 나오는 경우가 많다 (enmity: hostility ↔ amity)",
-      "모르는 단어는 접두사로: re-(다시) revive, ex-(밖) expulsion, mal-(나쁜), bene-(좋은)",
+      "비중 — 2020–22 영어 89문항 중 30문항 이상이 동의어·반의어·뜻 고르기",
+      "문제 끝까지 — 'not synonymous'(동의어가 아닌 것), 'against'(반대)를 놓치지 않는다",
+      "반의어 함정 — 보기에 정답의 반의어가 함께 나오는 경우가 많다 (enmity → hostility ↔ amity)",
+      "모르는 단어 — 접두사로 추측: re-(다시) revive, ex-(밖) expulsion, mal-(나쁜), bene-(좋은)",
     ],
     ok: ["succumb → yield", "biased → prejudiced", "thwarted → frustrated", "commend → recommend"],
     trap: "content는 '만족한'(satisfied), sojourn은 '머무르다'(tarry, stay)",
@@ -202,12 +202,12 @@ export const TIPS = [
   {
     t: "단어 관계(유추) — 관계를 문장으로 만든다",
     r: [
-      "A : B 관계를 한 문장으로 말한 뒤 같은 문장에 보기를 넣어 본다",
-      "행동 주체: 백조는 이주한다(migrate:swan) = 마멋은 겨울잠 잔다(hibernate:groundhog)",
-      "감정→표정: 경멸은 비웃음(contempt:sneer) = 불쾌는 찡그림(displeasure:frown)",
-      "학문→대상: botany:plants = meteorology:weather",
-      "못 함: illegible(읽을 수 없는) : read = invisible : see",
-      "정도: careful → picky(지나침) = tired → exhausted",
+      "먼저 할 일 — A와 B의 관계를 한 문장으로 말한 뒤 같은 문장에 보기를 넣어 본다",
+      "행동 주체 — 백조는 이주한다(migrate:swan) = 마멋은 겨울잠 잔다(hibernate:groundhog)",
+      "감정→표정 — 경멸은 비웃음(contempt:sneer) = 불쾌는 찡그림(displeasure:frown)",
+      "학문→대상 — botany:plants = meteorology:weather",
+      "할 수 없음 — illegible(읽을 수 없는):read = invisible:see",
+      "정도 차이 — careful → picky(지나침) = tired → exhausted",
     ],
     ok: ["homage–disdain(존경–경멸) = respect–despise"],
     trap: "관계 문장이 두 개 이상 맞으면 더 구체적인 관계로 좁힌다",
@@ -216,9 +216,9 @@ export const TIPS = [
   {
     t: "빈칸 두 개 — 하나로 먼저 지운다",
     r: [
-      "확실한 빈칸 하나로 보기를 먼저 지운다 (둘 다 맞아야 정답)",
-      "문장 안의 단서: but/though(반대), and(같은 방향), so(결과)",
-      "'not only A; she ___ him' → 더 강한 말 (respected → revered)",
+      "순서 — 확실한 빈칸 하나로 보기를 먼저 지운다 (둘 다 맞아야 정답)",
+      "문장 속 단서 — but/though(반대), and(같은 방향), so(결과)",
+      "not only A — 뒤 빈칸에는 더 강한 말 (respected → revered)",
     ],
     ok: ["Hope deferred makes the heart sick, but a longing fulfilled is a tree of life. (잠 13:12)"],
     trap: "한 빈칸만 그럴듯한 보기가 함정",
@@ -227,9 +227,9 @@ export const TIPS = [
   {
     t: "성경 영어 — ESV 구절 빈칸",
     r: [
-      "유명 구절의 영어 단어가 빈칸으로 나온다",
-      "기출: approved(딤후 2:15) · covet(출 20:17) · Whoever(요 7:38) · heir(잠 29:21) · deferred/fulfilled(잠 13:12) · persecuted, but not abandoned(고후 4:9) · on things above(골 3:2)",
-      "앱 '성경 영어' 120문항이 같은 유형이다",
+      "출제 방식 — 유명 구절의 영어 단어가 빈칸으로 나온다",
+      "기출 단어 — approved(딤후 2:15) · covet(출 20:17) · Whoever(요 7:38) · heir(잠 29:21) · deferred/fulfilled(잠 13:12) · persecuted, but not abandoned(고후 4:9) · on things above(골 3:2)",
+      "연습 — 앱 '성경 영어' 120문항이 같은 유형이다",
     ],
     ok: ["Set your mind on things that are above, not on things that are on earth. (골 3:2)"],
     trap: "철자가 비슷한 보기 (heir/hair/air/era, approved/appeased/appalled)",
@@ -238,10 +238,10 @@ export const TIPS = [
   {
     t: "독해 — 질문 먼저, 근거 문장 찾기",
     r: [
-      "질문과 보기를 먼저 읽고 무엇을 찾을지 정한다",
-      "밑줄 단어의 뜻 문제는 앞뒤 문장에서 바꿔 쓴 말을 찾는다 (beneficial ↔ disadvantageous)",
-      "전체를 해석하려 하지 말고 근거 문장 하나를 찾는다",
-      "시간: 필답 130분에 성경 50 + 영어 약 30 → 영어는 문항당 1분 안쪽",
+      "순서 — 질문과 보기를 먼저 읽고 무엇을 찾을지 정한다",
+      "밑줄 단어 — 앞뒤 문장에서 바꿔 쓴 말을 찾는다 (beneficial ↔ disadvantageous)",
+      "해석 범위 — 전체를 해석하려 하지 말고 근거 문장 하나를 찾는다",
+      "시간 — 필답 130분에 성경 50 + 영어 약 30 → 영어는 문항당 1분 안쪽",
     ],
     ok: ["prompted = caused to happen", "eliminate = get rid of", "delineating = describing in detail"],
     trap: "본문에 나온 단어를 그대로 쓴 보기가 오히려 오답인 경우가 많다",
