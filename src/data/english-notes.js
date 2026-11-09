@@ -225,7 +225,7 @@ export const TIPS = [
     q: ["I refuse to ___ behavior that is wicked or ___.|condone – dissolute (용납하다 – 방탕한)"],
   },
   {
-    t: "성경 영어 — ESV 구절 빈칸",
+    t: "성경 영어 — 영어 성경(ESV·NIV) 구절 빈칸",
     r: [
       "출제 방식 — 유명 구절의 영어 단어가 빈칸으로 나온다",
       "기출 단어 — approved(딤후 2:15) · covet(출 20:17) · Whoever(요 7:38) · heir(잠 29:21) · deferred/fulfilled(잠 13:12) · persecuted, but not abandoned(고후 4:9) · on things above(골 3:2)",

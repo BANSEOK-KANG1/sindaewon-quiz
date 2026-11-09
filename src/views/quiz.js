@@ -1257,7 +1257,7 @@ function renderFlashFront(session, q, modeLabel, pct) {
       <p class="flash-reveal-hint muted">탭해서 정답 보기</p>
       <div class="flash-back hidden">
         <p>${escapeHtml(hasAnswer(q) ? formatAnswer(q) : "정답 미수록")}</p>
-        ${q.explanation ? `<p class="muted small">${escapeHtml(q.explanation)}</p>` : ""}
+        ${q.explanation ? `<p class="muted small">${escapeHtml(q.explanation).replace(/\n/g, "<br>")}</p>` : ""}
         ${renderChoiceNotesHtml(q)}
       </div>
     </button>

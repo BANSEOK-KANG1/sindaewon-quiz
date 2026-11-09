@@ -98,6 +98,27 @@ function fallbackExplanation(question) {
   return `정답은 ‘${answer}’입니다. ${sourceLabel(question)}를 바탕으로 회상한 뒤 정답과 대조하세요.`;
 }
 
+// 공부용 해설 (근거 장절·배경·오답 뜻) — scripts/explanations/*.json 의 { id: 해설 }
+const EXPLANATION_DIR = path.join(ROOT, "scripts/explanations");
+const STUDY_NOTES = fs.existsSync(EXPLANATION_DIR)
+  ? Object.assign(
+      {},
+      ...fs
+        .readdirSync(EXPLANATION_DIR)
+        .filter((f) => f.endsWith(".json") && !f.startsWith("._"))
+        .map((f) => JSON.parse(fs.readFileSync(path.join(EXPLANATION_DIR, f), "utf8")))
+    )
+  : {};
+
+function withStudyNote(question) {
+  const note = STUDY_NOTES[question.id];
+  if (!note) return question;
+  const base = String(question.explanation || "").split("\n📖 ")[0];
+  question.explanation = `${base}\n📖 ${note}`;
+  question.tags = [...new Set([...(question.tags || []), "해설있음"])];
+  return question;
+}
+
 function curateQuestion(raw) {
   const question = { ...raw };
   if (question.source === "hwp-exam-2020-2022") {
@@ -120,7 +141,7 @@ function curateQuestion(raw) {
 }
 
 function curateList(questions) {
-  return questions.filter((question) => !EXCLUDED_IDS.has(question.id)).map(curateQuestion);
+  return questions.filter((question) => !EXCLUDED_IDS.has(question.id)).map(curateQuestion).map(withStudyNote);
 }
 
 function writeJson(target, data) {
