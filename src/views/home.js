@@ -16,6 +16,7 @@ import { navigate } from "../router.js";
 import {
   getTodayProgress,
   getWrongNotes,
+  dueWrongNotes,
   getStudyStats,
   getExposureCounts,
   getPlanProgress,
@@ -33,6 +34,7 @@ export async function renderHome(root) {
   const jangsin = questions.filter((q) => q.seminary === "jangsin").length;
   const vocab = questions.filter((q) => q.tags?.includes("단어장300")).length;
   const wrong = getWrongNotes().length;
+  const wrongDue = dueWrongNotes().length;
   const stats = getStudyStats();
   const exposure = getExposureCounts();
   const vocabDay = suggestVocabDay(questions, exposure);
@@ -84,7 +86,7 @@ export async function renderHome(root) {
     <section class="home-stat-strip" aria-label="학습 현황">
       <div><span class="stat-icon">${icon("flame")}</span><p><strong>${today.streak}일</strong><span>연속 학습</span></p></div>
       <div><span class="stat-icon">${icon("check-circle-2")}</span><p><strong>${(stats.totalCorrect || 0).toLocaleString("ko-KR")}</strong><span>누적 정답</span></p></div>
-      <div><span class="stat-icon">${icon("notebook-pen")}</span><p><strong>${wrong}</strong><span>복습할 오답</span></p></div>
+      <div><span class="stat-icon">${icon("notebook-pen")}</span><p><strong>${wrongDue}</strong><span>오늘 오답${wrong > wrongDue ? ` · 전체 ${wrong}` : ""}</span></p></div>
     </section>
 
     <section class="english-spotlight">
@@ -147,7 +149,7 @@ export async function renderHome(root) {
       </a>
       <a class="mode-card" href="${wrong ? "#/wrong-note" : "#/quiz?mode=exam&tags=기출&subject=성경&seminary=chongshin&count=20&auto=1"}">
         <span class="mode-icon">${icon(wrong ? "notebook-pen" : "file-check-2")}</span><span class="mode-kicker">${wrong ? "오답" : "기출"}</span>
-        <strong>${wrong ? `틀린 ${wrong}건` : "기출 시험 20"}</strong>
+        <strong>${wrong ? (wrongDue ? `오늘 ${wrongDue}건` : "오늘 끝") : "기출 시험 20"}</strong>
         <span>${wrong ? "다시 풀기" : "총신 통합"}</span>
       </a>
     </section>

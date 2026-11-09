@@ -28,7 +28,8 @@ import { getQuery, navigate } from "../router.js";
 import { firstUnread } from "../storage/notes-progress.js";
 import {
   addWrongNote,
-  removeWrongNote,
+  markWrongCorrect,
+  wrongPriority,
   getQuizSession,
   saveQuizSession,
   clearQuizSession,
@@ -282,10 +283,13 @@ export async function renderQuiz(root) {
   }
 
   function startWrongSession(ids, count, extra = {}) {
-    const idSet = new Set(ids);
-    const pool = shuffle(questions.filter((x) => idSet.has(x.id))).slice(0, count || undefined);
+    // ids 순서(우선순위)대로 자른 뒤 섞는다
+    const byId = new Map(questions.map((x) => [x.id, x]));
+    const picked = ids.map((id) => byId.get(id)).filter(Boolean).slice(0, count || undefined);
+    const pool = shuffle(picked);
     if (!pool.length) return false;
-    startSession(pool, "study", { countForToday: false, source: "wrong", ...extra });
+    const { mode = "study", ...rest } = extra;
+    startSession(pool, mode, { countForToday: false, source: "wrong", ...rest });
     return true;
   }
 
@@ -306,7 +310,7 @@ export async function renderQuiz(root) {
     const extra = { planStep, planLabel: step.label, countForToday: true };
 
     if (step.kind === "wrong") {
-      const ids = getWrongNotes().map((n) => n.questionId);
+      const ids = wrongPriority().map((n) => n.questionId);
       if (startWrongSession(ids, step.count, extra)) return;
       setPlanStepDone(planStep, true, { skipped: "오답 없음" });
       startPlanStep("next");
@@ -386,7 +390,7 @@ export async function renderQuiz(root) {
         const fromWrong = btn.dataset.fromWrong === "1";
 
         if (fromWrong) {
-          if (!startWrongSession(getWrongNotes().map((n) => n.questionId), count)) alert("오답이 없습니다.");
+          if (!startWrongSession(wrongPriority().map((n) => n.questionId), count)) alert("오답이 없습니다.");
           return;
         }
 
@@ -478,7 +482,7 @@ export async function renderQuiz(root) {
       ids = [];
     }
     sessionStorage.removeItem(WRONG_QUIZ_KEY);
-    if (!startWrongSession(ids)) {
+    if (!startWrongSession(ids, 0, { mode: q.get("style") === "flash" ? "flash" : "study" })) {
       root.innerHTML = `<p class="empty">오답 퀴즈를 시작할 문제가 없습니다.</p>
         <a class="btn btn-primary" href="#/wrong-note">오답노트로</a>`;
       root.querySelector("a")?.addEventListener("click", (e) => {
@@ -1174,6 +1178,7 @@ function renderActive(root, session, allQuestions, onFinish) {
 
 function commitAnswer(session, q, selected, correct, root, allQuestions, onFinish) {
   const unanswered = !hasAnswer(q);
+  let wrongMove = null;
   session.answers.push({ questionId: q.id, selected, correct: unanswered ? true : correct, unanswered });
   recordQuestionAttempt(q.id, { correct: unanswered ? true : correct, unanswered });
   if (unanswered) {
@@ -1183,7 +1188,7 @@ function commitAnswer(session, q, selected, correct, root, allQuestions, onFinis
     session.score += 1;
     session.combo = (session.combo || 0) + 1;
     session.bestCombo = Math.max(session.bestCombo || 0, session.combo);
-    removeWrongNote(q.id);
+    wrongMove = markWrongCorrect(q.id);
   } else {
     session.combo = 0;
     addWrongNote({
@@ -1214,7 +1219,7 @@ function commitAnswer(session, q, selected, correct, root, allQuestions, onFinis
   }
 
   session.phase = "feedback";
-  session.lastResult = { correct: unanswered ? true : correct, selected, unanswered };
+  session.lastResult = { correct: unanswered ? true : correct, selected, unanswered, wrongMove };
   saveQuizSession(session);
   renderActive(root, session, allQuestions, onFinish);
 }
@@ -1269,12 +1274,13 @@ function renderFlashFront(session, q, modeLabel, pct) {
 }
 
 function renderFeedback(session, q, modeLabel, pctDone) {
-  const { correct, selected, unanswered } = session.lastResult;
+  const { correct, selected, unanswered, wrongMove } = session.lastResult;
   const showExplain = (session.mode || "study") !== "exam" || !correct || unanswered;
   return `
     ${renderHud(session, modeLabel, Math.round(((session.index + 1) / session.total) * 100))}
     <article class="card feedback-card ${unanswered ? "" : correct ? "is-correct" : "is-wrong"} feedback-pop">
       <p class="feedback-emoji">${unanswered ? "열람" : correct ? "맞아요" : "아쉬워요"}</p>
+      ${!unanswered ? wrongMoveHtml(correct, wrongMove) : ""}
       <p class="question-title small-q">${escapeHtml(q.question)}</p>
       <p><span class="muted">정답</span> · <strong>${escapeHtml(unanswered || !hasAnswer(q) ? "정답 미수록 (정답지 대기)" : formatAnswer(q))}</strong></p>
       ${
@@ -1293,6 +1299,21 @@ function renderFeedback(session, q, modeLabel, pctDone) {
       }</button>
     </article>
   `;
+}
+
+/** 오답노트 단계 안내 한 줄 */
+function wrongMoveHtml(correct, move) {
+  if (!correct) return `<p class="wrong-move">오답노트에 넣었어요 · 오늘 안에 한 번 더</p>`;
+  if (!move) return "";
+  if (move.graduated) return `<p class="wrong-move is-done">오답노트 졸업 🎓</p>`;
+  if (move.same) return `<p class="wrong-move">오늘은 이미 맞혔어요 · ${shortDate(move.due)}에 다시</p>`;
+  return `<p class="wrong-move is-up">오답 ${move.stage}/3 단계 · ${shortDate(move.due)}에 다시</p>`;
+}
+
+function shortDate(key) {
+  if (!key) return "";
+  const [, m, d] = key.split("-").map(Number);
+  return `${m}/${d}`;
 }
 
 function renderResult(session, next = null) {

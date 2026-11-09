@@ -3,6 +3,7 @@
  * 무엇을 할지는 사용자가 고른다. 날짜별 예시 일정은 #/plan/daily.
  */
 import { loadQuestions } from "../data/questions.js";
+import { dueWrongNotes } from "../storage/progress.js";
 import { buildTracks, pace, recommended, wrongCount, EXAM_DATE } from "../data/progress-model.js";
 import { dDay, toDateKey } from "../data/daily-plan.js";
 import { navigate } from "../router.js";
@@ -91,7 +92,7 @@ export async function renderProgress(root) {
       wrong
         ? `<a class="card notes-review-cta" href="#/wrong-note">
             <span class="stat-icon">${icon("notebook-pen")}</span>
-            <span><strong>오답 ${wrong}개</strong><span class="muted small">진도 %에는 안 들어가요 · 틈날 때 비우기</span></span>
+            <span><strong>오답 ${wrong}개</strong><span class="muted small">오늘 복습 ${dueWrongNotes().length}개 · 진도 %에는 안 들어가요</span></span>
             ${icon("chevron-right")}
           </a>`
         : ""

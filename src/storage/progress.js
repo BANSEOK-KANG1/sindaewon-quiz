@@ -2,6 +2,7 @@ const PREFIX = "sindaewon-quiz:";
 
 const KEYS = {
   wrongNotes: `${PREFIX}wrong-notes`,
+  wrongGraduated: `${PREFIX}wrong-graduated`,
   bookmarks: `${PREFIX}bookmarks`,
   quizSession: `${PREFIX}quiz-session`,
   collection: `${PREFIX}collection-checklist`,
@@ -33,14 +34,72 @@ export function getWrongNotes() {
   return read(KEYS.wrongNotes, []);
 }
 
+/**
+ * 오답 간격 복습: 틀리면 오늘 바로 다시 → 맞히면 1일 뒤 → 3일 뒤 → 한 번 더 맞히면 졸업.
+ * 하루에 한 번만 단계가 오른다(같은 날 연달아 맞혀도 '아는 것'으로 치지 않음).
+ */
+export const WRONG_STAGES = 3;
+const WRONG_GAPS = [0, 1, 3];
+
+function addDays(key, n) {
+  const [y, m, d] = key.split("-").map(Number);
+  const dt = new Date(y, m - 1, d + n);
+  return `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+}
+
 export function addWrongNote(entry) {
   const list = getWrongNotes();
   const existing = list.findIndex((e) => e.questionId === entry.questionId);
   const missCount = (existing >= 0 ? list[existing].missCount || 1 : 0) + 1;
-  const item = { ...entry, missCount, updatedAt: Date.now() };
-  if (existing >= 0) list[existing] = item;
-  else list.unshift(item);
-  write(KEYS.wrongNotes, list.slice(0, 500));
+  const item = { ...entry, missCount, stage: 0, due: todayKey(), lastCorrect: null, updatedAt: Date.now() };
+  if (existing >= 0) list.splice(existing, 1);
+  list.unshift(item);
+  write(KEYS.wrongNotes, list.slice(0, 800));
+}
+
+/** 오답노트 문항을 맞혔을 때. 반환: null(오답 아님) | {stage, due, graduated, same} */
+export function markWrongCorrect(questionId) {
+  const list = getWrongNotes();
+  const i = list.findIndex((e) => e.questionId === questionId);
+  if (i < 0) return null;
+  const n = list[i];
+  const today = todayKey();
+  if (n.lastCorrect === today) return { stage: n.stage || 0, due: n.due, graduated: false, same: true };
+  const stage = (n.stage || 0) + 1;
+  if (stage >= WRONG_STAGES) {
+    list.splice(i, 1);
+    write(KEYS.wrongNotes, list);
+    write(KEYS.wrongGraduated, (read(KEYS.wrongGraduated, 0) || 0) + 1);
+    return { stage, due: null, graduated: true, same: false };
+  }
+  list[i] = { ...n, stage, due: addDays(today, WRONG_GAPS[stage]), lastCorrect: today, updatedAt: Date.now() };
+  write(KEYS.wrongNotes, list);
+  return { stage, due: list[i].due, graduated: false, same: false };
+}
+
+/** 오늘 복습할 오답 (due가 오늘 이전). 옛 기록은 due가 없으므로 바로 복습 대상. */
+export function isWrongDue(n, today = todayKey()) {
+  return !n.due || n.due <= today;
+}
+
+export function dueWrongNotes() {
+  const today = todayKey();
+  return getWrongNotes().filter((n) => isWrongDue(n, today));
+}
+
+/** 복습 우선순위: 오늘 차례 → 많이 틀린 것 → 오래된 것 */
+export function wrongPriority(list = getWrongNotes()) {
+  const today = todayKey();
+  return [...list].sort(
+    (a, b) =>
+      Number(isWrongDue(b, today)) - Number(isWrongDue(a, today)) ||
+      (b.missCount || 1) - (a.missCount || 1) ||
+      (a.updatedAt || 0) - (b.updatedAt || 0)
+  );
+}
+
+export function wrongGraduatedCount() {
+  return read(KEYS.wrongGraduated, 0) || 0;
 }
 
 export function removeWrongNote(questionId) {

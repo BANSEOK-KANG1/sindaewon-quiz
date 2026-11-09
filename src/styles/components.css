@@ -2597,3 +2597,30 @@
 .cover-item.trap .cover-head { color: var(--accent); }
 .eng-ex.ng.cover-ng li { text-decoration: none; }
 .notes-card ol.cover-list, .notes-card ul.cover-list { list-style: none; padding-left: 0; }
+
+/* —— 오답노트 v2: 간격 복습 —— */
+.wrong-summary { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; padding: 0.9rem 0.5rem; margin-bottom: 0.75rem; }
+.wrong-summary strong { display: block; font-size: 1.5rem; line-height: 1.1; }
+.wrong-summary span { font-size: 0.75rem; color: var(--muted); }
+.wrong-summary div:first-child strong { color: var(--primary); }
+.wrong-actions { display: grid; gap: 0.5rem; margin-bottom: 0.9rem; }
+.wrong-actions .center { text-align: center; margin: 0; }
+.wrong-clear { text-align: center; font-weight: 600; margin-bottom: 0.9rem; }
+.wrong-books { padding-top: 0; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.wrong-books .chip-btn { flex: 0 0 auto; }
+.wrong-list-head { display: flex; align-items: center; justify-content: space-between; margin-top: 0.25rem; }
+.wrong-list { margin-top: 0.5rem; }
+.wrong-item.is-due { border-left: 3px solid var(--primary); }
+.wrong-stage { display: inline-flex; gap: 3px; }
+.wrong-stage i { width: 7px; height: 7px; border-radius: 50%; background: var(--border, #d0d5dd); }
+.wrong-stage i.on { background: var(--success); }
+.wrong-choices { margin: 0 0 0.5rem; padding-left: 1.4rem; font-size: 0.9rem; list-style: none; counter-reset: wc; }
+.wrong-choices li { counter-increment: wc; position: relative; margin: 0.1rem 0; }
+.wrong-choices li::before { content: counter(wc, decimal) "."; position: absolute; left: -1.3rem; color: var(--muted); font-size: 0.8rem; }
+.wrong-expl { margin: 0.4rem 0 0; font-size: 0.85rem; line-height: 1.55; color: var(--text); background: var(--primary-soft); border-radius: 8px; padding: 0.5rem 0.6rem; }
+.wrong-cover { display: block; width: 100%; text-align: left; cursor: pointer; }
+.wrong-cover[aria-expanded="true"] { background: transparent; }
+.wrong-cover[aria-expanded="true"] .cover-tail { display: block; }
+.wrong-move { margin: 0 0 0.4rem; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
+.wrong-move.is-up { color: var(--success); }
+.wrong-move.is-done { color: var(--primary); }
