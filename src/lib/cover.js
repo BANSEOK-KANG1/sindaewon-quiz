@@ -43,6 +43,15 @@ export function coverItem(text) {
   </button>`;
 }
 
+/** 단서를 직접 정한 가리기 항목 (문법 카드용) */
+export function coverPair(head, tail, cls = "") {
+  return `<button type="button" class="cover-item ${cls}" aria-expanded="false">
+    <strong class="cover-head">${esc(head)}</strong>
+    <span class="cover-tail">${esc(tail)}</span>
+    <span class="cover-mask" aria-hidden="true">떠올리고 탭</span>
+  </button>`;
+}
+
 /** 가리기 토글 버튼 */
 export function coverToggle() {
   const on = isCover();

@@ -11,7 +11,7 @@ import { VOCAB_DAY_TRACKS } from "../data/study-curriculum.js";
 import { getVocabState, gradeWord, dueWords, vocabSummary, MASTERED_BOX, getDeck, setDeck } from "../storage/vocab-cards.js";
 import { navigate, getQuery } from "../router.js";
 import { icon, hydrateIcons } from "../lib/icons.js";
-import { isCover, coverItem, coverToggle, bindCover } from "../lib/cover.js";
+import { isCover, coverItem, coverPair, coverToggle, bindCover } from "../lib/cover.js";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const split = (s) => {
@@ -230,8 +230,34 @@ export async function renderWords(root) {
 
 /* ───────────── 문법 · 요령 카드 ───────────── */
 
+/**
+ * 문법 카드 가리기: 틀린 문장(✗)만 보여 주고 "어디가 틀렸나?"를 먼저 생각하게 한 뒤,
+ * 규칙 · 맞는 문장(✓) · 함정을 하나씩 탭해서 확인한다.
+ */
+function grammarCoverCard(item) {
+  return `
+    ${item.x ? `<p class="notes-group-label">${esc(item.x)}</p>` : ""}
+    <h3 class="notes-card-title eng-title">${esc(item.t)}</h3>
+    <div class="notes-card-head"><span class="muted small">틀린 문장을 보고 이유와 고친 문장을 떠올리세요</span><button type="button" class="cover-all" data-cover-all>전부 보기</button></div>
+    ${
+      item.ng?.length
+        ? `<ul class="eng-ex ng cover-ng">${item.ng.map((x) => `<li><span class="eng-mark">✗</span>${esc(x)}</li>`).join("")}</ul>`
+        : ""
+    }
+    <ol class="notes-list cover-list">${item.r.map((x, i) => `<li>${coverPair(`규칙 ${i + 1}`, x)}</li>`).join("")}</ol>
+    ${
+      item.ok?.length
+        ? `<ul class="notes-list cover-list cover-ok">${item.ok.map((x, i) => `<li>${coverPair(`✓ 맞는 문장 ${item.ok.length > 1 ? i + 1 : ""}`.trim(), x, "ok")}</li>`).join("")}</ul>`
+        : ""
+    }
+    ${item.trap ? `<div class="cover-list">${coverPair("함정", item.trap, "trap")}</div>` : ""}`;
+}
+
 function deckCard(item, coverable = false) {
   const cover = coverable && isCover();
+  if (cover && item.ng !== undefined) {
+    return grammarCoverCard(item) + selfChecks(item);
+  }
   const list = (arr, cls, mark) =>
     arr?.length ? `<ul class="eng-ex ${cls}">${arr.map((x) => `<li><span class="eng-mark">${mark}</span>${esc(x)}</li>`).join("")}</ul>` : "";
   return `
@@ -242,7 +268,11 @@ function deckCard(item, coverable = false) {
     ${list(item.ok, "ok", "✓")}
     ${list(item.ng, "ng", "✗")}
     ${item.trap ? `<p class="eng-trap"><strong>함정</strong> ${esc(item.trap)}</p>` : ""}
-    ${
+    ${selfChecks(item)}`;
+}
+
+function selfChecks(item) {
+  return `${
       item.q?.length
         ? `<ul class="notes-checks">${item.q
             .map(split)
@@ -266,7 +296,7 @@ const DECK_FINISH = {
 
 export function renderDeck(root, name, title, items, back = "#/english") {
   let index = Math.min(getDeck(name).pos, items.length - 1);
-  const coverable = name === "topics"; // 인물·연대 목록만 가리기가 의미 있다
+  const coverable = name === "topics" || name === "grammar"; // 목록·문법 카드만 가린다
 
   function render() {
     const done = index >= items.length;

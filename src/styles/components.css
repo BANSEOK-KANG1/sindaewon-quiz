@@ -2590,3 +2590,10 @@
 .cover-item[aria-expanded="true"] .cover-tail { display: inline; }
 .cover-item[aria-expanded="true"] .cover-mask { display: none; }
 .notes-people.cover-list li { border-bottom: 0; padding-bottom: 0; }
+.cover-ng { margin-bottom: 0.75rem; }
+.cover-ng li { text-decoration: none; }
+.cover-ok, .cover-list + .cover-list { margin-top: 0.45rem; }
+.cover-item.ok[aria-expanded="true"] .cover-head { color: var(--success); }
+.cover-item.trap .cover-head { color: var(--accent); }
+.eng-ex.ng.cover-ng li { text-decoration: none; }
+.notes-card ol.cover-list, .notes-card ul.cover-list { list-style: none; padding-left: 0; }
