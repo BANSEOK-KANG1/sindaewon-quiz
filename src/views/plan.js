@@ -106,7 +106,8 @@ export async function renderPlan(root) {
 
   root.innerHTML = `
     <header class="page-header">
-      <h1>학습 계획</h1>
+      <a class="text-link" href="#/plan">← 진도로</a>
+      <h1>날짜별 예시 일정</h1>
       <p class="muted">${formatDateLabel(plan[0].date)} – ${formatDateLabel(plan[plan.length - 1].date)} · ${plan.length}일 · ${totalDone}/${allSteps.length}단계 완료</p>
     </header>
 

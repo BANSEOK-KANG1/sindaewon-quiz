@@ -8,6 +8,7 @@ import { renderQuiz } from "./views/quiz.js";
 import { renderWrongNote } from "./views/wrong-note.js";
 import { renderSources } from "./views/sources.js";
 import { renderPlan } from "./views/plan.js";
+import { renderProgress } from "./views/progress.js";
 import { renderNotes, renderNoteBook, renderReview } from "./views/notes.js";
 import { renderEnglish, renderWords, renderGrammar, renderTips, renderTopics, renderInterview } from "./views/english.js";
 import { hydrateIcons, icon } from "./lib/icons.js";
@@ -20,7 +21,7 @@ const app = document.querySelector("#app");
 
 const NAV = [
   { hash: "#/", label: UI.nav.home, icon: "house" },
-  { hash: "#/plan", label: UI.nav.plan, icon: "calendar-days" },
+  { hash: "#/plan", label: UI.nav.plan, icon: "target" },
   { hash: "#/notes", label: UI.nav.notes, icon: "library-big" },
   { hash: "#/quiz", label: UI.nav.quiz, icon: "circle-play" },
   { hash: "#/wrong-note", label: UI.nav.wrongNote, icon: "notebook-pen" },
@@ -49,8 +50,8 @@ function shell(contentHtml) {
         </nav>
         <div class="sidebar-note">
           ${icon("sparkles")}
-          <p><strong>날짜별 학습 계획</strong><span>총신 11/28까지 하루 단위</span></p>
-          <a href="#/plan">계획 보기 ${icon("chevron-right")}</a>
+          <p><strong>전체 진도</strong><span>11/27까지 100% · 오늘 몇 % 하면 되는지</span></p>
+          <a href="#/plan">진도 보기 ${icon("chevron-right")}</a>
         </div>
       </aside>
       <main class="main" id="view-root">${contentHtml}</main>
@@ -112,8 +113,10 @@ async function renderView(matched) {
       await renderNotes(root);
     } else if (matched.path === "/review") {
       await renderReview(root);
-    } else if (matched.path === "/plan") {
+    } else if (matched.path === "/plan/daily") {
       await renderPlan(root);
+    } else if (matched.path === "/plan") {
+      await renderProgress(root);
     } else {
       await renderHome(root);
     }
@@ -131,6 +134,7 @@ registerRoute("/quiz", () => {});
 registerRoute("/wrong-note", () => {});
 registerRoute("/sources", () => {});
 registerRoute("/plan", () => {});
+registerRoute("/plan/daily", () => {});
 registerRoute("/notes", () => {});
 registerRoute("/notes/:book", () => {});
 registerRoute("/review", () => {});

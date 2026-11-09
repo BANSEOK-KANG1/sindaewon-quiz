@@ -516,7 +516,14 @@ export async function renderQuiz(root) {
       alert("선택한 조건에 맞는 문제가 없습니다.");
       return;
     }
-    const excludeWrong = q.get("fresh") === "1";
+    // unseen=1: 진도 화면에서 시작 — 아직 안 푼 문항부터 (다 풀었으면 전체에서)
+    if (q.get("unseen") === "1") {
+      const stats = getQuestionStats();
+      const seen = getExposureCounts();
+      const fresh = pool.filter((x) => !(stats[x.id]?.attempts || seen[x.id]));
+      if (fresh.length) pool = fresh;
+    }
+    const excludeWrong = q.get("fresh") === "1" || q.get("unseen") === "1";
     startSession(pickQuizPool(pool, Math.min(count, pool.length), { mode, excludeWrong }), mode);
     return;
   }

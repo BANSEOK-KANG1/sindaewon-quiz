@@ -22,6 +22,7 @@ import {
 } from "../storage/progress.js";
 import { icon } from "../lib/icons.js";
 import { syncReadSteps } from "../storage/notes-progress.js";
+import { buildTracks, pace, recommended } from "../data/progress-model.js";
 
 export async function renderHome(root) {
   const questions = await loadQuestions();
@@ -47,41 +48,36 @@ export async function renderHome(root) {
   const isDone = (s) => Boolean(planProgress.done[stepKey(todayPlan.date, s.id)]);
   const planDone = todayPlan ? todayPlan.steps.filter(isDone).length : 0;
   const exam = EXAMS.chongshin;
+  const tracksNow = buildTracks(questions);
+  const pc = pace(tracksNow);
+  const recIds = recommended(tracksNow);
+  const recTracks = tracksNow.filter((t) => recIds.has(t.id));
+  const fmtPct = (n) => `${(Math.round(n * 10) / 10).toFixed(1)}%`;
   const phaseLabel = todayPlan ? PHASES[todayPlan.phase]?.label : "계획 기간 밖";
 
   root.innerHTML = `
     <header class="home-hero-v2">
       <div class="home-hero-copy">
-        <p class="eyebrow">${icon("sparkles")} ${exam.short} ${dDay(todayKey, exam.date)} · ${phaseLabel}</p>
-        <h1>${todayPlan ? todayPlan.title : "오늘 할 공부만 선명하게"}</h1>
-        <p>${todayPlan ? `${todayPlan.preview ? "11/9(월) 시작 · 미리 풀어도 1일차로 기록 · " : ""}${todayPlan.dayNo}일차 · 단계 ${planDone}/${todayPlan.steps.length} · 문항 ${today.answered}/${today.goal} · 약 ${todayPlan.minutes}분` : "전체 계획에서 날짜를 골라 학습하세요."}</p>
-        <div class="progress-track hero-progress" aria-hidden="true"><div class="progress-fill" style="width:${today.pct}%"></div></div>
-        ${
-          todayPlan
-            ? `<ol class="plan-steps">
-                ${todayPlan.steps
-                  .map(
-                    (s) => `<li class="${isDone(s) ? "done" : ""}${next?.step.id === s.id ? " current" : ""}">
-                      <span class="plan-check">${isDone(s) ? "✓" : ""}</span>
-                      <span><strong>${s.label}</strong><span class="muted small"> · ${s.detail}</span></span>
-                    </li>`
-                  )
-                  .join("")}
-              </ol>`
-            : ""
-        }
+        <p class="eyebrow">${icon("sparkles")} ${exam.short} ${dDay(todayKey, exam.date)} · ${pc.daysLeft}일 남음</p>
+        <h1>전체 진도 ${fmtPct(pc.pct)}</h1>
+        <p>${pc.remainingToday <= 0.05 ? `오늘 몫(+${fmtPct(pc.target)})을 채웠어요` : `오늘 <strong>+${fmtPct(pc.remainingToday)}</strong> 더 하면 페이스 유지`} · 오늘 한 것 +${fmtPct(pc.doneToday)} · 하루 평균 약 ${Math.round(pc.minutesPerDay)}분</p>
+        <div class="progress-track hero-progress" aria-hidden="true"><div class="progress-fill" style="width:${pc.pct}%"></div></div>
+        <ol class="plan-steps">
+          ${recTracks
+            .map(
+              (t) => `<li class="current"><span class="plan-check"></span>
+                <span><strong>${t.label}</strong><span class="muted small"> · ${t.done}/${t.total}${t.unit} · 추천</span></span></li>`
+            )
+            .join("")}
+        </ol>
         <div class="hero-actions">
-          ${
-            next
-              ? `<a class="btn btn-primary hero-next" href="#/quiz?plan=next">${icon("circle-play")} ${planDone ? "이어서" : "시작"} · ${next.step.label}</a>`
-              : `<p class="plan-complete">오늘 퀴즈 계획을 모두 끝냈어요</p>`
-          }
-          <a class="btn btn-soft" href="#/plan">${icon("calendar-days")} 전체 계획</a>
+          ${recTracks[0] ? `<a class="btn btn-primary hero-next" href="${recTracks[0].href}">${icon("circle-play")} ${recTracks[0].label} 시작</a>` : ""}
+          <a class="btn btn-soft" href="#/plan">${icon("target")} 전체 진도 · 골라서 하기</a>
         </div>
       </div>
-      <div class="today-ring" style="--progress:${today.pct}" aria-label="오늘 목표 ${today.pct}% 달성">
-        <div><strong>${today.answered}</strong><span>/ ${today.goal}문항</span></div>
-        <p>${today.pct >= 100 ? "목표 달성" : "오늘 진도"}</p>
+      <div class="today-ring" style="--progress:${Math.round(pc.todayRatio)}" aria-label="오늘 목표 ${Math.round(pc.todayRatio)}% 달성">
+        <div><strong>${Math.round(pc.todayRatio)}</strong><span>%</span></div>
+        <p>오늘 목표 대비</p>
       </div>
     </header>
 
