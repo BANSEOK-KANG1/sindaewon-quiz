@@ -1,11 +1,12 @@
 import { BOOKS, BOOK_BY_NAME, GROUPS } from '../data/book-notes/index.js';
-import { readingCards, sessionCards, READING_PATH, CARD_BY_ID, splitLabel } from '../data/commute.js';
+import { readingCards, sessionCards, READING_PATH, CARD_BY_ID, CORE_CARDS, nextCoreCard, splitLabel } from '../data/commute.js';
 import { getReading, readingPreference, rememberPosition, finishReadingCard, finishSession, toggleSaved, readingSaveFailed } from '../storage/commute.js';
 import { icon, hydrateIcons } from '../lib/icons.js';
 import { getQuery } from '../router.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const readUrl = name => `#/read/${encodeURIComponent(name)}`;
+const coreUrl = card => `${readUrl(card.book)}?id=${encodeURIComponent(card.id)}&focus=core`;
 const validRead = state => state.read.filter(id => CARD_BY_ID[id]);
 const savedCards = () => getReading().saved.map(id => CARD_BY_ID[id]).filter(Boolean);
 function bookCount(book, state) { return readingCards(book).filter(c => state.read.includes(c.id)).length; }
@@ -17,6 +18,17 @@ function bookLink(book, state) {
 function storageNote() { return readingSaveFailed() ? '<p class="cr-storage-note" role="status">이 브라우저에 기록을 저장할 수 없어요. 현재 화면에서는 계속 읽을 수 있습니다.</p>' : ''; }
 function previewNodes(book) {
   return readingCards(book)[0].items.slice(0, 3).map((item, i) => `<div class="cr-preview-node"><span>${String(i + 1).padStart(2, '0')}</span><div><small>${esc(item[0] || book.n)}</small><strong>${esc(item[1])}</strong></div></div>`).join('');
+}
+
+function coreSection(state) {
+  const count = CORE_CARDS.filter(card => state.read.includes(card.id)).length;
+  const next = nextCoreCard(state.read);
+  return `<section class="cr-core-section" aria-label="먼저 읽을 핵심 연결"><div class="cr-section-title"><div><p class="cr-eyebrow">성경 70점 목표 · 핵심 읽기 시작</p><h2>먼저 구분할 12가지 연결</h2></div><span class="cr-core-count">${count} / ${CORE_CARDS.length} 읽음</span></div><p class="cr-section-description">창세기 두 장면과 보유 2020년 기출의 10개 개념을 짧게 읽어요. 전체 시험 범위 중 첫 묶음이에요.</p><a class="cr-primary" href="${esc(coreUrl(next || CORE_CARDS[0]))}">${icon('book-open')} ${next ? `다음 핵심 · ${esc(next.title)}` : '12가지 연결 다시 읽기'} ${icon('arrow-right')}</a><details class="cr-core-menu"><summary>12개 주제 펼쳐 보기</summary><ol>${CORE_CARDS.map((card,i) => `<li><a href="${esc(coreUrl(card))}"><span>${String(i+1).padStart(2,'0')}</span><span><strong>${esc(card.title)}</strong><small>${esc(card.book)}</small></span>${state.read.includes(card.id) ? `<span class="cr-core-read">${icon('check')} 읽음</span>` : icon('chevron-right')}</a></li>`).join('')}</ol></details><p class="cr-footnote">한 번에 카드 하나 · 읽은 수는 점수가 아니에요.</p></section>`;
+}
+
+function sourceDetails(card) {
+  if (!card.sources?.length) return '';
+  return `<details class="cr-card-sources"><summary>학습 내용과 본문 근거</summary><p>${esc(card.exam.label)}을 비교·흐름으로 정리했어요.</p><p>내용은 학습용 요약이며, 아래 링크는 본문 확인용 영문 성경(NIV)이에요.</p><ul>${card.sources.map(source => `<li><a href="${esc(source.url)}" target="_blank" rel="noopener noreferrer">${esc(source.label)} ${icon('external-link')}</a></li>`).join('')}</ul></details>`;
 }
 
 export async function renderCommuteHome(root) {
@@ -38,6 +50,7 @@ export async function renderCommuteHome(root) {
       </section>
       ${storageNote()}
       <div class="cr-under-hero"><span>${icon('book-check')} 지금까지 <strong>${validRead(state).length}카드</strong> 읽었어요</span><a href="#/saved">${icon('bookmark')} 다시 볼 카드 <strong>${saved.length}카드</strong> ${icon('chevron-right')}</a></div>
+      ${coreSection(state)}
       <section class="cr-path-section"><div class="cr-section-title"><div><p class="cr-eyebrow">2주 읽기 길잡이</p><h2>전체 흐름을 먼저 잡아요</h2></div><a href="#/notes">66권 모두 보기 ${icon('arrow-right')}</a></div><p class="cr-section-description">하루 한 주제씩 살펴보세요. 짧게 나눠 읽어도 괜찮아요.</p>
         <div class="cr-path-grid">${READING_PATH.map(d => {
           const started = d.books.some(n => bookCount(BOOK_BY_NAME[n], state));
@@ -115,9 +128,11 @@ export async function renderCommuteReader(root, params) {
   const state = getReading();
   const all = readingCards(book);
   const requested = getQuery().get('card');
-  const requestedIndex = requested === null ? NaN : Number(requested);
+  const namedIndex = all.findIndex(card => card.id === getQuery().get('id'));
+  const requestedIndex = namedIndex >= 0 ? namedIndex : requested === null ? NaN : Number(requested);
   const start = Number.isInteger(requestedIndex) && requestedIndex >= 0 && requestedIndex < all.length ? requestedIndex : (state.positions[book.n] || 0);
-  const cards = sessionCards(book.n, start, state.minutes);
+  const coreMode = getQuery().get('focus') === 'core' && CORE_CARDS.some(card => card.id === all[start]?.id);
+  const cards = coreMode ? [all[start]] : sessionCards(book.n, start, state.minutes);
   let index = 0;
   let ended = false;
   let counted = false;
@@ -125,7 +140,8 @@ export async function renderCommuteReader(root, params) {
   function render(focus = false) {
     const currentState = getReading();
     if (ended) {
-      root.innerHTML = `<div class="cr-reader"><header class="cr-topline"><a href="#/" class="cr-quiet-link">← 읽기 홈</a><span class="cr-eyebrow">${esc(book.n)}</span></header><section class="cr-session-done"><span class="cr-done-icon">${icon('book-check')}</span><p class="cr-eyebrow">한 번의 읽기, 잘 마쳤어요</p><h1>${acknowledged.size}장의 연결을<br>쌓았어요.</h1><p>다음에 열면 이어서 볼 수 있어요.<br>다시 보고 싶은 카드는 보관함에 남아 있어요.</p><a class="cr-primary" href="#/">읽기 홈으로 ${icon('arrow-right')}</a><a class="cr-secondary" href="#/saved">${icon('bookmark')} 보관한 카드 보기</a><details class="cr-optional"><summary>시간이 더 있다면</summary><a href="#/notes/${encodeURIComponent(book.n)}">${esc(book.n)} 셀프체크와 기존 카드 →</a><a href="#/quiz">문제 풀이 선택 →</a></details>${storageNote()}</section></div>`;
+      const next = coreMode ? nextCoreCard(currentState.read, cards[0].id) : null;
+      root.innerHTML = `<div class="cr-reader"><header class="cr-topline"><a href="#/" class="cr-quiet-link">← 읽기 홈</a><span class="cr-eyebrow">${esc(book.n)}</span></header><section class="cr-session-done"><span class="cr-done-icon">${icon('book-check')}</span><p class="cr-eyebrow">한 번의 읽기, 잘 마쳤어요</p><h1>${acknowledged.size}개 카드를<br>읽었어요.</h1><p>다음에 열면 이어서 볼 수 있어요.<br>다시 보고 싶은 카드는 보관함에 남아 있어요.</p>${next ? `<a class="cr-primary" href="${esc(coreUrl(next))}">다음 핵심 · ${esc(next.title)} ${icon('arrow-right')}</a>` : ''}<a class="${next ? 'cr-secondary' : 'cr-primary'}" href="#/">읽기 홈으로 ${icon('arrow-right')}</a><a class="cr-secondary" href="#/saved">${icon('bookmark')} 보관한 카드 보기</a><details class="cr-optional"><summary>시간이 더 있다면</summary><a href="#/notes/${encodeURIComponent(book.n)}">${esc(book.n)} 셀프체크와 기존 카드 →</a><a href="#/quiz">문제 풀이 선택 →</a></details>${storageNote()}</section></div>`;
       hydrateIcons(root); window.scrollTo({top:0}); root.querySelector('h1').setAttribute('tabindex','-1'); root.querySelector('h1').focus({preventScroll:true}); return;
     }
     const card = cards[index];
@@ -135,7 +151,7 @@ export async function renderCommuteReader(root, params) {
       <header class="cr-reader-top"><a class="cr-back" href="#/" aria-label="읽기 홈으로">←</a><span><strong>${esc(book.n)}</strong><small>이번 읽기 ${index+1} / ${cards.length}카드</small></span><button type="button" class="cr-tool" data-size aria-pressed="${currentState.large}" aria-label="글자 크게 보기">가<span>+</span></button><button type="button" class="cr-tool ${saved ? 'selected' : ''}" data-save aria-pressed="${saved}" aria-label="${saved ? '보관 취소' : '다시 볼 카드로 보관'}">${icon('bookmark')}</button></header>
       <div class="cr-session-track" role="progressbar" aria-label="이번 읽기 위치" aria-valuemin="0" aria-valuemax="${cards.length}" aria-valuenow="${index+1}">${cards.map((c,i) => `<span class="${i <= index ? 'filled' : ''}"></span>`).join('')}</div>
       ${readingContents(book, all, card, currentState)}
-      <article class="cr-reading-card cr-kind-${card.kind}"><p class="cr-eyebrow">${esc(book.testament)} · ${esc(book.g)} <span>READ ${String(card.index+1).padStart(2,'0')}</span></p><h1 tabindex="-1">${esc(card.title)}</h1><p class="cr-card-lead">${esc(card.lead)}</p>${renderCard(card,book)}${card.takeaway ? `<aside class="cr-takeaway"><span>${icon('sparkles')} 이 연결만 기억해요</span><strong>${esc(card.takeaway)}</strong></aside>` : ''}${card.reference ? `<p class="cr-source">${esc(card.reference)}</p>` : ''}</article>
+      <article class="cr-reading-card cr-kind-${card.kind}"><p class="cr-eyebrow">${esc(book.testament)} · ${esc(book.g)} <span>${coreMode ? `핵심 ${CORE_CARDS.findIndex(c => c.id === card.id) + 1} / ${CORE_CARDS.length}` : `READ ${String(card.index+1).padStart(2,'0')}`}</span></p><h1 tabindex="-1">${esc(card.title)}</h1><p class="cr-card-lead">${esc(card.lead)}</p>${renderCard(card,book)}${card.takeaway ? `<aside class="cr-takeaway"><span>${icon('sparkles')} 이 연결만 기억해요</span><strong>${esc(card.takeaway)}</strong></aside>` : ''}${card.reference ? `<p class="cr-source">${esc(card.reference)}</p>` : ''}${sourceDetails(card)}</article>
       <p class="cr-save-status" role="status">${saved ? '보관함에 담아 두었어요' : '다시 보고 싶다면 오른쪽 위 책갈피를 눌러 주세요'}</p>${storageNote()}
       <nav class="cr-reader-controls" aria-label="읽기 카드 이동"><button type="button" class="cr-secondary" data-prev ${index === 0 ? 'disabled' : ''}>← 이전</button><button type="button" class="cr-primary" data-next>${index === cards.length-1 ? '여기까지 읽었어요' : '읽었어요 · 다음'} ${icon('arrow-right')}</button></nav>
     </div>`;

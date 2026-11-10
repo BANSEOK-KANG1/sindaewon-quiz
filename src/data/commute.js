@@ -1,4 +1,5 @@
 import { BOOKS, BOOK_BY_NAME } from './book-notes/index.js';
+import { CORE_READING_CARDS, CORE_READING_IDS } from './core-reading.js';
 
 // Short reading cards retain the existing notes' wording and verse references.
 const chunks = (items = [], size = 3) => Array.from({ length: Math.ceil(items.length / size) }, (_, i) => items.slice(i * size, (i + 1) * size));
@@ -33,11 +34,19 @@ export function readingCards(book) {
   chunks(book.p).forEach((items, i) => cards.push({ kind: 'people', title: `인물과 역할 ${i + 1}`, lead: '이름 옆에 한 가지 역할을 붙여 기억하세요.', items: items.map(t => splitLabel(t)) }));
   chunks(book.k, 2).forEach((items, i) => cards.push({ kind: 'focus', title: `꼭 연결할 내용 ${i + 1}`, lead: '인물·사건·장소를 함께 읽으면 연결이 보입니다.', items }));
   chunks(book.v, 2).forEach((items, i) => cards.push({ kind: 'verses', title: `구절과 출처 ${i + 1}`, lead: '익숙한 구절이 어느 책, 어느 장에 있는지 함께 보세요.', items: items.map(t => splitLabel(t, '|')) }));
-  return cards.map((c, i) => ({ ...c, id: `${book.n}:${i}`, book: book.n, index: i }));
+  // Append new material so existing numeric IDs, bookmarks and reading positions retain their meaning.
+  cards.push(...CORE_READING_CARDS.filter(card => card.book === book.n));
+  return cards.map((c, i) => ({ ...c, id: c.id || `${book.n}:${i}`, book: book.n, index: i }));
 }
 
 export const ALL_READING_CARDS = BOOKS.flatMap(readingCards);
 export const CARD_BY_ID = Object.fromEntries(ALL_READING_CARDS.map(c => [c.id, c]));
+export const CORE_CARDS = CORE_READING_IDS.map(id => CARD_BY_ID[id]);
+export function nextCoreCard(read = [], afterId = null) {
+  const seen = new Set(read);
+  const offset = Math.max(0, CORE_CARDS.findIndex(card => card.id === afterId) + 1);
+  return [...CORE_CARDS.slice(offset), ...CORE_CARDS.slice(0, offset)].find(card => !seen.has(card.id)) || null;
+}
 export const READING_PATH = [
   ['시작과 약속', ['창세기']],
   ['구원과 거룩', ['출애굽기', '레위기']],

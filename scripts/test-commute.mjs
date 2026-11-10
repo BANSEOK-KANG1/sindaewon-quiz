@@ -1,7 +1,39 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { BOOKS } from '../src/data/book-notes/index.js';
-import { ALL_READING_CARDS, READING_PATH, readingCards, sessionCards } from '../src/data/commute.js';
+import { ALL_READING_CARDS, CORE_CARDS, READING_PATH, readingCards, sessionCards, nextCoreCard } from '../src/data/commute.js';
+
+test('new material preserves all 597 existing cards, identities and positions', () => {
+  const baseline = JSON.parse(readFileSync(new URL('./fixtures/reading-before-core.json', import.meta.url)));
+  assert.equal(baseline.reduce((sum, row) => sum + row.count, 0), 597);
+  for (const row of baseline) {
+    const cards = readingCards(BOOKS.find(book => book.n === row.book)).slice(0, row.count);
+    assert.equal(createHash('sha256').update(JSON.stringify(cards)).digest('hex'), row.sha256, row.book);
+  }
+});
+test('core lessons resolve to real cards and identify their source questions and passages', () => {
+  const { questions } = JSON.parse(readFileSync(new URL('../public/data/questions.json', import.meta.url)));
+  assert.equal(CORE_CARDS.length, 12);
+  assert.equal(new Set(CORE_CARDS.map(card => card.id)).size, 12);
+  for (const card of CORE_CARDS.slice(2)) {
+    assert.ok(questions.some(question => question.id === card.exam.id), card.id);
+    assert.ok(card.sources.length && card.reference, card.id);
+    for (const source of card.sources) {
+      const url = new URL(source.url);
+      assert.equal(url.origin, 'https://www.biblegateway.com');
+      assert.ok(source.label && url.searchParams.get('search'), card.id);
+    }
+  }
+});
+test('next core lesson skips read cards, wraps around and stops after all are read', () => {
+  const ids = CORE_CARDS.map(card => card.id);
+  assert.equal(nextCoreCard().id, ids[0]);
+  assert.equal(nextCoreCard(ids.slice(0, 4), ids[2]).id, ids[4]);
+  assert.equal(nextCoreCard(ids.slice(1), ids.at(-1)).id, ids[0]);
+  assert.equal(nextCoreCard(ids), null);
+});
 
 test('14 reading topics cover the canonical 66 books exactly once', () => {
   const names = READING_PATH.flatMap(d => d.books);
