@@ -16,14 +16,14 @@ export const SEMINARIES = {
 };
 
 export const UI = {
-  appTitle: "신대원 기출",
+  appTitle: "신대원 공부",
   nav: {
     home: "홈",
     plan: "진도",
-    notes: "핵심",
+    notes: "성경 읽기",
     admissions: "입시 가이드",
     browse: "탐색",
-    quiz: "학습",
+    quiz: "문제 풀이",
     wrongNote: "오답노트",
     sources: "자료",
   },

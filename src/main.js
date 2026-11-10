@@ -1,6 +1,7 @@
 import { UI } from "./config.js";
 import { registerRoute, startRouter, navigate } from "./router.js";
 import { renderHome } from "./views/home.js";
+import { renderCommuteHome, renderReadingLibrary, renderCommuteReader, renderReadingSaved } from "./views/commute.js";
 import { renderAdmissions } from "./views/admissions.js";
 import { renderBrowse } from "./views/browse.js";
 import { renderQuestion } from "./views/question.js";
@@ -16,6 +17,7 @@ import { hydrateIcons, icon } from "./lib/icons.js";
 import "./styles/base.css";
 import "./styles/layout.css";
 import "./styles/components.css";
+import "./styles/commute.css";
 
 const app = document.querySelector("#app");
 
@@ -23,6 +25,7 @@ const NAV = [
   { hash: "#/", label: UI.nav.home, icon: "house" },
   { hash: "#/plan", label: UI.nav.plan, icon: "target" },
   { hash: "#/notes", label: UI.nav.notes, icon: "library-big" },
+  { hash: "#/saved", label: "보관함", icon: "bookmark" },
   { hash: "#/quiz", label: UI.nav.quiz, icon: "circle-play" },
   { hash: "#/wrong-note", label: UI.nav.wrongNote, icon: "notebook-pen" },
   { hash: "#/browse", label: UI.nav.browse, icon: "search" },
@@ -31,7 +34,7 @@ const NAV = [
 ];
 
 // 하단 탭은 5개까지 — 탐색·입시 가이드·자료는 홈과 사이드 메뉴에서 연다.
-const BOTTOM_NAV = NAV.filter((item) => !["#/sources", "#/admissions", "#/browse"].includes(item.hash));
+const BOTTOM_NAV = ["#/", "#/notes", "#/saved", "#/plan", "#/quiz"].map(hash => NAV.find(item => item.hash === hash));
 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";
@@ -50,8 +53,8 @@ function shell(contentHtml) {
         </nav>
         <div class="sidebar-note">
           ${icon("sparkles")}
-          <p><strong>전체 진도</strong><span>11/27까지 100% · 오늘 몇 % 하면 되는지</span></p>
-          <a href="#/plan">진도 보기 ${icon("chevron-right")}</a>
+          <p><strong>짧게 읽고, 오래 기억하기</strong><span>출퇴근에 3분 · 읽던 곳부터 이어서</span></p>
+          <a href="#/">읽기 시작 ${icon("chevron-right")}</a>
         </div>
       </aside>
       <main class="main" id="view-root">${contentHtml}</main>
@@ -76,7 +79,7 @@ function shell(contentHtml) {
 
 function isActive(hash, current) {
   if (hash === "#/") return current === "#/" || current === "";
-  if (hash === "#/notes") return /^#\/(notes|review|english|topics|interview)/.test(current);
+  if (hash === "#/notes") return /^#\/(notes|read|review|english|topics|interview)/.test(current);
   return current.startsWith(hash.replace("#", "#"));
 }
 
@@ -110,23 +113,36 @@ async function renderView(matched) {
     } else if (matched.path.startsWith("/notes/")) {
       await renderNoteBook(root, matched.params);
     } else if (matched.path === "/notes") {
+      await renderReadingLibrary(root);
+    } else if (matched.path === "/notes-old") {
       await renderNotes(root);
+    } else if (matched.path.startsWith("/read/")) {
+      await renderCommuteReader(root, matched.params);
+    } else if (matched.path === "/saved") {
+      await renderReadingSaved(root);
     } else if (matched.path === "/review") {
       await renderReview(root);
     } else if (matched.path === "/plan/daily") {
       await renderPlan(root);
     } else if (matched.path === "/plan") {
       await renderProgress(root);
-    } else {
+    } else if (matched.path === "/dashboard") {
       await renderHome(root);
+    } else {
+      await renderCommuteHome(root);
     }
     hydrateIcons(app);
+    window.scrollTo({ top: 0 });
   } catch (err) {
     root.innerHTML = `<p class="error">${err.message}</p>`;
   }
 }
 
 registerRoute("/", () => {});
+registerRoute("/dashboard", () => {});
+registerRoute("/notes-old", () => {});
+registerRoute("/saved", () => {});
+registerRoute("/read/:book", () => {});
 registerRoute("/admissions", () => {});
 registerRoute("/browse", () => {});
 registerRoute("/question/:id", () => {});
@@ -152,7 +168,7 @@ const isNativeApp =
   window.Capacitor?.isNativePlatform?.() === true ||
   window.location.protocol.startsWith("capacitor");
 
-if ("serviceWorker" in navigator && !isNativeApp) {
+if (import.meta.env.PROD && "serviceWorker" in navigator && !isNativeApp) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {});
   });

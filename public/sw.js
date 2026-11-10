@@ -1,5 +1,5 @@
 /* 신대원 기출 — 오프라인 셸 캐시 */
-const CACHE = "sindaewon-quiz-v3";
+const CACHE = "sindaewon-quiz-v4-reading";
 const PRECACHE = [
   "./",
   "./index.html",
