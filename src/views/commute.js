@@ -1,6 +1,8 @@
 import { BOOKS, BOOK_BY_NAME, GROUPS } from '../data/book-notes/index.js';
-import { readingCards, sessionCards, READING_PATH, CARD_BY_ID, CORE_CARDS, nextCoreCard, suggestedCoreCard, splitLabel } from '../data/commute.js';
+import { readingCards, sessionCards, READING_PATH, CARD_BY_ID, CORE_CARDS, nextCoreCard, splitLabel } from '../data/commute.js';
 import { getReading, readingPreference, rememberPosition, finishReadingCard, finishSession, toggleSaved, readingSaveFailed } from '../storage/commute.js';
+import { getSprint, sprintComplete, sprintSaveFailed } from '../storage/sprint.js';
+import { SPRINT_STAGES } from '../data/sprint.js';
 import { icon, hydrateIcons } from '../lib/icons.js';
 import { getQuery, navigate } from '../router.js';
 
@@ -17,18 +19,21 @@ function bookLink(book, state) {
 }
 function storageNote() { return readingSaveFailed() ? '<p class="cr-storage-note" role="status">이 브라우저에 기록을 저장할 수 없어요. 현재 화면에서는 계속 읽을 수 있습니다.</p>' : ''; }
 const cardStyle = card => ({ compare: '나란히 비교', journey: '순서로 연결', timeline: '이야기의 흐름', overview: '한눈에 보기', people: '인물과 역할', focus: '핵심 연결', verses: '구절과 출처' }[card.kind] || '핵심 읽기');
-function connectionMap(card) {
-  return `<div class="cr-connection-map cr-map-${card.kind}" aria-label="${esc(card.title)} 미리보기"><div class="cr-map-caption"><span>${icon('compass')} 한눈에 연결하기</span><small>${esc(cardStyle(card))}</small></div><ol>${card.items.map((item,i) => `<li><span class="cr-map-step">${String(i+1).padStart(2,'0')}</span><div><span>${esc(item[0])}</span>${card.kind !== 'people' ? `<strong>${esc(item[1])}</strong>` : ''}</div></li>`).join('')}</ol><p>${esc(card.book)} · 본문을 읽으며 연결해 보세요</p></div>`;
-}
 function coreSection(state) {
-  const count = CORE_CARDS.filter(card => state.read.includes(card.id)).length;
-  const next = suggestedCoreCard(state);
-  const resume = next && next.book === state.last && next.index === state.positions[state.last];
-  const card = next || CORE_CARDS[0];
-  return `<section class="cr-focus-section" aria-label="오늘의 핵심 읽기">
-    <div class="cr-feature cr-focus-feature"><div class="cr-feature-copy"><div class="cr-feature-meta"><span class="cr-pill">핵심 연결 ${String(CORE_CARDS.indexOf(card)+1).padStart(2,'0')} / ${CORE_CARDS.length}</span><span>${icon('clock-3')} 약 1분</span></div><h2>${esc(card.title)}</h2><p>${esc(card.lead)}</p><a class="cr-primary" href="${esc(coreUrl(card))}">${icon('book-open')} ${next ? (resume ? '이어서 읽기' : '이 연결 읽기') : '처음부터 다시 읽기'} ${icon('arrow-right')}</a><small>${esc(card.book)} · ${esc(cardStyle(card))}</small></div>${connectionMap(card)}</div>
-    <div class="cr-core-progress"><span><strong>${count}</strong> / ${CORE_CARDS.length}개 읽음</span><div aria-hidden="true">${CORE_CARDS.map(c=>`<span class="${state.read.includes(c.id)?'read':''} ${c.id===card.id?'current':''}"></span>`).join('')}</div><small>내 속도로 하나씩</small></div>
-    <details class="cr-core-menu"><summary><span>${icon('list')} 핵심 연결 12개 둘러보기</span>${icon('chevron-down')}</summary><p>창세기 2개와 기출 개념 10개로 시작해요. 전체 시험 범위 중 첫 묶음입니다.</p><ol>${CORE_CARDS.map((c,i) => `<li><a href="${esc(coreUrl(c))}"><span>${String(i+1).padStart(2,'0')}</span><span><strong>${esc(c.title)}</strong><small>${esc(c.book)}</small></span>${state.read.includes(c.id) ? `<span class="cr-core-read">${icon('check')} 읽음</span>` : icon('chevron-right')}</a></li>`).join('')}</ol></details>
+  const run = getSprint();
+  const done = sprintComplete(run);
+  const count = run.read.length;
+  const label = done ? '완주 요약 보기' : count > 0 ? '이어서 끝내기' : '한방에 끝내기';
+  return `<section class="sp-feature-section" aria-label="핵심 연결 한방에 끝내기">
+    <div class="sp-feature"><div class="sp-feature-copy"><p class="sp-kicker"><span>첫 번째 묶음</span> 핵심 연결 ${CORE_CARDS.length}개</p><h1>기출 핵심,<br><em>한방에 끝내기.</em></h1><p class="sp-intro">헷갈리는 인물, 장소, 장을 한눈에.<br>한 장씩 읽으면 마지막에 한 장으로 정리돼요.</p><div class="sp-meta"><span>${icon('clock-3')} 약 12분</span><span>${icon('book-open')} 읽기 → 한 장 요약</span></div><a class="cr-primary sp-start" href="#/sprint">${label} ${icon('arrow-right')}</a><small>${done ? '12개 연결을 모두 읽었어요. 요약을 다시 펼쳐 보세요.' : count > 0 ? `${count}개 읽음 · ${esc(CORE_CARDS[run.index].book)}부터 이어가요` : '한 번에 다 못 읽어도, 다음에 그대로 이어서.'}</small></div>
+    <div class="sp-route"><div class="sp-route-heading"><span>오늘 끝낼 길</span><small>START → FINISH</small></div><ol>${SPRINT_STAGES.map((stage,i) => {
+      const completed = count >= stage.end;
+      const current = !done && run.index >= stage.start && run.index < stage.end;
+      return `<li class="${completed ? 'done' : current ? 'current' : ''}"><span class="sp-route-number">${completed ? icon('check') : String(i+1).padStart(2,'0')}</span><div><small>${String(stage.start+1).padStart(2,'0')}–${String(stage.end).padStart(2,'0')} · ${stage.end-stage.start}개 연결</small><strong>${stage.title}</strong><p>${stage.detail}</p></div></li>`;
+    }).join('')}</ol><div class="sp-route-finish">${icon('file-check-2')} 마지막에는 <strong>한 장 요약</strong></div></div></div>
+    <div class="sp-home-progress"><span>${done ? '이번 한 바퀴 완료' : '이번 한 바퀴'} <strong>${count} / ${CORE_CARDS.length}</strong></span><div aria-hidden="true">${CORE_CARDS.map(c=>`<span class="${run.read.includes(c.id)?'read':''}"></span>`).join('')}</div><small>${done ? '다시 펼쳐도 요약이 남아요' : `${CORE_CARDS.length-count}개 남았어요`}</small></div>
+    <details class="cr-core-menu"><summary><span>${icon('list')} 무엇을 읽나요? · 12개 연결</span>${icon('chevron-down')}</summary><p>창세기 2개와 보유 기출 개념 10개로 구성한 첫 묶음이에요. 원하는 연결만 골라 읽을 수도 있어요.</p><ol>${CORE_CARDS.map((c,i) => `<li><a href="${esc(coreUrl(c))}"><span>${String(i+1).padStart(2,'0')}</span><span><strong>${esc(c.title)}</strong><small>${esc(c.book)}</small></span>${state.read.includes(c.id) ? `<span class="cr-core-read">${icon('check')} 읽음</span>` : icon('chevron-right')}</a></li>`).join('')}</ol></details>
+    ${sprintSaveFailed() ? '<p class="cr-storage-note" role="status">지금은 진도를 저장할 수 없어요. 이 화면에서는 계속 읽을 수 있습니다.</p>' : ''}
   </section>`;
 }
 
@@ -49,7 +54,7 @@ export async function renderCommuteHome(root) {
     const currentDay = READING_PATH.find(d => d.books.includes(book.n));
     root.innerHTML = `<div class="cr-home cr-home-refined">
       <header class="cr-topline"><span class="cr-wordmark">${icon('book-open')} 길 위의 말씀</span><a href="#/saved" class="cr-quiet-link">${icon('bookmark')} 보관함 <b>${saved.length}</b></a></header>
-      <div class="cr-heading"><p class="cr-eyebrow">총신 신대원 준비 · 성경 70점 목표</p><h1>오늘은 이 연결부터.</h1><p>한 장에 한 가지 연결. 오가는 길에 차근차근.</p></div>
+      <p class="sp-home-caption">총신 신대원 준비 · 70점을 향한 출퇴근 읽기</p>
       ${coreSection(state)}${storageNote()}
       <div class="cr-home-shelves"><section class="cr-free-reading" aria-label="책별 자유 읽기"><div class="cr-section-title"><h2>조금 더 읽고 싶다면</h2><a href="#/notes">66권 보기 ${icon('arrow-right')}</a></div><div class="cr-duration" aria-label="책별 읽을 분량 선택"><span>책별 읽기 분량</span><div role="group" aria-label="예상 읽기 시간">${[3,5,10].map(n => `<button type="button" data-minutes="${n}" aria-pressed="${state.minutes === n}">${n}분</button>`).join('')}</div></div><a class="cr-resume-card" href="${readUrl(book.n)}"><span class="cr-book-mark">${esc(book.n.slice(0,1))}</span><span><small>${state.last ? '읽던 곳부터' : '처음 읽기'} · ${esc(book.n)}</small><strong>${esc(card.title)}</strong><small>이번 분량 ${count}카드 · 약 ${count}분</small></span>${icon('arrow-right')}</a><p class="cr-footnote">예상 시간은 카드당 약 1분 기준이에요.</p></section>
       <section class="cr-reading-pocket" aria-label="나의 읽기"><p class="cr-eyebrow">차곡차곡 쌓이는 읽기</p><div class="cr-pocket-count"><strong>${validRead(state).length}</strong><span>카드 읽음</span></div><a href="#/saved">${icon('bookmark')} 다시 볼 카드 <strong>${saved.length}개</strong> ${icon('chevron-right')}</a><p>읽은 수는 진도 표시예요.<br>시험 점수로 환산하지 않아요.</p></section></div>
@@ -213,3 +218,6 @@ export async function renderReadingSaved(root) {
   }
   render();
 }
+
+// Shared content renderer keeps the guided round and individual cards consistent.
+export { esc, coreUrl, cardStyle, renderCard, sourceDetails };

@@ -2,6 +2,7 @@ import { UI } from "./config.js";
 import { registerRoute, startRouter, navigate } from "./router.js";
 import { renderHome } from "./views/home.js";
 import { renderCommuteHome, renderReadingLibrary, renderCommuteReader, renderReadingSaved } from "./views/commute.js";
+import { renderSprint } from "./views/sprint.js";
 import { renderAdmissions } from "./views/admissions.js";
 import { renderBrowse } from "./views/browse.js";
 import { renderQuestion } from "./views/question.js";
@@ -18,6 +19,7 @@ import "./styles/base.css";
 import "./styles/layout.css";
 import "./styles/components.css";
 import "./styles/commute.css";
+import "./styles/sprint.css";
 
 const app = document.querySelector("#app");
 
@@ -39,7 +41,7 @@ const BOTTOM_NAV = ["#/", "#/notes", "#/saved", "#/plan", "#/quiz"].map(hash => 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";
   app.innerHTML = `
-    <div class="app-shell ${current.startsWith('#/read/') ? 'is-reading' : ''}">
+    <div class="app-shell ${(current.startsWith('#/read/') || current.split('?')[0] === '#/sprint') ? 'is-reading' : ''}">
       <aside class="sidebar" aria-label="주 메뉴">
         <a href="#/" class="brand" aria-label="${UI.appTitle} 홈">
           <span class="brand-icon">${icon("graduation-cap")}</span>
@@ -118,6 +120,8 @@ async function renderView(matched) {
       await renderNotes(root);
     } else if (matched.path.startsWith("/read/")) {
       await renderCommuteReader(root, matched.params);
+    } else if (matched.path === "/sprint") {
+      await renderSprint(root);
     } else if (matched.path === "/saved") {
       await renderReadingSaved(root);
     } else if (matched.path === "/review") {
@@ -142,6 +146,7 @@ registerRoute("/", () => {});
 registerRoute("/dashboard", () => {});
 registerRoute("/notes-old", () => {});
 registerRoute("/saved", () => {});
+registerRoute("/sprint", () => {});
 registerRoute("/read/:book", () => {});
 registerRoute("/admissions", () => {});
 registerRoute("/browse", () => {});
