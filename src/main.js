@@ -39,7 +39,7 @@ const BOTTOM_NAV = ["#/", "#/notes", "#/saved", "#/plan", "#/quiz"].map(hash => 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";
   app.innerHTML = `
-    <div class="app-shell">
+    <div class="app-shell ${current.startsWith('#/read/') ? 'is-reading' : ''}">
       <aside class="sidebar" aria-label="주 메뉴">
         <a href="#/" class="brand" aria-label="${UI.appTitle} 홈">
           <span class="brand-icon">${icon("graduation-cap")}</span>

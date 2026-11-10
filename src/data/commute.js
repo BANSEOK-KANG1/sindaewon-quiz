@@ -47,6 +47,12 @@ export function nextCoreCard(read = [], afterId = null) {
   const offset = Math.max(0, CORE_CARDS.findIndex(card => card.id === afterId) + 1);
   return [...CORE_CARDS.slice(offset), ...CORE_CARDS.slice(0, offset)].find(card => !seen.has(card.id)) || null;
 }
+export function suggestedCoreCard({ read = [], last = null, positions = {} } = {}) {
+  const book = BOOK_BY_NAME[last];
+  const previous = book ? readingCards(book)[positions[last]] : null;
+  const resume = previous && CORE_CARDS.find(card => card.id === previous.id && !read.includes(card.id));
+  return resume || nextCoreCard(read);
+}
 export const READING_PATH = [
   ['시작과 약속', ['창세기']],
   ['구원과 거룩', ['출애굽기', '레위기']],

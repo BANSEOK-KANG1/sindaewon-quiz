@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { BOOKS } from '../src/data/book-notes/index.js';
-import { ALL_READING_CARDS, CORE_CARDS, READING_PATH, readingCards, sessionCards, nextCoreCard } from '../src/data/commute.js';
+import { ALL_READING_CARDS, CORE_CARDS, READING_PATH, readingCards, sessionCards, nextCoreCard, suggestedCoreCard } from '../src/data/commute.js';
 
 test('new material preserves all 597 existing cards, identities and positions', () => {
   const baseline = JSON.parse(readFileSync(new URL('./fixtures/reading-before-core.json', import.meta.url)));
@@ -33,6 +33,16 @@ test('next core lesson skips read cards, wraps around and stops after all are re
   assert.equal(nextCoreCard(ids.slice(0, 4), ids[2]).id, ids[4]);
   assert.equal(nextCoreCard(ids.slice(1), ids.at(-1)).id, ids[0]);
   assert.equal(nextCoreCard(ids), null);
+});
+test('home resumes an unfinished core lesson with its canonical identity and falls back safely', () => {
+  const card = CORE_CARDS[9];
+  const state = { last: card.book, positions: { [card.book]: card.index }, read: [] };
+  assert.equal(suggestedCoreCard(state), card);
+  assert.equal(CORE_CARDS.indexOf(suggestedCoreCard(state)), 9);
+  assert.equal(suggestedCoreCard({ ...state, read: [card.id] }), CORE_CARDS[0]);
+  assert.equal(suggestedCoreCard({ ...state, positions: { [card.book]: 9999 } }), CORE_CARDS[0]);
+  assert.equal(suggestedCoreCard({ last: '없는 책' }), CORE_CARDS[0]);
+  assert.equal(suggestedCoreCard({ ...state, read: CORE_CARDS.map(c => c.id) }), null);
 });
 
 test('14 reading topics cover the canonical 66 books exactly once', () => {
