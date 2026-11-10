@@ -168,7 +168,7 @@ const isNativeApp =
   window.Capacitor?.isNativePlatform?.() === true ||
   window.location.protocol.startsWith("capacitor");
 
-if (import.meta.env.PROD && "serviceWorker" in navigator && !isNativeApp) {
+if (import.meta.env.PROD && /^https?:$/.test(window.location.protocol) && "serviceWorker" in navigator && !isNativeApp) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register(`${import.meta.env.BASE_URL}sw.js`).catch(() => {});
   });
