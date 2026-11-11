@@ -1,0 +1,146 @@
+Gustave Doré Bible illustrations
+Individual Wikimedia Commons file pages identify these works as Public domain. Checked 2026-11-11. No alteration to the downloaded image bytes. See src/data/bible-scenes.js for artist, source, original URL, reference, and image hash. Biblical captions are editorial study guidance, distinct from the nineteenth-century artwork.
+
+노아 시대의 홍수 — noah-flood.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:007.The_Great_Flood.jpg
+SHA-256 316189bd35005628bae1fdfd1db1849b8872928e96314b2c735deb0789a3465e
+
+바벨탑과 언어의 혼잡 — babel.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:010.The_Tower_of_Babel.jpg
+SHA-256 321ab1dcc88db6f3b482c1d4fb64fc0b5bd541b43dcc747aa844f5597493e804
+
+팔려 가는 요셉 — joseph-sold.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:026.Joseph_Is_Sold_by_His_Brothers.jpg
+SHA-256 86c69a11b61df24ecf22711b62cc5f2790dcc061230f0d0d3815b87e1e92318a
+
+바다를 건넌 이스라엘 — red-sea.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:037.The_Egyptians_Drown_in_the_Sea.jpg
+SHA-256 4936c3fb4c3d89da094c56b1fde1188c84b48b5acc141741eb234e9a1254b4d6
+
+시내산 앞에 선 백성 — sinai.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:038.The_Giving_of_the_Law_on_Mount_Sinai.jpg
+SHA-256 60f72867862e75efab770867d19250d5b74c7631b6e5b4dbc917b637780eaa93
+
+모세가 든 놋뱀 — bronze-serpent.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:042.The_Bronze_Serpent.jpg
+SHA-256 c3d824368e4afa449978c64cbd6eb1665386820859c27a35bf759bf602847eac
+
+여리고 성벽의 붕괴 — jericho.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:046.The_Walls_of_Jericho_Fall_Down.jpg
+SHA-256 31572c340fd5f4c5c3306b41e3da05e71878e9d5b82cb8c95166d03dd4b7d841
+
+기드온의 300명 — gideon.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:054.Gideon_Chooses_300_Soldiers.jpg
+SHA-256 eb4147e21e2adb03af1e76d01d0eaa24292748798fd0daafd7a94ef0ce2c94c1
+
+이삭을 줍는 룻과 보아스 — ruth-boaz.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:069.Ruth_and_Boaz.jpg
+SHA-256 a12ef3ab203e2c7b09274c45c51105668666126d4fb0f0de957822c1fb1c38ed
+
+다윗과 골리앗 — david-goliath.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:071A.David_Slays_Goliath.jpg
+SHA-256 84f7480ff91ea6ff3835aeea92754f49059f1cb113a43568b5e0212ba22d2a63
+
+솔로몬의 재판 — solomon-judgment.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:084.The_Judgment_of_Solomon.jpg
+SHA-256 f9b9e4a608c8dd61548dcbd30071dd931a2d0bb3d306f7d572c24fafeef2b292
+
+엘리야의 승천과 엘리사 — elijah-chariot.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:095.Elijah_Ascends_to_Heaven_in_a_Chariot_of_Fire.jpg
+SHA-256 e304a6df8b216ff53aceef81a86a4d0b8bee4e646231a52f6a4bfb69a3be7b39
+
+무너진 성벽을 살피는 느헤미야 — nehemiah-walls.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:108.Nehemiah_Views_the_Ruins_of_Jerusalem%27s_Walls.jpg
+SHA-256 bcc20c6e515cb2dd19f45e3951fc5726e0a1cd82b7d2f5e2454a5aeb79f2fefa
+
+왕 앞에 나아간 에스더 — esther-king.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:115.Esther_Before_the_King.jpg
+SHA-256 4e3fb7e0401bac7fa6408233195ba82e97a024379b955db71e085e3ec1d5c69c
+
+사자 굴의 다니엘 — daniel-lions.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:131.Daniel_in_the_Lions%27_Den.jpg
+SHA-256 4c2c19299df69c4605bdfa54ef765689779bfc753727187e9497d222f1eba5ff
+
+니느웨에 선포하는 요나 — jonah-nineveh.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:138.Jonah_Preaches_to_the_Ninevites.jpg
+SHA-256 d5a64d5d122f4511532a3eb73fabdb12448af063398d245520412f1343ea14c5
+
+목자들이 찾아온 예수의 탄생 — nativity.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:The_Birth_of_Jesus.jpg
+SHA-256 03b8eb9a4c6161a649ccabe883fde28460372469f2607923efba20a5b7c328e3
+
+가나 혼인 잔치 — cana.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:Marriage_at_Cana_engraving_by_Gustave_Dor%C3%A9.jpg
+SHA-256 76c978d6c96a1bfe19ca0797ebd58944ec5559d934cef175e8b9bf0e761fb4cd
+
+산에서 가르치시는 예수 — sermon-mount.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:Dore_Bible_Sermon_on_the_Mount.jpg
+SHA-256 56ee5469468acb5b0336acef16af75dae8637f625f54a2135b036f7c3dea3685
+
+병든 사람들을 고치시는 예수 — healing-many.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:Jesus_healing_the_sick_(89476181).jpg
+SHA-256 e07b840cfe53a6a01e7780d3d0d0a424c66d78f857dbd320c3eb4ee7790a32b1
+
+십자가에 못 박히시는 예수 — crucifixion.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:Gustave_Dor%C3%A9_-_Crucifixion_of_Jesus.jpg
+SHA-256 5a99003ecb41e92701f1fae553775d8ed4debe4ba3613b4a1b20f83468407974
+
+스데반의 순교 — stephen.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:The_Death_of_Stephen_(89485178).jpg
+SHA-256 cf3009617a891e736628b96676dd772543d44ec78ab0ab3ab2243adb3733de05
+
+체포 뒤 무리에게 말하는 바울 — paul-crowd.jpg
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:Paul_Addresses_the_Crowd_After_His_Arrest_(89485728).jpg
+SHA-256 d8fedaea2ddb7839f7b50b270397f063be53c01fda026a128311e3c6cb3c490d
+
+넷째 인과 청황색 말 — pale-horse.png
+Artist: Gustave Doré
+Public domain
+https://commons.wikimedia.org/wiki/File:Gustave_Dore_-_Death_on_the_Pale_Horse.png
+SHA-256 ffd2c31383ec7786faf018fde6cdebc931f7bffd5f7a83419bef723f5369f313
