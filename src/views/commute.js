@@ -5,10 +5,11 @@ import { getSprint, sprintComplete, sprintSaveFailed } from '../storage/sprint.j
 import { icon, hydrateIcons } from '../lib/icons.js';
 import { getQuery, navigate } from '../router.js';
 import { renderBibleVisual, bindBibleVisuals, visualThumbnail } from '../lib/bible-visual.js';
+import { libraryReturnUrl, withLibraryReturn } from '../lib/visual-navigation.js';
 import { VISUAL_BY_CARD } from '../data/bible-visuals.js';
 import { renderReadingPoster, bindBookPosters } from '../lib/book-visual.js';
 import { scenesForCard } from '../data/bible-scenes.js';
-import { renderSceneFigure } from '../lib/bible-scene.js';
+import { renderSceneSequence, bindSceneSequences } from '../lib/bible-scene.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const readUrl = name => `#/read/${encodeURIComponent(name)}`;
@@ -63,7 +64,7 @@ export async function renderCommuteHome(root) {
         return `<a class="cr-day ${d.day === currentDay.day ? 'current' : ''}" href="#/notes?day=${d.day}"><span class="cr-day-number">${String(d.day).padStart(2,'0')}</span><span><strong>${esc(d.title)}</strong><small>${esc(d.books.length <= 3 ? d.books.join(' · ') : `${d.books[0]} 외 ${d.books.length - 1}권`)}${started ? ' · 읽는 중' : ''}</small></span>${icon('chevron-right')}</a>`;
       }).join('')}</div></details>
       <section class="cr-more"><a href="#/english">${icon('languages')}<span><strong>깜빡이 영어</strong><small>단어 10개 자동 반복</small></span>${icon('arrow-right')}</a><a href="#/topics">${icon('compass')}<span><strong>주제별로 연결</strong><small>왕·선지자·지명·연대표</small></span>${icon('arrow-right')}</a></section>
-      <footer class="cr-footer"><span>읽은 기록은 이 브라우저에 보관됩니다.</span><a href="#/dashboard">문제 풀이 현황 ${icon('chevron-right')}</a></footer>
+      <footer class="cr-footer"><span>읽은 기록은 이 브라우저에 보관됩니다.</span><a href="#/quiz">문제 풀이 ${icon('chevron-right')}</a><a href="#/dashboard">문제 풀이 현황 ${icon('chevron-right')}</a></footer>
     </div>`;
     root.querySelectorAll('[data-minutes]').forEach(btn => btn.addEventListener('click', () => {
       readingPreference('minutes', Number(btn.dataset.minutes)); render(); root.querySelector(`[data-minutes="${btn.dataset.minutes}"]`)?.focus({preventScroll:true});
@@ -138,6 +139,8 @@ export async function renderCommuteReader(root, params) {
   const book = BOOK_BY_NAME[params.book];
   if (!book) { root.innerHTML = '<p class="cr-empty">책을 찾을 수 없어요. <a href="#/notes">성경 목록으로</a></p>'; return; }
   const state = getReading();
+  const returnTo = getQuery().has('from') ? libraryReturnUrl(getQuery().get('from')) : null;
+  const readerUrl = url => returnTo ? withLibraryReturn(url, returnTo) : url;
   const all = readingCards(book);
   const requested = getQuery().get('card');
   const namedIndex = all.findIndex(card => card.id === getQuery().get('id'));
@@ -158,7 +161,7 @@ export async function renderCommuteReader(root, params) {
       hydrateIcons(root); window.scrollTo({top:0}); root.querySelector('h1').setAttribute('tabindex','-1'); root.querySelector('h1').focus({preventScroll:true}); return;
     }
     const card = cards[index];
-    const scene = VISUAL_BY_CARD[card.id] ? null : scenesForCard(card)[0];
+    const scenes = VISUAL_BY_CARD[card.id] ? [] : scenesForCard(card);
     rememberPosition(book.n, card.index);
     const saved = currentState.saved.includes(card.id);
     const coreIndex = CORE_CARDS.findIndex(c=>c.id===card.id);
@@ -166,10 +169,10 @@ export async function renderCommuteReader(root, params) {
     const track = coreMode ? CORE_CARDS : cards;
     const trackPosition = coreMode ? coreIndex : index;
     root.innerHTML = `<div class="cr-reader ${currentState.large ? 'cr-large' : ''}">
-      <header class="cr-reader-top"><a class="cr-back" href="#/" aria-label="읽기 홈으로">←</a><span><strong>${esc(book.n)}</strong><small>${coreMode ? `핵심 연결 ${coreIndex+1} / ${CORE_CARDS.length}` : `이번 읽기 ${index+1} / ${cards.length}카드`}</small></span><button type="button" class="cr-tool" data-size aria-pressed="${currentState.large}" aria-label="글자 크게 보기">가<span>+</span></button><button type="button" class="cr-tool ${saved ? 'selected' : ''}" data-save aria-pressed="${saved}" aria-label="${saved ? '보관 취소' : '다시 볼 카드로 보관'}">${icon('bookmark')}</button></header>
+      <header class="cr-reader-top"><a class="cr-back" href="${returnTo ? esc(returnTo) : '#/'}" aria-label="${returnTo ? '그림 자료실로' : '읽기 홈으로'}">←</a><span><strong>${esc(book.n)}</strong><small>${coreMode ? `핵심 연결 ${coreIndex+1} / ${CORE_CARDS.length}` : `이번 읽기 ${index+1} / ${cards.length}카드`}</small></span><button type="button" class="cr-tool" data-size aria-pressed="${currentState.large}" aria-label="글자 크게 보기">가<span>+</span></button><button type="button" class="cr-tool ${saved ? 'selected' : ''}" data-save aria-pressed="${saved}" aria-label="${saved ? '보관 취소' : '다시 볼 카드로 보관'}">${icon('bookmark')}</button></header>
       <div class="cr-session-track" role="progressbar" aria-label="${coreMode ? '핵심 연결 위치' : '이번 읽기 위치'}" aria-valuemin="0" aria-valuemax="${track.length}" aria-valuenow="${trackPosition+1}">${track.map((c,i) => `<span class="${coreMode ? (currentState.read.includes(c.id) ? 'filled' : '') : (i < index ? 'filled' : '')} ${i===trackPosition?'current':''}"></span>`).join('')}</div>
       ${readingContents(book, all, card, currentState, coreMode)}
-      <article class="cr-reading-card cr-kind-${card.kind}"><p class="cr-eyebrow"><span class="cr-style-chip">${icon(card.kind==='people'?'book-open':'compass')} ${esc(cardStyle(card))}</span><span>${esc(book.testament)} · ${esc(book.g)}</span></p><h1 tabindex="-1">${esc(card.title)}</h1><p class="cr-card-lead">${esc(card.lead)}</p>${renderBibleVisual(card.id)}${renderSceneFigure(scene)}${renderReadingPoster(card, !!VISUAL_BY_CARD[card.id] || !!scene)}${card.takeaway ? `<aside class="cr-takeaway"><span>${icon('sparkles')} 먼저 기억할 한 줄</span><strong>${esc(card.takeaway)}</strong></aside>` : ''}<div class="cr-detail-label"><span>${esc(cardStyle(card))}</span><span aria-hidden="true"></span></div>${renderCard(card,book)}${card.reference ? `<p class="cr-source">${esc(card.reference)}</p>` : ''}${sourceDetails(card)}</article>
+      <article class="cr-reading-card cr-kind-${card.kind}"><p class="cr-eyebrow"><span class="cr-style-chip">${icon(card.kind==='people'?'book-open':'compass')} ${esc(cardStyle(card))}</span><span>${esc(book.testament)} · ${esc(book.g)}</span></p><h1 tabindex="-1">${esc(card.title)}</h1><p class="cr-card-lead">${esc(card.lead)}</p>${renderBibleVisual(card.id)}${renderSceneSequence(scenes)}${renderReadingPoster(card, !!VISUAL_BY_CARD[card.id] || scenes.length > 0)}${card.takeaway ? `<aside class="cr-takeaway"><span>${icon('sparkles')} 먼저 기억할 한 줄</span><strong>${esc(card.takeaway)}</strong></aside>` : ''}<div class="cr-detail-label"><span>${esc(cardStyle(card))}</span><span aria-hidden="true"></span></div>${renderCard(card,book)}${card.reference ? `<p class="cr-source">${esc(card.reference)}</p>` : ''}${sourceDetails(card)}</article>
       <p class="cr-save-status" role="status">${saved ? '보관함에 담아 두었어요' : '기억해 두고 싶은 연결은 책갈피에 담아 보세요'}</p>${storageNote()}
       <nav class="cr-reader-controls" aria-label="읽기 카드 이동">${next ? `<p class="cr-up-next"><span>다음 연결</span><strong>${esc(next.title)}</strong></p>` : '<p class="cr-up-next">여기까지 읽은 내용을 저장해요</p>'}<button type="button" class="cr-secondary" data-prev ${(coreMode ? coreIndex===0 : index===0) ? 'disabled' : ''}>← 이전</button><button type="button" class="cr-primary" data-next>${next ? '읽었어요 · 다음' : '여기까지 읽었어요'} ${icon('arrow-right')}</button></nav>
     </div>`;
@@ -185,6 +188,7 @@ export async function renderCommuteReader(root, params) {
     hydrateIcons(root);
     bindBibleVisuals(root);
     bindBookPosters(root);
+    bindSceneSequences(root);
     if (focus) { window.scrollTo({top:0}); root.querySelector('h1').focus({preventScroll:true}); }
   }
   function go(direction) {
@@ -192,7 +196,7 @@ export async function renderCommuteReader(root, params) {
     if (coreMode) {
       if (direction < 0) {
         const previous = CORE_CARDS[CORE_CARDS.findIndex(c=>c.id===cards[0].id)-1];
-        if (previous) { leaving = true; navigate(coreUrl(previous)); }
+        if (previous) { leaving = true; navigate(readerUrl(coreUrl(previous))); }
         return;
       }
       finishReadingCard(cards[0], all.length);
@@ -200,7 +204,7 @@ export async function renderCommuteReader(root, params) {
       if (!counted) finishSession();
       counted = true;
       const next = nextCoreCard(getReading().read, cards[0].id);
-      if (next) { leaving = true; navigate(coreUrl(next)); return; }
+      if (next) { leaving = true; navigate(readerUrl(coreUrl(next))); return; }
       ended = true;
     } else {
       if (direction < 0 && index === 0) return;

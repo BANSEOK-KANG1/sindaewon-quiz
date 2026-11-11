@@ -120,6 +120,8 @@
   }
 
   .side-nav {
+    min-height: 0;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 0.25rem;

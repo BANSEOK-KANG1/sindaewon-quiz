@@ -33,6 +33,7 @@ const NAV = [
   { hash: "#/", label: UI.nav.home, icon: "house" },
   { hash: "#/plan", label: UI.nav.plan, icon: "target" },
   { hash: "#/notes", label: UI.nav.notes, icon: "library-big" },
+  { hash: "#/visuals", label: "그림 공부", icon: "images" },
   { hash: "#/saved", label: "보관함", icon: "bookmark" },
   { hash: "#/quiz", label: UI.nav.quiz, icon: "circle-play" },
   { hash: "#/wrong-note", label: UI.nav.wrongNote, icon: "notebook-pen" },
@@ -41,8 +42,8 @@ const NAV = [
   { hash: "#/sources", label: UI.nav.sources, icon: "files" },
 ];
 
-// 하단 탭은 5개까지 — 탐색·입시 가이드·자료는 홈과 사이드 메뉴에서 연다.
-const BOTTOM_NAV = ["#/", "#/notes", "#/saved", "#/plan", "#/quiz"].map(hash => NAV.find(item => item.hash === hash));
+// 이동 중에는 그림과 읽기에 바로 접근한다. 문제 풀이는 홈과 전체 메뉴에서 연다.
+const BOTTOM_NAV = ["#/", "#/visuals", "#/notes", "#/saved", "#/plan"].map(hash => NAV.find(item => item.hash === hash));
 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";

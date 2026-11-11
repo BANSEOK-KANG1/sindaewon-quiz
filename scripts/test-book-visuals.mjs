@@ -96,3 +96,42 @@ test('art browsing does not modify reading progress or use cropped posters',()=>
   assert.doesNotMatch(html,/<canvas|<svg|clip-path/);
  }
 });
+
+test('a reading card can browse all related scenes without leaving the card or wrapping at either end', async()=>{
+ const {renderSceneSequence,bindSceneSequences}=await import('../src/lib/bible-scene.js');
+ const scenes=scenesForCard(CARD_BY_ID['출애굽기:0']);
+ assert.equal(scenes.length,2);
+ assert.equal(renderSceneSequence([]),'');
+ assert.doesNotMatch(renderSceneSequence(scenes.slice(0,1)),/data-scene-direction/);
+ const markup=renderSceneSequence(scenes);
+ assert.equal((markup.match(/data-scene-choice=/g)||[]).length,2);
+ assert.ok(markup.includes(scenes[0].source));
+ const button=dataset=>({dataset,attributes:{},disabled:false,addEventListener(_,fn){this.click=fn;},setAttribute(k,v){this.attributes[k]=v;},focus(){this.focused=true;}});
+ const choices=scenes.map((_,i)=>button({sceneChoice:String(i)}));
+ const previous=button({sceneDirection:'-1'}), next=button({sceneDirection:'1'});
+ const stage={innerHTML:''},position={textContent:''};
+ const elements={'[data-scene-stage]':stage,'[data-scene-position]':position,'[data-scene-direction="-1"]':previous,'[data-scene-direction="1"]':next};
+ const sequence={dataset:{sceneSequence:scenes.map(s=>s.id).join(',')},querySelector:s=>elements[s],querySelectorAll:s=>s==='[data-scene-choice]'?choices:[previous,next],addEventListener(_,fn){this.keydown=fn;}};
+ bindSceneSequences({querySelectorAll:()=>[sequence]});
+ next.click();assert.ok(stage.innerHTML.includes(scenes[1].source));assert.ok(next.disabled);assert.equal(previous.disabled,false);assert.equal(position.textContent,'2 / 2');
+ next.click();assert.equal(position.textContent,'2 / 2');
+ let stopped=false,prevented=false;
+ sequence.keydown({key:'ArrowLeft',target:{closest:()=>choices[1]},stopPropagation(){stopped=true;},preventDefault(){prevented=true;}});
+ assert.ok(stopped&&prevented);assert.ok(choices[0].focused);assert.ok(previous.disabled);assert.equal(position.textContent,'1 / 2');
+ previous.click();assert.equal(position.textContent,'1 / 2');
+ choices[1].click();assert.equal(choices[1].attributes['aria-pressed'],'true');assert.equal(choices[0].attributes['aria-pressed'],'false');
+});
+
+test('gallery searches round-trip through book and scene links, while external return targets are ignored',async()=>{
+ const {readLibraryState,libraryUrl,libraryReturnUrl,withLibraryReturn}=await import('../src/lib/visual-navigation.js');
+ const state={filter:'신약',term:'바울 & 동역자',page:2};
+ const url=libraryUrl(state);
+ assert.deepEqual(readLibraryState(new URLSearchParams(url.split('?')[1])),state);
+ const book=withLibraryReturn('#/visuals/로마서?scene=example',url);
+ const query=new URLSearchParams(book.split('?')[1]);
+ assert.equal(query.get('scene'),'example');assert.equal(libraryReturnUrl(query.get('from')),url);
+ for(const bad of ['https://example.com','javascript:alert(1)','#/quiz',null]) assert.equal(libraryReturnUrl(bad),'#/visuals');
+ assert.deepEqual(readLibraryState(new URLSearchParams('filter=unknown&page=-3')),{filter:'전체',term:'',page:0});
+ assert.equal(readLibraryState(new URLSearchParams('page=999999')).page,99);
+ assert.equal(libraryReturnUrl('#/visuals?q=%22%3Cscript%3E'), '#/visuals?q=%22%3Cscript%3E');
+});
