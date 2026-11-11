@@ -5,6 +5,7 @@ import { getSprint, openSprint, advanceSprint, previousSprintCard, restartSprint
 import { getReading, finishReadingCard, finishSession, readingPreference, toggleSaved, readingSaveFailed } from '../storage/commute.js';
 import { esc, coreUrl, cardStyle, renderCard, sourceDetails } from './commute.js';
 import { icon, hydrateIcons } from '../lib/icons.js';
+import { renderBibleVisual, bindBibleVisuals } from '../lib/bible-visual.js';
 
 function saveNote() {
   return sprintSaveFailed() || readingSaveFailed() ? '<p class="cr-storage-note" role="status">지금은 기록을 저장할 수 없어요. 이 화면에서는 계속 읽을 수 있습니다.</p>' : '';
@@ -38,7 +39,7 @@ export async function renderSprint(root) {
         <header class="cr-reader-top"><a class="cr-back" href="#/" aria-label="읽기 홈으로 나가기">←</a><span><strong>한방에 끝내기</strong><small>핵심 연결 ${String(run.index+1).padStart(2,'0')} / ${CORE_CARDS.length}</small></span><button type="button" class="cr-tool" data-size aria-pressed="${state.large}" aria-label="글자 크게 보기">가<span>+</span></button><button type="button" class="cr-tool ${saved ? 'selected' : ''}" data-save aria-pressed="${saved}" aria-label="${saved ? '보관 취소' : '다시 볼 카드로 보관'}">${icon('bookmark')}</button></header>
         <div class="sp-progress-caption"><span>이번 한 바퀴 <strong>${run.read.length}개 읽음</strong></span><small>${CORE_CARDS.length-run.read.length}개 남았어요</small></div><div class="cr-session-track sp-track" role="progressbar" aria-label="이번 한 바퀴 읽은 진도" aria-valuemin="0" aria-valuemax="${CORE_CARDS.length}" aria-valuenow="${run.read.length}">${CORE_CARDS.map((c,i)=>`<span class="${run.read.includes(c.id)?'filled':''} ${i===run.index?'current':''}"></span>`).join('')}</div>
         <ol class="sp-stage-nav" aria-label="읽기 흐름">${SPRINT_STAGES.map((s,i)=>`<li ${i===stageIndex?'aria-current="step"':''} class="${run.read.length>=s.end?'done':''}"><span>${run.read.length>=s.end ? icon('check') : String(i+1).padStart(2,'0')}</span>${s.title}</li>`).join('')}</ol>
-        <article class="cr-reading-card cr-kind-${card.kind}"><p class="cr-eyebrow"><span class="cr-style-chip">${icon('compass')} ${esc(cardStyle(card))}</span><span>${esc(card.book)}</span></p><h1 tabindex="-1">${esc(card.title)}</h1><p class="cr-card-lead">${esc(card.lead)}</p><aside class="cr-takeaway"><span>${icon('sparkles')} 이것만 먼저 기억해요</span><strong>${esc(card.takeaway || card.lead)}</strong></aside><div class="cr-detail-label"><span>이렇게 연결하면 쉬워요</span><span aria-hidden="true"></span></div>${renderCard(card,book)}${card.reference ? `<p class="cr-source">${esc(card.reference)}</p>` : ''}${sourceDetails(card)}</article>
+        <article class="cr-reading-card cr-kind-${card.kind}"><p class="cr-eyebrow"><span class="cr-style-chip">${icon('compass')} ${esc(cardStyle(card))}</span><span>${esc(card.book)}</span></p><h1 tabindex="-1">${esc(card.title)}</h1><p class="cr-card-lead">${esc(card.lead)}</p>${renderBibleVisual(card.id)}<aside class="cr-takeaway"><span>${icon('sparkles')} 이것만 먼저 기억해요</span><strong>${esc(card.takeaway || card.lead)}</strong></aside><div class="cr-detail-label"><span>이렇게 연결하면 쉬워요</span><span aria-hidden="true"></span></div>${renderCard(card,book)}${card.reference ? `<p class="cr-source">${esc(card.reference)}</p>` : ''}${sourceDetails(card)}</article>
         <p class="cr-save-status" role="status">${saved ? '보관함에 담아 두었어요' : '기억하고 싶은 연결은 위쪽 책갈피에 담아 보세요.'}</p>${saveNote()}
         <nav class="cr-reader-controls sp-controls" aria-label="한 바퀴 읽기 이동"><p class="cr-up-next"><span>${next ? '다음' : '마지막'}</span><strong>${next ? esc(next.title) : '읽은 12개 연결을 한 장으로 정리해요'}</strong></p><button type="button" class="cr-secondary" data-prev ${run.index===0?'disabled':''}>← 이전</button><button type="button" class="cr-primary" data-next>${next ? '읽었어요 · 다음' : '한 바퀴 마치기'} ${icon('arrow-right')}</button></nav>
       </div>`;
@@ -59,6 +60,7 @@ export async function renderSprint(root) {
         root.querySelector('.cr-save-status').textContent = readingSaveFailed() ? '지금은 기록을 저장할 수 없어요. 이 화면에서만 보관됩니다.' : on ? '보관함에 담아 두었어요' : '보관을 취소했어요';
       });
     }
+    bindBibleVisuals(root);
     hydrateIcons(root);
     if (focus) { window.scrollTo({top:0}); root.querySelector('h1')?.focus({preventScroll:true}); }
   }

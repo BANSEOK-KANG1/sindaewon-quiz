@@ -3,6 +3,7 @@ import { registerRoute, startRouter, navigate } from "./router.js";
 import { renderHome } from "./views/home.js";
 import { renderCommuteHome, renderReadingLibrary, renderCommuteReader, renderReadingSaved } from "./views/commute.js";
 import { renderSprint } from "./views/sprint.js";
+import { renderVisualLibrary } from "./views/bible-visuals.js";
 import { renderVocabFlash } from "./views/vocab-flash.js";
 import { renderAdmissions } from "./views/admissions.js";
 import { renderBrowse } from "./views/browse.js";
@@ -22,6 +23,7 @@ import "./styles/components.css";
 import "./styles/commute.css";
 import "./styles/sprint.css";
 import "./styles/vocab-flash.css";
+import "./styles/bible-visuals.css";
 
 const app = document.querySelector("#app");
 let disposeView = null;
@@ -127,6 +129,8 @@ async function renderView(matched) {
       await renderNotes(root);
     } else if (matched.path.startsWith("/read/")) {
       await renderCommuteReader(root, matched.params);
+    } else if (matched.path === "/visuals") {
+      await renderVisualLibrary(root);
     } else if (matched.path === "/sprint") {
       await renderSprint(root);
     } else if (matched.path === "/saved") {
@@ -154,6 +158,7 @@ registerRoute("/dashboard", () => {});
 registerRoute("/notes-old", () => {});
 registerRoute("/saved", () => {});
 registerRoute("/sprint", () => {});
+registerRoute("/visuals", () => {});
 registerRoute("/read/:book", () => {});
 registerRoute("/admissions", () => {});
 registerRoute("/browse", () => {});
