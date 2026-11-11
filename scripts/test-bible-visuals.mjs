@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { BIBLE_VISUALS, VISUAL_BY_CARD, visualStep, visualCaption, visualFrame } from '../src/data/bible-visuals.js';
+import { BIBLE_VISUALS, VISUAL_BY_CARD, visualStep, visualCaption, visualFrame, moveVisualStep } from '../src/data/bible-visuals.js';
 import { CORE_CARDS } from '../src/data/commute.js';
 import { renderBibleVisual, visualThumbnail } from '../src/lib/bible-visual.js';
 
@@ -12,6 +12,8 @@ test('twelve original learning cards retain their identities, references and cap
  for(const v of BIBLE_VISUALS){
   assert.ok(v.title&&v.note&&v.reference&&v.sources.length);
   assert.equal(v.frames.length,v.steps.length);
+  assert.equal(v.looks.length,v.steps.length);
+  assert.ok(v.looks.every(look=>typeof look==='string'&&look.length>10));
   v.steps.forEach((caption,i)=>{
    assert.equal(visualStep(v,i),i);
    assert.equal(visualCaption(v,i),caption);
@@ -68,12 +70,31 @@ test('readers open on a large first scene with one selected button and readable 
   assert.match(html,/aria-live="polite"/);
   assert.match(html,/AI 일러스트/);
   assert.match(html,/bv-memory-line/);
+  assert.match(html,/그림에서 볼 곳/);
+  assert.match(html,/기억할 연결/);
+  assert.match(html,/data-visual-direction="-1"[^>]+disabled/);
+  assert.ok(html.includes(v.looks[0]));
   assert.ok(html.includes(v.image));
   const cropped=v.frames[0][2]!==v.width;
   assert.equal(html.includes('bv-scene-focused'),cropped);
   if(cropped)assert.ok(html.includes(`viewBox="${v.frames[0].join(' ')}"`));
   assert.match(visualThumbnail(v.cardId),/loading="lazy"/);
   assert.equal(visualThumbnail(v.cardId).includes('data:image'),false);
+ }
+});
+test('scene navigation starts from the overview, stops at either end and never moves a reading card',()=>{
+ for(const v of BIBLE_VISUALS){
+  const last=v.steps.length-1;
+  assert.equal(moveVisualStep(v,-1,1),0);
+  assert.equal(moveVisualStep(v,-1,-1),-1);
+  assert.equal(moveVisualStep(v,0,-1),0);
+  assert.equal(moveVisualStep(v,last,1),last);
+  for(let i=0;i<last;i++){
+   assert.equal(moveVisualStep(v,i,1),i+1);
+   assert.equal(moveVisualStep(v,i+1,-1),i);
+  }
+  assert.equal(moveVisualStep(v,99,1),0);
+  assert.equal(moveVisualStep(v,0,'1'),0);
  }
 });
 test('browsing artwork never reads or writes learning records and unknown cards have no figure',()=>{

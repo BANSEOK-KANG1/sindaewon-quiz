@@ -323,10 +323,72 @@ const frames={
  '09-paul':triple,'10-timothy':[full,full,full],'11-romans':triple,
  '12-hebrews':[pair[0],pair[1],pair[1]],
 };
+const lookingGuides = {
+  "01-abraham": [
+    "짐을 싣고 천막을 떠나는 사람들과 멀리 이어지는 길을 보세요.",
+    "별이 가득한 밤하늘 아래 불붙은 횃불과 화로를 보세요.",
+    "천막 곁에서 무릎 꿇은 아브라함을 보세요. 이름과 언약을 연결한 장면이에요.",
+    "덤불에 뿔이 걸린 숫양과 돌 제단을 보세요. 이삭은 아브라함 곁에 있어요."
+  ],
+  "02-jacob": [
+    "돌 곁에 잠든 야곱과 하늘로 이어지는 사닥다리를 보세요.",
+    "강가에서 씨름하는 두 사람을 보세요. 사람의 새 이름과 장소 이름을 구분해요."
+  ],
+  "03-moses": [
+    "지팡이와 뱀, 하얗게 된 손, 붉게 변하는 물의 세 부분을 보세요.",
+    "화덕 곁에서 공중으로 날리는 검은 재를 보세요. 왼쪽 표징의 재료와 달라요."
+  ],
+  "04-joshua": [
+    "거친 돌 제단, 돌판, 말씀을 읽는 사람을 함께 보세요.",
+    "큰 나무 아래 모인 백성과 말하는 여호수아를 보세요."
+  ],
+  "05-david": [
+    "왼쪽에서 말하는 나단과 오른쪽에서 듣는 다윗을 보세요.",
+    "같은 나단과 다윗의 장면을 다시 보세요. 책이 바뀌어도 같은 약속의 기록이에요."
+  ],
+  "06-wisdom": [
+    "어두운 길을 벗어나 밝은 길을 바라보는 사람을 보세요. 악을 떠남을 기억하는 비유예요.",
+    "땅 아래 단단히 뻗은 나무뿌리를 보세요. 지혜의 근본을 기억하는 비유예요."
+  ],
+  "07-visions": [
+    "금빛 등잔대 양옆에 있는 감람나무 두 그루를 보세요.",
+    "지붕 위 하늘에 펼쳐진 두루마리를 보세요.",
+    "두 산 사이로 나오는 병거를 하나씩 세어 보세요. 모두 넷이에요.",
+    "두 광주리의 무화과를 비교해 보세요. 하나는 좋고 다른 하나는 상했어요."
+  ],
+  "08-gospels": [
+    "엘리사벳 곁에서 손을 들고 찬양하는 마리아를 보세요.",
+    "곡식이 가득한 창고 앞에서 만족해하는 부자를 보세요.",
+    "서 계신 예수님과 자리에 앉아 질문하는 헤롯을 보세요.",
+    "베드로가 잡은 물고기의 벌어진 입 안에서 동전을 찾으세요."
+  ],
+  "09-paul": [
+    "화환을 든 무리에게 손을 들어 거절하는 바울과 바나바를 보세요.",
+    "바울이 아굴라·브리스길라와 함께 천막 천을 만드는 장면을 보세요.",
+    "밤중에 바울이 살아 있는 유두고를 안고 있는 장면을 보세요."
+  ],
+  "10-timothy": [
+    "탁자에서 편지를 두고 이야기하는 바울과 디모데를 보세요.",
+    "그림의 두 사람에 실루아노의 이름을 더해 기억해요. 이 두 편지의 첫머리에 함께 나와요.",
+    "같은 두 사람과 편지를 보며 마지막 두 편지를 연결해요. 디모데가 받는 편지와 구분해요."
+  ],
+  "11-romans": [
+    "펜을 잡고 편지를 기록하는 더디오의 손을 보세요.",
+    "사람들을 맞이하고 돕는 뵈뵈를 보세요.",
+    "음식이 차려진 식탁으로 사람들을 맞이하는 가이오를 보세요."
+  ],
+  "12-hebrews": [
+    "가족들에게 마지막 부탁을 전하는 늙은 요셉을 보세요.",
+    "두루마리 앞 여섯 돌은 여섯 이름을 기억하기 위한 표시예요. 본문에 나오는 사물은 아니에요.",
+    "같은 여섯 돌을 보며 바락의 이름을 짚어요. 드보라는 이 장에 직접 이름이 나오지 않아요."
+  ]
+};
+
 export const BIBLE_VISUALS=definitions.map(meta=>{
  const card=CORE_CARDS.find(card=>card.id===meta.cardId);
  if(!card)throw new Error('Missing source card: '+meta.cardId);
- return {...meta,book:card.book,reference:card.reference,image:'visuals/paintings/'+meta.slug+'.png',width:1536,height:1024,frames:frames[meta.slug]};
+ if(lookingGuides[meta.slug]?.length!==meta.steps.length)throw new Error('Missing scene guide: '+meta.slug);
+ return {...meta,looks:lookingGuides[meta.slug],book:card.book,reference:card.reference,image:'visuals/paintings/'+meta.slug+'.png',width:1536,height:1024,frames:frames[meta.slug]};
 });
 export const VISUAL_BY_CARD=Object.fromEntries(BIBLE_VISUALS.map(v=>[v.cardId,v]));
 export function visualStep(visual,index) {
@@ -339,4 +401,12 @@ export function visualCaption(visual,index=-1) {
 export function visualFrame(visual,index=-1) {
  const selected=visualStep(visual,index);
  return [...(visual.frames[selected]||full)];
+}
+
+// Scene navigation is local to the illustration and never advances the reading card.
+export function moveVisualStep(visual,index,direction) {
+ const current=visualStep(visual,index);
+ if(direction===1)return Math.min(visual.steps.length-1,current+1);
+ if(direction===-1)return current<0?-1:Math.max(0,current-1);
+ return current;
 }

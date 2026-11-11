@@ -20,6 +20,16 @@
 .bv-legend strong { font-size:13px; color:#344f43; }
 .bv-legend li>span { font-size:12px; color:#6b7263; line-height:1.8; }
 .bv-selected-caption { margin:0; }
+.bv-scene-nav { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px; padding:10px 16px; border-bottom:1px solid #e3e6d7; }
+.bv-scene-nav button { min-height:44px; min-width:90px; border:1px solid #d4dccb; border-radius:9px; padding:8px 13px; font:inherit; font-size:12px; color:#385e4a; background:#fffdf7; cursor:pointer; justify-self:start; }
+.bv-scene-nav button:last-child { justify-self:end; }
+.bv-scene-nav button:disabled { opacity:.45; cursor:default; }
+.bv-scene-nav>span { color:#7c806e; font-size:11px; font-variant-numeric:tabular-nums; }
+.bv-guided-caption { display:grid; gap:16px; }
+.bv-guided-caption p { margin:0; }
+.bv-guided-caption p>span { display:block; margin-bottom:4px; color:#8d815e; font-size:10px; font-weight:650; letter-spacing:.04em; }
+.bv-look { color:#6a7264; font-size:13px; line-height:1.85; }
+.bv-selected-caption strong { display:block; font-size:16px; line-height:1.8; font-weight:650; color:#2d5142; }
 .bv-memory-line { margin:0 19px 19px; padding:12px 14px; border-left:2px solid #b08b4f; background:#f2eddf; color:#675c45; font-size:12px; line-height:1.85; word-break:keep-all; }
 .bv-context { border-top:1px solid #e2e6d6; padding:0 18px; }
 .bv-context summary { cursor:pointer; color:#7a876f; font-size:11px; min-height:44px; padding:13px 0; }
@@ -53,6 +63,8 @@
 .cr-large .bv-caption { font-size:19px; }
 .cr-large .bv-legend strong { font-size:17px; }
 .cr-large .bv-legend li>span,.cr-large .bv-memory-line { font-size:16px; }
+.cr-large .bv-look { font-size:17px; }
+.cr-large .bv-selected-caption strong { font-size:20px; }
 .bv-figure :is(button,summary,a):focus-visible,.bv-canvas:focus-visible,.bv-filters button:focus-visible,.bv-gallery-card:focus-visible { outline:3px solid #b58f4c; outline-offset:3px; }
 @media(max-width:700px) {
  .bv-gallery { grid-template-columns:1fr; gap:17px; }
@@ -64,6 +76,7 @@
  .bv-steps button { padding:8px 11px; font-size:11px; }
  .bv-caption { padding:15px 13px; font-size:13px; min-height:94px; }
  .bv-legend { grid-template-columns:1fr; gap:14px; }
+ .bv-scene-nav { padding:9px 11px; gap:8px; }
  .bv-memory-line { margin:0 13px 15px; }
  .bv-filters { gap:6px; }
  .bv-filters button { padding:8px 12px; font-size:11px; }
