@@ -1,46 +1,69 @@
 import { VISUAL_BY_CARD, visualStep, visualCaption, visualFrame } from '../data/bible-visuals.js';
 import { icon } from './icons.js';
 const esc=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export const visualImage = visual => `data:image/svg+xml;charset=utf-8,${encodeURIComponent(visual.svg)}`;
+export const visualImage = visual => `${import.meta.env?.BASE_URL||'./'}${visual.image}`;
 export function visualThumbnail(cardId) {
- const visual=VISUAL_BY_CARD[cardId];
- return visual?`<img class="bv-thumbnail" src="${visualImage(visual)}" alt="${esc(visual.title)}" width="800" height="560" loading="lazy">`:'';
+ const v=VISUAL_BY_CARD[cardId];
+ return v?`<img class="bv-thumbnail" src="${esc(visualImage(v))}" alt="${esc(v.title)}" width="${v.width}" height="${v.height}" loading="lazy" decoding="async">`:'';
+}
+function legend(v,selected=-1) {
+ if(selected>=0)return `<p class="bv-selected-caption">${esc(visualCaption(v,selected))}</p>`;
+ return `<ol class="bv-legend">${v.steps.map(step=>{
+  const [label,...rest]=step.split(' · ');
+  return `<li><strong>${esc(label)}</strong><span>${esc(rest.join(' · '))}</span></li>`;
+ }).join('')}</ol>`;
+}
+function canvas(v,selected) {
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${visualFrame(v,selected).join(' ')}" role="img" aria-labelledby="${v.slug}-title ${v.slug}-desc"><title id="${v.slug}-title">${esc(v.title)}</title><desc id="${v.slug}-desc">${esc(visualCaption(v,selected))}</desc><image href="${esc(visualImage(v))}" width="${v.width}" height="${v.height}"/></svg>`;
 }
 export function renderBibleVisual(cardId) {
  const v=VISUAL_BY_CARD[cardId];
  if(!v)return '';
- return `<figure class="bv-figure" data-bible-visual="${esc(cardId)}"><header class="bv-figure-head"><span>${icon('compass')} 그림으로 기억하기 <small>${esc(v.type)}</small></span><button type="button" data-visual-zoom aria-pressed="false">크게 보기</button></header><div class="bv-steps" role="group" aria-label="그림에서 강조할 장면"><button type="button" data-visual-step="-1" aria-pressed="true">전체 보기</button>${v.steps.map((step,i)=>`<button type="button" data-visual-step="${i}" aria-pressed="false"><span>${i+1}</span>${esc(step.split(' · ')[0])}</button>`).join('')}</div><p class="bv-interaction-hint">${visualFrame(v,0)[2]===800?'장면을 고르면 해당 부분을 강조해요.':'장면을 고르면 그 부분을 크게 볼 수 있어요.'}</p><div class="bv-canvas" tabindex="0" role="region" aria-label="${esc(v.title)} 그림. 크게 보기에서는 가로로 이동할 수 있어요.">${v.svg}</div><p class="bv-zoom-hint" hidden>옆으로 밀거나 방향키로 그림을 살펴보세요.</p><figcaption class="bv-caption" aria-live="polite">${esc(visualCaption(v))}</figcaption><details class="bv-context"><summary>그림 읽는 법과 본문</summary><p>${esc(v.note)}</p><p>${esc(v.reference)}</p><div>${v.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)} ${icon('external-link')}</a>`).join('')}</div></details></figure>`;
+ const canCrop=v.frames.some(frame=>frame[2]!==v.width);
+ const initial=canCrop?0:-1;
+ const frame=visualFrame(v,initial);
+ return `<figure class="bv-figure${canCrop?' bv-scene-focused':''}" style="--bv-scene-width:${520*frame[2]/frame[3]}px" data-bible-visual="${esc(cardId)}">
+  <header class="bv-figure-head"><span>${icon('compass')} 그림으로 기억하기 <small>${esc(v.type)}</small></span><button type="button" data-visual-zoom aria-pressed="false">크게 보기</button></header>
+  <div class="bv-steps" role="group" aria-label="장면과 본문 연결 선택"><button type="button" data-visual-step="-1" aria-pressed="${initial===-1}">전체 보기</button>${v.steps.map((step,i)=>`<button type="button" data-visual-step="${i}" aria-pressed="${initial===i}"><span>${i+1}</span>${esc(step.split(' · ')[0])}</button>`).join('')}</div>
+  <p class="bv-interaction-hint">${canCrop?'장면을 고르면 그 부분을 크게 볼 수 있어요.':'본문 연결을 고르면 설명을 한 줄씩 볼 수 있어요.'}</p>
+  <div class="bv-canvas" tabindex="0" role="region" aria-label="${esc(v.title)} 그림. 크게 보기에서는 가로로 이동할 수 있어요.">${canvas(v,initial)}</div>
+  <p class="bv-zoom-hint" hidden>옆으로 밀거나 방향키로 그림을 살펴보세요.</p>
+  <figcaption class="bv-caption" aria-live="polite">${legend(v,initial)}</figcaption>
+  <p class="bv-memory-line">${esc(v.footer)}</p>
+  <details class="bv-context"><summary>그림 읽는 법과 본문</summary><p>${esc(v.note)}</p><p>본문 이해를 돕는 AI 일러스트입니다. 인물의 실제 외모나 당시 모습을 복원한 자료는 아닙니다.</p><p>${esc(v.reference)}</p><div>${v.sources.map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label)} ${icon('external-link')}</a>`).join('')}</div></details>
+ </figure>`;
 }
 export function bindBibleVisuals(root) {
  root.querySelectorAll('[data-bible-visual]').forEach(figure=>{
   const v=VISUAL_BY_CARD[figure.dataset.bibleVisual];
-  figure.querySelectorAll('[data-visual-step]').forEach(button=>button.addEventListener('click',()=>{
-   const selected=visualStep(v,Number(button.dataset.visualStep));
-   figure.querySelectorAll('[data-visual-step]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.visualStep)===selected)));
-   figure.querySelectorAll('[data-visual-part]').forEach(part=>part.classList.toggle('bv-dim',selected>=0&&Number(part.dataset.visualPart)!==selected));
-   const frame=visualFrame(v,selected);
-   const cropped=frame[2]!==800;
-   const svg=figure.querySelector('.bv-canvas>svg');
-   svg.setAttribute('viewBox',frame.join(' '));
-   svg.querySelector('desc').textContent=visualCaption(v,selected);
-   figure.style.setProperty('--bv-scene-width',`${440*frame[2]/frame[3]}px`);
-   figure.classList.toggle('bv-scene-focused',cropped);
-   // A new selection should never remain offscreen after panning the previous one.
+  const surface=figure.querySelector('.bv-canvas');
+  const svg=surface.querySelector('svg');
+  const zoomButton=figure.querySelector('[data-visual-zoom]');
+  const resetZoom=()=>{
    figure.classList.remove('bv-enlarged');
-   const zoomButton=figure.querySelector('[data-visual-zoom]');
    zoomButton.setAttribute('aria-pressed','false');
    zoomButton.textContent='크게 보기';
    figure.querySelector('.bv-zoom-hint').hidden=true;
-   figure.querySelector('.bv-canvas').scrollLeft=0;
-   figure.querySelector('.bv-caption').textContent=visualCaption(v,selected);
+   surface.scrollLeft=0;
+  };
+  figure.querySelectorAll('[data-visual-step]').forEach(button=>button.addEventListener('click',()=>{
+   const selected=visualStep(v,Number(button.dataset.visualStep));
+   figure.querySelectorAll('[data-visual-step]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.visualStep)===selected)));
+   const frame=visualFrame(v,selected);
+   svg.setAttribute('viewBox',frame.join(' '));
+   svg.querySelector('desc').textContent=visualCaption(v,selected);
+   figure.style.setProperty('--bv-scene-width',`${520*frame[2]/frame[3]}px`);
+   figure.classList.toggle('bv-scene-focused',frame[2]!==v.width);
+   resetZoom();
+   figure.querySelector('.bv-caption').innerHTML=legend(v,selected);
   }));
-  figure.querySelector('[data-visual-zoom]').addEventListener('click',event=>{
+  zoomButton.addEventListener('click',()=>{
    const zoomed=figure.classList.toggle('bv-enlarged');
-   event.currentTarget.setAttribute('aria-pressed',String(zoomed));
-   event.currentTarget.textContent=zoomed?'원래 크기':'크게 보기';
+   zoomButton.setAttribute('aria-pressed',String(zoomed));
+   zoomButton.textContent=zoomed?'원래 크기':'크게 보기';
    figure.querySelector('.bv-zoom-hint').hidden=!zoomed;
-   if(!zoomed)figure.querySelector('.bv-canvas').scrollLeft=0;
+   if(!zoomed)surface.scrollLeft=0;
   });
-  figure.querySelector('.bv-canvas').addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(event.key))event.stopPropagation();});
+  surface.addEventListener('keydown',event=>{if(['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' '].includes(event.key))event.stopPropagation();});
  });
 }
