@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { BIBLE_VISUALS, VISUAL_BY_CARD, visualStep, visualCaption } from '../src/data/bible-visuals.js';
+import { BIBLE_VISUALS, VISUAL_BY_CARD, visualStep, visualCaption, visualFrame } from '../src/data/bible-visuals.js';
 import { CORE_CARDS } from '../src/data/commute.js';
 import { renderBibleVisual, visualThumbnail } from '../src/lib/bible-visual.js';
 
@@ -55,4 +55,26 @@ test('viewing and highlighting diagrams expose no learning-record writes',()=>{
  }
  assert.equal(renderBibleVisual('unrelated-card'),'');
  assert.equal(visualThumbnail('unrelated-card'),'');
+});
+
+test('scene focus preserves complete panel labels and always restores the full illustration',()=>{
+ for(const visual of BIBLE_VISUALS){
+  assert.deepEqual(visualFrame(visual),[0,0,800,560]);
+  assert.deepEqual(visualFrame(visual,999),[0,0,800,560]);
+  visual.steps.forEach((_,index)=>{
+   const [x,y,w,h]=visualFrame(visual,index);
+   assert.ok(x>=0&&y>=0&&w>0&&h>0&&x+w<=800&&y+h<=560,visual.slug);
+   if(w===800)return;
+   const group=visual.svg.match(new RegExp(`<g data-visual-part="${index}">(<rect[^>]+>)`));
+   assert.ok(group,visual.slug);
+   const rect=Object.fromEntries([...group[1].matchAll(/\s(x|y|width|height)="([\d.]+)"/g)].map(m=>[m[1],Number(m[2])]));
+   assert.ok(x<=rect.x&&y<=rect.y&&x+w>=rect.x+rect.width&&y+h>=rect.y+rect.height,visual.slug);
+  });
+ }
+});
+test('maps and connected diagrams never lose the context of their cities and relationships',()=>{
+ for(const id of ['사도행전:core-paul-journeys','사무엘하:core-david-covenant','빌립보서:core-timothy-senders','히브리서:core-faith-names']){
+  const visual=VISUAL_BY_CARD[id];
+  visual.steps.forEach((_,i)=>assert.deepEqual(visualFrame(visual,i),[0,0,800,560]));
+ }
 });

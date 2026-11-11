@@ -5,9 +5,11 @@
 .bv-figure-head button { min-height:44px; border:1px solid #d3ddc7; border-radius:9px; padding:7px 12px; background:#fffdf7; font-size:12px; color:#456241; cursor:pointer; white-space:nowrap; }
 .bv-canvas { overflow-x:auto; overscroll-behavior-x:contain; -webkit-overflow-scrolling:touch; }
 .bv-canvas>svg { display:block; width:100%; height:auto; }
-.bv-enlarged .bv-canvas>svg { width:800px; max-width:none; }
+.bv-scene-focused .bv-canvas>svg { max-width:var(--bv-scene-width); margin-inline:auto; }
+.bv-enlarged .bv-canvas>svg { width:800px; max-width:none; max-height:none; }
 .bv-canvas .bv-dim { opacity:.18; }
 .bv-zoom-hint { padding:8px 16px 0; margin:0; font-size:11px; color:#718263; }
+.bv-interaction-hint { margin:0; padding:10px 17px 13px; color:#718263; font-size:11px; line-height:1.7; }
 .bv-steps { display:flex; flex-wrap:wrap; gap:7px; padding:16px 16px 0; }
 .bv-steps button,.bv-filters button { min-height:44px; border:1px solid #d6dec9; border-radius:30px; padding:9px 13px; color:#64765a; background:#fffef8; cursor:pointer; font-size:12px; }
 .bv-steps button>span { font-size:10px; opacity:.75; margin-right:5px; }

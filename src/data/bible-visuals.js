@@ -92,3 +92,19 @@ export function visualCaption(visual,index=-1) {
  const selected=visualStep(visual,index);
  return selected<0?visual.steps.join(' / '):visual.steps[selected];
 }
+
+// Scene panels can fill a small screen. Maps and connected diagrams keep their context.
+const sceneFrames = {
+ '01-abraham': [[12,74,392,226],[396,74,392,226],[12,292,392,226],[396,292,392,226]],
+ '02-jacob': [[12,74,392,424],[396,74,392,424]],
+ '03-moses': [[12,74,509,424],[513,74,275,424]],
+ '04-joshua': [[12,74,392,424],[396,74,392,424]],
+ '06-wisdom': [[12,74,392,424],[396,74,392,424]],
+ '07-visions': [[12,74,392,226],[396,74,392,226],[12,292,392,226],[396,292,392,226]],
+ '08-gospels': [[12,74,392,226],[396,74,392,226],[12,292,392,226],[396,292,392,226]],
+ '11-romans': [[12,74,260,424],[270,74,260,424],[528,74,260,424]],
+};
+export function visualFrame(visual,index=-1) {
+ const selected=visualStep(visual,index);
+ return [...(sceneFrames[visual.slug]?.[selected] || [0,0,800,560])];
+}
