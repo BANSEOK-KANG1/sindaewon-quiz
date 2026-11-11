@@ -3,6 +3,7 @@ import { registerRoute, startRouter, navigate } from "./router.js";
 import { renderHome } from "./views/home.js";
 import { renderCommuteHome, renderReadingLibrary, renderCommuteReader, renderReadingSaved } from "./views/commute.js";
 import { renderSprint } from "./views/sprint.js";
+import { renderVocabFlash } from "./views/vocab-flash.js";
 import { renderAdmissions } from "./views/admissions.js";
 import { renderBrowse } from "./views/browse.js";
 import { renderQuestion } from "./views/question.js";
@@ -20,8 +21,10 @@ import "./styles/layout.css";
 import "./styles/components.css";
 import "./styles/commute.css";
 import "./styles/sprint.css";
+import "./styles/vocab-flash.css";
 
 const app = document.querySelector("#app");
+let disposeView = null;
 
 const NAV = [
   { hash: "#/", label: UI.nav.home, icon: "house" },
@@ -41,7 +44,7 @@ const BOTTOM_NAV = ["#/", "#/notes", "#/saved", "#/plan", "#/quiz"].map(hash => 
 function shell(contentHtml) {
   const current = window.location.hash || "#/";
   app.innerHTML = `
-    <div class="app-shell ${(current.startsWith('#/read/') || current.split('?')[0] === '#/sprint') ? 'is-reading' : ''}">
+    <div class="app-shell ${(current.startsWith('#/read/') || ['#/sprint', '#/english/flash'].includes(current.split('?')[0])) ? 'is-reading' : ''}">
       <aside class="sidebar" aria-label="주 메뉴">
         <a href="#/" class="brand" aria-label="${UI.appTitle} 홈">
           <span class="brand-icon">${icon("graduation-cap")}</span>
@@ -86,6 +89,8 @@ function isActive(hash, current) {
 }
 
 async function renderView(matched) {
+  disposeView?.();
+  disposeView = null;
   const root = shell('<p class="loading">불러오는 중…</p>');
   try {
     if (matched.path.startsWith("/question/")) {
@@ -100,6 +105,8 @@ async function renderView(matched) {
       await renderWrongNote(root);
     } else if (matched.path === "/sources") {
       await renderSources(root);
+    } else if (matched.path === "/english/flash") {
+      disposeView = await renderVocabFlash(root);
     } else if (matched.path === "/english/words") {
       await renderWords(root);
     } else if (matched.path === "/english/grammar") {
@@ -163,6 +170,7 @@ registerRoute("/english", () => {});
 registerRoute("/topics", () => {});
 registerRoute("/interview", () => {});
 registerRoute("/english/words", () => {});
+registerRoute("/english/flash", () => {});
 registerRoute("/english/grammar", () => {});
 registerRoute("/english/tips", () => {});
 

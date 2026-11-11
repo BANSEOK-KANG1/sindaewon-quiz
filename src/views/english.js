@@ -12,6 +12,7 @@ import { getVocabState, gradeWord, dueWords, vocabSummary, MASTERED_BOX, getDeck
 import { navigate, getQuery } from "../router.js";
 import { icon, hydrateIcons } from "../lib/icons.js";
 import { isCover, coverItem, coverPair, coverToggle, bindCover } from "../lib/cover.js";
+import { flashFeature } from "./vocab-flash.js";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const split = (s) => {
@@ -72,10 +73,13 @@ export async function renderEnglish(root) {
     ${studyTabs("english")}
     <header class="page-header">
       <h1>영어 짬짬이</h1>
-      <p class="muted">기출 영어의 절반 이상이 어휘 · 단어 10장이면 2~3분</p>
+      <p class="muted">이동할 때는 눈으로 익히고, 여유가 생기면 직접 확인해요.</p>
     </header>
 
-    <section class="home-stat-strip notes-stats" aria-label="단어 현황">
+    ${flashFeature()}
+    <h2 class="vf-manual-heading">직접 확인하며 복습</h2>
+    <p class="vf-record-note">아래는 ‘알았어요 · 헷갈려요’로 확인한 기록이에요.</p>
+    <section class="home-stat-strip notes-stats" aria-label="직접 확인한 단어 현황">
       <div><span class="stat-icon">${icon("book-open")}</span><p><strong>${sum.seen}/${sum.total}</strong><span>본 단어</span></p></div>
       <div><span class="stat-icon">${icon("check-circle-2")}</span><p><strong>${sum.mastered}</strong><span>외운 단어</span></p></div>
       <div><span class="stat-icon">${icon("brain-circuit")}</span><p><strong>${sum.due}</strong><span>오늘 복습</span></p></div>
@@ -84,7 +88,7 @@ export async function renderEnglish(root) {
 
     <section class="card notes-today">
       <p class="mode-kicker">단어 카드 · 복습할 단어 먼저, 그다음 오늘 Day ${today}</p>
-      <a class="btn btn-primary btn-block" href="#/english/words">${icon("circle-play")} 단어 10장${sum.due ? ` · 복습 ${Math.min(sum.due, 10)}` : ""}</a>
+      <a class="btn btn-primary btn-block" href="#/english/words">${icon("circle-play")} 직접 넘기는 단어 10장${sum.due ? ` · 복습 ${Math.min(sum.due, 10)}` : ""}</a>
       <p class="muted small" style="margin-top:0.5rem">알았어요 → 1·2·4·7일 뒤 다시 · 헷갈려요 → 오늘 다시. 세 번 연속 알면 '외움'</p>
     </section>
 

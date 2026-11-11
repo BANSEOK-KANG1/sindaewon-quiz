@@ -62,7 +62,7 @@ export async function renderCommuteHome(root) {
         const started = d.books.some(n => bookCount(BOOK_BY_NAME[n], state));
         return `<a class="cr-day ${d.day === currentDay.day ? 'current' : ''}" href="#/notes?day=${d.day}"><span class="cr-day-number">${String(d.day).padStart(2,'0')}</span><span><strong>${esc(d.title)}</strong><small>${esc(d.books.length <= 3 ? d.books.join(' · ') : `${d.books[0]} 외 ${d.books.length - 1}권`)}${started ? ' · 읽는 중' : ''}</small></span>${icon('chevron-right')}</a>`;
       }).join('')}</div></details>
-      <section class="cr-more"><a href="#/english">${icon('languages')}<span><strong>영어도 짧게</strong><small>단어·문법 카드</small></span>${icon('arrow-right')}</a><a href="#/topics">${icon('compass')}<span><strong>주제별로 연결</strong><small>왕·선지자·지명·연대표</small></span>${icon('arrow-right')}</a></section>
+      <section class="cr-more"><a href="#/english">${icon('languages')}<span><strong>깜빡이 영어</strong><small>단어 10개 자동 반복</small></span>${icon('arrow-right')}</a><a href="#/topics">${icon('compass')}<span><strong>주제별로 연결</strong><small>왕·선지자·지명·연대표</small></span>${icon('arrow-right')}</a></section>
       <footer class="cr-footer"><span>읽은 기록은 이 브라우저에 보관됩니다.</span><a href="#/dashboard">문제 풀이 현황 ${icon('chevron-right')}</a></footer>
     </div>`;
     root.querySelectorAll('[data-minutes]').forEach(btn => btn.addEventListener('click', () => {
